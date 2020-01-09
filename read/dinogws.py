@@ -1,10 +1,10 @@
-""" The dinogws module contains methods for reading groundwater 
-measurement data from dinoloket csv files.
+""" Read groundwater measurement data from dinoloket csv files.
 
-Author : Thomas de Meij, 2020
-History: 02-02-2014 created in python2.7
-         15-08-2015 migrated to python3.x
-         06-07-2019 migrated to acequia
+  Author : Thomas de Meij, 2020
+  
+  History: 02-02-2014 created in python2.7;  
+           15-08-2015 migrated to python3.x;     
+           06-07-2019 migrated to acequia 
 
 """
 
@@ -51,8 +51,11 @@ class DinoGws:
         if filepath != None: # and os.path.isfile(filepath):
             self.dfheader, self.dfdata = self._readfile(filepath=filepath,readdata=readdata)
             if self.dfheader.empty:
-                self.dfheader = DataFrame(data=[[np.nan]*len(self.header_cols)],columns=self.header_cols)
-                self.dfheader = self.dfheader.astype({'nitgcode':str,'filter':str})
+                self.dfheader = DataFrame(
+                    data=[[np.nan]*len(self.header_cols)],
+                    columns=self.header_cols)
+                self.dfheader = self.dfheader.astype(
+                    {'nitgcode':str,'filter':str})
                 self.dfheader.at[0,'nitgcode'] = self.dfdata.at[0,'nitgcode']
                 self.dfheader.at[0,'filter'] = self.dfdata.at[0,'filter']
                 self.dfheader.at[0,'startdatum'] = self.dfdata.at[0,'peildatum']
@@ -266,6 +269,7 @@ class DinoGws:
         return self.dfheader
 
     def data(self):
+        """ Return raw data as Pandas dataframe """
         return self.dfdata
 
     def locname(self,newname=None):
