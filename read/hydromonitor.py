@@ -11,10 +11,8 @@ from pandas import Series, DataFrame
 import pandas as pd
 import numpy as np
 
-#from acequia.gwseries import GwSeries as GwSeries
-import acequia as aq
-#from acequia import GwSeries
-#from clsPLOTSERIES import plotseries
+#from ..core.gwseries import GwSeries
+from ..core.gwseries import GwSeries
 
 
 class HydroMonitor:
@@ -70,7 +68,7 @@ class HydroMonitor:
     @classmethod
     def from_csv(cls,filepath):
         """ 
-        read menyanthes hydromonitor export file from csv file
+        read menyanthes hydromonitor csv export file
 
         parameters
         ----------
@@ -87,7 +85,7 @@ class HydroMonitor:
 
 
     def _readcsv(self,filepath):
-        """ Read csvfile with data in Hydro?Monitor format """
+        """ Read hydromonitor csv export file """
         
         # read header and line_numbers
         textfile = self._open_file(self,filepath)
@@ -245,8 +243,8 @@ class HydroMonitor:
         return dfdata
 
 
-    def to_gwseries(self):
-        """ Return HydroMonitor data as a list of GwSeries() objects """
+    def to_list(self):
+        """ Return data from HydroMonitor as a list of GwSeries() objects """
 
         srlist = []
 
@@ -257,7 +255,7 @@ class HydroMonitor:
             message.warn('More than two object identification keys given')
 
         for (location,filter),sr in self.data.groupby(srkeys):
-            gws = acequia.GwSeries()
+            gws = GwSeries()
             
             bool1 = self.metadata[srkeys[0]]==location
             ##bool1 = self.metadata['nitgcode']==location

@@ -10,6 +10,7 @@ T.J. de Meij juni 2019
 import os
 import os.path
 from collections import OrderedDict
+import json
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -21,7 +22,7 @@ import numpy as np
 from ..read.dinogws import DinoGws
 
 
-class GwSeries():
+class GwSeries:
     """ Init signature: aq.GwSeries(heads=None,ppt=None,srname=None)
 
         Groundwater series container for groundwater level measurements and piezometer metadata.
@@ -32,7 +33,7 @@ class GwSeries():
         #return (f'{self.__class__.__name__}(n={len(self._heads)})')
         return (f'{self.name()} (n={len(self._heads)})')
 
-    locprops_cols = ['locname','filname','alias','east','north','height_datum','grid_reference']
+    locprops_cols = ['locname','filname','alias','xrd','yrd','height_datum','grid_reference']
     tubeprops_cols = ['startdate','mp','filtop','filbot','surfdate','surface']
 
     def __init__(self,heads=None,locprops=None,tubeprops=None):
@@ -43,7 +44,6 @@ class GwSeries():
             self._locprops = locprops
         else:
             raise TypeError(f'locprops is not a pandas Series but {type(locprops)}')
-
 
         if tubeprops is None:
             self._tubeprops = DataFrame(columns=self.tubeprops_cols)
@@ -89,10 +89,11 @@ class GwSeries():
 
         # get location metadata
         locprops = Series(index=cls.locprops_cols)
+        
         locprops['locname'] = dn.header().at[0,'nitgcode']
         locprops['filname'] = dn.header().at[0,'filter']
-        locprops['east'] = dn.header().at[0,'xcoor']
-        locprops['north'] = dn.header().at[0,'ycoor']
+        locprops['xcr'] = dn.header().at[0,'xcoor']
+        locprops['ycr'] = dn.header().at[0,'ycoor']
         locprops['alias'] = dn.header().at[0,'tnocode']
         locprops['grid_reference'] = 'RD'
         locprops['height_datum'] = 'mNAP'
@@ -192,4 +193,69 @@ class GwSeries():
 
         return cls(heads=_heads,locprops=_locprops,tubeprops=_tubeprops)
 
+    @classmethod
+    def from_json(cls,filepath=None):
+        """ Read gwseries object from json file """
 
+        with open(filepath) as json_file:
+            json_dict = json.load(json_file)
+
+        locprops = DataFrame.from_dict(json_dict['locprops'],orient='index')
+        locprops = Series(data=locprops[0],index=locprops.index,name='locprops')
+
+        tubeprops = DataFrame.from_dict(json_dict['tubeprops'],
+                    orient='index')
+        tubeprops.name = 'tubeprops'
+
+        heads = DataFrame.from_dict(json_dict['heads'],orient='index')
+        srindex = pd.to_datetime(heads.index)
+        srname = locprops['locname']+'_'+locprops['filname']
+        heads = Series(data=heads[0].values,index=srindex,name=srname)
+
+        ##gws = GwSeries(heads=heads,locprops=locprops,tubeprops=tubeprops)
+
+        ##return json_dict,gws
+        return cls(heads=heads,locprops=locprops,tubeprops=tubeprops)
+
+    def to_json(self,dirpath=None):
+        """ Write gwseries object to json file 
+        
+        parameters
+        ----------
+        dirpath : str
+           directory json file will be written to
+           (if dirpath is not given no textfile will be written and 
+           only OrderedDict with valid JSON wil be retruned)
+
+        returns
+        -------
+        OrderedDict with valid json
+
+        """
+
+        json_locprops = json.loads(
+            self._locprops.to_json()
+            )
+        json_tubeprops = json.loads(
+            self._tubeprops.to_json(date_format='iso',orient='index')
+            )
+        json_heads = json.loads(
+            self._heads.to_json(date_format='iso',orient='index',
+            date_unit='s')
+            )
+
+        json_dict = OrderedDict()
+        json_dict['locprops'] = json_locprops
+        json_dict['tubeprops'] = json_tubeprops
+        json_dict['heads'] = json_heads
+        json_formatted_str = json.dumps(json_dict, indent=2)
+
+        if isinstance(dirpath,str):
+            try:
+                filepath = os.path.join(dirpath,self.name()+'.json')
+                with open(filepath,"w") as f:
+                    f.write(json_formatted_str)
+            except FileNotFoundError:
+                print("Filepath {} does not exist".format(filepath))
+
+        return json_dict

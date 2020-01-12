@@ -2,7 +2,7 @@
 
   Author : Thomas de Meij, 2020
   
-  History: 02-02-2014 created in python2.7;  
+  History: 02-02-2014 created for python2.7;
            15-08-2015 migrated to python3.x;     
            06-07-2019 migrated to acequia 
 
@@ -11,57 +11,95 @@
 import os
 import os.path
 from datetime import datetime
-from pandas import Series, DataFrame
-import pandas as pd
 import csv
 import time
 import datetime as dt
+import warnings
 import numpy as np
+from pandas import Series, DataFrame
+import pandas as pd
 
 sep = ","
 
+def read_dinogws():
+    """ read data from Dinoloket csv file with groundwater measurement 
+    data """
+    pass
+
+
 class DinoGws:
     """Read TNO Dinoloket csv file with groundwater measurement data"""
+
 
     def __repr__(self):
         return """ Read TNO Dinoloket csv file with groundwater 
         measurement data """
 
-    def __init__(self,filepath=None,readdata=True):
 
-        # herekenningsregels dinofiles
-        self.metatag = "Locatie,Filternummer,Externe aanduiding, \
-            X-coordinaat,Y-coordinaat,Maaiveld (cm t.o.v. NAP),Datum \
-            maaiveld gemeten,Startdatum,Einddatum,Meetpunt (cm t.o.v. \
-            NAP),Meetpunt (cm t.o.v. MV),Bovenkant filter (cm t.o.v. \
-            NAP),Onderkant filter (cm t.o.v. NAP)"
-        self.datatag = "Locatie,Filternummer,Peildatum,Stand \
-            (cm t.o.v. MP),Stand (cm t.o.v. MV),Stand (cm t.o.v. NAP), \
-            Bijzonderheid,Opmerking,,,"
-        self.missingdata = "Van deze put zijn geen standen opgenomen \
-            in de DINO-database"
-        self.header_cols = ["nitgcode","filter","tnocode","xcoor",
+    def __init__(self,filepath=None,readall=True):
+
+        # lines marking data blocks in dinofiles
+        self.metatag = ','.join(
+            ['Locatie','Filternummer','Externe aanduiding',
+             'X-coordinaat','Y-coordinaat','Maaiveld (cm t.o.v. NAP)',
+             'Datum maaiveld gemeten','Startdatum','Einddatum',
+             'Meetpunt (cm t.o.v. NAP)','Meetpunt (cm t.o.v. MV)',
+             'Bovenkant filter (cm t.o.v. NAP)',
+             'Onderkant filter (cm t.o.v. NAP)'
+            ])
+        self.datatag = ','.join(
+            ['Locatie','Filternummer','Peildatum',
+             'Stand (cm t.o.v. MP)','Stand (cm t.o.v. MV)',
+             'Stand (cm t.o.v. NAP)','Bijzonderheid,Opmerking','','',''
+             ])
+        self.missingdata = ','.join(
+            ['Van deze put zijn geen standen opgenomen',
+             'in de DINO-database'
+            ])
+        self.header_cols = ['nitgcode',"filter","tnocode","xcoor",
             "ycoor","mvcmnap","mvdatum","startdatum","einddatum",
             "mpcmnap","mpcmmv","filtopcmnap","filbotcmnap"]
         self.data_cols = ["nitgcode","filter","peildatum","standcmmp",
             "standcmmv","standcmnap","bijzonderheid","opmerking"]
 
+
+
+        if isinstance(readall,bool):
+            self.readall=readall
+        else:
+            self.readall=True
+            wrnstr = 'Variable \'{vname}\' not of type boolean' \
+                     'of type \'{tname}\'. Data wil be read.'.format(
+                     vname=readall,tname=type(readall))
+            warnings.warn(warnstr)
+
+
+        # herekenningsregels dinofiles
+        self.metatag = "Locatie,Filternummer,Externe aanduiding,X-coordinaat,Y-coordinaat,Maaiveld (cm t.o.v. NAP),Datum maaiveld gemeten,Startdatum,Einddatum,Meetpunt (cm t.o.v. NAP),Meetpunt (cm t.o.v. MV),Bovenkant filter (cm t.o.v. NAP),Onderkant filter (cm t.o.v. NAP)"
+        self.datatag = "Locatie,Filternummer,Peildatum,Stand (cm t.o.v. MP),Stand (cm t.o.v. MV),Stand (cm t.o.v. NAP),Bijzonderheid,Opmerking,,,"
+        self.missingdata = "Van deze put zijn geen standen opgenomen in de DINO-database"
+        self.header_cols = ["nitgcode","filter","tnocode","xcoor","ycoor","mvcmnap","mvdatum","startdatum","einddatum","mpcmnap","mpcmmv","filtopcmnap","filbotcmnap"]
+        self.data_cols = ["nitgcode","filter","peildatum","standcmmp","standcmmv","standcmnap","bijzonderheid","opmerking"]
+
         # create empty variables
         self._reset()
-        if filepath != None: # and os.path.isfile(filepath):
-            self.dfheader, self.dfdata = self._readfile(filepath=filepath,readdata=readdata)
+        
+        
+        ###if filepath != None: # and os.path.isfile(filepath):
+        ###    self.dfheader, self.dfdata = self._readfile(filepath=filepath,readdata=readdata)
+
+        if filepath != None:
+            self.flines = self._readfile(filepath)
+            self.dfheader, self.dfdata = self._readlines()
             if self.dfheader.empty:
-                self.dfheader = DataFrame(
-                    data=[[np.nan]*len(self.header_cols)],
-                    columns=self.header_cols)
-                self.dfheader = self.dfheader.astype(
-                    {'nitgcode':str,'filter':str})
+                self.dfheader = DataFrame(data=[[np.nan]*len(self.header_cols)],columns=self.header_cols)
+                self.dfheader = self.dfheader.astype({'nitgcode':str,'filter':str})
                 self.dfheader.at[0,'nitgcode'] = self.dfdata.at[0,'nitgcode']
                 self.dfheader.at[0,'filter'] = self.dfdata.at[0,'filter']
                 self.dfheader.at[0,'startdatum'] = self.dfdata.at[0,'peildatum']
                 #self._tubeprops.at[0,'startdate'] = heads.index[0]
 
-        
+
     def _reset(self):
         """ Reset all variables """
         self.filepath = ""
@@ -74,14 +112,12 @@ class DinoGws:
         self.dfdescloc = DataFrame()
         self.seriesname = ""
 
-    def _readfile(self,filepath,readdata=True):
-        """ Open DINO file and reader header and measurment data 
-        (optional)"""
-        
+    def _readfile(self,filepath):
+        """ Open DINO csv file and return list of filelines """
+
         self._reset()
         self.filepath = filepath
 
-        # read dino putfile
         try:
             self.file = open(self.filepath,'r')
         except (IOError, TypeError) as err:
@@ -91,39 +127,44 @@ class DinoGws:
             print (" : "+self.filepath)
             self.errors.append(
                     [self.filepath,
-                     "Bestand kan niet worden geopend"])
+                     "File can not be opened"])
             self.flines=[]
             raise
         else:
-            self.flines = self.file.readlines() # read dino textfile to list of strings
+            self.flines = self.file.readlines()
             self.file.close()
-        finally:
 
-            # findlines in dinofile lines
-            self.headerstart, self.headerend, self.datastart = self._findlines() # bepaal regelnummers header en data
+        return self.flines
 
-            # read header
-            if self.headerstart>0 and self.headerend>0: 
-                self.dfheader = self._readheader()
-                ##self.seriesname = self.dfheader.loc[0,"nitgcode"]+"_"+self.dfheader.loc[0,"filter"]
-            else:
-                self.dfheader = DataFrame()
-                ##self.seriesname = "onbekend"
 
-            # read data
-            if self.datastart>0 and readdata==True: 
-                self.dfdata = self._readgws()
-            else:
-                self.dfdata = DataFrame()
+    def _readlines(self):
+        """ read list of file lines from dinofile to data """
 
-        return self.dfheader, self.dfdata #, self.seriesname
+        # findlines in dinofile lines
+        self.headerstart, self.headerend, self.datastart = \
+            self._findlines()
+
+        # read header
+        if self.headerstart>0 and self.headerend>0: 
+            self.dfheader = self._readheader()
+            ##self.seriesname = self.dfheader.loc[0,"nitgcode"]+"_"+self.dfheader.loc[0,"filter"]
+        else:
+            self.dfheader = DataFrame()
+
+        # read data
+        if self.datastart>0: #and self.readall==True:
+            self.dfdata = self._readgws()
+        else:
+            self.dfdata = DataFrame()
+
+        return self.dfheader, self.dfdata
+
 
     def _findlines(self):
         """ Find start of header and data; if file has data at all (private method) """
 
         # set variables to find at zero
         self.headerstart = 0
-        ##self.headerlength = 0  # moet ook zonder kunnen
         self.headerend = 0
         self.datastart = 0
 
@@ -213,6 +254,7 @@ class DinoGws:
             #print("warning : series has no header")
         return self.dfheader
 
+
     def _readgws(self):
         """ Read groundwater measurements to pandas data frame """
 
@@ -223,7 +265,7 @@ class DinoGws:
                 aval = np.NaN
             return aval
 
-        
+
         if self.datastart>0:
 
             # create list of data from filelines
