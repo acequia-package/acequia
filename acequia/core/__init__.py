@@ -1,1 +1,0 @@
-from .gwseries import GwSeries

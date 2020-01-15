@@ -12,7 +12,8 @@ import pandas as pd
 import numpy as np
 
 #from ..core.gwseries import GwSeries
-from ..core.gwseries import GwSeries
+#from ..gwseries import GwSeries
+import acequia.gwseries
 
 
 class HydroMonitor:
@@ -255,7 +256,7 @@ class HydroMonitor:
             message.warn('More than two object identification keys given')
 
         for (location,filter),sr in self.data.groupby(srkeys):
-            gws = GwSeries()
+            gws = acequia.gwseries.GwSeries()
             
             bool1 = self.metadata[srkeys[0]]==location
             ##bool1 = self.metadata['nitgcode']==location

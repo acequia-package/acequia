@@ -19,8 +19,8 @@ from pandas import Series, DataFrame
 import pandas as pd
 import numpy as np
 
-from ..read.dinogws import DinoGws
-
+#from .read.dinogws import DinoGws
+import acequia.read.dinogws
 
 class GwSeries:
     """ Init signature: aq.GwSeries(heads=None,ppt=None,srname=None)
@@ -85,7 +85,7 @@ class GwSeries:
         """
 
         # read dinofile to DinoGws object
-        dn = DinoGws(filepath=filepath)
+        dn = acequia.read.dinogws.DinoGws(filepath=filepath)
 
         # get location metadata
         locprops = Series(index=cls.locprops_cols)

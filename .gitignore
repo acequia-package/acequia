@@ -6,16 +6,10 @@
 
 *.so
 
-pastas.egg-info
-pastas/gui/settings
-
-examples/notebooks/.ipynb_checkpoints/
-gui/settings
+acequia.egg-info
 build
 dist
 
-.idea/.name
-.cache/v/cache/lastfailed
 *.log
 
 **/*.ipynb_checkpoints/
