@@ -32,7 +32,8 @@ class HydroMonitor:
 
 
     def __repr__(self):
-        return (f'{self.__class__.__name__} instance')
+        ##return (f'{self.__class__.__name__} instance')
+        return (f'{self.name()} (n={len(self._data)})')
         
 
     def __init__(self,header=None,metadata=None,data=None):
@@ -108,11 +109,11 @@ class HydroMonitor:
 
         return self.header,self.metadata,self.data
 
-    def _open_file(self,sourcepath):
+    def _open_file(self,filepath):
         """ open hydromonitor csv file for reading and return file object """
 
         try:
-            textfile = open(sourcepath,'r')
+            textfile = open(filepath,'r')
 
         except (IOError, TypeError) as err:
             errno, strerror = err.args
@@ -122,7 +123,7 @@ class HydroMonitor:
             textfile = None
 
         else:
-            self.sourcepath = sourcepath
+            self.filepath = filepath
 
         return textfile
 
@@ -193,7 +194,7 @@ class HydroMonitor:
 
         meta_nrows = self.metalast - self.metafirst + 1
         dfmeta = pd.read_csv(
-            self.sourcepath,
+            self.filepath,
             sep=self.CSVSEP,
             index_col=False,
             header=None,
@@ -216,7 +217,7 @@ class HydroMonitor:
 
         #read data
         dfdata = pd.read_csv(
-            self.sourcepath,
+            self.filepath,
             sep=self.CSVSEP,
             index_col=False,
             header=None,
@@ -250,16 +251,23 @@ class HydroMonitor:
         srlist = []
 
         #srkeys = [x.lower() for x in self.header['object_identification']]
-        # bug in hydromonitr export? id is allways nitgcode, filterno
+        # bug in hydromonitor export? id is allways nitgcode, filterno
         srkeys = ['nitgcode','filterno']
         if len(srkeys)>2:
             message.warn('More than two object identification keys given')
 
-        for (location,filter),sr in self.data.groupby(srkeys):
+        # duplicates occur in hydromonitor export when loggervalue
+        # and manual control measurement have the same timestamp
+        sortcols = srkeys + ['datetime','manualhead']
+        data = self.data.sort_values(by=sortcols)
+        dropcols = srkeys + ['datetime']
+        no_dups = data.drop_duplicates(subset=dropcols, keep='first').copy()
+        self.no_dups = no_dups.copy()
+
+        for (location,filter),sr in no_dups.groupby(srkeys):
             gws = acequia.gwseries.GwSeries()
             
             bool1 = self.metadata[srkeys[0]]==location
-            ##bool1 = self.metadata['nitgcode']==location
             bool2 = self.metadata[srkeys[1]]==filter
             metadata = self.metadata[bool1&bool2]
             firstindex = metadata.index[0]
