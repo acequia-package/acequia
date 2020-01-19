@@ -62,8 +62,6 @@ class DinoGws:
         self.data_cols = ["nitgcode","filter","peildatum","standcmmp",
             "standcmmv","standcmnap","bijzonderheid","opmerking"]
 
-
-
         if isinstance(readall,bool):
             self.readall=readall
         else:
@@ -216,12 +214,14 @@ class DinoGws:
         if isinstance(datestring, str):
             if datestring!="":                
                 # string to datetime.datetime object
-                if addtime==True: date = datetime.strptime(datestring+" 12:00", "%d-%m-%Y %H:%M")
+                if addtime==True: date = datetime.strptime(
+                    datestring+" 12:00", "%d-%m-%Y %H:%M")
                 else: date = datetime.strptime(datestring, "%d-%m-%Y")                    
                 
-                # replace invalid date with np.NaN
-                if date.year < 1900: date = np.NaN
-                elif date.year > datetime.now().year: date = np.NaN
+                ## replace invalid date with np.NaN
+                ##if date.year < 1900: date = np.NaN
+                ##elif date.year > datetime.now().year: date = np.NaN
+
             else:
                 date = np.NaN
         else:

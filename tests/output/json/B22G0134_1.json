@@ -1,0 +1,25 @@
+{
+  "locprops": {
+    "locname": "B22G0134",
+    "filname": "1",
+    "alias": null,
+    "xcr": null,
+    "ycr": null,
+    "height_datum": "mNAP",
+    "grid_reference": "RD"
+  },
+  "tubeprops": {
+    "0": {
+      "startdate": "1994-02-28T00:00:00.000Z",
+      "mplevel": null,
+      "filtop": null,
+      "filbot": null,
+      "surfdate": null,
+      "surflevel": null
+    }
+  },
+  "heads": {
+    "1994-02-28T00:00:00Z": null,
+    "1994-03-28T00:00:00Z": null
+  }
+}

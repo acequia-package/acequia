@@ -21,8 +21,8 @@ reload(acequia.gwseries)
 #import acequia.stats.gwstats
 #reload(acequia.stats.gwstats)
 
-import clsDINOGWS
-reload(clsDINOGWS)
+##import clsDINOGWS
+##reload(clsDINOGWS)
 
 print(__name__)
 
@@ -30,7 +30,7 @@ if __name__ == '__main__':
 
     sourcedir = ".\\testdata\\dinogws\\"
     srcfile = "B28A0475002_1.csv"
-    dn = clsDINOGWS.dinogws(filepath=sourcedir+srcfile)
+    ##dn = clsDINOGWS.dinogws(filepath=sourcedir+srcfile)
     gws = aq.GwSeries.from_dinogws(sourcedir+srcfile)
     sr = gws.heads(ref='datum')
 
@@ -42,13 +42,13 @@ if __name__ == '__main__':
         # create dinofile object for testing
         sourcedir = ".\\testdata\\dinogws\\"  
         filepath = sourcedir+'B17C0296001_1.csv'
-        dn2 = clsDINOGWS.dinogws(filepath=filepath)
+        ##dn2 = clsDINOGWS.dinogws(filepath=filepath)
 
         # create gwseries from dinofile
         gw = acequia.GwSeries.from_dinogws(filepath)
 
 
-    if 0: # test methods for multiple dino files in a directory
+    if 1: # test methods for multiple dino files in a directory
     
         sourcedir = ".\\testdata\\dinogws\\"
         outputdir = ".\\output\\" 
@@ -67,5 +67,3 @@ if __name__ == '__main__':
             gws = aq.GwSeries.from_dinogws(sourcedir+srcfile)
             sr = gws.heads(ref='datum')
 
-           
- 

@@ -29,12 +29,41 @@ class GwSeries:
         Stores and serves measurements in several units (mwelltop,mref,msurface)
     """
 
+    locprops_names = [
+        'locname','filname','alias','xcr','ycr','height_datum',
+        'grid_reference'
+        ]
+    tubeprops_names = [
+        'startdate','mplevel','filtop','filbot','surfdate',
+        'surflevel'
+        ]
+    tubeprops_numcols = [
+        'mplevel','surflevel','filtop','filbot'
+        ]
+
+    mapping_dinolocprops = OrderedDict([
+        ('locname','nitgcode'),
+        ('filname','filter'),
+        ('alias','tnocode'),
+        ('xcr','xcoor'),
+        ('ycr','ycoor'),
+        ('height_datum','NAP'),
+        ('grid_reference','RD'),
+        ])
+
+    mapping_dinotubeprops = OrderedDict([
+        ('startdate','startdatum'),
+        ('mplevel','mpcmnap'),
+        ('filtop','filtopcmnap'),
+        ('filbot','filbotcmnap'),
+        ('surfdate','mvdatum'),
+        ('surflevel','mvcmnap'),
+        ])
+
     def __repr__(self):
         #return (f'{self.__class__.__name__}(n={len(self._heads)})')
         return (f'{self.name()} (n={len(self._heads)})')
 
-    locprops_cols = ['locname','filname','alias','xrd','yrd','height_datum','grid_reference']
-    tubeprops_cols = ['startdate','mp','filtop','filbot','surfdate','surface']
 
     def __init__(self,heads=None,locprops=None,tubeprops=None):
 
@@ -60,7 +89,7 @@ class GwSeries:
         if heads is None: 
             self._heads = pd.Series()
             self._heads.index.name = 'datetime'
-            self._heads.name = 'dummyname'
+            self._heads.name = 'unknown'
         elif isinstance(heads,pd.Series):
             self._heads = heads.copy()
             self._heads.index.name = 'datetime'
@@ -86,38 +115,44 @@ class GwSeries:
 
         # read dinofile to DinoGws object
         dn = acequia.read.dinogws.DinoGws(filepath=filepath)
+        dinoprops = list(dn.header().columns)
 
         # get location metadata
-        locprops = Series(index=cls.locprops_cols)
-        
-        locprops['locname'] = dn.header().at[0,'nitgcode']
-        locprops['filname'] = dn.header().at[0,'filter']
-        locprops['xcr'] = dn.header().at[0,'xcoor']
-        locprops['ycr'] = dn.header().at[0,'ycoor']
-        locprops['alias'] = dn.header().at[0,'tnocode']
+        locprops = Series(index=cls.locprops_names)
+
+        for propname in cls.locprops_names:
+            dinoprop = cls.mapping_dinolocprops[propname]
+            if dinoprop in dinoprops:
+                locprops[propname] = dn.header().at[0,dinoprop]
+                ##locprops['locname'] = dn.header().at[0,'nitgcode']
+                ##locprops['filname'] = dn.header().at[0,'filter']
+                ##locprops['xcr'] = dn.header().at[0,'xcoor']
+                ##locprops['ycr'] = dn.header().at[0,'ycoor']
+                ##locprops['alias'] = dn.header().at[0,'tnocode']
+
         locprops['grid_reference'] = 'RD'
         locprops['height_datum'] = 'mNAP'
         locprops = Series(locprops)
 
         # get piezometer metadata
-        tubeprops = dn.header()
-        coldict = {
-            'mvcmnap':'surface',
-            'mvdatum':'surfdate',
-            'startdatum':'startdate',
-            'einddatum':'enddate',
-            'mpcmnap':'mp',
-            'filtopcmnap':'filtop',
-            'filbotcmnap':'filbot',
-            }
-        tubeprops = tubeprops.rename(index=str, columns=coldict)
-        tubeprops = tubeprops[cls.tubeprops_cols]
-        for col in ['mp','surface','filtop','filbot']:
-                tubeprops[col] = pd.to_numeric(tubeprops[col],errors='coerce')/100.
+        ##tubeprops = dn.header()
+        ##coldict = mapping_dinotubeprops
+        ##tubeprops = tubeprops.rename(index=str, columns=coldict)
+        ##tubeprops = tubeprops[cls.tubeprops_cols]
+        tubeprops = DataFrame(columns=cls.tubeprops_names)
+        ##dinoprops = list(dn.header().columns)
+        for prop in cls.tubeprops_names:
+            dinoprop = cls.mapping_dinotubeprops[prop]
+            if dinoprop in dinoprops:
+                tubeprops[prop] = dn.header()[dinoprop]
+
+        for col in cls.tubeprops_numcols:
+                tubeprops[col] = pd.to_numeric(tubeprops[col],
+                                 errors='coerce')/100.
 
         # get head measurements
         sr = dn.series(units="cmmp")/100.
-        
+
         return cls(heads=sr,locprops=locprops,tubeprops=tubeprops)
 
     def name(self):
@@ -145,9 +180,9 @@ class GwSeries:
             for index,props in self._tubeprops.iterrows():
                 mask = heads.index>=props['startdate']
                 if ref=='datum':
-                    heads = heads.mask(mask,props['mp']-self._heads)
+                    heads = heads.mask(mask,props['mplevel']-self._heads)
                 elif ref=='surface':
-                    surfref = round(props['mp']-props['surface'],2)
+                    surfref = round(props['mplevel']-props['surface'],2)
                     heads = heads.mask(mask,self._heads-surfref)
         else:
             raise ValueError('%s is not a valid reference point name' %ref)
@@ -212,9 +247,6 @@ class GwSeries:
         srname = locprops['locname']+'_'+locprops['filname']
         heads = Series(data=heads[0].values,index=srindex,name=srname)
 
-        ##gws = GwSeries(heads=heads,locprops=locprops,tubeprops=tubeprops)
-
-        ##return json_dict,gws
         return cls(heads=heads,locprops=locprops,tubeprops=tubeprops)
 
     def to_json(self,dirpath=None):
