@@ -68,14 +68,14 @@ class GwSeries:
     def __init__(self,heads=None,locprops=None,tubeprops=None):
 
         if locprops is None:
-            self._locprops = Series(index=self.locprops_cols)
+            self._locprops = Series(index=self.locprops_names)
         elif isinstance(locprops,pd.Series):
             self._locprops = locprops
         else:
             raise TypeError(f'locprops is not a pandas Series but {type(locprops)}')
 
         if tubeprops is None:
-            self._tubeprops = DataFrame(columns=self.tubeprops_cols)
+            self._tubeprops = DataFrame(columns=self.tubeprops_names)
         elif isinstance(tubeprops,pd.DataFrame):
             ##if tubeprops.empty:
             ##    self._tubeprops = DataFrame(data=[[np.nan]*len(self.tubeprops_cols)],columns=self.tubeprops_cols)

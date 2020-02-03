@@ -2,9 +2,9 @@
 
 """
 
-Base object for maintaining a groundwater series iterator
+Object for maintaining a groundwater series iterator
 
-T.J. de Meij october 2019
+T.J. de Meij januari 2020
 
 """ 
 
@@ -17,8 +17,20 @@ class GwList():
     def __repr__(self):
         return (f'{self.__class__.__name__}()')
 
-    def __init__(self):
-        pass
+
+    def __init__(self,sourcedir=None,sourcetype=None):
+        self.value = 0
+
+
+    def __iter__(self):
+        return self
+
+
+    def __next__(self):
+        next_value = self.value
+        self.value += 2
+        return next_value
+
 
     @classmethod
     def from_dinofiles(cls,filedir=None,fileplist=None):

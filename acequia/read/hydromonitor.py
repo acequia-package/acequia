@@ -273,24 +273,24 @@ class HydroMonitor:
             firstindex = metadata.index[0]
 
             # set tubeprops
-            gws._tubeprops.startdate = metadata.startdatetime.values
-            gws._tubeprops.mp = metadata.welltoplevel.values
-            gws._tubeprops.filtop = metadata.filtertoplevel.values
-            gws._tubeprops.filbot = metadata.filterbottomlevel.values
-            gws._tubeprops.surface = metadata.surfacelevel.values
+            gws._tubeprops['startdate'] = metadata.startdatetime.values
+            gws._tubeprops['mp'] = metadata.welltoplevel.values
+            gws._tubeprops['filtop'] = metadata.filtertoplevel.values
+            gws._tubeprops['filbot'] = metadata.filterbottomlevel.values
+            gws._tubeprops['surface'] = metadata.surfacelevel.values
 
             # set locprops
-            gws._locprops.locname = metadata.at[firstindex,srkeys[0]]
-            gws._locprops.filname = metadata.at[firstindex,srkeys[1]]
+            gws._locprops['locname'] = metadata.at[firstindex,srkeys[0]]
+            gws._locprops['filname'] = metadata.at[firstindex,srkeys[1]]
             if 'nitgcode' in srkeys:
                 alias_key = 'name'
             else:
                 alias_key = 'nitgcode'
-            gws._locprops.alias = metadata.at[firstindex,alias_key]
-            gws._locprops.east = metadata.at[firstindex,'xcoordinate']
-            gws._locprops.north = metadata.at[firstindex,'ycoordinate']
-            gws._locprops.height_datum = 'mnap'
-            gws._locprops.grid_reference = 'rd'
+            gws._locprops['alias'] = metadata.at[firstindex,alias_key]
+            gws._locprops['east'] = metadata.at[firstindex,'xcoordinate']
+            gws._locprops['north'] = metadata.at[firstindex,'ycoordinate']
+            gws._locprops['height_datum'] = 'mnap'
+            gws._locprops['grid_reference'] = 'rd'
 
             # set gwseries
             datetimes = sr.datetime.values

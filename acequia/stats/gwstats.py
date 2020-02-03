@@ -28,11 +28,20 @@ from xlsxwriter.utility import xl_rowcol_to_cell
 class GwStats:
     "Calculate statistics from a (groundwater)series"
 
-    statscols = ['series','hydrojaar','n','n14','gem','hg3','lg3','vg3','vg1apr','wrnfrq']
-    sumstatscols = ['series','nyears','n14avg','maxfrq','nmax','status','years''gwsavg','ghgavg','glgavg',
-             'gvg3avg','gvg1apravg','gwsstd','ghgstd','glgstd','gvg3std','gvg1aprstd','gwsse','ghgse','glgse','gvg3se',
-             'gvg1aprse','gvg-vds82','gvg-run89','ghgw','glgz','gvg-vds89pol','gvg-vds89str']
-    gvgdiffcols = ['series','nyears','gvg1apravg','gvg3avg','gvg-vds82','gvg-run89','gvg-vds89pol','gvg-vds89str']
+    statscols = [
+        'series','hydrojaar','n','n14','gem','hg3','lg3','vg3','vg1apr',
+        'wrnfrq']
+
+    sumstatscols = [
+        'series','nyears','n14avg','maxfrq','nmax','status','years',
+        'gwsavg','ghgavg','glgavg','gvg3avg','gvg1apravg','gwsstd',
+        'ghgstd','glgstd','gvg3std','gvg1aprstd','gwsse','ghgse',
+        'glgse','gvg3se','gvg1aprse','gvg-vds82','gvg-run89','ghgw',
+        'glgz','gvg-vds89pol','gvg-vds89str']
+
+    gvgdiffcols = [
+        'series','nyears','gvg1apravg','gvg3avg','gvg-vds82',
+        'gvg-run89','gvg-vds89pol','gvg-vds89str']
 
 
     def __repr__(self):
@@ -144,8 +153,6 @@ class GwStats:
         return self.sr14
 
 
-
-
     def quantiles(self):
         """ Return dataframe with quantiles for ech hydrological year 
         """
@@ -200,7 +207,7 @@ class GwStats:
         ##if self.dfstats.empty: self.dfstats=DataFrame(columns=self.statscols)
         ##if self.dfsumstats.empty: self.dfsumstats=DataFrame(columns=self.sumstatscols)
         ##if self.dfgvgdiff.empty: self.dfgvgdiff=DataFrame(columns=self.gvgdiffcols)
-        
+
         # fill dfstats and dfsumstats with statistics
         n14count = len(self.sr14[self.sr14.notnull()])
         if n14count!=0 and self.dfstats.empty: # and self.dfsumstats.empty:
@@ -212,7 +219,7 @@ class GwStats:
             # use two calculation methodes: 
             # first:  the average of 14mrt, 28mrt and 14 april (this is the vg3)
             # second: the value nearest to 1apr (this is the vg1apr)
-            
+
             # calculate vg3 based on the average of three measurements for each calender year
             # de drie te middelen datums zijn : 14 maart, 28 maart en 14 april
             # toelichting op de variabelen:
@@ -304,7 +311,7 @@ class GwStats:
                 self.hg3w = grp["data"].apply(lambda x: x.sort_values(ascending=False).values[:3].mean().round(0))
             else:
                 self.hg3w = np.nan
-                    
+
             # calculate lg3 for each summer based on hydrological year from 14day values                    
             grp = self.dfdata14[self.dfdata14.seizoen=="zomer"].groupby("hydrojaar")
             if self.reference == "cmmv" or self.reference == "cmmp":
@@ -313,11 +320,11 @@ class GwStats:
                 self.lg3z = grp["data"].apply(lambda x: x.sort_values(ascending=True).values[:3].mean().round(0))
             else:
                 self.lg3z == np.nan
-                
+
             # -------------------------------------------------------------------
             # add cokumns to dfstats
             # -------------------------------------------------------------------            
-         
+
             # add columns to dfstats
             self.dfstats["n14"] = grp14["data"].count()
             self.dfstats["hg3"] = self.hg3
@@ -326,7 +333,7 @@ class GwStats:
             self.dfstats["vg1apr"] = self.dfvg["vg1apr"]
             self.dfstats["hg3w"] = self.hg3w
             self.dfstats["lg3z"] = self.lg3z
-            
+
             # calculate observation frequancy for each hydrological year
             self.dfstats["wrnfrq"] = self.dfstats["n"].apply(lambda x:frqclass(x))
 
@@ -345,14 +352,14 @@ class GwStats:
             ##self.statscols = ['series','hydrojaar','n','n14','gem','hg3','lg3','vg3','vg1apr','wrnfrq']
             ##colnames = self.statscols + [colname for colname in list(self.dfstats) if colname not in self.statscols]
             ##self.dfstats = self.dfstats[colnames].copy()
-            
+
             # -----------------------
             # create table dfsumstats
             # -----------------------
-            
+
             # select year with enough measurements
             self.valyears = self.dfstats[self.dfstats["n14"]>=self.minN14]
-            
+
             # calculate averages over available years 
             rec = dict()
             rec["series"] = self.sr.name
@@ -373,14 +380,14 @@ class GwStats:
             rec["glgstd"] = self.valyears.lg3.std()
             rec["gvg3std"] = self.valyears.vg3.std()
             rec["gvg1aprstd"] = self.valyears.vg1apr.std()
-            
+
             # calculate standard errors
             rec["gwsse"] = self.valyears.gem.std()/np.sqrt(len(self.valyears))
             rec["ghgse"] = self.valyears.hg3.std()/np.sqrt(len(self.valyears))
             rec["glgse"] = self.valyears.lg3.std()/np.sqrt(len(self.valyears))
             rec["gvg3se"] = self.valyears.vg3.std()/np.sqrt(len(self.valyears))
             rec["gvg1aprse"] = self.valyears.vg1apr.std()/np.sqrt(len(self.valyears))
-            
+
             rec["ghgw"] = self.valyears.hg3w.mean()
             rec["glgz"] = self.valyears.lg3z.mean()
 
@@ -405,13 +412,13 @@ class GwStats:
             else:
                 rec["gvg-vds89pol"] = np.nan
                 rec["gvg-vds89str"] = np.nan
-            
+
             # determine maximum observation frequency of series
             if np.any(self.valyears.wrnfrq.values=="dag"): rec["maxfrq"]="dag"
             elif np.any(self.valyears.wrnfrq.values=="14dagen"): rec["maxfrq"]="14dagen"
             elif np.any(self.valyears.wrnfrq.values=="maand"): rec["maxfrq"]="maand"
             else: rec["maxfrq"]="zelden"
-            
+
             # calculate series status
             lastyear = self.sr.index.year.values[-1]
             if lastyear < datetime.now().year - self.actyears:
@@ -421,11 +428,11 @@ class GwStats:
 
             # join all available years in one string
             rec["years"] = " ".join([str(year) for year in self.valyears.hydrojaar])
-            
+
             # create dataframe from rec
             self.rec=rec
             self.dfsumstats = DataFrame([rec],columns=self.sumstatscols)
-            
+
             # calculate differences
             if self.reference=="cmmv":
                 refcol = "gvg1apravg"
@@ -434,16 +441,16 @@ class GwStats:
                     if col not in ["series","nyears","status","gvg1apravg"]:
                         colname = col+"-diff"
                         self.dfgvgdiff[colname] = (self.dfgvgdiff[refcol]-self.dfgvgdiff[col]).round(0)
-            
+
         return self.dfstats,self.dfsumstats,self.dfgvgdiff,self.sr,self.sr14
 
     def tables(self):
         """ return table with series name, hydrological year and percentiles
             meant for addition to a large csv file"""
-        
+
         # make sure stats are available
         dfstats,dfsumstats,dfgvgdiff,sr,sr14 = self.stats()        
-        
+
         """
         # create dfg3tbl
         if not dfstats.empty:
@@ -468,7 +475,7 @@ class GwStats:
         dfg3tbl = dfstats.copy()
         dfgxg = dfsumstats.copy()
         dfgvgdiff = dfgvgdiff.copy()
-            
+
         return dfg3tbl,dfgxg,dfgvgdiff
 
         
@@ -477,10 +484,10 @@ class GwStats:
         
         def add_totals(sheet,df,colnumbers):
             """ Add total formulas to worksheet """
-            
+
             number_rows = len(df.index)          
             for icol in colnumbers:
-            
+
                 # define formula range
                 start_range = xl_rowcol_to_cell(1, icol)
 
@@ -490,18 +497,17 @@ class GwStats:
                 colname_location = xl_rowcol_to_cell(number_rows+2,icol)
                 col_name = list(df)[icol]
                 ws.write_string(colname_location,col_name,label_fmt)
-                
+
                 # write formulas
                 frm_list = [("COUNT","nyear"),("MIN","min"),("MAX","max"),("MEDIAN","med"),("AVERAGE","gem"),{"STDEV","stdev"}]
                 for irow,(formname,description) in enumerate(frm_list):
-                
-                
+
                     formula = "=" + formname + "({:s}:{:s})".format(start_range, end_range)
                     label_location = xl_rowcol_to_cell(number_rows+irow+3,1)
                     cell_location = xl_rowcol_to_cell(number_rows+irow+3,icol)
-                    
+
                     # write values to excel
-                    
+
                     ws.write_string(label_location, description, label_fmt)
                     ws.write_formula(cell_location, formula, total_fmt)
             return ws
@@ -517,15 +523,15 @@ class GwStats:
 
         # format dataframes and write to excel
         for df,sheetname in [(dfstat,"stats"),(dfqt,"frq"),(dfsumstat,"summary"),(dfgvgdiff,"dfgvgdiff")]:       
-        
+
             # round numbers
             for col in df:
                 if df[col].dtype=="float64":
                     df[col] = round(df[col])
-                    
+
             # write to excel
             df.to_excel(writer,sheetname,index=False)
-            
+
         # add totals
         wb = writer.book
         
