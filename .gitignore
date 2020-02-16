@@ -16,6 +16,8 @@ dist
 
 /docs/source/
 
+/tests/output/
+
 *.log
 
 **/*.ipynb_checkpoints/

@@ -18,11 +18,20 @@ import acequia.gwseries
 
 class HydroMonitor:
     """Read and manage data from hydromonitor csv export file
+    
+    Parameters:
+    ---------
+    header : pandas dataframe, optional
+        header data from hydromonitor file as pandas dataframe
+    metadata : pandas dataframe, optional
+        metadata data from hydromonitor file as pandas dataframe
+    data : pandas dataframe, optional
+        measurements from hydromonitor file as pandas dataframe
 
-     Example:
-     -------
-     hm = HydroMonitor.from_csv(filepath=<path to csv source file>)
-     mylist = hm.to_gwseries()
+    Example:
+    -------
+    hm = HydroMonitor.from_csv(filepath=<path to csv source file>)
+    mylist = hm.to_gwseries()
 
     """
 
@@ -143,7 +152,7 @@ class HydroMonitor:
         header = OrderedDict()
         for i,line in enumerate(textfile):
 
-            line = line.rstrip() #.rstrip(self.CSVSEP)
+            line = line.rstrip()
             linelist = line.split(self.CSVSEP)
 
             # read header tags
