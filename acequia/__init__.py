@@ -1,7 +1,7 @@
 
+print(f'Loading package {__name__}')
 
-
-print(f'Invoking __init__.py for {__name__}')
+import logging
 
 from .gwseries import GwSeries
 from .gwlist import GwList
@@ -9,10 +9,10 @@ from .geo.coordinate_conversion import CrdCon
 from .graphs.plotgws import PlotGws
 from .read.dinogws import DinoGws, read_dinogws
 from .read.hydromonitor import HydroMonitor
+from .read.knmi_locations import KnmiLocations
 from .stats.gwstats import GwStats
 
-
 __all__ = ['GwSeries','GwList','PlotGws','DinoGws','HydroMonitor',
-           'GwStats','CrdCon']
+           'GwStats','CrdCon','KnmiLocations']
 
-
+logger = logging.getLogger(__name__)
