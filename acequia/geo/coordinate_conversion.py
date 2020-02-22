@@ -1,22 +1,78 @@
 """ Conversion of geographic coordinates
 
-Convert coordinates from Dutch RD Grid to WGS84 and back
-Following conversions can be made:
-
-
-Examples:
-    >>> 
-
-Note:
-    Formulas from article:
-    "Benaderingsformules voor de transformatie tussen RD-en 
-     WGS84-kaartcoordinaten"
-    by Schreutelkamp en Strang Van Hees.
-    link: http://www.dekoepel.nl/pdf/Transformatieformules.pdf
 
 """
+import numpy as np
 
 class CrdCon:
+    """Convert coordinates from Dutch RD Grid to WGS84 and back
+
+    Two main methods:
+        RDtoWGS84(X,Y,Zone=False)
+        WGS84toRD(Lon,Lat)
+
+    Examples
+    --------
+    >> crc = acequia.CrdCon()
+    >> crc.RDtoWGS84(233883.131, 82065.167)
+    >> {'Lon': 6.458551281201178,
+        'Lat': 48.726255249201174,
+        'East': 313102.7205129704,
+        'North': 5400142.229150799,
+        'xRD': 233883.131,
+        'yRD': 82065.167,
+        'UMTZONE': 'UMT32'}
+        
+        >> crc.WGS84toRD(4.88352,52.3745)
+        >> {'xRD': 233883.06517103617,
+            'yRD': 582067.0401935352,
+            'Lon': 6.5682,
+            'Lat': 53.2194}
+
+    Note
+    ----
+    Coordinate onversions are valid only for the Netherlands!
+    
+    Formulas from article by Schreutelkamp en Strang Van Hees:
+    "Benaderingsformules voor de transformatie tussen RD-en 
+     WGS84-kaartcoordinaten"
+
+    link: http://www.dekoepel.nl/pdf/Transformatieformules.pdf
+
+    """
+
+    Towers = {
+             "Westertoren": {
+                "town": "Amsterdam",
+                "xRD": 120700.723,
+                "yRD": 487525.501,
+                "Lat_WGS84": 52.3745311,
+                "Lon_WGS84": 4.8835223,
+                "Lat_DDMMmm" : ['52','22.472'],
+                "Lon_DDMMmm" : ['04','53.011'],
+                "Lat_DDMMSS" : ['52','22','28.3'],
+                "Lon_DDMMSS" : ['04','53','0.7'],
+                "East_UMT31": 628217.312,
+                "North_UMT31": 5804365.552,
+                "East_UMT32": 219827.625, #calculated from RD
+                "North_UMT32": 5810673.509, #calculated from RD
+                },
+            "Martinitoren": {
+                "town": "Groningen",
+                "xRD": 233883.131,
+                "yRD": 582065.167,
+                "Lat_WGS84": 53.2193814,
+                "Lon_WGS84": 6.5682021,
+                "Lat_DDMMmm" : ['53','13.163'],
+                "Lon_DDMMmm" : ['06','34.092'],
+                "Lat_DDMMSS" : ['53','13','9.8'],
+                "Lon_DDMMSS" : ['06','34','5.5'],
+                "East_UMT31": 738204.153, #calculated from RD
+                "North_UMT31": 5902619.635, #calculated from RD
+                "East_UMT32": 337643.235,
+                "North_UMT32": 5899435.841,}
+            }
+
 
     X0 = 155000.00
     Y0 = 463000.00
@@ -27,34 +83,106 @@ class CrdCon:
     E0zone32 = 252878.65
     N0zone32 = 5784453.44
 
-    def RDtoWGS84(self,X,Y,Zone=True):
-        """Conversie van X en Y in RD-stelsel naar NB,OL en Easting,Northing in WGS84"""
-        OL = self._RDtoWGS84OL(X,Y)
-        NB = self._RDtoWGS84NB(X,Y)
-        if OL>6:
+    def RDtoWGS84(self,X,Y,Zone=False):
+        """ Convert RD Xcoor,Ycoor to WGS84 latitude,longitude
+        
+        Parameters
+        ----------
+        X : float
+            x-coordinate in RD-system
+        Y : float
+            y-coordinate in RD-system
+        Zone : bool, optinal
+            Apply different formulas for easting below 6 (UTM31) and
+            eastignabove 6 (UTM32). Default is True.
+
+        Returns
+        -------
+        dict
+
+        Example
+        -------
+        >> crc = acequia.CrdCon()
+        >> crc.RDtoWGS84(233883.131, 82065.167)
+        >> {'Lon': 6.458551281201178,
+            'Lat': 48.726255249201174,
+            'East': 313102.7205129704,
+            'North': 5400142.229150799,
+            'xRD': 233883.131,
+            'yRD': 82065.167,
+            'UMTZONE': 'UMT32'}
+
+        Note
+        ----
+        Within the WGS84 system, the 6th meridian divides the Netherslands 
+        into two a western and an eastern zone. The aerea west of the 6th 
+        meridian lies UTM zone 31, the eastern part belong to UTM zone 32. 
+        To avoid jumps in transformed WGS84 coordinates, the default 
+        'Zone=False' unsures that all transformations are calculated with 
+        the paramaters for UTMzone 31.
+        This follows the suggestion in the orginale article by Schreutelkamp 
+        and Strang van Hees, from which all formules wer copied. 
+
+
+        """
+        Lon = self._RDtoWGS84Lon(X,Y)
+        Lat = self._RDtoWGS84Lat(X,Y)
+        if Lon>6 and Zone:
+            [E,N]=self._RDtoWGS84forUMT32(X,Y)
             UMTZONE = "UMT32"
         else:
-            UMTZONE = "UMT31"
-        if OL>6 and Zone:
-            [E,N]=self._RDtoWGS84forUMT32(X,Y)
-        else:
             [E,N]=self._RDtoWGS84forUMT31(X,Y)
+            UMTZONE = "UMT31"
+        return {"Lon" : Lon, "Lat" : Lat, "East" : E, "North" : N, "xRD" : X, "yRD" : Y, "UMTZONE" : UMTZONE}
 
-        return {"OL" : OL, "NB" : NB, "E" : E, "N" : N, "xRD" : X, "yRD" : Y, "UMTZONE" : UMTZONE}
 
-    def OLNBtoRD(self,OL,NB):
-        """ Conversie van NB en OL (WGS84) in decimale graden  naar RD-stelsel
-        Voor flexibele invoer mogen OL en NB zijn:
-        DD.ddd       : float of string  met decimale graden (default)
-        [DD,MM,SS.S] : list van strings of floats (n=3) met graden minuten en seconden
-        [DD,MM.mmmm] : list van strings of floats (n=2) met graden en decimale minuten """
+    def WGS84toRD(self,Lon,Lat):
+        """ Convert WGS84 latitude,longitude to RD Xcoor,Ycoor
+        
+        Parameters
+        ----------
+        Lon : float
+            Longitude in WGS84
+        Lat : float
+            Latitude in WGS84
+        Zone : bool, optinal
+            Apply different formulas for easting below 6 (UTM31) and
+            easting above 6 (UTM32). Default is True.
+
+        Returns
+        -------
+        dict
+
+        Example
+        -------
+        >> crc = acequia.CrdCon()
+        >> crc.WGS84toRD(4.88352,52.3745)
+        >> {'xRD': 233883.06517103617,
+            'yRD': 582067.0401935352,
+            'Lon': 6.5682,
+            'Lat': 53.2194}
+
+        Note
+        ----
+        Allows for flexible input format of Lat,Lon:
+            DD.ddd       : float or str with decimal degrees (default)
+            [DD,MM,SS.S] : list (n=3) of float or str giving
+                           degrees, minutes and seconds
+            [DD,MM.mmmm] : list (n=2) of float or str giving
+                           degrees and decimal minutes
+
+
+        """
+
         try:
-            if (type(OL)==str) & (type(NB)==str):
 
-                OL = float(OL)
-                NB = float(NB)
+            if (type(Lon)==str) & (type(Lat)==str):
 
-            elif (type(OL)==list) & (type(NB)==list):
+                Lon = float(Lon)
+                Lat = float(Lat)
+
+
+            elif (type(Lon)==list) & (type(Lat)==list):
 
                 def tofloat(mystring):
                     """
@@ -70,7 +198,7 @@ class CrdCon:
                         raise
                     return result
 
-                if (len(OL)==3) & (len(NB)==3):
+                if (len(Lon)==3) & (len(Lat)==3):
 
                     def DDMMSSs(mylist):
                         """ conversie graden minuten seconden (notatie [DD,MM,SS.S])
@@ -81,10 +209,10 @@ class CrdCon:
                         ss = tofloat(mylist[2])
                         return dd+(mm*60+ss)/3600
 
-                    OL = DDMMSSs(OL)
-                    NB = DDMMSSs(NB)
+                    Lon = DDMMSSs(Lon)
+                    Lat = DDMMSSs(Lat)
 
-                elif (len(OL)==2) & (len(NB)==2):
+                elif (len(Lon)==2) & (len(Lat)==2):
 
                     def DDMMMmmm(mylist):
                         """ conversie graden minuten (notatie [DD,MM.mmm])
@@ -94,36 +222,30 @@ class CrdCon:
                         mm = tofloat(mylist[1])
                         return dd+(mm*60)/3600
 
-                    OL = DDMMMmmm(OL)
-                    NB = DDMMMmmm(NB)
+                    Lon = DDMMMmmm(Lon)
+                    Lat = DDMMMmmm(Lat)
 
-            xcoor = self._WGS84toRDx(OL,NB)
-            ycoor = self._WGS84toRDy(OL,NB)
+            xcoor = self._WGS84toRDx(Lon,Lat)
+            ycoor = self._WGS84toRDy(Lon,Lat)
 
         except Exception as err:
             xcoor = None
             ycoor = None
             print("Fout opgetreden: ",err.args)
-            raise Warning("Error in OLNB2RD")
+            raise Warning("Error in WGS842RD")
 
         finally:
             result = {
                 "xRD" : xcoor,
                 "yRD" : ycoor,
-                "OL"  : OL,
-                "NB"  : NB}
+                "Lon"  : Lon,
+                "Lat"  : Lat}
         return result
 
-    def UMTtoRD2(self,E,N):
-         """Conversie van Easting en Northing in WGS84 naar RD-stelsel
-            Op advies van Schreutelkamp en Strang van Hees wordt de conversie
-            altijd gebaseerd op Zone 31, ook voor punten ten oosten van OL = 6,
-            die feitelijk in Zone 32 liggen"""
-         xcoor, ycoor = self._WGS84toRDforUMT31(E,N)
-         return {"xRD" : xcoor, "yRD" : ycoor}
 
-    def _RDtoWGS84OL(self,X,Y):
-        """Conversie van X en Y in RD-stelsel naar OL (=Lambda) in WGS84 """
+    def _RDtoWGS84Lon(self,X,Y):
+        """Calculate WGS84 Longitude from RD X,Y """
+
         coef = [
                [1,0,5260.52916],
                [1,1,105.94684],
@@ -148,8 +270,10 @@ class CrdCon:
             Lambda+=L*pow(dX,p)*pow(dY,q)
         return self.Lambda0+Lambda/3600.0
 
-    def _RDtoWGS84NB(self,X,Y):
-        """Conversie van X en Y in RD-stelsel naar NB (=Phi) in WGS84 """
+
+    def _RDtoWGS84Lat(self,X,Y):
+        """Calculate WGS84 Latitude from RD X,Y """
+
         coef = [
                [0,1,3235.65389],
                [2,0,-32.58297],
@@ -174,8 +298,8 @@ class CrdCon:
         return self.Phi0+phi/3600.0
 
     def _RDtoWGS84forUMT31(self,X,Y):
-        """Conversie van x en y in RD-stelsel naar Easting en Northing in WGS84 stelsel"""
-        """De conversie wordt altijd gebaseerd op de parameterwaarden voor Zone 31"""
+        """Convert RD-system X,Y to WGS84 Easting,Northing 
+        using paramters for Zone UMT31 """
 
         A0 = self.E0zone31
         B0 = self.N0zone31
@@ -201,8 +325,8 @@ class CrdCon:
         return [E,N]
 
     def _RDtoWGS84forUMT32(self,X,Y):
-        """Conversie van x en y in RD-stelsel naar Easting en Northing in WGS84 stelsel"""
-        """De conversie wordt gebaseerd op de parameterwaarden voor Zone 32"""
+        """Convert RD-system X,Y to WGS84 Easting,Northing 
+        using paramters for Zone UMT32 """
 
         A0 = self.E0zone32
         B0 = self.N0zone32
@@ -227,12 +351,13 @@ class CrdCon:
         E+= B4*(pow(dX,4)-6*pow(dX,2)*pow(dY,2)+pow(dY,4))+A4*(4*pow(dX,3)*dY-4*pow(dY,3)*dX)
         return [E,N]
 
-    def _WGS84toRDx(self,OL,NB):
-        """Conversie van ellipsoidische WGS84-coordinaten (phi, lambda) naar
-        X en Y in RD-stelsel. [NB,OL] = [Phi,Lambda]."""
-        Lambda = OL
-        Phi = NB
-        
+
+    def _WGS84toRDx(self,Lon,Lat):
+        """Convert WGS longitude,latitude to RD-system Xcrd """
+
+        Lambda = Lon
+        Phi = Lat
+
         coef = [#p,q,Rpg
                [0,1,190094.945],
                [1,1,-11832.228],
@@ -254,10 +379,12 @@ class CrdCon:
            X+=R*pow(dPhi,p)*pow(dLambda,q)
         return self.X0+X
 
-    def _WGS84toRDy(self,OL,NB):
-        """Conversie van NB (=Phi) en OL (=Lambda) in WGS84 naar Y in RD-stelsel """
-        Lambda = OL
-        Phi = NB
+
+    def _WGS84toRDy(self,Lon,Lat):
+        """Convert WGS longitude,latitude to RD-system Ycrd """
+
+        Lambda = Lon
+        Phi = Lat
         coef = [
                [1,0,309056.544],
                [0,2,3638.893],
@@ -280,9 +407,11 @@ class CrdCon:
             Y+=S*pow(dPhi,p)*pow(dLambda,q)
         return self.Y0+Y
 
+
     def _WGS84toRDforUMT31(self,E,N):
-        """Conversie van Easting en Northing in WGS84 stelsel naar X en Y in RD-stelsel"""
-        """De conversie wordt gebaseerd op de parameterwaarden voor Zone 31"""
+        """ Convert WGS84 Easting, Northing tot RD-system X,Y-self
+        using paramters for Zone UMT31 """
+
         C0 = self.X0
         D0 = self.Y0
         C1 = 99944.187
@@ -307,9 +436,10 @@ class CrdCon:
 
         return [X,Y]
 
+
     def _WGS84toRDforUMT32(self,E,N):
-        """Conversie van Easting en Northing in WGS84 stelsel naar X en Y in RD-stelsel"""
-        """De conversie wordt gebaseerd op de parameterwaarden voor Zone 32"""
+        """ Convert WGS84 Easting, Northing tot RD-system X,Y-self
+        using paramters for Zone UMT32 """
 
         C0 = 155000.00
         D0 = 463000.00
