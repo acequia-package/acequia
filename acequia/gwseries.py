@@ -185,7 +185,7 @@ class GwSeries:
                     surfref = round(props['mplevel']-props['surface'],2)
                     heads = heads.mask(mask,self._heads-surfref)
         else:
-            raise ValueError('%s is not a valid reference point name' %ref)
+            raise ValueError(f'{ref} is not a valid reference point name')
         return heads
 
     def to_csv(self,dirpath=None):

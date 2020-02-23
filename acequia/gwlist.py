@@ -34,9 +34,9 @@ class GwList():
 
         Variables
         ---------
-        sourcedir : str, optional
+        srcdir : str, optional
             directory with groundwater level sourcefiles
-        sourcetype : str
+        srctype : str
             type of sourcefiles in sourcedir ('dinocsv' or 'json')
         srclist : str, optional
             path to csv file with sourcefile names
@@ -68,7 +68,7 @@ class GwList():
 
         if srcdir is not None:
             if not os.path.isdir(srcdir):
-                raise ValueError(f'Directory {sourcedir} does not exist')
+                raise ValueError(f'Directory {srcdir} does not exist')
 
         if srctype in ['dinocsv','json']:
             self.flist = self.filelist(srcdir=srcdir,srctype=srctype,

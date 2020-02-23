@@ -41,9 +41,8 @@ class HydroMonitor:
 
 
     def __repr__(self):
-        ##return (f'{self.__class__.__name__} instance')
-        return (f'{self.name()} (n={len(self._data)})')
-        
+        return (f'{self.__class__.__name__} instance')
+      
 
     def __init__(self,header=None,metadata=None,data=None):
         """ Initialize HydroMonitor object """
@@ -111,6 +110,9 @@ class HydroMonitor:
             warnings.warn("Metadata not specified.")
 
         if 'data' in content_list:
+            if self.metadata is None:
+                raise(f'Heads from {filepath} can not be read ',
+                      f'because metadata are not available.')                
             self.data = self._read_data(self)
         else:
             self.data = None
@@ -218,7 +220,16 @@ class HydroMonitor:
         if '' in list(dfmeta.columns):
             dfmeta = dfmeta.drop([''], axis=1)
 
-        dfmeta['startdatetime'] = pd.to_datetime(dfmeta['startdatetime'],format='%d-%m-%Y %H:%M')
+        dfmeta['startdatetime'] = pd.to_datetime(dfmeta['startdatetime'],
+                                  format='%d-%m-%Y %H:%M',
+                                  errors='coerce')
+
+        numcols = ['xcoordinate','ycoordinate','surfacelevel',
+                   'welltoplevel','filtertoplevel','filterbottomlevel',
+                   'wellbottomlevel',]
+        for col in numcols:
+            dfmeta[col] = pd.to_numeric(dfmeta[col],errors='coerce')
+
         return dfmeta
 
     def _read_data(self):
@@ -247,9 +258,12 @@ class HydroMonitor:
         dfdata = dfdata[dfdata.nitgcode!='[String]'].copy()
 
         # parsing these dates is very time consuming
-        dfdata['datetime'] = pd.to_datetime(dfdata['datetime'],format='%d-%m-%Y %H:%M')
-        dfdata['loggerhead'] = pd.to_numeric(dfdata['loggerhead'], errors='coerce')
-        dfdata['manualhead'] = pd.to_numeric(dfdata['manualhead'], errors='coerce')
+        dfdata['datetime'] = pd.to_datetime(dfdata['datetime'],
+              dayfirst=True,format='%d-%m-%Y %H:%M',errors='coerce')
+        dfdata['loggerhead'] = pd.to_numeric(dfdata['loggerhead'], 
+                               errors='coerce')
+        dfdata['manualhead'] = pd.to_numeric(dfdata['manualhead'], 
+                               errors='coerce')
 
         return dfdata
 
@@ -259,9 +273,9 @@ class HydroMonitor:
 
         srlist = []
 
-        #srkeys = [x.lower() for x in self.header['object_identification']]
+        srkeys = [x.lower() for x in self.header['object_identification']]
         # bug in hydromonitor export? id is allways nitgcode, filterno
-        srkeys = ['nitgcode','filterno']
+        ##srkeys = ['nitgcode','filterno']
         if len(srkeys)>2:
             message.warn('More than two object identification keys given')
 
@@ -273,20 +287,21 @@ class HydroMonitor:
         no_dups = data.drop_duplicates(subset=dropcols, keep='first').copy()
         self.no_dups = no_dups.copy()
 
-        for (location,filter),sr in no_dups.groupby(srkeys):
+        for (location,filnr),sr in no_dups.groupby(srkeys):
             gws = acequia.gwseries.GwSeries()
             
             bool1 = self.metadata[srkeys[0]]==location
-            bool2 = self.metadata[srkeys[1]]==filter
+            bool2 = self.metadata[srkeys[1]]==filnr
             metadata = self.metadata[bool1&bool2]
             firstindex = metadata.index[0]
 
             # set tubeprops
             gws._tubeprops['startdate'] = metadata.startdatetime.values
-            gws._tubeprops['mp'] = metadata.welltoplevel.values
+            gws._tubeprops['mplevel'] = metadata.welltoplevel.values
             gws._tubeprops['filtop'] = metadata.filtertoplevel.values
             gws._tubeprops['filbot'] = metadata.filterbottomlevel.values
-            gws._tubeprops['surface'] = metadata.surfacelevel.values
+            gws._tubeprops['surflevel'] = metadata.surfacelevel.values
+            gws._tubeprops['surfdate'] = np.nan
 
             # set locprops
             gws._locprops['locname'] = metadata.at[firstindex,srkeys[0]]
@@ -296,15 +311,23 @@ class HydroMonitor:
             else:
                 alias_key = 'nitgcode'
             gws._locprops['alias'] = metadata.at[firstindex,alias_key]
-            gws._locprops['east'] = metadata.at[firstindex,'xcoordinate']
-            gws._locprops['north'] = metadata.at[firstindex,'ycoordinate']
+            gws._locprops['xcr'] = metadata.at[firstindex,'xcoordinate']
+            gws._locprops['ycr'] = metadata.at[firstindex,'ycoordinate']
             gws._locprops['height_datum'] = 'mnap'
             gws._locprops['grid_reference'] = 'rd'
 
             # set gwseries
             datetimes = sr.datetime.values
-            heads = np.where(np.isnan(sr.loggerhead.values),sr.manualhead.values,sr.loggerhead.values)
-            gws._heads = Series(data=heads,index=datetimes)
+            heads = np.where(np.isnan(sr.loggerhead.values),
+                      sr.manualhead.values,sr.loggerhead.values)
+            heads = Series(data=heads,index=datetimes)
+
+            # convert heads in mnap to mref
+            gws._heads = heads
+            for index,props in gws._tubeprops.iterrows():
+                mask = gws._heads.index >= props['startdate'] 
+                gws._heads = gws._heads.mask(
+                             mask,props['mplevel']-heads)
 
             srlist.append(gws)
 
