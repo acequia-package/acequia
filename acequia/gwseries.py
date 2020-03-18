@@ -157,7 +157,9 @@ class GwSeries:
 
     def name(self):
         """ Return groundwater series name """
-        return self._locprops['locname']+'_'+self._locprops['filname']
+        location = str(self._locprops['locname'])
+        filter = str(self._locprops['filname'])
+        return location+'_'+filter
 
     def heads(self,ref='datum'):
         """ 

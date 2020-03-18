@@ -82,20 +82,17 @@ class DinoGws:
         # create empty variables
         self._reset()
         
-        
-        ###if filepath != None: # and os.path.isfile(filepath):
-        ###    self.dfheader, self.dfdata = self._readfile(filepath=filepath,readdata=readdata)
-
         if filepath != None:
             self.flines = self._readfile(filepath)
             self.dfheader, self.dfdata = self._readlines()
-            if self.dfheader.empty:
-                self.dfheader = DataFrame(data=[[np.nan]*len(self.header_cols)],columns=self.header_cols)
-                self.dfheader = self.dfheader.astype({'nitgcode':str,'filter':str})
-                self.dfheader.at[0,'nitgcode'] = self.dfdata.at[0,'nitgcode']
-                self.dfheader.at[0,'filter'] = self.dfdata.at[0,'filter']
-                self.dfheader.at[0,'startdatum'] = self.dfdata.at[0,'peildatum']
-                #self._tubeprops.at[0,'startdate'] = heads.index[0]
+
+        if self.dfheader.empty and not self.dfdata.empty:
+            self.dfheader = DataFrame(data=[[np.nan]*len(self.header_cols)],columns=self.header_cols)
+            self.dfheader = self.dfheader.astype({'nitgcode':str,'filter':str})
+            self.dfheader.at[0,'nitgcode'] = self.dfdata.at[0,'nitgcode']
+            self.dfheader.at[0,'filter'] = self.dfdata.at[0,'filter']
+            self.dfheader.at[0,'startdatum'] = self.dfdata.at[0,'peildatum']
+            #self._tubeprops.at[0,'startdate'] = heads.index[0]
 
 
     def _reset(self):
@@ -138,19 +135,33 @@ class DinoGws:
     def _readlines(self):
         """ read list of file lines from dinofile to data """
 
-        # findlines in dinofile lines
-        self.headerstart, self.headerend, self.datastart = \
-            self._findlines()
+        # assert file is valid ascii
+        if len(self.flines)==0:
+            file_valid = False
+        elif self.flines[0][0]=='\x00':
+            # test for corrupted file with only 'x00' 
+            # Yes, I have really seen this
+            file_valid=False
+        else:
+            file_valid = True
 
+        if file_valid==False:
+            self.headerstart=0
+            self.headerend=0
+            self.datastart=0
+        else:
+            # findlines in dinofile lines
+            self.headerstart, self.headerend, self.datastart = \
+                self._findlines()
+        
         # read header
         if self.headerstart>0 and self.headerend>0: 
             self.dfheader = self._readheader()
-            ##self.seriesname = self.dfheader.loc[0,"nitgcode"]+"_"+self.dfheader.loc[0,"filter"]
         else:
             self.dfheader = DataFrame()
 
         # read data
-        if self.datastart>0: #and self.readall==True:
+        if self.datastart>0:
             self.dfdata = self._readgws()
         else:
             self.dfdata = DataFrame()
@@ -159,7 +170,7 @@ class DinoGws:
 
 
     def _findlines(self):
-        """ Find start of header and data; if file has data at all (private method) """
+        """ Find start of header and data; if file has data at all """
 
         # set variables to find at zero
         self.headerstart = 0
@@ -167,45 +178,44 @@ class DinoGws:
         self.datastart = 0
 
         # find variables
-        if len(self.flines)>0:
-            for il in range(len(self.flines)):
+        for il in range(len(self.flines)):
 
-                if self.flines[il].startswith(self.missingdata):
-                    # put zonder gegevens
-                    self.errors.append([self.filepath,"Bestand bevat geen data"])
+            if self.flines[il].startswith(self.missingdata):
+                # put zonder gegevens
+                self.errors.append([self.filepath,"Bestand bevat geen data"])
+                self.hasheader = False
+                self.hasdata = False
+                break
+
+            if self.flines[il].startswith(self.metatag): #("Locatie,Filternummer,Externe"):
+                if not self.flines[il+1].startswith("B"): # er zijn geen headerlines onder de headerkop
                     self.hasheader = False
+                    self.errors.append([self.filepath,"Bestand zonder header"])                               
+                else:
+                    while True:
+                        il+=1
+                        if self.flines[il].startswith("B"):
+                            if self.headerstart==0:
+                                self.hasheader = True                        
+                                self.headerstart = il
+                                #self.headerlength = 1
+                            #else:
+                            #    self.headerlength+=1
+                        else: #voorbij laatste regel header
+                            self.headerend = il
+                            break
+                            
+            if self.flines[il].startswith(self.datatag): #("Locatie,Filternummer,Peildatum"):
+                # bepaal eerste regelnummer met data
+                il+=1
+                if self.flines[il].startswith("B"):
+                    self.hasdata = True
+                    self.datastart = il
+                else:
                     self.hasdata = False
-                    break
-
-                if self.flines[il].startswith(self.metatag): #("Locatie,Filternummer,Externe"):
-                    if not self.flines[il+1].startswith("B"): # er zijn geen headerlines onder de headerkop
-                        self.hasheader = False
-                        self.errors.append([self.filepath,"Bestand zonder header"])                               
-                    else:
-                        while True:
-                            il+=1
-                            if self.flines[il].startswith("B"):
-                                if self.headerstart==0:
-                                    self.hasheader = True                        
-                                    self.headerstart = il
-                                    #self.headerlength = 1
-                                #else:
-                                #    self.headerlength+=1
-                            else: #voorbij laatste regel header
-                                self.headerend = il
-                                break
-                                
-                if self.flines[il].startswith(self.datatag): #("Locatie,Filternummer,Peildatum"):
-                    # bepaal eerste regelnummer met data
-                    il+=1
-                    if self.flines[il].startswith("B"):
-                        self.hasdata = True
-                        self.datastart = il
-                    else:
-                        self.hasdata = False
-                        self.errors.append([self.filepath,"Bestand zonder grondwaterstanden"])
-                    break
-            il+=1
+                    self.errors.append([self.filepath,"Bestand zonder grondwaterstanden"])
+                break
+        il+=1
         # end of def findlines
         return self.headerstart, self.headerend, self.datastart
 
