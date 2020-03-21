@@ -1,9 +1,7 @@
+""" This module contains the base object GwSeries for maintaining a 
+groundwater series
 
-"""
-
-Base object for maintaining a groundwater series
-
-T.J. de Meij juni 2019
+Author: T.J. de Meij
 
 """ 
 
@@ -21,27 +19,54 @@ import numpy as np
 
 #from .read.dinogws import DinoGws
 import acequia.read.dinogws
+from .stats.gwgxg import GxG
 
 class GwSeries:
-    """ Init signature: aq.GwSeries(heads=None,ppt=None,srname=None)
+    """ Class that holds and manages a groundwater heads time series
 
-        Groundwater series container for groundwater level measurements and piezometer metadata.
-        Stores and serves measurements in several units (mwelltop,mref,msurface)
+    Parameters
+    ----------
+    heads : pandas.Series
+        timeseries with groundwater heads
+    locprops : pandas.Series
+        series with location properties
+    tubprops : pandas.DataFrame
+        dataframe with tube properties in time
+
+    Example
+    -------
+    gw = GwSeries(heads=heads,locprops=locprops,
+                  tubeprops=tubeprops))
+
+    Note
+    ----
+    Head measurements are stored in meters relatieve to welltopStores
+    and served in several units: mwelltop,mref,msurface.
+
+    Valid row names for locprops and column names for tubeprops are
+    stored in class variables locprops_names and tubeprops_names:
+    >>> print(acequia.GwSeries.locprops_names)
+    >>> print(acequia.GwSeries.tubeprops_names)
+
+    Additional functionality in this class is provided by subclasses:
+    .plot : plotting series
+    .gxg  : calculating gxg (statistics used in the Netherlands)
+
     """
 
-    locprops_names = [
+    _locprops_names = [
         'locname','filname','alias','xcr','ycr','height_datum',
         'grid_reference'
         ]
-    tubeprops_names = [
+    _tubeprops_names = [
         'startdate','mplevel','filtop','filbot','surfdate',
         'surflevel'
         ]
-    tubeprops_numcols = [
+    _tubeprops_numcols = [
         'mplevel','surflevel','filtop','filbot'
         ]
 
-    mapping_dinolocprops = OrderedDict([
+    _mapping_dinolocprops = OrderedDict([
         ('locname','nitgcode'),
         ('filname','filter'),
         ('alias','tnocode'),
@@ -51,7 +76,7 @@ class GwSeries:
         ('grid_reference','RD'),
         ])
 
-    mapping_dinotubeprops = OrderedDict([
+    _mapping_dinotubeprops = OrderedDict([
         ('startdate','startdatum'),
         ('mplevel','mpcmnap'),
         ('filtop','filtopcmnap'),
@@ -60,31 +85,28 @@ class GwSeries:
         ('surflevel','mvcmnap'),
         ])
 
+
     def __repr__(self):
-        #return (f'{self.__class__.__name__}(n={len(self._heads)})')
         return (f'{self.name()} (n={len(self._heads)})')
 
 
     def __init__(self,heads=None,locprops=None,tubeprops=None):
-
         if locprops is None:
-            self._locprops = Series(index=self.locprops_names)
+            self._locprops = Series(index=self._locprops_names)
         elif isinstance(locprops,pd.Series):
             self._locprops = locprops
         else:
             raise TypeError(f'locprops is not a pandas Series but {type(locprops)}')
 
+
         if tubeprops is None:
-            self._tubeprops = DataFrame(columns=self.tubeprops_names)
+            self._tubeprops = DataFrame(columns=self._tubeprops_names)
         elif isinstance(tubeprops,pd.DataFrame):
-            ##if tubeprops.empty:
-            ##    self._tubeprops = DataFrame(data=[[np.nan]*len(self.tubeprops_cols)],columns=self.tubeprops_cols)
-            ##    self._tubeprops.at[0,'startdate'] = heads.index[0]
-            ##else:
             self._tubeprops = tubeprops
         else:
             #self._tubeprops = tubeprops
             raise TypeError(f'tubeprops is not a pandas DataFrame but {type(tubeprops)}')
+
 
         if heads is None: 
             self._heads = pd.Series()
@@ -94,8 +116,14 @@ class GwSeries:
             self._heads = heads.copy()
             self._heads.index.name = 'datetime'
             self._heads.name = self.name()
+            self._heads_original = self._heads.copy()
         else:
             raise TypeError(f'heads is not a pandas Series but {type(heads)}')
+
+
+        # load submodules
+        self.gxg = GxG(self)
+
 
     @classmethod
     def from_dinogws(cls,filepath):
@@ -118,35 +146,25 @@ class GwSeries:
         dinoprops = list(dn.header().columns)
 
         # get location metadata
-        locprops = Series(index=cls.locprops_names)
+        locprops = Series(index=cls._locprops_names)
 
-        for propname in cls.locprops_names:
-            dinoprop = cls.mapping_dinolocprops[propname]
+        for propname in cls._locprops_names:
+            dinoprop = cls._mapping_dinolocprops[propname]
             if dinoprop in dinoprops:
                 locprops[propname] = dn.header().at[0,dinoprop]
-                ##locprops['locname'] = dn.header().at[0,'nitgcode']
-                ##locprops['filname'] = dn.header().at[0,'filter']
-                ##locprops['xcr'] = dn.header().at[0,'xcoor']
-                ##locprops['ycr'] = dn.header().at[0,'ycoor']
-                ##locprops['alias'] = dn.header().at[0,'tnocode']
 
         locprops['grid_reference'] = 'RD'
         locprops['height_datum'] = 'mNAP'
         locprops = Series(locprops)
 
         # get piezometer metadata
-        ##tubeprops = dn.header()
-        ##coldict = mapping_dinotubeprops
-        ##tubeprops = tubeprops.rename(index=str, columns=coldict)
-        ##tubeprops = tubeprops[cls.tubeprops_cols]
-        tubeprops = DataFrame(columns=cls.tubeprops_names)
-        ##dinoprops = list(dn.header().columns)
-        for prop in cls.tubeprops_names:
-            dinoprop = cls.mapping_dinotubeprops[prop]
+        tubeprops = DataFrame(columns=cls._tubeprops_names)
+        for prop in cls._tubeprops_names:
+            dinoprop = cls._mapping_dinotubeprops[prop]
             if dinoprop in dinoprops:
                 tubeprops[prop] = dn.header()[dinoprop]
 
-        for col in cls.tubeprops_numcols:
+        for col in cls._tubeprops_numcols:
                 tubeprops[col] = pd.to_numeric(tubeprops[col],
                                  errors='coerce')/100.
 
@@ -293,3 +311,37 @@ class GwSeries:
                 print("Filepath {} does not exist".format(filepath))
 
         return json_dict
+
+    def series1428(self,nearest=0,ref='datum'):
+        """ Return timeseries of measurements on 14th and 28th 
+
+        Parameters
+        ----------
+        nearest : integer, optional
+            maximum number of days a measurement is allowed to deviate
+            from the 14th or 28th
+        ref : {'mp','datum','surface'}, default 'datum'
+
+        Returns
+        -------
+        sr : pandas time Series
+
+        """
+
+        if nearest==0:
+            is1428 = lambda x: ((x.day == 14) or (x.day ==28))
+            sr = self.heads(ref=ref)
+            srbool = Series(sr.index.map(is1428), index=sr.index)
+            return sr.loc[srbool]
+
+        
+        
+
+
+
+
+
+
+
+
+            

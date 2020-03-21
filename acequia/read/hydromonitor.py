@@ -1,7 +1,10 @@
+"""This module contains the HydroMonitor object for reading groundwater
+head measurements from a HydroMonitor csv export file
 
-# Author:      Thomas de Meij
-# Created:     02-03-2014. To Py3 15-08-2015; To Acequia 2-7-2019
-#----------------------------------------------------------------------
+author:  Thomas de Meij
+created: 02-03-2014
+updated: 19-03-2020
+"""
 
 from collections import OrderedDict
 import warnings
@@ -11,9 +14,12 @@ from pandas import Series, DataFrame
 import pandas as pd
 import numpy as np
 
-#from ..core.gwseries import GwSeries
-#from ..gwseries import GwSeries
-import acequia.gwseries
+##from acequia.gwseries import GwSeries
+##import acequia.gwseries as GwSeries
+
+#from acequia import GwSeries, DinoGws
+import acequia as aq
+
 
 
 class HydroMonitor:
@@ -30,14 +36,25 @@ class HydroMonitor:
 
     Example:
     -------
-    hm = HydroMonitor.from_csv(filepath=<path to csv source file>)
-    mylist = hm.to_gwseries()
+    hm = HydroMonitor.from_csv(filepath=<path>)
+    mylist = hm.to_list()
 
     """
 
     CSVSEP = ";"
     METATAG = 'StartDateTime;XCoordinate;YCoordinate;'
     DATATAG = 'DateTime;LoggerHead;ManualHead;'
+
+
+    mapping_tubeprops = OrderedDict([
+        ('startdate','startdatetime'),
+        ('mplevel','welltoplevel'),
+        ('filtop','filtertoplevel'),
+        ('filbot','filterbottomlevel'),
+        ('surfdate',''),
+        ('surflevel','surfacelevel'),
+        ])
+
 
 
     def __repr__(self):
@@ -84,7 +101,7 @@ class HydroMonitor:
         parameters
         ----------
         filepath : str
-                   path to hydromonitor csv export file
+            path to hydromonitor csv export file
 
         returns
         -------
@@ -274,32 +291,63 @@ class HydroMonitor:
         self.no_dups = no_dups.copy()
 
         for (location,filter),sr in no_dups.groupby(srkeys):
-            gws = acequia.gwseries.GwSeries()
+            
             
             bool1 = self.metadata[srkeys[0]]==location
             bool2 = self.metadata[srkeys[1]]==filter
             metadata = self.metadata[bool1&bool2]
             firstindex = metadata.index[0]
 
+            #gws = acequia.gwseries.GwSeries()
+            gws = aq.GwSeries()
+
+            for prop in list(gws._tubeprops):
+                metakey = self.mapping_tubeprops[prop]
+                if len(metakey)>0:
+                    gws._tubeprops[prop] = metadata[metakey].values
+
+                if prop not in self.mapping_tubeprops.keys():
+                    warnings.warn(f"Unknown property {prop} in {type(gws)}")
+
+            """
             # set tubeprops
             gws._tubeprops['startdate'] = metadata.startdatetime.values
-            gws._tubeprops['mp'] = metadata.welltoplevel.values
+            gws._tubeprops['mplevel'] = metadata.welltoplevel.values
             gws._tubeprops['filtop'] = metadata.filtertoplevel.values
             gws._tubeprops['filbot'] = metadata.filterbottomlevel.values
-            gws._tubeprops['surface'] = metadata.surfacelevel.values
+            gws._tubeprops['surflevel'] = metadata.surfacelevel.values
+            """
 
             # set locprops
-            gws._locprops['locname'] = metadata.at[firstindex,srkeys[0]]
-            gws._locprops['filname'] = metadata.at[firstindex,srkeys[1]]
-            if 'nitgcode' in srkeys:
-                alias_key = 'name'
-            else:
-                alias_key = 'nitgcode'
-            gws._locprops['alias'] = metadata.at[firstindex,alias_key]
-            gws._locprops['east'] = metadata.at[firstindex,'xcoordinate']
-            gws._locprops['north'] = metadata.at[firstindex,'ycoordinate']
-            gws._locprops['height_datum'] = 'mnap'
-            gws._locprops['grid_reference'] = 'rd'
+            for prop in list(gws._locprops.index):
+
+                if prop=='locname':
+                    gws._locprops[prop] = metadata.at[firstindex,srkeys[0]]
+                
+                if prop=='filname':
+                    gws._locprops[prop] = metadata.at[firstindex,srkeys[1]]
+
+                if prop=='alias':
+                    if 'nitgcode' in srkeys: alias_key = 'name'
+                    else: alias_key = 'nitgcode'
+                    gws._locprops[prop] = metadata.at[firstindex,alias_key]
+
+                if prop=='xcr':
+                    gws._locprops[prop] = metadata.at[firstindex,'xcoordinate']
+
+                if prop=='ycr':
+                    gws._locprops[prop] = metadata.at[firstindex,'ycoordinate']
+
+                if prop=='height_datum':
+                    gws._locprops[prop] = 'mnap'
+
+                if prop=='grid_reference':
+                    gws._locprops[prop] = 'rd'
+
+                if prop not in ['locname','filname','alias','xcr','ycr',
+                                'height_datum','grid_reference']:
+
+                    warnings.warn(f"Unknown property {prop} in {type(gws)}")
 
             # set gwseries
             datetimes = sr.datetime.values
