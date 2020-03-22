@@ -35,23 +35,28 @@ class GwSeries:
 
     Example
     -------
+    gw = GwSeries.from_dinogws(<filepath to dinocsv file>)
+
     gw = GwSeries(heads=heads,locprops=locprops,
                   tubeprops=tubeprops))
 
     Note
     ----
     Head measurements are stored in meters relatieve to welltopStores
-    and served in several units: mwelltop,mref,msurface.
+    and served in several units: mwelltop,mref,msurfacelevel.
 
     Valid row names for locprops and column names for tubeprops are
     stored in class variables locprops_names and tubeprops_names:
     >>> print(acequia.GwSeries.locprops_names)
     >>> print(acequia.GwSeries.tubeprops_names)
 
+    """
+    
+    """
+    TODO:
     Additional functionality in this class is provided by subclasses:
     .plot : plotting series
     .gxg  : calculating gxg (statistics used in the Netherlands)
-
     """
 
     _locprops_names = [
@@ -59,11 +64,11 @@ class GwSeries:
         'grid_reference'
         ]
     _tubeprops_names = [
-        'startdate','mplevel','filtop','filbot','surfdate',
-        'surflevel'
+        'startdate','mplevel','filtop','filbot','surfacedate',
+        'surfacelevel'
         ]
     _tubeprops_numcols = [
-        'mplevel','surflevel','filtop','filbot'
+        'mplevel','surfacelevel','filtop','filbot'
         ]
 
     _mapping_dinolocprops = OrderedDict([
@@ -81,8 +86,8 @@ class GwSeries:
         ('mplevel','mpcmnap'),
         ('filtop','filtopcmnap'),
         ('filbot','filbotcmnap'),
-        ('surfdate','mvdatum'),
-        ('surflevel','mvcmnap'),
+        ('surfacedate','mvdatum'),
+        ('surfacelevel','mvcmnap'),
         ])
 
 
@@ -128,17 +133,23 @@ class GwSeries:
     @classmethod
     def from_dinogws(cls,filepath):
         """ 
-        read tno dinoloket csvfile with groundwater measurements and return data as gwseries object
+        Read tno dinoloket csvfile with groundwater measurements and return data as gwseries object
 
-        parameters
+        Parameters
         ----------
         filepath : str
+            path to dinocsv file with measured groundwater heads
 
-
-        returns
+        Returns
         -------
-        result : GwSeries
+        result : GwSeries object
 
+        Example
+        -------
+        gw = GwSeries.from_dinogws(<filepath>)
+        jsondict = gw.to_json(<filepath>)
+        gw.from_json(<filepath>)
+        
         """
 
         # read dinofile to DinoGws object
@@ -193,19 +204,22 @@ class GwSeries:
 
         """
 
+        if ref not in ['mp','datum','surface']:
+            raise ValueError('%s is not a valid reference point name' %ref)
+
         if ref=='mp':
             heads = self._heads
-        elif ref in ['datum','surface']:
+       
+        if ref in ['datum','surface']:
             heads = self._heads
             for index,props in self._tubeprops.iterrows():
                 mask = heads.index>=props['startdate']
                 if ref=='datum':
                     heads = heads.mask(mask,props['mplevel']-self._heads)
-                elif ref=='surface':
-                    surfref = round(props['mplevel']-props['surface'],2)
+                if ref=='surface':
+                    surfref = round(props['mplevel']-props['surfacelevel'],2)
                     heads = heads.mask(mask,self._heads-surfref)
-        else:
-            raise ValueError('%s is not a valid reference point name' %ref)
+
         return heads
 
     def to_csv(self,dirpath=None):
