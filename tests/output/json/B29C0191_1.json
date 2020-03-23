@@ -14,56 +14,56 @@
       "mplevel": 61.11,
       "filtop": 59.81,
       "filbot": 59.31,
-      "surfdate": "1979-06-14T00:00:00.000Z",
-      "surflevel": 61.16
+      "surfacedate": "1979-06-14T00:00:00.000Z",
+      "surfacelevel": 61.16
     },
     "1": {
       "startdate": "1982-09-14T00:00:00.000Z",
       "mplevel": 61.13,
       "filtop": 59.83,
       "filbot": 59.33,
-      "surfdate": "1979-06-14T00:00:00.000Z",
-      "surflevel": 61.16
+      "surfacedate": "1979-06-14T00:00:00.000Z",
+      "surfacelevel": 61.16
     },
     "2": {
       "startdate": "1985-08-15T00:00:00.000Z",
       "mplevel": 61.51,
       "filtop": 59.83,
       "filbot": 59.33,
-      "surfdate": "1985-08-15T00:00:00.000Z",
-      "surflevel": 61.28
+      "surfacedate": "1985-08-15T00:00:00.000Z",
+      "surfacelevel": 61.28
     },
     "3": {
       "startdate": "1986-03-13T00:00:00.000Z",
       "mplevel": 61.5,
       "filtop": 59.82,
       "filbot": 59.32,
-      "surfdate": "1986-03-13T00:00:00.000Z",
-      "surflevel": 61.3
+      "surfacedate": "1986-03-13T00:00:00.000Z",
+      "surfacelevel": 61.3
     },
     "4": {
       "startdate": "2000-11-17T00:00:00.000Z",
       "mplevel": 61.17,
       "filtop": 59.82,
       "filbot": 59.32,
-      "surfdate": "2000-11-17T00:00:00.000Z",
-      "surflevel": 61.22
+      "surfacedate": "2000-11-17T00:00:00.000Z",
+      "surfacelevel": 61.22
     },
     "5": {
       "startdate": "2004-11-26T00:00:00.000Z",
       "mplevel": 61.14,
       "filtop": 59.82,
       "filbot": 59.32,
-      "surfdate": "2000-11-17T00:00:00.000Z",
-      "surflevel": 61.22
+      "surfacedate": "2000-11-17T00:00:00.000Z",
+      "surfacelevel": 61.22
     },
     "6": {
       "startdate": "2011-09-12T00:00:00.000Z",
       "mplevel": 61.14,
       "filtop": 59.82,
       "filbot": 59.32,
-      "surfdate": "2011-09-12T00:00:00.000Z",
-      "surflevel": 61.21
+      "surfacedate": "2011-09-12T00:00:00.000Z",
+      "surfacelevel": 61.21
     }
   },
   "heads": {

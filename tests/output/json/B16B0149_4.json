@@ -14,8 +14,8 @@
       "mplevel": 2.33,
       "filtop": -29.1,
       "filbot": -30.1,
-      "surfdate": "1986-02-01T00:00:00.000Z",
-      "surflevel": 2.5
+      "surfacedate": "1986-02-01T00:00:00.000Z",
+      "surfacelevel": 2.5
     }
   },
   "heads": {

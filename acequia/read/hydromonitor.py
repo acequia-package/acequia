@@ -51,8 +51,8 @@ class HydroMonitor:
         ('mplevel','welltoplevel'),
         ('filtop','filtertoplevel'),
         ('filbot','filterbottomlevel'),
-        ('surfdate',''),
-        ('surflevel','surfacelevel'),
+        ('surfacedate',''),
+        ('surfacelevel','surfacelevel'),
         ])
 
 
@@ -304,7 +304,7 @@ class HydroMonitor:
         no_dups = data.drop_duplicates(subset=dropcols, keep='first').copy()
         self.no_dups = no_dups.copy()
 
-        for (location,filter),sr in no_dups.groupby(srkeys):
+        for (location,filnr),sr in no_dups.groupby(srkeys):
            
             bool1 = self.metadata[srkeys[0]]==location
             bool2 = self.metadata[srkeys[1]]==filnr

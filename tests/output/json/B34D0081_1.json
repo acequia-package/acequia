@@ -14,8 +14,8 @@
       "mplevel": 18.66,
       "filtop": 12.81,
       "filbot": 11.81,
-      "surfdate": "1953-04-01T00:00:00.000Z",
-      "surflevel": 18.35
+      "surfacedate": "1953-04-01T00:00:00.000Z",
+      "surfacelevel": 18.35
     }
   },
   "heads": {

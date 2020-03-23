@@ -14,32 +14,32 @@
       "mplevel": -0.76,
       "filtop": -7.19,
       "filbot": -8.19,
-      "surfdate": "1981-11-01T00:00:00.000Z",
-      "surflevel": -0.69
+      "surfacedate": "1981-11-01T00:00:00.000Z",
+      "surfacelevel": -0.69
     },
     "1": {
       "startdate": "1983-03-14T00:00:00.000Z",
       "mplevel": -0.65,
       "filtop": -7.19,
       "filbot": -8.19,
-      "surfdate": "1983-03-14T00:00:00.000Z",
-      "surflevel": -0.55
+      "surfacedate": "1983-03-14T00:00:00.000Z",
+      "surfacelevel": -0.55
     },
     "2": {
       "startdate": "1989-09-20T00:00:00.000Z",
       "mplevel": -0.75,
       "filtop": -7.19,
       "filbot": -8.19,
-      "surfdate": "1983-03-14T00:00:00.000Z",
-      "surflevel": -0.55
+      "surfacedate": "1983-03-14T00:00:00.000Z",
+      "surfacelevel": -0.55
     },
     "3": {
       "startdate": "1994-02-09T00:00:00.000Z",
       "mplevel": -0.66,
       "filtop": -7.19,
       "filbot": -8.19,
-      "surfdate": "1983-03-14T00:00:00.000Z",
-      "surflevel": -0.55
+      "surfacedate": "1983-03-14T00:00:00.000Z",
+      "surfacelevel": -0.55
     }
   },
   "heads": {

@@ -14,24 +14,24 @@
       "mplevel": 60.81,
       "filtop": 59.31,
       "filbot": 58.81,
-      "surfdate": "1961-02-14T00:00:00.000Z",
-      "surflevel": 60.85
+      "surfacedate": "1961-02-14T00:00:00.000Z",
+      "surfacelevel": 60.85
     },
     "1": {
       "startdate": "1963-09-03T00:00:00.000Z",
       "mplevel": 60.85,
       "filtop": 59.35,
       "filbot": 58.85,
-      "surfdate": "1961-02-14T00:00:00.000Z",
-      "surflevel": 60.85
+      "surfacedate": "1961-02-14T00:00:00.000Z",
+      "surfacelevel": 60.85
     },
     "2": {
       "startdate": "1965-04-21T00:00:00.000Z",
       "mplevel": 60.85,
       "filtop": 58.85,
       "filbot": 58.35,
-      "surfdate": "1965-04-21T00:00:00.000Z",
-      "surflevel": 60.89
+      "surfacedate": "1965-04-21T00:00:00.000Z",
+      "surfacelevel": 60.89
     }
   },
   "heads": {

@@ -14,16 +14,16 @@
       "mplevel": 224.1,
       "filtop": null,
       "filbot": 178.78,
-      "surfdate": "1934-06-01T00:00:00.000Z",
-      "surflevel": 222.9
+      "surfacedate": "1934-06-01T00:00:00.000Z",
+      "surfacelevel": 222.9
     },
     "1": {
       "startdate": "1955-06-14T00:00:00.000Z",
       "mplevel": 222.93,
       "filtop": null,
       "filbot": 178.78,
-      "surfdate": "1934-06-01T00:00:00.000Z",
-      "surflevel": 222.9
+      "surfacedate": "1934-06-01T00:00:00.000Z",
+      "surfacelevel": 222.9
     }
   },
   "heads": {

@@ -14,16 +14,16 @@
       "mplevel": 4.33,
       "filtop": 3.33,
       "filbot": 2.83,
-      "surfdate": "1997-06-13T00:00:00.000Z",
-      "surflevel": 3.73
+      "surfacedate": "1997-06-13T00:00:00.000Z",
+      "surfacelevel": 3.73
     },
     "1": {
       "startdate": "2014-02-19T00:00:00.000Z",
       "mplevel": 4.51,
       "filtop": 3.95,
       "filbot": 2.95,
-      "surfdate": "2014-02-19T00:00:00.000Z",
-      "surflevel": 3.82
+      "surfacedate": "2014-02-19T00:00:00.000Z",
+      "surfacelevel": 3.82
     }
   },
   "heads": {
