@@ -7,9 +7,12 @@ import numpy as np
 class CrdCon:
     """Convert coordinates from Dutch RD Grid to WGS84 and back
 
-    Two main methods:
+    Methods
+    -------
         RDtoWGS84(X,Y,Zone=False)
+            convert x,y in RD to Lon,Lat in WGS84
         WGS84toRD(Lon,Lat)
+            convert Lon,Lat in WGS84 to x,y in RD
 
     Examples
     --------

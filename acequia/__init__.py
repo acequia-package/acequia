@@ -9,11 +9,11 @@ from .geo.coordinate_conversion import CrdCon
 from .plots.plotgws import PlotGws
 from .read.dinogws import DinoGws, read_dinogws
 from .read.hydromonitor import HydroMonitor
-from .read.knmi_locations import KnmiLocations
+from .read.knmi_stations import KnmiStations
 from .stats.gwstats import GwStats
 from .stats.gwgxg import GxG
 
 __all__ = ['GwSeries','GwList','PlotGws','DinoGws','HydroMonitor',
-           'GwStats','GxG','CrdCon','KnmiLocations']
+           'GwStats','GxG','CrdCon','KnmiStations']
 
 logger = logging.getLogger(__name__)
