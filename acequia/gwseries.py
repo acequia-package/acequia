@@ -1,7 +1,11 @@
 """ This module contains the base object GwSeries for maintaining a 
 groundwater series
 
-Author: T.J. de Meij
+Examples
+--------
+gw = GwSeries.from_dinogws(<filepath to dinocsv file>)
+gw = GwSeries.from_json(<filepath to acequia json file>)
+
 
 """ 
 
@@ -36,9 +40,7 @@ class GwSeries:
     Example
     -------
     gw = GwSeries.from_dinogws(<filepath to dinocsv file>)
-
-    gw = GwSeries(heads=heads,locprops=locprops,
-                  tubeprops=tubeprops))
+    gw = GwSeries.from_json(<filepath to acequia json file>)
 
     Note
     ----
@@ -50,13 +52,6 @@ class GwSeries:
     >>> print(acequia.GwSeries.locprops_names)
     >>> print(acequia.GwSeries.tubeprops_names)
 
-    """
-    
-    """
-    TODO:
-    Additional functionality in this class is provided by subclasses:
-    .plot : plotting series
-    .gxg  : calculating gxg (statistics used in the Netherlands)
     """
 
     _locprops_names = [
@@ -89,6 +84,14 @@ class GwSeries:
         ('surfacedate','mvdatum'),
         ('surfacelevel','mvcmnap'),
         ])
+
+
+    """
+    TODO:
+    Additional functionality in this class is provided by subclasses:
+    .plot : plotting series
+    .gxg  : calculating gxg (statistics used in the Netherlands)
+    """
 
 
     def __repr__(self):

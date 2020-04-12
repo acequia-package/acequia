@@ -6,7 +6,7 @@ import logging
 from .gwseries import GwSeries
 from .gwlist import GwList
 from .geo.coordinate_conversion import CrdCon
-from .plots.plotgws import PlotGws
+from .plots.plotgws import PlotHeads
 from .read.dinogws import DinoGws, read_dinogws
 from .read.hydromonitor import HydroMonitor
 from .read.knmi_stations import KnmiStations
