@@ -106,6 +106,14 @@ class GwList():
         return self.gw
 
 
+    def __len__(self):
+        """ return number of GwSeries objects """
+        if self.srctype in ['dinocsv','json']:
+            return len(self.flist)
+        elif self.srctype in ['hymon']:
+            return len(self.gwlist)
+
+
     def _list_dinocsv(self,srcdir):
         """ return list of dino sourcefiles in directory dir"""
 
@@ -192,9 +200,23 @@ class GwList():
         return flist
 
 
-    def __len__(self):
-        """ return number of GwSeries objects """
-        if self.srctype in ['dinocsv','json']:
-            return len(self.flist)
-        elif self.srctype in ['hymon']:
-            return len(self.gwlist)
+    def locprops(self):
+        """ Return dataframe of locprops for locations """
+
+        for i,gw in enumerate(self):
+
+            if i==0:
+                srlist = [gw.locprops()]
+            else:
+                srlist.append(gw.locprops())
+
+        series = pd.concat(srlist,axis=0)
+        series.index.name = 'series'
+        series.to_csv('pmg_series.csv')
+
+        locs = series.groupby(by='locname').last()
+        locs['nfil']=series.groupby(by='locname').size().values
+        colnames = ['alias','nfil','xcr','ycr']
+        locs = locs[colnames].copy()
+
+        return locs

@@ -193,6 +193,12 @@ class GwSeries:
         filter = str(self._locprops['filname'])
         return location+'_'+filter
 
+    def locprops(self):
+        """ return location properties as pd.DataFrame"""        
+        sr = self._locprops
+        sr.name = self.name()
+        return DataFrame(sr).T
+
     def heads(self,ref='datum'):
         """ 
         Return groundwater head measurements

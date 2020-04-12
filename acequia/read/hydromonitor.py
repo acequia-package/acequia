@@ -1,9 +1,6 @@
 """This module contains the HydroMonitor object for reading groundwater
 head measurements from a HydroMonitor csv export file
 
-author:  Thomas de Meij
-created: 02-03-2014
-updated: 19-03-2020
 """
 
 from collections import OrderedDict
@@ -14,12 +11,7 @@ from pandas import Series, DataFrame
 import pandas as pd
 import numpy as np
 
-##from acequia.gwseries import GwSeries
-##import acequia.gwseries as GwSeries
-
-#from acequia import GwSeries, DinoGws
 import acequia as aq
-
 
 
 class HydroMonitor:
@@ -360,6 +352,12 @@ class HydroMonitor:
             heads = np.where(np.isnan(sr.loggerhead.values),
                       sr.manualhead.values,sr.loggerhead.values)
             heads = Series(data=heads,index=datetimes)
+
+            NaTdate = pd.isna(heads.index)
+            nNaT = len(heads[NaTdate])
+            if nNaT!=0:
+                warnings.warn(f"Removed {nNaT} rows with invalid date from {gws.name()}")
+                heads = heads[~NaTdate].copy()
 
             # convert heads in mnap to mref
             gws._heads = heads
