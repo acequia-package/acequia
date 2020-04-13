@@ -2,7 +2,9 @@
 all available KNMI stations on the KNMI website and creates tables with
 KNMI stations numbers and names
 
-@author: Thomas de Meij
+Example
+-------
+>>> aq.knmilocations()
 
 """
 
@@ -14,10 +16,53 @@ import warnings
 import numpy as np
 import pandas as pd
 from pandas import Series, DataFrame
+import pandas as pd
 
 #import logging
-#import acequia as aq
+import acequia as aq
 from acequia import CrdCon
+
+
+def knmilocations(stntype='prc'):
+    """ Return table of KNMI stations as pd.DataFrame 
+    
+    Parameters
+    ----------
+    stntype : 'prc','wtr','all'
+        type of knmi station
+
+    Returns
+    -------
+    pd.DataFrame
+
+    """
+
+    knmi = aq.KnmiStations()
+
+    if stntype not in ['prc','wtr','all']:
+        msg = f'Variable stntype must be "prc","wtr" or "all" '
+        raise ValueError(smg)
+    
+    if stntype=='prc':
+        tbl = knmi.prc_stns()
+
+    if stntype=='wtr':
+        tbl = knmi.wtr_stns()
+
+    if stntype=='all':
+        tbl1 = knmi.prc_stns()
+        tbl2 = knmi.wtr_stns()
+        tbl = pd.concat([tbl1,tbl2])
+
+    xnull = pd.isnull(tbl.xcr)
+    ynull = pd.isnull(tbl.ycr)
+    crnan = list(tbl[(xnull|ynull)].stn_name.values)
+    if len(crnan)!=0:
+        msg = [f'{len(crnan)} stations with missing coordinates removed ',
+               f'from tabel: {crnan}']
+        warnings.warn(''.join(msg))
+
+    return tbl[(~xnull & ~ynull)]
 
 
 class KnmiStations:
@@ -26,10 +71,10 @@ class KnmiStations:
 
     Methods
     -------
-    prec_stns(filepath=None)
+    prc_stns(filepath=None)
         return list of manual rain gauche locations
 
-    weather_stns(file-ath=None)
+    wtr_stns(filepath=None)
         return list of weather station locations
 
     Note
@@ -43,6 +88,7 @@ class KnmiStations:
     PRC_CRD_FILE = 'precipitation_crd.csv'
     STN_COLS = ['stn_name','stn_type','xcr','ycr','lon','lat','alt']
     STN_INDEX = 'stn_nr'
+
 
     def __init__(self):
 
@@ -58,6 +104,7 @@ class KnmiStations:
                    f'Coordinates in list of precipitation stations ',
                    f'will all be NaN.']
             warnings.warn(''.join(msg))
+
 
     def prc_stns(self,filepath=None):
         """ Return table of all available precipitation stations on KNMI site
@@ -135,7 +182,6 @@ class KnmiStations:
                 prcstn.at[stn,'lon'] = round(crdict['Lon'],3)
                 prcstn.at[stn,'lat'] = round(crdict['Lat'],3)
 
-        #dfnan = prcstn[np.isnan(prcstn.xcrd) | np.isnan(prcstn.ycrd)]
         nmiss_xcr = prcstn['xcr'].isnull().sum()
         nmiss_ycr = prcstn['ycr'].isnull().sum()
         nmiss = max([nmiss_xcr,nmiss_ycr])
@@ -215,35 +261,35 @@ class KnmiStations:
                     'stn_name':stn_name,
                     }
 
-        whtstn = pd.DataFrame.from_dict(wht_dict, orient='index')
-        whtstn.index.name = self.STN_INDEX
-        whtstn['stn_type'] = 'wht'
+        wtrstn = pd.DataFrame.from_dict(wht_dict, orient='index')
+        wtrstn.index.name = self.STN_INDEX
+        wtrstn['stn_type'] = 'wtr'
 
-        nancols = [x for x in self.STN_COLS if x not in list(whtstn)]
+        nancols = [x for x in self.STN_COLS if x not in list(wtrstn)]
         for col in nancols:
-            whtstn[col]=np.nan
+            wtrstn[col]=np.nan
 
-        newcols = [x for x in list(whtstn) if x not in self.STN_COLS]
+        newcols = [x for x in list(wtrstn) if x not in self.STN_COLS]
         cols = self.STN_COLS+newcols
-        whtstn = whtstn[cols]
+        wtrstn = wtrstn[cols]
 
         crdcon = CrdCon()
-        for stn,sr in whtstn.iterrows():
+        for stn,sr in wtrstn.iterrows():
             crddict = crdcon.WGS84toRD(sr['lon'],sr['lat'])
-            whtstn.at[stn,'xcr'] = round(crddict['xRD'],0)
-            whtstn.at[stn,'ycr'] = round(crddict['yRD'],0)
+            wtrstn.at[stn,'xcr'] = round(crddict['xRD'],0)
+            wtrstn.at[stn,'ycr'] = round(crddict['yRD'],0)
 
-        missing_cr = whtstn['xcr'].isnull().sum()
-        if missing_cr!=0:
-            msg = [f'List of precipitation stations has {missing_cr} ',
-                   f'missing coordinates in total of {len(whtstn)} ',
+        nmiss_xcr = wtrstn['xcr'].isnull().sum()
+        nmiss_ycr = wtrstn['ycr'].isnull().sum()
+        nmiss = max([nmiss_xcr,nmiss_ycr])
+        if nmiss!=0:
+            msg = [f'List of precipitation stations has {nmiss} ',
+                   f'missing coordinates in total of {len(wtrstn)} ',
                    f'stations.',]
             warnings.warn(''.join(msg))
 
         if filepath:
-            whtstn.to_csv(filepath,index=True)
+            wtrstn.to_csv(filepath,index=True)
 
-        return whtstn
-
-
+        return wtrstn
 

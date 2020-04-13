@@ -63,18 +63,19 @@ class GwList():
             raise ValueError(f'Given sourcetype \'{sourcetype}\' '+
                              f'is invalid. Valid values are '+
                              f'\'dinocsv\' or \'json\'.')
-        else:
-            self.srctype = srctype
+        
 
         if srcdir is not None:
             if not os.path.isdir(srcdir):
                 raise ValueError(f'Directory {srcdir} does not exist')
 
-        if srctype in ['dinocsv','json']:
+        self.srctype = srctype
+
+        if self.srctype in ['dinocsv','json']:
             self.flist = self.filelist(srcdir=srcdir,srctype=srctype,
                          srclist=srclist)
 
-        if srctype in ['hymon']:
+        if self.srctype in ['hymon']:
             hm = aq.HydroMonitor.from_csv(filepath=srcfile)
             self.gwlist = hm.to_list()
 
@@ -150,6 +151,26 @@ class GwList():
 
         return jsf
 
+    def gwseries(self,srname):
+        """ Return GwSeries from list by seriesnama """
+
+        if self.srctype in ['dinocsv','json']:
+            row = self.flist[self.flist['series']==srname]
+            indexval = row.index.values[0]
+            filepath = self.flist.loc[indexval,'path']
+
+        if self.srctype=='json':
+            gw = aq.GwSeries.from_json(filepath)
+
+        if self.srctype=='dinocsv':
+            gw = aq.GwSeries.from_dinogws(filepath)
+
+        if self.srctype=='hymon':
+            for gw in self.gwlist:
+                if gw.name==srname:
+                    break
+
+        return gw
 
     def filelist(self,srcdir=None,srctype='dinocsv',srclist=None):
         """ return pandas dataframe with sourcefile names 

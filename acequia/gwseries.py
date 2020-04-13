@@ -37,10 +37,11 @@ class GwSeries:
     tubprops : pandas.DataFrame
         dataframe with tube properties in time
 
-    Example
-    -------
-    gw = GwSeries.from_dinogws(<filepath to dinocsv file>)
-    gw = GwSeries.from_json(<filepath to acequia json file>)
+    Examples
+    --------
+    To create a GwSeries object from file:
+    >>>gw = GwSeries.from_dinogws(<filepath to dinocsv file>)
+    >>>gw = GwSeries.from_json(<filepath to acequia json file>)
 
     Note
     ----
