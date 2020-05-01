@@ -24,7 +24,7 @@ setup(
         'Intended Audience :: Science/Research',
         'Intended Audience :: Other Audience',
         'License :: OSI Approved :: MIT License',
-        'Topic :: Scientific/Engineering :: Hydrology',
+        'Topic :: Scientific/Engineering :: Hydrology :: Groundwater',
     ],
     platforms='Windows, Mac OS-X',
     install_requires=['numpy>=1.15', 'matplotlib>=2.0', 'pandas>=0.23',

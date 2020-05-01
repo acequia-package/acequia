@@ -11,10 +11,7 @@ import matplotlib.pyplot as plt
 from matplotlib.dates import YearLocator, MonthLocator, DateFormatter
 from math import ceil as ceil, floor as floor
 import numpy as np
-#import clsDINOGWS
 from imp import reload
-#reload(clsDINOGWS)
-#from clsDINOGWS import dinogws
 import os
 import os.path
 import datetime as dt
@@ -40,8 +37,8 @@ class PlotHeads:
         'easterpastel':
             ['#d666c6','#6e64db','#7ad89d','#67a3db','#dfe755'],
         }
-    clr = clrs['rainbow']*10 # avoid out of bounds
 
+    clr = clrs['rainbow']*10 # avoid out of bounds
 
     font1 = {
         'family' : 'serif',
@@ -51,7 +48,7 @@ class PlotHeads:
         }
 
 
-    def __init__(self,ts=[],reference="datum",lbs=None,mps=None,
+    def __init__(self,ts=[],reflev="datum",lbs=None,mps=None,
                  title=None,xlabel=None,ylabel=None,xlim=None,
                  ylim=None,plotargs=None):
         """ Plot list of groundwater head series in one graph
@@ -68,8 +65,8 @@ class PlotHeads:
         lbs : list of strings, optional
             labels for heads series
 
-        mps : pd.DataFrame
-            
+        mps : pd.Series
+            Timeseries with change of measurement reference point level
 
         title : string, optional
             title for graph
@@ -89,8 +86,8 @@ class PlotHeads:
         plotargs : list of dicts, optional
             dict of pyplot plotting parameters for each series
         
-        Example
-        -------
+        Examples
+        --------
         gws  = aq.GwSeries.from_json(<json sourcefile>)
         sr   = gw.heads(ref='datum')
         plot = aq.PlotHeads(ts=[sr],ylim=[19.5,21.5])
@@ -103,13 +100,18 @@ class PlotHeads:
             msg = {f'Wrong input of timeseries. Expected a list of',
                    f'Pandas Series with DateTime indexes.'}
             raise TypeError(' '.join(msg))
+
         if not all(isinstance(sr.index, pd.DatetimeIndex) for sr in self.ts):
             msg = f'Index of series must be type DateTimeIndex'
             raise TypeError(msg)
+
+        if (not isinstance(mps, pd.Series)) and (mps is not None):
+            msg = f'Time series {mps} with referennce changes must be pd.Series'
+            raise TypeError(msg)
+
         self._validate_series()
 
-
-        self.reference = reference
+        self.reflev = reflev
         self.xlim = xlim
         self.ylim = ylim
         self.mps = mps
@@ -127,20 +129,7 @@ class PlotHeads:
         else:
             self.plotargs = plotargs
 
-        print(self.ylim)
-        self._create_axes()
-        print(self.ylim)
-        self._plotlines()
-        self._set_xaxlim()
-        print(self.ylim)
-        self._set_yaxlim()
-        print(self.ylim)
-        self._set_ticklabels()
-        self._set_axlabels()
-        self._set_legend()
-        if self.mps is not None:
-            self._reference_graph()
-        self._plot_annotations()
+        self._plotheads()
 
 
     def __repr__(self):
@@ -148,74 +137,83 @@ class PlotHeads:
 
     
     def fig(self):
+        """Return figure """
         return self.fig
 
     def mindate(self):
+        """Return very first date in list of heads series"""
         return np.array([(sr.index.date).min() for sr in self.ts]).min()
 
 
     def maxdate(self):
+        """Return very last date in list of heads series"""
         return np.array([(sr.index.date).max() for sr in self.ts]).max()
 
 
     def nyears(self):
+        """Return maximum number of years with measurements """
         return np.array([len(set(sr.index.year)) for sr in self.ts]).max()
 
 
     def _validate_series(self):
+        """Replace all NaN values with zero"""
         for i,sr in enumerate(self.ts):
             if len(sr[sr.notnull()])==0:
                 self.ts[i] = sr.fillna(0)
                 # TODO: user warning
 
     def _create_axes(self):
+        """Create figuer object with axes"""
 
-        # create figure
-        self.fig = plt.figure(facecolor='#eeefff')
-        #self.fig = plt.figure(figsize=(9, 8), dpi= 80, facecolor='#eeefff', edgecolor='k')
-        #plt.rcParams['figure.figsize'] = [10, 5]
+        #self.fig = plt.figure(figsize=(9, 8), dpi= 80, facecolor='#eeefff', 
+        #                        edgecolor='k')
+        self.fig = plt.figure(figsize=(10, 6),facecolor='#eeefff')
 
-        # Make all axes for figure
         if self.mps is None: ## and len(description)==0:
-            # just groundwater level axes
-            #self.axgws = self.fig.add_subplot(111)
+
+            self._axmp = None
             self._axgws = self.fig.add_axes([0.1,0.1,0.8,0.9])
             self.axeslist = {"axgws":self._axgws}
+
         else:
-            # add graph wit reference and level height 
+
+            # add graph with reference and level height 
             #  [left, bottom, width, height] values in 0-1 relative figure coordinates:
             self._axmp  = self.fig.add_axes([0.1,0.77,0.8,0.15])
             self._axgws = self.fig.add_axes([0.1,0.1,0.8,0.65])
+
             self.axeslist = {"axmp":self._axmp,"axgws":self._axgws}
 
 
+    def _plotheads(self):
+        """Plot groundwater heads and reference graph"""
 
-    def _plotlines(self):
+        self._create_axes()
 
-
-        # plot all time series
+        
         #ts.reverse()
         #lbs.reverse()
-        plt.sca(self.axeslist['axgws'])
 
-        if (self.mps is None) and (len(self.ts)==1):
+        # plot groundwater heads in lower plot
+        for i,sr in enumerate(self.ts):
 
-            # plot only first roundwater series on bottom graph
-            self.axeslist['axgws'] = self.ts[0].plot(color=self.clr[0],
-                                     label=self.lbs[0])
+            if not 'color' in self.plotargs[i].keys(): 
+                self.plotargs[i]['color']=self.clr[i]
 
-        if (self.mps is None) and (len(self.ts)>1):
-        ##    if (len(self.ts)!=0) and (self.lbs is not None):
+            self._axgws = sr.plot(label=self.lbs[i], 
+                                  **self.plotargs[i])
 
-            for i,sr in enumerate(self.ts):
-                ##if len(self.plotargs)>=i+1:
-                if not 'color' in self.plotargs[i].keys(): 
-                    self.plotargs[i]['color']=self.clr[i]
-                self._axgws = sr.plot(label=self.lbs[i], 
-                                      **self.plotargs[i])
-                ##else:
-                ##    self._axgws = sr.plot(label=self.lbs[i],
-                ##    color=self.colors[i])                            )
+        # adjust plot appearance
+        self._set_xaxlim()
+        self._set_yaxlim()
+        self._set_ticklabels()
+        self._set_axlabels()
+        self._set_legend()
+        self._plot_annotations()
+
+        # plot reference change in upper plot
+        if self.mps is not None:
+            self._reference_graph()
 
 
     def _set_yaxlim(self):
@@ -234,7 +232,7 @@ class PlotHeads:
 
         self._axgws.set_ylim(self.ylim)
 
-        if self.reference=="cmmv":
+        if self.reflev=="surface":
             self._axgws.set_ylim(self.ylim[::-1])
             ##plt.yticks(range(200,-50-10,10))
 
@@ -323,53 +321,33 @@ class PlotHeads:
 
         # plot legend texts
         ltext = plt.gca().get_legend().get_texts()
-        #print(ltext[0])
         for i in range(len(ltext)):
             plt.setp(ltext[i], fontsize = 9.0, color = 'k')
 
 
     def _reference_graph(self):
+        """ Plot timeseries with relative changes """
 
         # plot reference line on top graph
-        self.mps["mpref"].plot(ax=self.axmp,color=colors[6],lw=2.)
-        #mps["mvcmnap"].plot(ax=self.axmp,color=colors[1],lw=3.)
-        
+        self.mps.plot(ax=self._axmp, color=self.clr[1],
+                      lw=3.)
+
         # set x-axis equal to grondwwater series
-        self.axmp.set_xlim(self.axgws.get_xlim())
+        self._axmp.set_xlim(self.xlim)
 
         # set grid on
-        self.axmp.grid(True,which="both",ls="-")
-        
-        # set y-ax limits on reference graph
-        yrange = self.axmp.get_ylim()
-        roundto = 10.
-        min = (floor(yrange[0]/roundto))*roundto # round to decimals
-        max = (ceil(yrange[1]/roundto))*roundto  # round to decimals
-        self.axmp.set_ylim([min,max])
+        self._axmp.grid(True,which="both",ls="-")
 
-        # set yticks for reference graph
-        self.axmp.yaxis.tick_right()            
-        tks = self.axmp.get_yticks()
-        tks = np.arange(tks.min(),tks.max()+1,(tks.max()-tks.min())/4.)
-        self.axmp.set_yticks(tks)
-
-        yticklabels = self.axmp.get_yticklabels()
-        for i,label in enumerate(yticklabels):
-            #label.set_color('k')
-            #label.set_fontsize = 5.0
-            if i in [0,2,4]: label.set_visible(True)
-            else: label.set_visible(False)
-
-        # Set x-ticklabels for mp graph invisible
-        for label in self.axmp.get_xticklabels():
+        # x-ticklabels for mp graph invisible
+        for label in self._axmp.get_xticklabels():
             label.set_visible(False)
 
-        # set x-axis title for reference graph off
-        self.axmp.set_xlabel('')
+        # x-axis title for reference graph invisible
+        self._axmp.set_xlabel('')
 
 
     def _plot_annotations(self):
-
+        """ Plot figure title and measurment periode """
 
         self._axgws.grid(True,which="major",ls="-")
         self._axgws.grid(True,which="minor",ls=":")
@@ -388,21 +366,16 @@ class PlotHeads:
              transform=self.axeslist['axgws'].transAxes)
 
 
-    def save(self,filename):
-        # Save figure to file
-        #fig = plt.figure(1)
-        mydpi = 200.0 # default dpi is 100.0
-        #mydpi = self.fig.dpi
-        self.fig.set_dpi(mydpi)
+    def save(self,filename,dpi=None):
+        """Save figure to file"""
+
+        if dpi is None:
+            dpi = 200.0 # default dpi is 100.0
+        self.fig.set_dpi(dpi)
         self.fig.set_size_inches(160*mm,80*mm)
-        self.fig.savefig(filename,dpi=mydpi, facecolor='w', 
-        edgecolor='w', bbox_inches="tight") #additional_artists=self.addart,
-        #fig.close()
-        #plt.clf() # open straks geen nieuwe plot (dat kost geheugen)
-        # show plot
-        #plt.show()
-        #plt.close()
-
-
-
+        self.fig.savefig(
+                filename,dpi=dpi, 
+                facecolor='w', 
+                edgecolor='w', 
+                bbox_inches="tight") #additional_artists=self.addart,
 

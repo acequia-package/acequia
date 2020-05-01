@@ -5,6 +5,10 @@ head measurements from a HydroMonitor csv export file
 
 from collections import OrderedDict
 import warnings
+import os.path
+import errno
+import os
+
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from pandas import Series, DataFrame
@@ -34,8 +38,8 @@ class HydroMonitor:
     """
 
     CSVSEP = ";"
-    METATAG = 'StartDateTime;XCoordinate;YCoordinate;'
-    DATATAG = 'DateTime;LoggerHead;ManualHead;'
+    METATAG = 'StartDateTime' #;XCoordinate;YCoordinate;'
+    DATATAG = 'DateTime' #;LoggerHead;ManualHead;'
 
 
     mapping_tubeprops = OrderedDict([
@@ -46,7 +50,6 @@ class HydroMonitor:
         ('surfacedate',''),
         ('surfacelevel','surfacelevel'),
         ])
-
 
 
     def __repr__(self):
@@ -106,46 +109,36 @@ class HydroMonitor:
     def _readcsv(self,filepath):
         """ Read hydromonitor csv export file """
         
-        # read header and line_numbers
-        textfile = self._open_file(self,filepath)
-        self.header,self.line_numbers = self._read_header(self,textfile)
-        textfile.close()
-
-        content_list = [x.lower() for x in self.header['file_contents']]
-        if 'metadata' in content_list:
-            self.metadata = self._read_metadata(self)
+        try:
+            self.filepath = filepath
+            textfile = open(self.filepath)
+        except IOError:
+            raise FileNotFoundError(
+                errno.ENOENT, os.strerror(errno.ENOENT), filepath)
+            textfile = None
         else:
-            self.metadata = None
-            warnings.warn("Metadata not specified.")
+            self.header,self.line_numbers = self._read_header(self,textfile)
+            textfile.close()
 
-        if 'data' in content_list:
-            if self.metadata is None:
-                raise(f'Heads from {filepath} can not be read ',
-                      f'because metadata are not available.')                
-            self.data = self._read_data(self)
-        else:
-            self.data = None
-            warnings.warn("Data not specified.")
+            content_list = [x.lower() for x in self.header['file_contents']]
+            if 'metadata' in content_list:
+                self.metadata = self._read_metadata(self)
+            else:
+                self.metadata = None
+                warnings.warn("Metadata not specified.")
+
+            if 'data' in content_list:
+                if self.metadata is None:
+                    raise(f'Heads from {filepath} can not be read ',
+                          f'because metadata are not available.')                
+                self.data = self._read_data(self)
+            else:
+                self.data = None
+                warnings.warn("Data not specified.")
+        #finally:
 
         return self.header,self.metadata,self.data
 
-    def _open_file(self,filepath):
-        """ open hydromonitor csv file for reading and return file object """
-
-        try:
-            textfile = open(filepath,'r')
-
-        except (IOError, TypeError) as err:
-            errno, strerror = err.args
-            print("{!s}".format(errno), end="")
-            print("I/O fout{!s}".format(strerror), end="")
-            print (" : "+filepath)
-            textfile = None
-
-        else:
-            self.filepath = filepath
-
-        return textfile
 
     def _read_header(self,textfile):
         """ 
@@ -159,6 +152,9 @@ class HydroMonitor:
             line numbers
 
         """
+
+        metatag_found = False
+        datatag_found = False
 
         header = OrderedDict()
         for i,line in enumerate(textfile):
@@ -186,19 +182,28 @@ class HydroMonitor:
 
             # read metadata line number and column names
             elif self.METATAG in line:
+                metatag_found = True
                 self.metafirst = i+2
                 self.metacols = [x.lower() for x in linelist]
 
             # read data line number column names
             elif self.DATATAG in line:
+                datatag_found = True
                 self.datafirst = i+2
                 self.metalast = i-2
                 self.datacols = [x.lower() for x in linelist]
                 break # avoid iterating over lines after metadata
 
+        # warnings
+        if not metatag_found:
+            msg = f'Metadata header {self.METATAG} not found.'
+            warnings.warn(msg)
+
+        if not datatag_found:
+            msg = f'Data header {self.DATATAG} not found.'
+            warnings.warn(msg)
+
         # return variables
-        #self.header = DataFrame(header).T
-        #self.header = DataFrame.from_dict(header,orient='index',columns=['value'])
         self.header = Series(header)
         self.line_numbers = (self.metafirst,self.metalast,self.datafirst)
         return self.header,self.line_numbers
@@ -256,6 +261,30 @@ class HydroMonitor:
             dtype=str,
             encoding='latin-1',
             )
+
+        if 'loggerhead' not in self.datacols:
+        # when no loggerhead is available, menyanthes only exports
+        # the column manualheads and the column loggerheads is simply missing
+        # this happens when loggerdata without manual control measurments
+        # are imported from another source; Menyanthes marks these 
+        # measurements as manual heads.
+
+            pos = dfdata.columns.get_loc('datetime')+1
+            dfdata.insert(loc=pos,column='loggerhead',value=np.nan)
+
+            msg = f'Missing data column loggerhead added and filled with NaNs'
+            warnings.warn(msg)
+
+        if 'manualhead' not in self.datacols:
+        # this is a variation on the previous missing loggerhead issue
+
+            pos = len(dfdata.columns)
+            dfdata.insert(loc=pos,column='manualhead',value=np.nan)
+            #dfdata['manualhead'] = np.nan
+
+            msg = f'Missing data column loggerhead added and filled with NaNs'
+            warnings.warn(msg)
+
 
         # delete empty last column
         if '' in list(dfdata.columns):

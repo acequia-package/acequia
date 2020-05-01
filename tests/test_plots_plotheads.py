@@ -1,4 +1,7 @@
 
+import matplotlib.pyplot as plt
+from pandas import Series, DataFrame
+import pandas as pd
 import acequia as aq
 
 
@@ -10,39 +13,86 @@ def message(message):
     print("-"*len(message))
     print()
 
+
 if 1:
 
-    # --------------------------------
-    # test plotseries with two series
-    # --------------------------------
+    srcdir = r'.\testdata\json\\'
+    plotsdir = r'.\output\plots\\'
 
-    sourcefile = r'.\testdata\json\B29A0850_1.json'
+    # read four time series of one well location
+
+    sourcefile = srcdir+'B29A0850_1.json'
     gw1 = aq.GwSeries.from_json(sourcefile)
     sr1 = gw1.heads(ref='datum')
 
-    sourcefile = r'.\testdata\json\B29A0850_2.json'
+    sourcefile = srcdir+'B29A0850_2.json'
     gw2 = aq.GwSeries.from_json(sourcefile)
     sr2 = gw2.heads(ref='datum')
 
-    sourcefile = r'.\testdata\json\B29A0850_3.json'
+    sourcefile = srcdir+'B29A0850_3.json'
     gw3 = aq.GwSeries.from_json(sourcefile)
     sr3 = gw3.heads(ref='datum')
 
-    sourcefile = r'.\testdata\json\B29A0850_4.json'
+    sourcefile = srcdir+'B29A0850_4.json'
     gw4 = aq.GwSeries.from_json(sourcefile)
     sr4 = gw4.heads(ref='datum')
 
+
+    # read series with changes in reference height
+
+    sourcefile = r'.\testdata\dinogws\B29C0191001_1.csv'
+    gw5 = aq.GwSeries.from_dinogws(sourcefile)
+    sr5 = gw5.heads(ref='datum')
+
+    gw6 = aq.GwSeries.from_dinogws(sourcefile)
+    sr6 = gw6.heads(ref='surface')
+
+if 1:
+
+    # --------------------------------
+    # test PlotHeads() with one series
+    # --------------------------------
+
     plot = aq.PlotHeads(ts=[sr3],ylim=[19.5,21.5])
-    #plot.plotseries(ts=[sr3],ylim=[19.5,21.5])
-    
-    #plot = aq.PlotGws()
+
+if 1:
+
+    # -------------------------------------
+    # test PlotHeads() with multiple series
+    # -------------------------------------
+
     plot = aq.PlotHeads(ts=[sr1,sr2,sr3,sr4])
-    outpath = f'.\output\graphs\{plot.ts[0].name}.png'
+    outpath = f'{plotsdir}{plot.ts[0].name}.png'
     plot.save(outpath)
 
-    #,mps=DataFrame(),
-    #               description=[],title=None,xlabel=None,
-    #               ylabel=None,xlim=[],ylim=[],plotargs=[])
+
+if 1:
+
+    # --------------------------------------------
+    # test PlotHeads() with reference change graph
+    # --------------------------------------------
+
+    plot = aq.PlotHeads(ts=[sr5])
+
+    mps = gw5.tubeprops_changes()
+    plot = aq.PlotHeads(ts=[sr5],mps=mps)
+
+    mps = gw5.tubeprops_changes(proptype='surfacelevel')
+    plot = aq.PlotHeads(ts=[sr5],mps=mps)
+
+    mps = gw5.tubeprops_changes(proptype='filbot')
+    plot = aq.PlotHeads(ts=[sr5],mps=mps)
+
+if 1:
+
+    # ---------------------------------------------------
+    # test PlotHeads() for heads relative to surfacelevel
+    # ---------------------------------------------------
+
+    mps = gw5.tubeprops_changes(proptype='surfacelevel')
+    plot = aq.PlotHeads(
+                ts=[sr6],reflev='surface', mps=mps)
+
 
 if 0:
 
@@ -80,11 +130,15 @@ if 0:
     #plt.rcParams['figure.figsize'] = [5, 3]
 
     myplotargs = [
-        {'color':'#2347c5', 'marker':'o', 'linestyle':'dashed','linewidth':1, 'markersize':4},
-        {'color':'#b41515', 'marker':'o', 'linestyle':'solid', 'linewidth':1, 'markersize':4}]
+        {'color':'#2347c5', 'marker':'o', 'linestyle':'dashed',
+         'linewidth':1, 'markersize':4},
+        {'color':'#b41515', 'marker':'o', 'linestyle':'solid', 
+         'linewidth':1, 'markersize':4}]
 
     plot = plotseries()
-    plot.plotseries(ts=[sr1,sr2],description=[desc1,desc2], xlim=[1955,2005], ylim=[1500,1800], title="Test: Twee meetreeksen",
+    plot.plotseries(ts=[sr1,sr2],description=[desc1,desc2], 
+                    xlim=[1955,2005], ylim=[1500,1800], 
+                    title="Test: Twee meetreeksen",
                     plotargs = myplotargs)
     plot.saveplot('.\\output\\test plotseries\\test twee meetreeksen.png')
     plt.show()
@@ -127,21 +181,6 @@ if 0: # test plotduurlijn
     plot.saveplot('duurlijn.png')
     plt.show()
 
-if 0: # test plot series with interesting reference series
-
-    plot = plotseries()    
-    dn = dinogws()
-    #dn.readfile(r".\testdata\B28A0475001_1.csv")
-    dn.readfile(r".\testdata\B29C0191001_1.csv")
-
-    if len(dn.series())!=0:
-        sr = dn.series(units="cmnap")
-        ref = dn.mpref()
-        desc = dn.describe()
-        mytitle = "Test: plot B29C0191 with interesting reference line"
-        plot.plotseries(ts=[sr],reference="cmnap",description=[desc],mps=ref,title=mytitle)
-        plot.saveplot('meetreeks-met-referentie.png')
-        plt.show()
 
 if 0: 
     if dn.frq(): 

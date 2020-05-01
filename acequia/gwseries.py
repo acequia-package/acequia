@@ -43,6 +43,16 @@ class GwSeries:
     >>>gw = GwSeries.from_dinogws(<filepath to dinocsv file>)
     >>>gw = GwSeries.from_json(<filepath to acequia json file>)
 
+    To get GwSeries properties:
+    >>>GwSeries.heads()
+    >>>GwSeries.locprops()
+    >>>GwSeries.name()
+    >>>GwSeries.heads1428()
+
+    To export GwSeries data:
+    >>>GwSeries.to_csv(<filename>)
+    >>>GwSeries.To_json(<filename>)
+
     Note
     ----
     Head measurements are stored in meters relatieve to welltopStores
@@ -100,6 +110,8 @@ class GwSeries:
 
 
     def __init__(self,heads=None,locprops=None,tubeprops=None):
+
+
         if locprops is None:
             self._locprops = Series(index=self._locprops_names)
         elif isinstance(locprops,pd.Series):
@@ -121,16 +133,19 @@ class GwSeries:
             self._heads = pd.Series()
             self._heads.index.name = 'datetime'
             self._heads.name = 'unknown'
+            self._heads_original = self._heads.copy()
+
         elif isinstance(heads,pd.Series):
             self._heads = heads.copy()
             self._heads.index.name = 'datetime'
             self._heads.name = self.name()
             self._heads_original = self._heads.copy()
+
         else:
             raise TypeError(f'heads is not a pandas Series but {type(heads)}')
 
 
-        # load submodules
+        # load subclasses
         self.gxg = GxG(self)
 
 
@@ -200,22 +215,47 @@ class GwSeries:
         sr.name = self.name()
         return DataFrame(sr).T
 
-    def heads(self,ref='datum'):
+    def heads(self,ref='datum',freq=None):
         """ 
         Return groundwater head measurements
 
-        parameters
+        Parameters
         ----------
-        ref : {'mp','datum','surface'}, default 'datum'
+        ref  : {'mp','datum','surface'}, default 'datum'
+               choosen reference for groundwater heads
+        freq : None or any valid Pandas Offset Alias
+                determine frequency of time series
 
-        returns
+        Returns
         -------
         result : pandas time Series
 
+        Notes
+        ----=
+        Parameter 'ref' determines the reference level for the heads:
+        'mp'   : elative to well top ('measurement point')
+        'datum': relative to chosen level (would be meter +NAP for the
+                 Netherlands, or TAW for Belgium)
+        'surf' : relative to surface level (meter minus maaiveld)
+
+        Parameter 'freq' determines the time series frequency by setting
+        the Pandas Offset Alias. When 'freq' is None, no resampling is
+        applied. Logical values for 'freq' would be:
+        'H' : hourly frequency
+        'D' : calender day frequency
+        'W' : weekly frequency
+        'M' : month end frequency
+        'MS': month start freuency
+        'Q' : quarter end frequency
+        'QS': quarter start frequency
+        'A' : year end frequency
+        'AS': year start frequency
+        
         """
 
         if ref not in ['mp','datum','surface']:
-            raise ValueError('%s is not a valid reference point name' %ref)
+            msg = f'{ref} is not a valid reference point name'
+            raise ValueError(msg)
 
         if ref=='mp':
             heads = self._heads
@@ -230,47 +270,37 @@ class GwSeries:
                     surfref = round(props['mplevel']-props['surfacelevel'],2)
                     heads = heads.mask(mask,self._heads-surfref)
 
+        if freq is not None:
+            heads = heads.resample(freq).mean()
+            heads.index = heads.index.tz_localize(None)
+
         return heads
 
     def to_csv(self,dirpath=None):
-        """Export groundwater series and metadata to csv file
+        """Export groundwater heads series to simple csv file
 
-        parameters
+        Parameters
         ----------
-        dirpath : export directory
+        dirpath : str
+            csv file wil be exported to directory dirpath
+            if not given, file is saved in present work directory
 
+        Examples
+        --------
+        Save heads to simple csv:
+        >>>aq.GwSeries.to_csv(<dirpath>)
+        Read back with standard Pandas:
+        >>>pd.read_csv(<filepath>,  parse_dates=['date'], 
+                  index_col='date', squeeze=True) 
+        
         """
-        filepath = dirpath+self.name()+'_0.csv'
-        self._heads.to_csv(filepath,index=True,index_label='datetime',header=['head'])
+        if dirpath is None:
+            filepath = self.name()+'.csv'
+        else:
+            filepath = dirpath+self.name()+'.csv'
+        self.heads(ref='datum').to_csv(filepath,index=True,
+                    index_label='datetime',header=['head'])
 
-        filepath = dirpath+self.name()+'_1.csv'
-        self._tubeprops.to_csv(filepath,index=False,header=True)
-
-        filepath = dirpath+self.name()+'_2.csv'
-        self._locprops.to_csv(filepath,index=True,header=False)
-
-    @classmethod
-    def from_csv(cls,filepath=None):
-        """Import groundwater series and metadata from csv file
-
-        parameters
-        ----------
-        filepath : filename of csv file with groundwater heads
-
-        """
-        _heads = pd.read_csv(filepath,header=0,index_col=0,squeeze=True)
-        _heads.index = pd.to_datetime(_heads.index)
-
-
-        filepath = filepath[:-6]+'_1.csv'
-        #print(filepath)
-        _tubeprops = pd.read_csv(filepath,header=0)
-
-        filepath = filepath[:-6]+'_2.csv'
-        #print(filepath)
-        _locprops = pd.read_csv(filepath,header=None,index_col=0,squeeze=True)
-
-        return cls(heads=_heads,locprops=_locprops,tubeprops=_tubeprops)
 
     @classmethod
     def from_json(cls,filepath=None):
@@ -336,7 +366,7 @@ class GwSeries:
 
         return json_dict
 
-    def series1428(self,nearest=0,ref='datum'):
+    def heads1428(self,nearest=0,ref='datum'):
         """ Return timeseries of measurements on 14th and 28th 
 
         Parameters
@@ -358,14 +388,54 @@ class GwSeries:
             srbool = Series(sr.index.map(is1428), index=sr.index)
             return sr.loc[srbool]
 
-        
-        
+    def tubeprops_changes(self,proptype='mplevel'):
+        """Return timeseries with tubeprops changes
 
+        Parameters
+        ----------
+        proptype : ['mplevel','surfacelevel','filtop','filbot'
+            tubeproperty that is shown in reference cange graph
 
+        Returns
+        -------
+        pd.Series
 
+        """
 
+        if proptype in ['mplevel','surfacelevel','filtop','filbot']:
+            mps = self._tubeprops[proptype].values
+        else:
+            mps = gws._tubeprops['mplevel']
+            # TODO: add userwarning
 
+        idx = self._tubeprops['startdate']
+        sr1 = Series(mps,index=idx)
 
+        idx = sr1.index[1:]-pd.Timedelta(days=1)
+        lastdate = self.heads().index[-1]
+        idx = idx.append(pd.to_datetime([lastdate]))
+        sr2 = Series(mps,index=idx)
 
+        sr12 = pd.concat([sr1,sr2]).sort_index()
+        sr12 = sr12 - sr12[0]
 
-            
+        return sr12
+
+    def plotheads(self,proptype=None,filename=None):
+        """Plot groundwater heads time series
+
+        Parameters
+        ----------
+        proptype : ['mplevel','surfacelevel','filtop','filbot'
+            tubeproperty that is shown in reference cange graph
+            if not given, no reference plot will be shown
+
+        """
+        if proptype in ['mplevel','surfacelevel','filtop','filbot']:
+            mps = self._tubeprops[proptype].values
+
+        mps = self.tubeprops_changes(proptype=proptype)
+        self.headsplot = self.PlotHeads(ts=[self.heads()],mps=mps)
+
+        if filename is not None:
+            self.headsplot.save(filename)

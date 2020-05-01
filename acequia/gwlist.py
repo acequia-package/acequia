@@ -48,14 +48,16 @@ class GwList():
         --------
         
         Loading sourcefiles:
-        gwsr = GwList(srcdir=<sourcedir>,srctype='dinocsv')
-        gwsr = GwList(srcdir=<sourcedir>,srctype='json')
-        gwsr = GwList(srfile=<hydromonitor csv export>,srctype='hymon')
+        >>>gwsr = GwList(srcdir=<sourcedir>,srctype='dinocsv')
+        >>>gwsr = GwList(srcdir=<sourcedir>,srctype='json')
+        >>>gwsr = GwList(srfile=<hydromonitor csv export>,srctype='hymon')
 
         Printing string repr of al GwSeries objects:
-        for i,gw in enumerate(gwsr):
-            print(i,gw)
+        >>>for i,gw in enumerate(gwsr):
+               print(i,gw)
 
+        Table with location properties:
+        >>>df = gws.locprops()
 
         """
 
@@ -63,7 +65,6 @@ class GwList():
             raise ValueError(f'Given sourcetype \'{sourcetype}\' '+
                              f'is invalid. Valid values are '+
                              f'\'dinocsv\' or \'json\'.')
-        
 
         if srcdir is not None:
             if not os.path.isdir(srcdir):
@@ -239,5 +240,7 @@ class GwList():
         locs['nfil']=series.groupby(by='locname').size().values
         colnames = ['alias','nfil','xcr','ycr']
         locs = locs[colnames].copy()
+
+        self.itercount = 0
 
         return locs
