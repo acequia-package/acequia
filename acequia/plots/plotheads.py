@@ -36,9 +36,11 @@ class PlotHeads:
             ['#2347c5','#b41515','#1c9018','#ecee19','#ce11f2'],
         'easterpastel':
             ['#d666c6','#6e64db','#7ad89d','#67a3db','#dfe755'],
+        'rainbow-adjusted':
+            ['#2767fd','#d92950','#50d929','#ecee19','#ce11f2'],
         }
 
-    clr = clrs['rainbow']*10 # avoid out of bounds
+    clr = clrs['rainbow-adjusted']*10 # avoid out of bounds
 
     font1 = {
         'family' : 'serif',
@@ -167,7 +169,7 @@ class PlotHeads:
 
         #self.fig = plt.figure(figsize=(9, 8), dpi= 80, facecolor='#eeefff', 
         #                        edgecolor='k')
-        self.fig = plt.figure(figsize=(10, 6),facecolor='#eeefff')
+        self.fig = plt.figure(figsize=(8, 5),facecolor='#eeefff')
 
         if self.mps is None: ## and len(description)==0:
 
@@ -199,12 +201,14 @@ class PlotHeads:
 
             if not 'color' in self.plotargs[i].keys(): 
                 self.plotargs[i]['color']=self.clr[i]
+            self.plotargs[i]['lw']=0.5
+            
 
             self._axgws = sr.plot(label=self.lbs[i], 
                                   **self.plotargs[i])
 
         # adjust plot appearance
-        self._set_xaxlim()
+        #self._set_xaxlim()
         self._set_yaxlim()
         self._set_ticklabels()
         self._set_axlabels()
@@ -222,10 +226,10 @@ class PlotHeads:
         if self.ylim is None:
             #ymin,ymax = self.axeslist['axgws'].get_ylim()
 
-            ymin = min([min(sr) for sr in self.ts])
+            ymin = min([min(sr.dropna()) for sr in self.ts])
             #ymin = (floor(ymin/10.))*10. # round to decimals
             
-            ymax = max([max(sr) for sr in self.ts])
+            ymax = max([max(sr.dropna()) for sr in self.ts])
             #ymax = (ceil(ymax/10.))*10.  # round to decimals
 
             self.ylim = [ymin,ymax]
@@ -330,7 +334,7 @@ class PlotHeads:
 
         # plot reference line on top graph
         self.mps.plot(ax=self._axmp, color=self.clr[1],
-                      lw=3.)
+                      lw=1.5)
 
         # set x-axis equal to grondwwater series
         self._axmp.set_xlim(self.xlim)
@@ -352,10 +356,10 @@ class PlotHeads:
         self._axgws.grid(True,which="major",ls="-")
         self._axgws.grid(True,which="minor",ls=":")
 
-        if self.title and self.mps.empty:
-            plt.text(0.0,1.02,title,transform=self.axgws.transAxes)
+        if self.title and (self.mps is None):
+            plt.text(0.0,1.02,self.title,transform=self._axgws.transAxes)
         elif self.title:
-            plt.text(0.0,1.1,title,transform=self.axmp.transAxes)
+            plt.text(0.0,1.1,self.title,transform=self._axmp.transAxes)
 
         # plot datespan right of graph 90 degrees upward
         timespan = self.mindate().strftime("%d-%m-%Y")+" t/m " \

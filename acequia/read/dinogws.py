@@ -383,40 +383,8 @@ class DinoGws:
 
     def mpref(self):
         """ create dataframe with series of mp reference changes (for plotting line of ref changes above gwseries graph)"""
-
-        dfheader = self.header()
-        if len(dfheader)!=0: # and dfheader["startdatum"].isnull().any(): # and dfheader["einddatum"].isnull().any():
-
-                # create temporary dataframe
-                hdr = self.header()[["startdatum","einddatum","mpcmnap","mpcmmv","mvcmnap","mvdatum"]].copy()
-
-                # add hours and seconds to dates
-                hdr["einddatum"]=hdr["einddatum"].apply(lambda x: x+pd.tseries.offsets.DateOffset(hours=11,minutes=59,seconds=59) if pd.notnull(x) else x).values
-                hdr["startdatum"]=hdr["startdatum"].apply(lambda x: x+pd.tseries.offsets.DateOffset(hours=12,minutes=00,seconds=00) if pd.notnull(x) else x).values
-
-                # put startdatum en einddatum in one column
-                hdr1 = hdr.copy()
-                hdr2 = hdr.copy()
-                hdr1["datum"] = hdr1["startdatum"]
-                hdr2["datum"] = hdr1["einddatum"]
-                self.mp = pd.concat([hdr1,hdr2])
-                self.mp.sort_values(["datum"],ascending=True,inplace=True)
-                self.mp.drop(["startdatum","einddatum"],inplace=True,axis=1)
-                self.mp.set_index("datum", drop=True, inplace=True)
-
-                # convert columns to numerics before makin calculations
-                for colname in ["mpcmnap","mpcmmv","mvcmnap"]:
-                    self.mp[colname] = pd.to_numeric(self.mp[colname])
-
-                # calculate changes relative tot reference
-                mpref = float(self.mp["mpcmnap"].iloc[0]) # first value of reference heigth
-                self.mp["mpref"] = self.mp["mpcmnap"] - mpref
-
-                # reorder columns
-                self.mp = self.mp[["mpcmnap","mvcmnap","mpcmmv","mvdatum","mpref"]]
-        else:
-            self.mp = DataFrame()
-        return self.mp
+        msg = 'mpref method is depricates. use GwSeries.tubepropchanges() instead.'
+        warnings.warn(msg, warnings.DeprecationWarning)
 
     def locations(self,df=DataFrame()):
         """ create table of locations from dataframe with data from several filters created by function describe() """

@@ -408,7 +408,7 @@ class GwSeries:
             mps = gws._tubeprops['mplevel']
             # TODO: add userwarning
 
-        idx = self._tubeprops['startdate']
+        idx = pd.to_datetime(self._tubeprops['startdate'])
         sr1 = Series(mps,index=idx)
 
         idx = sr1.index[1:]-pd.Timedelta(days=1)
