@@ -324,18 +324,26 @@ class GwSeries:
         return cls(heads=heads,locprops=locprops,tubeprops=tubeprops)
 
     def to_json(self,dirpath=None):
-        """ Write gwseries object to json file 
+        """ Create json string from GwWeries object and optionally
+            write to file 
         
-        parameters
+        Parameters
         ----------
         dirpath : str
            directory json file will be written to
            (if dirpath is not given no textfile will be written and 
            only OrderedDict with valid JSON wil be retruned)
 
-        returns
+        Returns
         -------
         OrderedDict with valid json
+
+        Note
+        ----
+        If no value for dirpath is given, a valid json string is
+        returned. If a value for dirpath is given, nothing is returned 
+        and a json file will be written to a file with the series name
+        in dirpath.
 
         """
 
@@ -363,7 +371,8 @@ class GwSeries:
                     f.write(json_formatted_str)
             except FileNotFoundError:
                 print("Filepath {} does not exist".format(filepath))
-
+            finally:
+                return None
         return json_dict
 
     def heads1428(self,nearest=0,ref='datum'):

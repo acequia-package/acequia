@@ -10,6 +10,7 @@ from .plots.plotheads import PlotHeads
 from .read.dinogws import DinoGws, read_dinogws
 from .read.hydromonitor import HydroMonitor
 from .read.knmi_stations import KnmiStations, knmilocations
+from .read.filedirtools import cleardir
 from .stats.gwstats import GwStats
 from .stats.gwgxg import GxG
 

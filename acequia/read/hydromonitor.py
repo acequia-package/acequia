@@ -302,100 +302,152 @@ class HydroMonitor:
                                errors='coerce')
         dfdata['manualhead'] = pd.to_numeric(dfdata['manualhead'], 
                                errors='coerce')
-
         return dfdata
 
 
+    def idkeys(self):
+        """Return column names that give a unique identification of a 
+        series """
+        # bug in hydromonitor export? id is allways nitgcode, filterno
+        # idkeys = ['nitgcode','filterno']
+        if len(self.header['object_identification'])>2:
+            message.warn('More than two object identification keys given')
+        return [x.lower() for x in self.header['object_identification']]
+
+
+    def delete_duplicate_data(self):
+        """Remove duplicate data from data and return pd.DataFrame
+
+        Duplicates occur in groundwater head measurments in
+        hydromonitor export when loggervalue and manual control 
+        measurement have the same timestamp."""
+        sortcols = self.idkeys() + ['datetime','manualhead']
+        data = self.data.sort_values(by=sortcols)
+        dropcols = self.idkeys() + ['datetime']
+        self.data_no_dups = data.drop_duplicates(subset=dropcols, 
+                            keep='first').copy()
+        return self.data_no_dups
+
+
+    def get_series(self,sr=None,loc=None,fil=None):
+        """Return GwSeries object from HydroMonitor object
+
+        Parameters
+        ----------
+        sr : pd.Series
+            Timeseries with groundwater head values
+        loc : str
+            Well location name
+        fil : str
+            Tube name
+
+        Returns
+        -------
+        GwSeries object
+
+        """
+
+        gws = aq.GwSeries()
+
+        # select metadata for series 
+        bool1 = self.metadata[self.idkeys()[0]]==loc
+        bool2 = self.metadata[self.idkeys()[1]]==fil
+        metadata = self.metadata[bool1&bool2]
+        firstindex = metadata.index[0]
+
+        # set tubeprops from hydro,onitor metadata
+        for prop in list(gws._tubeprops):
+            metakey = self.mapping_tubeprops[prop]
+            if len(metakey)>0:
+                gws._tubeprops[prop] = metadata[metakey].values
+            if prop not in self.mapping_tubeprops.keys():
+                warnings.warn(f"Unknown property {prop} in {type(gws)}")
+
+        # set locprops from hydro,onitor metadata
+        for prop in list(gws._locprops.index):
+
+            if prop=='locname':
+                gws._locprops[prop] = metadata.at[firstindex,self.idkeys()[0]]
+            
+            if prop=='filname':
+                gws._locprops[prop] = metadata.at[firstindex,self.idkeys()[1]]
+
+            if prop=='alias':
+                if 'nitgcode' in self.idkeys(): 
+                    alias_key = 'name'
+                else: 
+                    alias_key = 'nitgcode'
+                gws._locprops[prop] = metadata.at[firstindex,alias_key]
+
+            if prop=='xcr':
+                gws._locprops[prop] = metadata.at[firstindex,'xcoordinate']
+
+            if prop=='ycr':
+                gws._locprops[prop] = metadata.at[firstindex,'ycoordinate']
+
+            if prop=='height_datum':
+                gws._locprops[prop] = 'mnap'
+
+            if prop=='grid_reference':
+                gws._locprops[prop] = 'rd'
+
+            if prop not in ['locname','filname','alias','xcr','ycr',
+                            'height_datum','grid_reference']:
+
+                warnings.warn(f"Unknown property {prop} in {type(gws)}")
+
+
+        # set gwseries
+        datetimes = sr.datetime.values
+        heads = np.where(
+                    np.isnan(sr.loggerhead.values),
+                    sr.manualhead.values,
+                    sr.loggerhead.values)
+        heads = Series(data=heads,index=datetimes)
+
+        # remove rows with invalid datevalues and warn
+        NaTdate = pd.isna(heads.index)
+        nNaT = len(heads[NaTdate])
+        if nNaT!=0:
+            msg = f"Removed {nNaT} rows with invalid date from {gws.name()}"
+            warnings.warn(msg)
+            heads = heads[~NaTdate].copy()
+
+        # convert heads in mnap to mref
+        gws._heads = heads
+        for index,props in gws._tubeprops.iterrows():
+            mask = gws._heads.index >= props['startdate'] 
+            gws._heads = gws._heads.mask(
+                         mask,props['mplevel']-heads)
+
+        return gws
+
     def to_list(self):
-        """ Return data from HydroMonitor as a list of GwSeries() objects """
+        """ Return data from HydroMonitor as a list of GwSeries() 
+            objects """
 
         srlist = []
 
-        srkeys = [x.lower() for x in self.header['object_identification']]
-        # bug in hydromonitor export? id is allways nitgcode, filterno
-        ##srkeys = ['nitgcode','filterno']
-        if len(srkeys)>2:
-            message.warn('More than two object identification keys given')
+        heads = self.delete_duplicate_data()
+        filgrp = heads.groupby(self.idkeys())
+        for (location,filnr),sr in filgrp:
 
-        # duplicates occur in hydromonitor export when loggervalue
-        # and manual control measurement have the same timestamp
-        sortcols = srkeys + ['datetime','manualhead']
-        data = self.data.sort_values(by=sortcols)
-        dropcols = srkeys + ['datetime']
-        no_dups = data.drop_duplicates(subset=dropcols, keep='first').copy()
-        self.no_dups = no_dups.copy()
-
-        for (location,filnr),sr in no_dups.groupby(srkeys):
-           
-            bool1 = self.metadata[srkeys[0]]==location
-            bool2 = self.metadata[srkeys[1]]==filnr
-            metadata = self.metadata[bool1&bool2]
-            firstindex = metadata.index[0]
-
-            #gws = acequia.gwseries.GwSeries()
-            gws = aq.GwSeries()
-
-            for prop in list(gws._tubeprops):
-                metakey = self.mapping_tubeprops[prop]
-                if len(metakey)>0:
-                    gws._tubeprops[prop] = metadata[metakey].values
-
-                if prop not in self.mapping_tubeprops.keys():
-                    warnings.warn(f"Unknown property {prop} in {type(gws)}")
-
-
-            # set locprops
-            for prop in list(gws._locprops.index):
-
-                if prop=='locname':
-                    gws._locprops[prop] = metadata.at[firstindex,srkeys[0]]
-                
-                if prop=='filname':
-                    gws._locprops[prop] = metadata.at[firstindex,srkeys[1]]
-
-                if prop=='alias':
-                    if 'nitgcode' in srkeys: alias_key = 'name'
-                    else: alias_key = 'nitgcode'
-                    gws._locprops[prop] = metadata.at[firstindex,alias_key]
-
-                if prop=='xcr':
-                    gws._locprops[prop] = metadata.at[firstindex,'xcoordinate']
-
-                if prop=='ycr':
-                    gws._locprops[prop] = metadata.at[firstindex,'ycoordinate']
-
-                if prop=='height_datum':
-                    gws._locprops[prop] = 'mnap'
-
-                if prop=='grid_reference':
-                    gws._locprops[prop] = 'rd'
-
-                if prop not in ['locname','filname','alias','xcr','ycr',
-                                'height_datum','grid_reference']:
-
-                    warnings.warn(f"Unknown property {prop} in {type(gws)}")
-
-
-            # set gwseries
-            datetimes = sr.datetime.values
-            heads = np.where(np.isnan(sr.loggerhead.values),
-                      sr.manualhead.values,sr.loggerhead.values)
-            heads = Series(data=heads,index=datetimes)
-
-            NaTdate = pd.isna(heads.index)
-            nNaT = len(heads[NaTdate])
-            if nNaT!=0:
-                warnings.warn(f"Removed {nNaT} rows with invalid date from {gws.name()}")
-                heads = heads[~NaTdate].copy()
-
-            # convert heads in mnap to mref
-            gws._heads = heads
-            for index,props in gws._tubeprops.iterrows():
-                mask = gws._heads.index >= props['startdate'] 
-                gws._heads = gws._heads.mask(
-                             mask,props['mplevel']-heads)
-
+            gws = self.get_series(sr=sr,loc=location,fil=filnr)
             srlist.append(gws)
 
         return srlist
 
+
+    def generator(self):
+        heads = self.delete_duplicate_data()
+        return heads.groupby(self.idkeys()).__iter__()
+
+
+    def to_json(self,filedir=None):
+
+        for (loc,fil),data in self.generator():
+            gws = self.get_series(sr=data,loc=loc,fil=fil)
+            #filename = f'{loc}_{fil}.json'
+            #filename = loc+'_'+fil+'.json'
+            #filepath = os.path.join(filedir,filename)
+            gws.to_json(filedir)
