@@ -30,10 +30,17 @@ class HydroMonitor:
     data : pandas dataframe, optional
         measurements from hydromonitor file as pandas dataframe
 
-    Example:
+    Examples:
     -------
-    hm = HydroMonitor.from_csv(filepath=<path>)
-    mylist = hm.to_list()
+    Read hydromonitor csv export file:
+    >>>hm = HydroMonitor.from_csv(filepath=<path>)
+    Convert to list of GwSeries objects:
+    >>>mylist = hm.to_list()
+    Iterate over series and return GwSeries objects one at a time:
+    >>>for (loc,fil),data in self.iterseries():
+           gw = self.get_series(sr=data,loc=loc,fil=fil)
+    Save all series to json files in <filedir>:
+    >>>hm.to_json(<filedir>)
 
     """
 
@@ -438,16 +445,13 @@ class HydroMonitor:
         return srlist
 
 
-    def generator(self):
+    def iterseries(self):
         heads = self.delete_duplicate_data()
         return heads.groupby(self.idkeys()).__iter__()
 
 
     def to_json(self,filedir=None):
 
-        for (loc,fil),data in self.generator():
+        for (loc,fil),data in self.iterseries():
             gws = self.get_series(sr=data,loc=loc,fil=fil)
-            #filename = f'{loc}_{fil}.json'
-            #filename = loc+'_'+fil+'.json'
-            #filepath = os.path.join(filedir,filename)
             gws.to_json(filedir)
