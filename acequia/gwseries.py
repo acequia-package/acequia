@@ -215,6 +215,30 @@ class GwSeries:
         sr.name = self.name()
         return DataFrame(sr).T
 
+    def tubeprops(self,last=False):
+        """Return tube properties 
+
+        Parameters
+        ----------
+        last : booean, default False
+            retun only the last row of tube properties without date
+
+        Returns
+        -------
+        pd.DataFrame"""
+
+        if last==False:
+            tps = DataFrame(self._tubeprops[['startdate','mplevel',
+                            'surfacelevel','filtop','filbot']]).copy()
+            tps['startdate'] = tps['startdate'].dt.date
+            tps.insert(0,'series',self.name())
+        else:
+            tps = DataFrame(self._tubeprops[['mplevel',
+                            'surfacelevel','filtop','filbot']]).copy()
+            tps.insert(0,'series',self.name())
+            tps = tps.iloc[[-1]]
+        return tps
+
     def heads(self,ref='datum',freq=None):
         """ 
         Return groundwater head measurements
@@ -309,12 +333,15 @@ class GwSeries:
         with open(filepath) as json_file:
             json_dict = json.load(json_file)
 
-        locprops = DataFrame.from_dict(json_dict['locprops'],orient='index')
-        locprops = Series(data=locprops[0],index=locprops.index,name='locprops')
+        locprops = DataFrame.from_dict(json_dict['locprops'],
+                                        orient='index')
+        locprops = Series(data=locprops[0],index=locprops.index,
+                                        name='locprops')
 
         tubeprops = DataFrame.from_dict(json_dict['tubeprops'],
                     orient='index')
         tubeprops.name = 'tubeprops'
+        tubeprops['startdate'] = pd.to_datetime(tubeprops['startdate']) #.dt.date
 
         heads = DataFrame.from_dict(json_dict['heads'],orient='index')
         srindex = pd.to_datetime(heads.index)
