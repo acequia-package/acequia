@@ -40,7 +40,7 @@ class PlotHeads:
             ['#2767fd','#d92950','#50d929','#ecee19','#ce11f2'],
         }
 
-    clr = clrs['rainbow-adjusted']*10 # avoid out of bounds
+
 
     font1 = {
         'family' : 'serif',
@@ -52,7 +52,7 @@ class PlotHeads:
 
     def __init__(self,ts=[],reflev="datum",lbs=None,mps=None,
                  title=None,xlabel=None,ylabel=None,xlim=None,
-                 ylim=None,plotargs=None):
+                 ylim=None,colors=None,plotargs=None):
         """ Plot list of groundwater head series in one graph
 
         Parameters
@@ -85,6 +85,9 @@ class PlotHeads:
         ylim : tuple or list, optional
             min and max of heads on yaxis
 
+        colors : list,optional
+            valid pyplot colors for drawing lines
+
         plotargs : list of dicts, optional
             dict of pyplot plotting parameters for each series
         
@@ -110,6 +113,12 @@ class PlotHeads:
         if (not isinstance(mps, pd.Series)) and (mps is not None):
             msg = f'Time series {mps} with referennce changes must be pd.Series'
             raise TypeError(msg)
+
+        if isinstance(colors,list):
+            self.clr = colors*10
+        else:
+            self.clr = self.clrs['rainbow-adjusted']*10 # avoid out of bounds
+
 
         self._validate_series()
 
@@ -201,7 +210,7 @@ class PlotHeads:
 
             if not 'color' in self.plotargs[i].keys(): 
                 self.plotargs[i]['color']=self.clr[i]
-            self.plotargs[i]['lw']=0.5
+            self.plotargs[i]['lw']=0.9
             
 
             self._axgws = sr.plot(label=self.lbs[i], 
@@ -316,17 +325,28 @@ class PlotHeads:
 
         if len(self._lbs)!=0:
             plt.legend(shadow = False, loc = 4)
-            #print(lbs)
-            #plt.legend().get_frame().set_linewidth(0.0)
-            self.axeslist['axgws'].legend(loc='lower left', 
-                 ncol=4, bbox_to_anchor=(0., -0.20, 1., .15), 
+
+            if len(self._lbs)<=4:
+                ncol=4
+                bbox = [0., -0.20, 1., .15]
+            elif len(self._lbs)<=8:
+                ncol=4
+                bbox = [0., -0.25, 1., .15]
+
+            # explanation bbox:
+            # plt.legend(bbox_to_anchor=(x0, y0, width, height), loc=4
+            # width and height are the width and the height of the 
+            # legend box, and (x0, y0) is the coordinate of the loc of 
+            # the bounding box. loc=4 is lower right
+
+            self.axeslist['axgws'].legend(loc='lower center', 
+                 ncol=ncol, bbox_to_anchor=(bbox), 
                  mode="expand", borderaxespad=0.,frameon=False)
-            #leg = plt.legend()
 
         # plot legend texts
         ltext = plt.gca().get_legend().get_texts()
         for i in range(len(ltext)):
-            plt.setp(ltext[i], fontsize = 9.0, color = 'k')
+            plt.setp(ltext[i], fontsize = 8.0, color = 'k')
 
 
     def _reference_graph(self):
