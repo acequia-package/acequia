@@ -5,6 +5,7 @@ import logging
 
 from .gwseries import GwSeries
 from .gwlist import GwList
+from .gwlist import headsfiles as headsfiles
 from .geo.coordinate_conversion import CrdCon
 from .plots.plotheads import PlotHeads
 from .read.dinogws import DinoGws, read_dinogws

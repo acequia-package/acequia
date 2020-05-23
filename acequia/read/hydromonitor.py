@@ -36,9 +36,12 @@ class HydroMonitor:
     >>>hm = HydroMonitor.from_csv(filepath=<path>)
     Convert to list of GwSeries objects:
     >>>mylist = hm.to_list()
-    Iterate over series and return GwSeries objects one at a time:
-    >>>for (loc,fil),data in self.iterseries():
-           gw = self.get_series(sr=data,loc=loc,fil=fil)
+    Iterate over all series and return GwSeries objects one at a time:
+    >>>for i in range(len(hm)):
+        gw = next(hm)
+    Iterate over raw data and returnGwSeries objects: 
+    >>>for (loc,fil),data in hm.iterdata():
+        gw = hm.get_series(data=data,loc=loc,fil=fil)
     Save all series to json files in <filedir>:
     >>>hm.to_json(<filedir>)
 
@@ -93,6 +96,10 @@ class HydroMonitor:
                 message = 'data must be type None or type DataFrame'
                 raise TypeError(message)
 
+        # create generator
+        data = self.delete_duplicate_data()
+        self.srgen =  data.groupby(self.idkeys()).__iter__()
+        self.itercount = 0
 
     @classmethod
     def from_csv(cls,filepath):
@@ -336,13 +343,13 @@ class HydroMonitor:
         return self.data_no_dups
 
 
-    def get_series(self,sr=None,loc=None,fil=None):
+    def get_series(self,data=None,loc=None,fil=None):
         """Return GwSeries object from HydroMonitor object
 
         Parameters
         ----------
-        sr : pd.Series
-            Timeseries with groundwater head values
+        data : pd.Dataframe
+            Table with groundwater head values
         loc : str
             Well location name
         fil : str
@@ -405,11 +412,11 @@ class HydroMonitor:
 
 
         # set gwseries
-        datetimes = sr.datetime.values
+        datetimes = data['datetime'].values
         heads = np.where(
-                    np.isnan(sr.loggerhead.values),
-                    sr.manualhead.values,
-                    sr.loggerhead.values)
+                    np.isnan(data['loggerhead'].values),
+                    data['manualhead'].values,
+                    data['loggerhead'].values)
         heads = Series(data=heads,index=datetimes)
 
         # remove rows with invalid datevalues and warn
@@ -437,21 +444,43 @@ class HydroMonitor:
 
         heads = self.delete_duplicate_data()
         filgrp = heads.groupby(self.idkeys())
-        for (location,filnr),sr in filgrp:
+        for (location,filnr),data in filgrp:
 
-            gws = self.get_series(sr=sr,loc=location,fil=filnr)
+            gws = self.get_series(data=data,loc=location,fil=filnr)
             srlist.append(gws)
 
         return srlist
 
 
-    def iterseries(self):
+    def __iter__(self):
+        return self
+
+
+    def __next__(self):
+
+        if self.itercount >= len(self):
+            raise StopIteration
+
+        (loc,fil),data = next(self.srgen)
+        gw = self.get_series(data=data,loc=loc,fil=fil)
+
+        self.itercount+=1
+        return gw
+
+    def iterdata(self):
+        """Return generator for iterating over heads data"""
         heads = self.delete_duplicate_data()
         return heads.groupby(self.idkeys()).__iter__()
 
+    def __len__(self):
+        heads = self.delete_duplicate_data()
+        hymlen=0
+        for srname,sr in heads.groupby(self.idkeys()).__iter__():
+            hymlen+=1
+        return hymlen
 
     def to_json(self,filedir=None):
 
-        for (loc,fil),data in self.iterseries():
-            gws = self.get_series(sr=data,loc=loc,fil=fil)
+        for (loc,fil),data in self.iterdata():
+            gws = self.get_series(data=data,loc=loc,fil=fil)
             gws.to_json(filedir)
