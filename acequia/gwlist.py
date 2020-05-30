@@ -105,17 +105,20 @@ class GwList():
         self.loclist = loclist
         self.srcfile = srcfile
 
+
         if self.srctype not in ['dinocsv','json','hymon']:
 
             raise ValueError(' '.join(
                 f'{self.srctype} is not a valid sourcefile type. Valid',
                 f'(sourcefiletype must be given.',))
 
+
         if (self.srcdir is None) and (self.srcfile is None):
 
             raise ValueError(' '.join(
                 f'At least one of parameters srcdir or srclist must',
                 f'be given.',))
+
 
         if (self.srcdir is not None) and (self.srcfile is not None):
 
@@ -141,9 +144,8 @@ class GwList():
 
             self.flist = self.filelist()
 
-
-        if (self.srcfile is not None) and (self.srctype 
-                                           in ['dinocsv','json']):
+        if (self.srcfile is not None) and (
+            self.srctype in ['dinocsv','json']):
 
             if not os.path.exists(self.srcfile):
                 raise ValueError(f'Filepath {self.srcfile} does not exist.')
@@ -169,7 +171,8 @@ class GwList():
 
         """
 
-        if (self.srcdir is not None) and (self.srctype in ['dinocsv','json']):
+        if (self.srcdir is not None) and (self.srctype 
+                in ['dinocsv','json']):
 
             return self.sourcefiles()
 
@@ -214,10 +217,12 @@ class GwList():
             raise StopIteration
 
         if self.srctype == 'dinocsv':
+            idx = self.flist.index[self.itercount]
             filename = self.flist.at[self.itercount,'path']
             self.gw = aq.GwSeries.from_dinogws(filename)
         elif self.srctype == 'json':
-            filename = self.flist.at[self.itercount,'path']
+            idx = self.flist.index[self.itercount]
+            filename = self.flist.at[idx,'path']
             self.gw = aq.GwSeries.from_json(filename)
         elif self.srctype == 'hymon':
             #self.gw = self.hm[self.itercount]
@@ -258,7 +263,7 @@ class GwList():
             dnfiles["series"]= dnfiles["loc"]+"_"+dnfiles["fil"]
             dnfiles["path"]= dnfiles["file"].apply(lambda x:self.srcdir+x)
 
-            if self.loclist:
+            if self.loclist is not None:
                 mask = dnfiles['loc'].isin(self.loclist)
                 dnfiles = dnfiles[mask].copy()
 
@@ -278,7 +283,7 @@ class GwList():
             jsf["path"]= jsf['file'].apply(lambda x:os.path.join(
                                                     self.srcdir,x))
 
-            if self.loclist:
+            if self.loclist is not None:
                 mask = jsf['loc'].isin(self.loclist)
                 jsf = jsf[mask].copy()
 
