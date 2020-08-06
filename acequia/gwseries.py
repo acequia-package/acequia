@@ -13,6 +13,7 @@ import os
 import os.path
 from collections import OrderedDict
 import json
+import warnings
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -209,6 +210,13 @@ class GwSeries:
         filter = str(self._locprops['filname'])
         return location+'_'+filter
 
+    def locname(self):
+        """Return series location name"""
+        srname = self.locprops().index[0]
+        locname = self.locprops().loc[srname,'locname']
+        return locname
+
+
     def locprops(self):
         """ return location properties as pd.DataFrame"""        
         sr = self._locprops
@@ -289,7 +297,14 @@ class GwSeries:
             for index,props in self._tubeprops.iterrows():
                 mask = heads.index>=props['startdate']
                 if ref=='datum':
-                    heads = heads.mask(mask,props['mplevel']-self._heads)
+                    #if props['mplevel'] is None:
+                    if not pd.api.types.is_number(props['mplevel']):
+                        msg = f'{self.name()} tubeprops mplevel is None.'
+                        warnings.warn(msg)
+                        mp = 0
+                    else:
+                        mp = props['mplevel']
+                    heads = heads.mask(mask,mp-self._heads)
                 if ref=='surface':
                     surfref = round(props['mplevel']-props['surfacelevel'],2)
                     heads = heads.mask(mask,self._heads-surfref)

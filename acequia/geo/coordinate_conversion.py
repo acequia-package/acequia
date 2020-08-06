@@ -135,7 +135,8 @@ class CrdCon:
         else:
             [E,N]=self._RDtoWGS84forUMT31(X,Y)
             UMTZONE = "UMT31"
-        return {"Lon" : Lon, "Lat" : Lat, "East" : E, "North" : N, "xRD" : X, "yRD" : Y, "UMTZONE" : UMTZONE}
+        return {"Lon" : Lon, "Lat" : Lat, "East" : E, "North" : N, 
+                "xRD" : X, "yRD" : Y, "UMTZONE" : UMTZONE}
 
 
     def WGS84toRD(self,Lon,Lat):
