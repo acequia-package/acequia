@@ -108,7 +108,7 @@ class PlotHeads:
         gws  = aq.GwSeries.from_json(<json sourcefile>)
         sr   = gw.heads(ref='datum')
         plot = aq.PlotHeads(ts=[sr],ylim=[19.5,21.5])
-            
+        plot.save(<filename.jpg>,dpi=300.0)
              
         """
 
@@ -483,7 +483,17 @@ class PlotHeads:
 
 
     def save(self,filename,dpi=None):
-        """Save figure to file"""
+        """Save figure to file
+
+        Parameters
+        ----------
+        filename : str
+            filename for saving figure (including extension)
+
+        dpi : number, default 200.0
+            dpi for output figure
+
+        """
 
         if dpi is None:
             dpi = 200.0 # default dpi is 100.0
