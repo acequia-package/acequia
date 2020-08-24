@@ -50,14 +50,14 @@ if __name__ == '__main__':
     names = ['B21A0138','B21G1057','B22B0226','B24H0080','B29A0850']
     gwlist = locs.gwseries(loc=names)
 
-    # test iterator (test1)
+    # test iterator on directory (valid files only)
     locs = GwLocs(filedir=jsondir,groups=names)
     for i in range(len(locs)):
         gws = next(locs)
         print(f'{names[i]} group size is {len(gws)}')
     print()
 
-    # test iterator (test1)
+    # test iterator on list of names (valid files only)
     names = ['B21A0138','B21G1057',['B22B0226','B24H0080'],'B29A0850']
     locs = GwLocs(filedir=jsondir,groups=names)
     for i in range(len(locs)):
@@ -67,3 +67,13 @@ if __name__ == '__main__':
 
     for loc in GwLocs(filedir=jsondir,groups=names):
         print(f'{names[i]} group size is {len(gws)}')
+    print()
+
+    # test iterator on directory (some empty files)
+    jsondir = '.\\testdata\\json_some_empty\\'
+    locs = GwLocs(filedir=jsondir,groups=names)
+    for i in range(len(locs)):
+        gws = next(locs)
+        print(f'{names[i]} group size is {len(gws)}')
+    print()
+

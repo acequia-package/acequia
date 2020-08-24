@@ -120,5 +120,5 @@ if __name__ == '__main__':
         fld2 = aq.headsfiles(sourcedir,'dinocsv',dloc)
         print(f'List with {len(fld2)} sourcefilenames of type \'dinocsv\' has been created.')
 
-
         print()
+

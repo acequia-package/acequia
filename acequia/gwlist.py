@@ -247,7 +247,7 @@ class GwList():
             return len(self.hm)
 
     def sourcefiles(self):
-        """ return list of dino sourcefiles in directory dir"""
+        """ return list of sourcefiles in directory dir"""
 
         if self.srctype=='dinocsv':
             files = [f for f in os.listdir(self.srcdir) 

@@ -1,6 +1,7 @@
 
 
-""" This module contains the object GwLocsdsDif
+""" This module contains the object GwLocs
+dsDif
 
 
 """
@@ -35,7 +36,7 @@ class GwLocs:
 
     Explicitly iterate over locations:
     >>>locs = GwLocs(filedir=<jsondir>,groups=names3)
-    >>>for i in range(len(locs3)):
+    >>>for i in range(len(locs)):
             gws = next(locs)
             print(f'{names3[i]} group size is {len(gws)}')
 
@@ -94,10 +95,23 @@ class GwLocs:
         filenames = [f for f in os.listdir(filedir)
                      if os.path.isfile(os.path.join(filedir,f)) 
                     ]
-        series = [x.split('.')[0] for x in filenames]
-        filetype = [x.split('.')[1] for x in filenames]
-        locations = [x.split('_')[0] for x in series]
-        filters = [x.split('_')[1] for x in series]
+
+        if self._filetype=='json':
+            filetype = [x.split('.')[1] for x in filenames]
+            locations = [x.split('_')[0] for x in series]
+            filters = [x.split('_')[1] for x in series]
+            series = [x.split('.')[0] for x in filenames]
+
+        if self._filetype=='csv':
+            # dino zipfiles come with two files for each filter
+            # only files ending with _1.csv are needed
+            filenames = [x for x in filenames if x[-6:]=='_1.csv']
+
+            filetype = [x.split('.')[1] for x in filenames]
+            locations = [x[:8] for x in filenames]
+            filters = [x[8:11].lstrip('0') for x in filenames]
+            series = [x[0]+'_'+x[1] for x in list(zip(locations,filters))]
+
         table = DataFrame(data={
                 'loc':locations,
                 'fil':filters,
@@ -105,6 +119,7 @@ class GwLocs:
                 'filetype':filetype,
                 },index=series)
         table.index.name = 'series'
+            
         return table
 
 
@@ -168,7 +183,7 @@ class GwLocs:
             if self._filetype=='json':
                 gw = aq.GwSeries.from_json(filepath)
             if self._filetype=='csv':
-                gw = aq.GwSeries.from_csv(filepath)
+                gw = aq.GwSeries.from_dinogws(filepath)
 
             if i==0:
                 gwlist = [gw]
@@ -192,8 +207,8 @@ class GwLocs:
             raise StopIteration
 
         loc = self._grpnames[self._itercount]
-        gwlist = self.gwseries(loc=loc)
+        mygwlist = self.gwseries(loc=loc)
 
         self._itercount+=1
-        return gwlist
+        return mygwlist
 
