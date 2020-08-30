@@ -44,9 +44,7 @@ def headsfiles(srcdir=None,srctype=None,loclist=None):
 
 
 class GwList():
-    """
-         for list of GwSeries objects
-    """
+    """Contain list of GwSeries objects"""
 
     def __repr__(self):
         return (f'{self.__class__.__name__}()')
@@ -54,7 +52,7 @@ class GwList():
 
     def __init__(self,srcdir=None,srctype='dinocsv',loclist=None,
         srcfile=None):
-        """Container for list of GwSeries objects  
+        """Contain list of GwSeries objects  
 
         Variables
         ---------
@@ -104,13 +102,13 @@ class GwList():
         self.srctype = srctype
         self.loclist = loclist
         self.srcfile = srcfile
+        self._valid_srctype = ['dinocsv','json','hymon']
 
-
-        if self.srctype not in ['dinocsv','json','hymon']:
+        if self.srctype not in self._valid_srctype:
 
             raise ValueError(' '.join(
                 f'{self.srctype} is not a valid sourcefile type. Valid',
-                f'(sourcefiletype must be given.',))
+                f'(sourcefiletypes are {self._valid_srctype}',))
 
 
         if (self.srcdir is None) and (self.srcfile is None):
@@ -142,7 +140,9 @@ class GwList():
                     f'{self.srctype}.',)
                 raise ValueError(msg)
 
-            self.flist = self.filelist()
+            self._flist = self.filelist()
+
+
 
         if (self.srcfile is not None) and (
             self.srctype in ['dinocsv','json']):
@@ -150,7 +150,7 @@ class GwList():
             if not os.path.exists(self.srcfile):
                 raise ValueError(f'Filepath {self.srcfile} does not exist.')
 
-            self.flist = self.filelist()
+            self._flist = self.filelist()
 
         if (self.srcfile is not None) and (self.srctype=='hymon'):
 
@@ -217,12 +217,12 @@ class GwList():
             raise StopIteration
 
         if self.srctype == 'dinocsv':
-            idx = self.flist.index[self.itercount]
-            filename = self.flist.at[self.itercount,'path']
+            idx = self._flist.index[self.itercount]
+            filename = self._flist.at[self.itercount,'path']
             self.gw = aq.GwSeries.from_dinogws(filename)
         elif self.srctype == 'json':
-            idx = self.flist.index[self.itercount]
-            filename = self.flist.at[idx,'path']
+            idx = self._flist.index[self.itercount]
+            filename = self._flist.at[idx,'path']
             self.gw = aq.GwSeries.from_json(filename)
         elif self.srctype == 'hymon':
             #self.gw = self.hm[self.itercount]
@@ -241,7 +241,7 @@ class GwList():
     def __len__(self):
 
         if self.srctype in ['dinocsv','json']:
-            return len(self.flist)
+            return len(self._flist)
 
         if self.srctype in ['hymon']:
             return len(self.hm)
@@ -294,9 +294,9 @@ class GwList():
         """ Return named GwSeries object from list"""
 
         if self.srctype in ['dinocsv','json']:
-            row = self.flist[self.flist['series']==srname]
+            row = self._flist[self._flist['series']==srname]
             indexval = row.index.values[0]
-            filepath = self.flist.loc[indexval,'path']
+            filepath = self._flist.loc[indexval,'path']
 
         if self.srctype=='json':
             gw = aq.GwSeries.from_json(filepath)
