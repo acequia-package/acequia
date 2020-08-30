@@ -98,8 +98,8 @@ class GwLocs:
 
         if self._filetype=='json':
             filetype = [x.split('.')[1] for x in filenames]
-            locations = [x.split('_')[0] for x in series]
-            filters = [x.split('_')[1] for x in series]
+            locations = [x.split('_')[0] for x in filenames]
+            filters = [x.split('_')[1] for x in filenames]
             series = [x.split('.')[0] for x in filenames]
 
         if self._filetype=='csv':
