@@ -94,7 +94,7 @@ class GwStats:
         elif ref == "cmnap":self.reference = "cmnap"
         elif ref == "cmmv": self.reference = "cmmv"
         elif ref == "cmmp": self.reference = "cmmp"
-        else: 
+        else:
             self.reference = ref
             print(sr.name," has invalid reference ",self.reference)
         
@@ -112,7 +112,7 @@ class GwStats:
             hydrojaar = np.where(self.sr14.index.month<4,self.sr14.index.year-1,self.sr14.index.year)
             seizoen = np.where((self.sr14.index.month>3) & (self.sr14.index.month<10),"zomer","winter")
             self.dfdata14 = DataFrame({"data":self.sr14.values,"hydrojaar":hydrojaar,"seizoen":seizoen},index=self.sr14.index)
-            
+
             # calculate statistics
             if quantiles: self.quantiles()
             if stats: self.stats()
@@ -128,7 +128,7 @@ class GwStats:
         if self.sr14.empty and len(self.dfdata)>0:
             # Create timeseries with 14day values
             grp = self.dfdata.groupby(self.dfdata["hydrojaar"]) # create group object
-            
+
             # self.N = timeseries with number of measurements for each hydrological year
             N = grp["data"].count() #.to_frame(name="N")# calculate number of measurements
 
@@ -142,7 +142,7 @@ class GwStats:
             datestrings14 = [str(day)+"-"+str(month)+"-"+str(year) for year in hifrqyears for month in list(range(1,13)) for day in [14,28]]
             datetimes14 = pd.to_datetime(datestrings14) # dates to select from original timeseries to get 14day values for high frequency years
             sr14 = self.dfdata[self.dfdata.index.isin(datetimes14)]
-            
+
             # append hifrq selection to self.sr14
             self.sr14 = self.sr14.append(sr14["data"])
 

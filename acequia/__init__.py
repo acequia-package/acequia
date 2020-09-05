@@ -10,6 +10,7 @@ from .gwlocs import GwLocs
 from .headsdif import HeadsDif
 from .headsdif import headsdif_from_gwseries as headsdif_from_gwseries
 from .geo.coordinate_conversion import CrdCon
+from .geo.waypoint_kml import WpKml
 from .plots.plotheads import PlotHeads
 from .read.dinogws import DinoGws, read_dinogws
 from .read.hydromonitor import HydroMonitor
