@@ -43,7 +43,7 @@ class WpKml:
       'brightred'   : '#FF0000'}
 
 
-    default_styles = OrderedDict([
+    _default_styledict = OrderedDict([
         ('1',{'iconshape':'square','iconscale':1.0,'iconcolor':'#0c7cac',
               'labelscale':0.7,'labelcolor':'#FFFFFF'}),
         ('2',{'iconshape':'square','iconscale':1.0,'iconcolor':'#ac0b35',
@@ -78,6 +78,7 @@ class WpKml:
         styledict=None, stylecol=None):
         """Create KML file object from pd.DataFrame with waypoints
 
+
         Parameters
         ----------
         wplist : pd.DataFrame
@@ -93,11 +94,34 @@ class WpKml:
         stylecol : str, optional
             column name for assigning styles
 
+
+        Examples
+        --------
+        >>>sourcepath = '.\\testdata\\waypoints\\pmgloc.csv'
+        >>>pmgloc = pd.read_csv(sourcepath)
+        >>>pts = WpKml(pmgloc,label="nitgcode",xcoor="xcr",ycoor="ycr")
+        >>>outdir = '.\\output\\kml\\'
+        >>>pts.writekml(f'{outdir}pmv2019-noformatting.kml')
+
+        >>>styledict_truefalse = {
+                "true":
+                    {"iconshape":"circle","iconscale":1.0,
+                     "iconcolor":"#0000FF","labelscale":0.7,
+                     "labelcolor":"FFFFFF"}),
+                {"false":
+                    {"iconshape":"circle","iconscale":1.0,
+                     "iconcolor":"#FF00FF","labelscale":0.7,
+                     "labelcolor":"FFFFFF"},}
+        >>>pts = WpKml(pmgloc,label="nitgcode",xcoor="xcr",ycoor="ycr",
+                       styledict=styledict_truefalse, stylecol="ispmg")
+        >>>pts.writekml(f'{outdir}pmv-styledict-and-stylecol.kml')
+
+
         Notes
         -----
         If no values for xcoor,ycoor are given, column names with
         coordinates will be inferred from wplist column names.
-
+        
         """
 
         self.kml = skml.Kml()
@@ -119,7 +143,6 @@ class WpKml:
         notlat = 'lat' not in self.wplist.keys()
         if notlon or notlat:
             self.wplist['lon'],self.wplist['lat'] = self.wgs84_coords()
-
 
         # set label column name
         if label is None:
@@ -148,9 +171,8 @@ class WpKml:
             self.pointstyles[iconkey] = self._changestyle(basestyle,icondef)
 
 
-
-    def _coordinate_columns(self,xcoor,ycoor):
-        """Return RD-coordinate column names """
+    def _coordinate_columns(self,xcoor=None,ycoor=None):
+        """Return names of columns with xcoor,ycoor """
 
         if xcoor is None:
             xlist = ['xcoor','xrd','x']
@@ -180,8 +202,12 @@ class WpKml:
 
 
     def wgs84_coords(self):
-        """Return lon and lat """
+        """Return lon and lat as ps.Series
 
+        Returns
+        -------
+        lon,lat
+        """
         crdcon = CrdCon()
         lon = self.wplist.apply(
                 lambda x: crdcon.RDtoWGS84(float(x[self.xcoor]),
@@ -189,13 +215,16 @@ class WpKml:
         lat = self.wplist.apply(
                 lambda x: crdcon.RDtoWGS84(float(x[self.xcoor]),
                 float(x[self.ycoor]))['Lat'],axis=1)
-
         return lon,lat
+
+
+    def default_styledict(self):
+        """Return default styledict """
+        return self._default_styledict
 
 
     def _validate_styledict(self,styledict,stylecol):
         """ validate styledict and stylecol """
-
 
         if (stylecol is not None) and (styledict is not None):
 
@@ -225,11 +254,11 @@ class WpKml:
         if (stylecol is not None) and (styledict is None):
 
             wplabels = self.wplist[stylecol].unique()
-            defaultkeys = list(self.default_styles.keys())
+            defaultkeys = list(self._default_styledict.keys())
             if len(wplabels) <= len(defaultkeys):
                 newstyles = []
                 for i,wplabel in enumerate(wplabels):
-                    newstyles.append((wplabel,self.default_styles[defaultkeys[i]]))
+                    newstyles.append((wplabel,self._default_styledict[defaultkeys[i]]))
                 styledict = OrderedDict(newstyles)
                 #self.pointstyles = self._styles_from_dict(self.styledict)
 
@@ -243,7 +272,7 @@ class WpKml:
                    f'Default style definitions contains {lenkeys} values.\n',
                    f'No formatting of waypoints applied.\n',])
                 warnings.warn(message,UserWarning)
-                styledict = {'default' : self.default_styles['1']}
+                styledict = {'default' : self._default_styledict['1']}
                 stylecol = None
 
 
@@ -251,7 +280,7 @@ class WpKml:
             styledict = next(iter(styledict.values())) # abitrary single element from styledict
 
         if (stylecol is None) and (styledict is None):
-                styledict = {'default' : self.default_styles['1']}
+                styledict = {'default' : self._default_styledict['1']}
 
 
         """
@@ -265,8 +294,19 @@ class WpKml:
 
     def _styles_from_dict(self,icondict):
         """Return OrderedDict of KML pointstyles with keys from icondict
-           as point style names """
+        as point style names 
 
+        Parameters
+        ----------
+        icondict : dict
+            valid iconstyle dictionary
+
+
+        Returns
+        -------
+        Ordereddict with KML pointstyles
+
+        """
         pointstyles = OrderedDict()
         for iconkey,icondef in icondict.items():
             pointstyles[iconkey] = self._changestyle(
@@ -275,9 +315,8 @@ class WpKml:
         return pointstyles
 
 
-
     def _basestyle(self,icondict=None):
-        """ define one default base icon style """
+        """ Return default KML icon style """
 
         basestyle = skml.Style()
         basestyle.labelstyle.color = skml.Color.hex(self.colors['white'])
@@ -297,15 +336,20 @@ class WpKml:
 
 
     def _changestyle(self,kmlstyle=None,icondef={}):
-        """ Change existing kml style with definitions given in dictionary 
+        """ Change existing kml style with definitions given in dictionary
 
         Parameters
-        ---------
+        ----------
         kmlstyle : skml.style
             existing skml style object
         icondef : dict
             dictionary with items and values to change
-        """ 
+
+        Returns
+        -------
+        KML style object
+
+        """
 
         if not isinstance(kmlstyle,skml.styleselector.Style):
             msg = f'Variable {kmlstyle} must be a simplekml style object.'
@@ -338,13 +382,13 @@ class WpKml:
 
             elif itemkey=='labelscale':
                 kmlstyle.labelstyle.scale = float(icondef['labelscale'])
-                
+
         return kmlstyle
 
 
     def _addcustomstyle(self,name,colorname=None,hexcolor=None,
         iconshape=None,styledic=None):
-        """Add new custom KML waypoint style """
+        """Add new custom KML waypoint style to customstyles"""
 
         newstyle = self.basestyle()
 
