@@ -31,14 +31,14 @@ class GwLocs:
 
     Return list of GwSeries objects for locations in list:
     >>>names = ['B16D0037','B27G0237',['B28D1635','B28B1388'],'B28B1389']
-    >>>for loc in GwLocs(filedir=<jsondir>,groups=names3):
-            print(f'{names3[i]} group size is {len(gws)}')
+    >>>for loc in GwLocs(filedir=<jsondir>,groups=names):
+            print(f'{names[i]} group size is {len(gws)}')
 
     Explicitly iterate over locations:
-    >>>locs = GwLocs(filedir=<jsondir>,groups=names3)
+    >>>locs = GwLocs(filedir=<jsondir>,groups=names)
     >>>for i in range(len(locs)):
             gws = next(locs)
-            print(f'{names3[i]} group size is {len(gws)}')
+            print(f'{names[i]} group size is {len(gws)}')
 
     """
 
@@ -61,14 +61,14 @@ class GwLocs:
             msg = f'Unsupported filetype {filetype}.'
             raise ValueError(msg)
 
-        self.filedir = filedir
+        self._filedir = filedir
         self._filetype = filetype
-        self.table = self.loctable(self.filedir)
+        self._table = self.loctable(self._filedir)
 
         # prepare iterator
         self._itercount = 0
         if groups is None:
-            grp = self.table.groupby(by='loc')
+            grp = self._table.groupby(by='loc')
             self._grpnames = list(grp.groups.keys())
         else:
             self._grpnames = groups
@@ -76,7 +76,7 @@ class GwLocs:
 
 
     def __repr__(self):
-        nlocs = len(self.table.groupby(by='loc').size())
+        nlocs = len(self._table.groupby(by='loc').size())
         return (f'GwLocs(n={nlocs})')
 
 
@@ -145,7 +145,7 @@ class GwLocs:
         """
 
         if filedir is None:
-            return self.table
+            return self._table
 
         if not os.path.isdir(filedir):
             msg = f'{filedir} must be a valid directory'
@@ -176,10 +176,10 @@ class GwLocs:
         if isinstance(loc,str):
             loc = [loc]
 
-        mask = self.table['loc'].isin(loc)
-        for i,(srname,row) in enumerate(self.table[mask].iterrows()):
+        mask = self._table['loc'].isin(loc)
+        for i,(srname,row) in enumerate(self._table[mask].iterrows()):
 
-            filepath = os.path.join(self.filedir,row['filename'])
+            filepath = os.path.join(self._filedir,row['filename'])
             if self._filetype=='json':
                 gw = aq.GwSeries.from_json(filepath)
             if self._filetype=='csv':

@@ -417,12 +417,38 @@ class GwSeries:
                 return None
         return json_dict
 
-    def heads1428(self,nearest=0,ref='datum'):
-        """ Return timeseries of measurements on 14th and 28th 
+
+    def index1428(self,days=[14,28]):
+        """ Return datetimeindex with only daynumber in days
 
         Parameters
         ----------
-        nearest : integer, optional
+        days : list, default [14,28]
+
+        Returns
+        -------
+        pd.DatetimeIndex
+
+        """
+
+        minyear = self._heads.index.min().year
+        maxyear = self._heads.index.max().year
+        strdates = [str(day)+"-"+str(month)+"-"+str(year) #+' 12:00' 
+                    for year 
+                    in list(range(minyear,maxyear+1)) for month 
+                    in list(range(1,13)) for day in days]
+        #dates = pd.to_datetime(strdates)
+        dates = [pd.Timestamp(x) for x in strdates]
+        return pd.DatetimeIndex(dates)
+
+
+    def heads1428(self,maxlag=0,ref='datum'):
+        """ Return timeseries of measurements on 14th and 28th of each 
+        month
+
+        Parameters
+        ----------
+        maxlag : integer, default 0
             maximum number of days a measurement is allowed to deviate
             from the 14th or 28th
         ref : {'mp','datum','surface'}, default 'datum'
@@ -431,13 +457,37 @@ class GwSeries:
         -------
         sr : pandas time Series
 
+        Notes
+        -----
+        When maxlag=0 only measurements on the 14th and 28th are 
+        selected. When maxlag is 1 or higher, missing values on the 
+        14th and 28th are filled in with values from the nearest date,
+        with a maximum deviation of maxlag days.
+ 
         """
 
-        if nearest==0:
+        heads = self.heads(ref=ref)
+        # TODO: convert heads to day means
+        """
+        # just selecting; no equidistant series is created
+        if maxlag==0:
             is1428 = lambda x: ((x.day == 14) or (x.day ==28))
-            sr = self.heads(ref=ref)
-            srbool = Series(sr.index.map(is1428), index=sr.index)
-            return sr.loc[srbool]
+            srbool = Series(heads.index.map(is1428), index=heads.index)
+            return heads.loc[srbool]
+        """
+
+        idx1428 = self.index1428()
+        ilocs = [heads.index.get_loc(dt, method='nearest') 
+                 for dt in idx1428]
+
+        sr1428 = pd.Series(data=heads[ilocs].values,index=idx1428)
+
+        maxdif = pd.to_timedelta(f'{maxlag} days')
+        datesdif = idx1428-heads[ilocs].index
+        mask = abs(datesdif)<=maxdif
+
+        return sr1428[mask]
+
 
     def tubeprops_changes(self,proptype='mplevel'):
         """Return timeseries with tubeprops changes

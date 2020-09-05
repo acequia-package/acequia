@@ -27,10 +27,16 @@ if __name__ == '__main__':
 
     sourcedir = ".\\testdata\\dinogws\\"
     srcfile = "B28A0475002_1.csv"
-    gws = aq.GwSeries.from_dinogws(sourcedir+srcfile)
-    sr = gws.heads(ref='datum')
+    gw = aq.GwSeries.from_dinogws(sourcedir+srcfile)
+    sr = gw.heads(ref='datum')
+    index = gw.dates1428()
+    #sr.index[sr.index.get_loc(index, method='nearest')]
+    sr3 = gw.heads1428(maxlag=3)
+    
 
-    if 1: # test all seperate methods of class acequia.stats.gwstats()
+
+
+    if 0: # test all seperate methods of class acequia.stats.gwstats()
         
         # test empty init
         gst = GwStats()
@@ -81,7 +87,7 @@ if __name__ == '__main__':
         gst.to_excel_fast(".\\output\\data-fast.xlsx")        
         print("Saved data-fast.xlsx")
         
-    if 1: # test methods for multiple dino files in a directory
+    if 0: # test methods for multiple dino files in a directory
     
         sourcedir = ".\\testdata\\dinogws\\"
         outputdir = ".\\output\\" 
