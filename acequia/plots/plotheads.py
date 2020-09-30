@@ -113,6 +113,10 @@ class PlotHeads:
         """
 
         self.ts = ts
+
+        if all(isinstance(gw, aq.gwseries.GwSeries) for gw in self.ts):
+            self.ts = [gw.heads() for gw in self.ts]
+
         if not all(isinstance(sr, pd.Series) for sr in self.ts):
             msg = {f'Wrong input of timeseries. Expected a list of',
                    f'Pandas Series with DateTime indexes.'}

@@ -24,6 +24,7 @@ import numpy as np
 
 #from .read.dinogws import DinoGws
 import acequia.read.dinogws
+from .plots.plotheads import PlotHeads
 from .stats.gwgxg import GxG
 
 class GwSeries:
@@ -506,7 +507,7 @@ class GwSeries:
         if proptype in ['mplevel','surfacelevel','filtop','filbot']:
             mps = self._tubeprops[proptype].values
         else:
-            mps = gws._tubeprops['mplevel']
+            mps = self._tubeprops['mplevel']
             # TODO: add userwarning
 
         idx = pd.to_datetime(self._tubeprops['startdate'])
@@ -536,7 +537,7 @@ class GwSeries:
             mps = self._tubeprops[proptype].values
 
         mps = self.tubeprops_changes(proptype=proptype)
-        self.headsplot = self.PlotHeads(ts=[self.heads()],mps=mps)
+        self.headsplot = PlotHeads(ts=[self.heads()],mps=mps)
 
         if filename is not None:
             self.headsplot.save(filename)
