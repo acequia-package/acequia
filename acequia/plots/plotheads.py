@@ -17,6 +17,7 @@ from imp import reload
 import os
 import os.path
 import datetime as dt
+import acequia as aq
 #inch = 25.4 mm
 mm = 1/25.4
 
