@@ -19,8 +19,10 @@ from .read.filedirtools import cleardir
 from .stats.utils import hydroyear, season, index1428, ts1428
 from .stats.gwstats import GwStats
 from .stats.gxg import Gxg
+from .stats.quantiles import Quantiles
 
 __all__ = ['GwSeries','GwList','GwLocs','PlotGws','DinoGws',
-           'HydroMonitor','GwStats','GxG','CrdCon','KnmiStations']
+           'HydroMonitor','GwStats','Gxg','Quantiles','CrdCon',
+           'KnmiStations']
 
 logger = logging.getLogger(__name__)

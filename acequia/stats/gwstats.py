@@ -132,8 +132,7 @@ class GwStats:
  
     """
     def series14(self):
-        """ #return 14daagse meetreeks as pandas timeseries 
-        """        
+
         if self.sr14.empty and len(self.dfdata)>0:
             # Create timeseries with 14day values
             grp = self.dfdata.groupby(self.dfdata["hydrojaar"]) # create group object

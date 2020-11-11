@@ -81,9 +81,9 @@ class Gxg:
         return srvg1
 
 
-    def xg3(self):
-        """Return table of mean highest (GHG) and lowest (GLG) 
-        groundwater level for each hydrological year"""
+    def xg(self):
+        """Return table of Dutch groundwater statistics for each 
+        hydrological year"""
 
         hydroyears = aq.hydroyear(self.ts1428)
         tbl = pd.DataFrame(index=set(hydroyears))
@@ -126,36 +126,27 @@ class Gxg:
             tbl.loc[year,'lg3'] = round(lg3,2)
             tbl.loc[year,'hg3w'] = round(hg3w,2)
             tbl.loc[year,'lg3s'] = round(lg3s,2)
+            tbl['vg3'] = self.vg3()
+            tbl['vg1'] = self.vg1()
             tbl.loc[year,'n1428'] = n1428
 
         return tbl
 
 
-    def xg3table(self):
-        """Return dataframe with spring level (VG), mean highest level
-        (LG3) and mean lowest level (LG3) for each year"""
-
-        tbl = self.xg3()
-        tbl['vg3'] = self.vg3()
-        tbl['vg1'] = self.vg1()
-
-        return tbl
-
-
-    def gxgtable(self):
+    def gxg(self):
         """Return table with GxG for one groundwater series"""
 
         gxg = pd.DataFrame(index=[self.srname])
-        xg3 = self.xg3table()
+        xg = self.xg()
 
-        for col in xg3.columns:
-            sr = xg3[col][xg3[col].notnull()]
+        for col in xg.columns:
+            sr = xg[col][xg[col].notnull()]
             gxg[col] = round(sr.mean(),2)
 
-        for col in xg3.columns:
-            sr = xg3[col][xg3[col].notnull()]
-            gxg[f'nyr_{col}'] = round(sr.count(),2)
+        for col in xg.columns:
+            sr = xg[col][xg[col].notnull()]
+            gxg[f'{col}nyr'] = round(sr.count(),2)
 
         return gxg
 
-# acer palmatum
+        # acer palmatum
