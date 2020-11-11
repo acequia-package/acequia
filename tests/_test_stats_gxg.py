@@ -35,4 +35,6 @@ if __name__ == '__main__':
         gwsr = GwList(srcdir=srcdir,srctype='json')
         for i,gw in enumerate(gwsr):
             if 1<10:
-                print(i,gw)        
+                print(i,gw)
+
+

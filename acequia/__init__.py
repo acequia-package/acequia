@@ -16,8 +16,9 @@ from .read.dinogws import DinoGws, read_dinogws
 from .read.hydromonitor import HydroMonitor
 from .read.knmi_stations import KnmiStations, knmilocations
 from .read.filedirtools import cleardir
+from .stats.utils import hydroyear, season, index1428, ts1428
 from .stats.gwstats import GwStats
-from .stats.gwgxg import GxG
+from .stats.gxg import Gxg
 
 __all__ = ['GwSeries','GwList','GwLocs','PlotGws','DinoGws',
            'HydroMonitor','GwStats','GxG','CrdCon','KnmiStations']

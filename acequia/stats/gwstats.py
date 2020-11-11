@@ -26,7 +26,7 @@ from xlsxwriter.utility import xl_rowcol_to_cell
 ##from clsDINOGWS import dinogws
 
 class GwStats:
-    "Calculate statistics from a (groundwater)series"
+    """Calculate statistics from a (groundwater)series"""
 
     statscols = [
         'series','hydrojaar','n','n14','gem','hg3','lg3','vg3','vg1apr',
@@ -44,14 +44,22 @@ class GwStats:
         'gvg-run89','gvg-vds89pol','gvg-vds89str']
 
 
+    N14 = 26 # Years with max 26 measurement are considered 14 day measurements
+    maxdays = 7 # use estimate for value on a day only when measurement is taken less than maxdays from that date
+    minN14 = 19 # mininmal number of values in a year for valid N14 series
+    actyears = 5 # number of years for status actueel/historisch
+
+
     def __repr__(self):
         return "Calculate statistics for a (groundwater)series"
 
+
     def __init__(self, series=Series(), ref=None):
-        self.N14 = 26 # Years with max 26 measurement are considered 14 day measurements
-        self.maxdays = 7 # use estimate for value on a day only when measurement is taken less than maxdays from that date
-        self.minN14 = 19 # mininmal number of values in a year for valid N14 series
-        self.actyears = 5 # number of years for status actueel/historisch
+
+
+
+
+
         self.reset()
         if not series.empty: 
             self.setseries(series,ref=ref)
@@ -59,7 +67,6 @@ class GwStats:
     def reset(self):
         """ Reset all variables """
 
-        # define colnames
 
         # create list of frequency column names
         self.qt = np.linspace(0,1,11) # list of quantiles
@@ -123,8 +130,10 @@ class GwStats:
         """ return original groundwater series as pandas series """
         return self.sr
  
+    """
     def series14(self):
-        """ return 14daagse meetreeks as pandas timeseries """        
+        """ #return 14daagse meetreeks as pandas timeseries 
+        """        
         if self.sr14.empty and len(self.dfdata)>0:
             # Create timeseries with 14day values
             grp = self.dfdata.groupby(self.dfdata["hydrojaar"]) # create group object
@@ -151,7 +160,7 @@ class GwStats:
         #elif s:
         #    self.sr14 = Series()
         return self.sr14
-
+    """
 
     def quantiles(self):
         """ Return dataframe with quantiles for ech hydrological year 
@@ -240,7 +249,7 @@ class GwStats:
                 if i==0: self.dfvg = DataFrame(index=vg.index)
                 self.dfvg["vg"+datum["label"]]=vg
                 self.dfvg[datum["label"]+"dagen"]=vgdagen
-            
+
             # Calculate vg1apr : grondwaterstand op 1 april
             # toelichting op de variabelen:
             #  yeargrp     : gvg is gebaseerd op groepen per kalanderjaar van de feitelijke meetreeks 
