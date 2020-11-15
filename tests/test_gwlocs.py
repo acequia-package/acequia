@@ -5,9 +5,8 @@ import os
 from pandas import Series, DataFrame
 import pandas as pd
 
-#import acequia as aq
-#from gwlocs import GwLocs
 from acequia import GwLocs
+import acequia as aq
 
 if __name__ == '__main__':
 
@@ -39,11 +38,11 @@ if __name__ == '__main__':
     print(len(tbl1))
 
     # test _inder_filetype()
-    ftype = locs._infer_filetype(jsondir)
+    ftype = locs._infer_filetype()
     print(f'Inferred filetype is {ftype}')
 
     # test loctable()
-    tbl2 = locs.loctable(jsondir)
+    tbl2 = locs.loctable()
     print(len(tbl2))
 
     # test gwseries(loc)
@@ -54,7 +53,7 @@ if __name__ == '__main__':
     locs = GwLocs(filedir=jsondir,groups=names)
     for i in range(len(locs)):
         gws = next(locs)
-        print(f'{names[i]} group size is {len(gws)}')
+        print(f'{names[i]} number of series is {len(gws)}')
     print()
 
     # test iterator on list of names (valid files only)
@@ -77,3 +76,15 @@ if __name__ == '__main__':
         print(f'{names[i]} group size is {len(gws)}')
     print()
 
+    # test GwLocs.init with given filelist
+    dirpath = '.\\testdata\\dinogws\\'
+    dirpath = 'D:\\py3\\gwdata\\dino2020\\'
+    filepath = '.\\temp\\filelist.csv'
+
+    filelist =  aq.listdir(dirpath)
+    pd.Series(filelist).to_csv(filepath,index=False,header=False)
+    df = pd.read_csv(filepath,header=None,names=['filename'])
+    filelist = df['filename'].tolist()
+
+    locs = GwLocs(filedir=dirpath,pathlist=filelist,filetype='.csv')
+    print(locs)

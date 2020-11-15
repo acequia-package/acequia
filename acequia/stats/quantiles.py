@@ -80,7 +80,7 @@ class Quantiles:
         return self.tbl
 
 
-    def plot(self,years=None,figname=None):
+    def plot(self,years=None,figname=None, figtitle=None):
         """Plot quantiles"""
 
         if years is None:
@@ -90,6 +90,9 @@ class Quantiles:
             msg = f'years of type {type(list)} changed to empty list'
             warnings.warn(msg)
             years = []
+
+        if figtitle is None:
+            figtitle = self.srname
 
         csurf = '#8ec7ff'
         clines = '#c1e0ff'
@@ -130,7 +133,12 @@ class Quantiles:
         ax.set_xlabel('percentiel', fontsize=15)
         ax.set_ylabel('grondwaterstand', fontsize=15)
 
-        if figname is None:
+
+        ax.text(0.99, 0.97, figtitle, horizontalalignment='right',
+                verticalalignment='top', transform=ax.transAxes,
+                fontsize = 16)
+
+        if figname is not None:
             plt.savefig(figname,bbox_inches='tight')
 
         plt.show()

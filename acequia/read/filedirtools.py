@@ -4,6 +4,36 @@ import os.path
 import errno
 import os
 
+
+def listdir(dirpath,filetype=None):
+    """Return list of full path of all files in a directory
+
+    Parameters
+    ----------
+    dirpath : str
+        path to directory
+
+    filetype : str, optionally
+        list files of type <filetype> only
+
+    Returns
+    -------
+    list
+    """
+    if not os.path.isdir(dirpath):
+        msg = f'directory {dirpath} not found'
+        raise ValueError(msg)
+
+    ##filelist = [f for f in os.listdir(dirpath)
+    ##if os.path.isfile(os.path.join(dirpath,f))]
+    filelist = [f.path for f in os.scandir(dirpath) if f.is_file()]
+
+    if filetype is not None:
+        filelist = [f for f in filelist if f.endswith(filetype)]
+
+    return filelist
+
+
 def cleardir(dirpath,filetype=None):
     """ delete all existing files in directory 
 
@@ -29,3 +59,4 @@ def cleardir(dirpath,filetype=None):
             #    shutil.rmtree(fpath)
         except Exception as e:
             print('Failed to delete %s. Reason: %s' % (file_path, e))
+

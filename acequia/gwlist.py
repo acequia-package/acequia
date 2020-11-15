@@ -44,7 +44,51 @@ def headsfiles(srcdir=None,srctype=None,loclist=None):
 
 
 class GwList():
-    """Contain list of GwSeries objects"""
+    """Contain list of GwSeries objects
+
+    Parameters
+    ----------
+    srcdir : str, optional
+        directory with groundwater level sourcefiles
+    srctype : {'dinocsv','json','hymon'}
+        sourcefiletype
+    loclist : list
+        list of location names
+    srcfile : str, optional
+        path to sourcefile with list of sourcefiles (srctype 'json'
+        or ' dinocsv' or file with heads data (srctype ' hymon')
+
+    Examples
+    --------        
+    Loading sourcefiles:
+    >>>gwl = GwList(srcdir=<sourcedir>,srctype='dinocsv',loclist=<mylist>)
+    >>>gwl = GwList(srcdir=<sourcedir>,srctype='json',loclist=<mylist>)
+    >>>gwl = GwList(srcfile=<filepath>,srctype=<'json' or ' dinocsv'>)
+    >>>gwl = GwList(srfile=<hydromonitor csv export>,srctype='hymon')
+
+    Printing string repr of al GwSeries objects:
+    >>>for i,gw in enumerate(gwl):
+           print(i,gw)
+
+    Table with location properties:
+    >>>locp = gwl.locprops()
+
+    List of soourcefiles in <srcdir> of type ' dinocsv':
+    >>>gwl.filelist()
+
+    Notes
+    -----
+    When only srcdir and srctype are given, result will be a list of
+    GwSeries objects for all sourcefiles in srcdir.
+
+    When loclist is given, names in this list will be used for 
+    selecting files in srcdir (if a filename contains any of the 
+    names in loclist, the file will be selected).
+
+    Sourcefiles can be given in two different ways: srcdir or 
+    srcfile. When values for both srcdir and srcfile are given, 
+    srcfile will be ignored.
+    """
 
     def __repr__(self):
         return (f'{self.__class__.__name__}()')
@@ -52,52 +96,7 @@ class GwList():
 
     def __init__(self,srcdir=None,srctype='dinocsv',loclist=None,
         srcfile=None):
-        """Contain list of GwSeries objects  
-
-        Variables
-        ---------
-        srcdir : str, optional
-            directory with groundwater level sourcefiles
-        srctype : {'dinocsv','json','hymon'}
-            sourcefiletype
-        loclist : list
-            list of location names
-        srcfile : str, optional
-            path to sourcefile with list of sourcefiles (srctype 'json'
-            or ' dinocsv' or file with heads data (srctype ' hymon')
-
-        Examples
-        --------        
-        Loading sourcefiles:
-        >>>gwl = GwList(srcdir=<sourcedir>,srctype='dinocsv',loclist=<mylist>)
-        >>>gwl = GwList(srcdir=<sourcedir>,srctype='json',loclist=<mylist>)
-        >>>gwl = GwList(srcfile=<filepath>,srctype=<'json' or ' dinocsv'>)
-        >>>gwl = GwList(srfile=<hydromonitor csv export>,srctype='hymon')
-
-        Printing string repr of al GwSeries objects:
-        >>>for i,gw in enumerate(gwl):
-               print(i,gw)
-
-        Table with location properties:
-        >>>locp = gwl.locprops()
-
-        List of soourcefiles in <srcdir> of type ' dinocsv':
-        >>>gwl.filelist()
-
-        Notes
-        -----
-        When only srcdir and srctype are given, result will be a list of
-        GwSeries objects for all sourcefiles in srcdir.
-
-        When loclist is given, names in this list will be used for 
-        selecting files in srcdir (if a filename contains any of the 
-        names in loclist, the file will be selected).
-
-        Sourcefiles can be given in two different ways: srcdir or 
-        srcfile. When values for both srcdir and srcfile are given, 
-        srcfile will be ignored.
-
-        """
+        """Contain list of GwSeries objects"""
         self.srcdir = srcdir
         self.srctype = srctype
         self.loclist = loclist
@@ -143,7 +142,6 @@ class GwList():
             self._flist = self.filelist()
 
 
-
         if (self.srcfile is not None) and (
             self.srctype in ['dinocsv','json']):
 
@@ -162,12 +160,12 @@ class GwList():
 
 
     def filelist(self):
-        """ Return list of GwSeries objects from files in source 
+        """ Return list of filenames in source 
         directory 
 
         Returns
         -------
-        List of GwSeries objects
+        List
 
         """
 
@@ -220,10 +218,12 @@ class GwList():
             idx = self._flist.index[self.itercount]
             filename = self._flist.at[self.itercount,'path']
             self.gw = aq.GwSeries.from_dinogws(filename)
+ 
         elif self.srctype == 'json':
             idx = self._flist.index[self.itercount]
             filename = self._flist.at[idx,'path']
             self.gw = aq.GwSeries.from_json(filename)
+
         elif self.srctype == 'hymon':
             #self.gw = self.hm[self.itercount]
             self.gw = next(self.hm)
@@ -245,6 +245,7 @@ class GwList():
 
         if self.srctype in ['hymon']:
             return len(self.hm)
+
 
     def sourcefiles(self):
         """ return list of sourcefiles in directory dir"""
@@ -315,6 +316,7 @@ class GwList():
 
     def locprops(self):
         """ Return dataframe of locprops for locations """
+
 
         for i,gw in enumerate(self):
 
