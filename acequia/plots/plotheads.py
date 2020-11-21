@@ -294,7 +294,6 @@ class PlotHeads:
     def _set_xaxlim(self):
         """ Set xax limits for dates) """
 
-
         # calculate xax limits
         if self.xlim is None:
             self.xlim = [self.mindate(),self.maxdate()]
@@ -319,7 +318,6 @@ class PlotHeads:
         for ax in self.axeslist:
             self.axeslist[ax].set_xlim(self.xlim)
 
-        
         # set xaxis date locators
         self.xaxyears = self.xlim[1].year-self.xlim[0].year+1
         for ax in self.axeslist:
@@ -332,7 +330,9 @@ class PlotHeads:
             self.axeslist[ax].xaxis.set_major_formatter(years_fmt)
             ##if self.xaxyears < 3:
             if self.xaxyears in range(0,3):
-                self.axeslist[ax].xaxis.set_major_locator(years)
+                ##self.axeslist[ax].xaxis.set_major_locator(years)
+                self.axeslist[ax].xaxis.set_major_locator(
+                     YearLocator(1, month=1,day=1))
                 self.axeslist[ax].xaxis.set_major_formatter(years_fmt)
                      #YearLocator(1, month=1,day=1))
                      #YearLocator(byyear=1))
@@ -343,10 +343,10 @@ class PlotHeads:
                 self.axeslist[ax].set_xticklabels(labels, 
                      fontdict=myfontdic, minor=True)
 
-
             elif self.xaxyears in range(3,5):
                 self.axeslist[ax].xaxis.set_major_locator(
                      YearLocator(1, month=1,day=1))
+                self.axeslist[ax].xaxis.set_major_formatter(years_fmt)
                 self.axeslist[ax].xaxis.set_minor_locator(
                      MonthLocator(bymonth=[4,7,10]))
                 labels = ['apr','jul','okt']*5
@@ -357,6 +357,10 @@ class PlotHeads:
             elif self.xaxyears in range(5,11):
                 self.axeslist[ax].xaxis.set_major_locator(
                      YearLocator(1, month=1,day=1))
+                self.axeslist[ax].xaxis.set_major_formatter(years_fmt)
+                self.axeslist[ax].xaxis.set_minor_locator(
+                     YearLocator(1, month=1,day=1))
+
 
             elif self.xaxyears in range(11,25):
                 self.axeslist[ax].xaxis.set_major_locator(

@@ -21,7 +21,7 @@ class Quantiles:
 
     n14 = 18
 
-    def __init__(self, gw, srname=None, ref='surface', nclasses=10):
+    def __init__(self, gw, srname=None, ref='surface', nclasses=10, days=False):
         """
         Parameters
         ----------
@@ -53,10 +53,20 @@ class Quantiles:
         self.ref = ref
         self.ts = ts
         self.srname = srname
+        self.days = days
 
         # calculate quantiles table
-        self.qt = np.linspace(0,1,nclasses+1) # list of quantiles
-        self.qtnames = ['p'+str(int(x*100)) for x in self.qt]
+        if self.days:
+            self.days = [0,25,50,75,100,125,150,175,200,225,250,275,300,
+                         325,350,365]
+            self.qt = [x/365 for x in self.days]
+            self.qtlabels = [str(x) for x in self.days]
+            self.qtlabels[-1] = ''
+            
+        else:
+            self.qt = np.linspace(0,1,nclasses+1) # list of quantiles
+            self.qtlabels = ['p'+str(int(x*100)) for x in self.qt]
+            self.days = [int(x*365) for x in self.qt]
         self.tbl = self._quantiles()
 
 
@@ -66,9 +76,9 @@ class Quantiles:
         # empty table with hydroyears and percentiles
         hydroyear = aq.hydroyear(self.ts)
         #allyears = np.arange(hydroyear.min(),hydroyear.max()+1)
-        tbl = pd.DataFrame(index=set(hydroyear),columns=self.qtnames)
+        tbl = pd.DataFrame(index=set(hydroyear),columns=self.qtlabels)
 
-        for i,(name,val) in enumerate(zip(self.qtnames,self.qt)):
+        for i,(name,val) in enumerate(zip(self.qtlabels,self.qt)):
             grp = self.ts.groupby(hydroyear)
             tbl[name] = grp.quantile(val)
 
@@ -81,7 +91,19 @@ class Quantiles:
 
 
     def plot(self,years=None,figpath=None, figtitle=None):
-        """Plot quantiles"""
+        """Plot quantiles
+
+        Parameters
+        ----------
+        years : list of int
+            years to plot in color
+        figpath : str, optional
+            figure output path
+        figtitle : str, optional
+            figure title
+        days : bool, default False
+            label xax with days or quantiles
+        """
 
         if years is None:
             years = []
@@ -126,7 +148,12 @@ class Quantiles:
                 ax.plot(xvals,yvals,color=cyears)
 
         ax.set_xticks(self.qt)
-        ax.set_xticklabels(self.qtnames)
+        ax.set_xticklabels(self.qtlabels)
+        if self.days:
+            ##ax.set_xticklabels(self.days)
+            ax.set_xlabel('dagen', fontsize=15)
+        else:
+            ax.set_xlabel('percentiel', fontsize=15)
 
         ax.set_xlim(1,0)
         #ax.set_ylim(0,375)
@@ -135,9 +162,7 @@ class Quantiles:
         if self.ref=='surface':
             ax.invert_yaxis()
 
-        #fig.suptitle('test title', fontsize=12)
-        ax.set_xlabel('percentiel', fontsize=15)
-        ax.set_ylabel('grondwaterstand', fontsize=15)
+        ax.set_ylabel('grondwaterstand (cm -mv)', fontsize=15)
 
 
         ax.text(0.99, 0.97, figtitle, horizontalalignment='right',
