@@ -21,7 +21,7 @@ class Quantiles:
 
     n14 = 18
 
-    def __init__(self, ts=gw, srname=None, ref='surface', nclasses=10):
+    def __init__(self, gw, srname=None, ref='surface', nclasses=10):
         """
         Parameters
         ----------
@@ -44,7 +44,7 @@ class Quantiles:
         if isinstance(gw,pd.Series):
             ts = gw
             if srname is None: 
-                srname = ts.name
+                srname = gw.name
 
         if srname is None: 
             srname = 'series'
@@ -80,7 +80,7 @@ class Quantiles:
         return self.tbl
 
 
-    def plot(self,years=None,figname=None, figtitle=None):
+    def plot(self,years=None,figpath=None, figtitle=None):
         """Plot quantiles"""
 
         if years is None:
@@ -112,12 +112,18 @@ class Quantiles:
 
             yvals = self.tbl.loc[year,:].values * 100
             xvals = self.qt
+
+            #if year in years:
+            #    ax.plot(xvals,yvals,color=cyears)
+            #else:
             ax.plot(xvals,yvals,color=clines)
 
-        for year in years:
-            yvals = self.tbl.loc[year,:].values * 100
-            xvals = self.qt
-            ax.plot(xvals,yvals,color=cyears)
+
+        for year in self.tbl.index:
+            if year in years:
+                yvals = self.tbl.loc[year,:].values * 100
+                xvals = self.qt
+                ax.plot(xvals,yvals,color=cyears)
 
         ax.set_xticks(self.qt)
         ax.set_xticklabels(self.qtnames)
@@ -138,8 +144,8 @@ class Quantiles:
                 verticalalignment='top', transform=ax.transAxes,
                 fontsize = 16)
 
-        if figname is not None:
-            plt.savefig(figname,bbox_inches='tight')
+        if figpath is not None:
+            plt.savefig(figpath,bbox_inches='tight')
 
         plt.show()
         return ax

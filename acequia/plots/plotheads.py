@@ -53,7 +53,7 @@ class PlotHeads:
         }
 
 
-    def __init__(self,ts=[],reflev="datum",lbs=None,mps=None,
+    def __init__(self,ts=[],ref="datum",lbs=None,mps=None,
                  title=None,xlabel=None,ylabel=None,xlim=None,
                  ylim=None,colors=None,plotargs=None,plot=True):
         """ Plot list of groundwater head series in one graph
@@ -64,7 +64,7 @@ class PlotHeads:
         ts : list
             list of pd.Series with pd.DateTimeIndex
 
-        reference : {'datum','surface','mp'}, default 'datum'
+        ref : {'datum','surface','mp'}, default 'datum'
             reference level for groundwater heads
 
         lbs : list of strings, optional
@@ -114,9 +114,11 @@ class PlotHeads:
         """
 
         self.ts = ts
+        self.ref = ref
 
         if all(isinstance(gw, aq.gwseries.GwSeries) for gw in self.ts):
-            self.ts = [gw.heads() for gw in self.ts]
+            ##if self.ref=='datum':
+            self.ts = [gw.heads(ref=self.ref) for gw in self.ts]
 
         if not all(isinstance(sr, pd.Series) for sr in self.ts):
             msg = {f'Wrong input of timeseries. Expected a list of',
@@ -139,7 +141,6 @@ class PlotHeads:
 
         self._validate_series()
 
-        self.reflev = reflev
         self.xlim = xlim
         self.ylim = ylim
         self.mps = mps
@@ -285,7 +286,7 @@ class PlotHeads:
 
         self._axgws.set_ylim(self.ylim)
 
-        if self.reflev=="surface":
+        if self.ref=="surface":
             self._axgws.set_ylim(self.ylim[::-1])
             ##plt.yticks(range(200,-50-10,10))
 
