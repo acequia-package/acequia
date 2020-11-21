@@ -21,7 +21,7 @@ class Quantiles:
 
     n14 = 18
 
-    def __init__(self, gw, srname=None, ref='surface', nclasses=10):
+    def __init__(self, ts=gw, srname=None, ref='surface', nclasses=10):
         """
         Parameters
         ----------

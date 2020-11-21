@@ -39,4 +39,4 @@ if __name__ == '__main__':
     ts2 = gw.heads(ref='surface')
     qt = aq.Quantiles(ts2,srname=gw.name(),nclasses=20)
     qts = qt.table()
-    ax = qt.plot(years=[1983])
+    ax = qt.plot(years=[1983],figname='duurlijnen.jpg')
