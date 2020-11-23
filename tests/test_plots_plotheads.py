@@ -47,7 +47,7 @@ if 1:
     gw6 = aq.GwSeries.from_dinogws(sourcefile)
     sr6 = gw6.heads(ref='surface')
 
-if 1:
+if 0:
 
     # --------------------------------
     # test PlotHeads() with one series
@@ -55,7 +55,7 @@ if 1:
 
     plot = aq.PlotHeads(ts=[sr3],ylim=[19.5,21.5])
 
-if 1:
+if 0:
 
     # -------------------------------------
     # test PlotHeads() with multiple series
@@ -66,7 +66,7 @@ if 1:
     plot.save(outpath)
 
 
-if 1:
+if 0:
 
     # --------------------------------------------
     # test PlotHeads() with reference change graph
@@ -83,7 +83,7 @@ if 1:
     mps = gw5.tubeprops_changes(proptype='filbot')
     plot = aq.PlotHeads(ts=[sr5],mps=mps)
 
-if 1:
+if 0:
 
     # ---------------------------------------------------
     # test PlotHeads() for heads relative to surfacelevel
@@ -91,11 +91,30 @@ if 1:
 
     mps = gw5.tubeprops_changes(proptype='surfacelevel')
     plot = aq.PlotHeads(
-                ts=[sr6],reflev='surface', mps=mps)
+                ts=[sr6],ref='surface', mps=mps)
 
+
+if 1:
+
+    # ---------------------------------------------------
+    # test PlotHeads() for all locations in testdata
+    # ---------------------------------------------------
+
+    srcdir = f'.\\testdata\\dinogws\\'
+    plotdir = f'.\\output\\plots\\'
+    locnames = ['B12A1806','B29A0848','B32E1199']
+    locs = aq.GwLocs(filedir=srcdir,groups=locnames)
+    for i,loc in enumerate(locs):
+
+        for ts in loc:
+            ts.heads().plot()
+
+        locname = loc[0].locname()
+        plot = aq.PlotHeads(ts=loc,ref='datum',title=locname)
+        plot.save(f'{plotdir}{locname}.jpg')
+        #plt.close()
 
 if 0:
-
     sr1 = dn1.series(units="cmmv")
     desc1 = dn1.describe()
 

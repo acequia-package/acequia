@@ -187,9 +187,12 @@ class GwLocs:
                 else:
                     yield i
 
-        flatlist = flatten_nested_list(self._loclist)
-        mask = self._srcfiles['loc'].isin(flatlist)
-        srcloc = self._srcfiles[mask]
+        if self._loclist is not None:
+            flatlist = flatten_nested_list(self._loclist)
+            mask = self._srcfiles['loc'].isin(flatlist)
+            srcloc = self._srcfiles[mask]
+        else:
+            srcloc = self._srcfiles
 
         if srcloc.empty:
             msg = f'{self.name()}.list_locfiles returns empty dataframe.'

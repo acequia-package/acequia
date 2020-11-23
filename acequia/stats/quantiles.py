@@ -21,7 +21,7 @@ class Quantiles:
 
     n14 = 18
 
-    def __init__(self, gw, srname=None, ref='surface', nclasses=10, days=False):
+    def __init__(self, gw, srname=None, ref='surface', nclasses=10, days=True):
         """
         Parameters
         ----------
@@ -34,6 +34,8 @@ class Quantiles:
         nclasses : int (default 10)
             number of quantile classes 
 
+        days : bool, default True
+            label xax with days or quantiles
         """
 
         if isinstance(gw,aq.GwSeries):
@@ -57,11 +59,10 @@ class Quantiles:
 
         # calculate quantiles table
         if self.days:
-            self.days = [0,25,50,75,100,125,150,175,200,225,250,275,300,
-                         325,350,365]
+            self.days = [x*30 for x in range(12)] + [365]
             self.qt = [x/365 for x in self.days]
             self.qtlabels = [str(x) for x in self.days]
-            self.qtlabels[-1] = ''
+            ##self.qtlabels[-1] = ''
             
         else:
             self.qt = np.linspace(0,1,nclasses+1) # list of quantiles
@@ -90,7 +91,7 @@ class Quantiles:
         return self.tbl
 
 
-    def plot(self,years=None,figpath=None, figtitle=None):
+    def plot(self,years=None,figpath=None,figtitle=None,ylim=None):
         """Plot quantiles
 
         Parameters
@@ -101,8 +102,8 @@ class Quantiles:
             figure output path
         figtitle : str, optional
             figure title
-        days : bool, default False
-            label xax with days or quantiles
+        ylim : list
+            ymin, ymax
         """
 
         if years is None:
@@ -151,12 +152,13 @@ class Quantiles:
         ax.set_xticklabels(self.qtlabels)
         if self.days:
             ##ax.set_xticklabels(self.days)
-            ax.set_xlabel('dagen', fontsize=15)
+            ax.set_xlabel('dagen/jaar', fontsize=15)
         else:
             ax.set_xlabel('percentiel', fontsize=15)
 
         ax.set_xlim(1,0)
-        #ax.set_ylim(0,375)
+        if ylim:
+            ax.set_ylim(ylim[0],ylim[1])
 
         ax.invert_xaxis()
         if self.ref=='surface':

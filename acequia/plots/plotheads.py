@@ -4,6 +4,13 @@
 # Created:     29-03-2013 updated 3-6-2014
 # Licence:     Python 2.7 with pandas and matplotlib
 #-------------------------------------------------------------------------------
+import warnings
+from math import ceil as ceil, floor as floor
+import os
+import os.path
+import datetime as dt
+
+
 from pandas import DataFrame, Series
 import pandas as pd
 import matplotlib as mpl
@@ -11,21 +18,18 @@ import matplotlib.pyplot as plt
 from matplotlib.dates import YearLocator, MonthLocator, DateFormatter
 import matplotlib.dates as mdates
 
-from math import ceil as ceil, floor as floor
 import numpy as np
-from imp import reload
-import os
-import os.path
-import datetime as dt
+#from imp import reload
 import acequia as aq
 #inch = 25.4 mm
-mm = 1/25.4
+
 
 
 class PlotHeads:
     """Class for plotting customized graph of groundwater head series
 
     """
+    mm = 1/25.4
 
     # define line colors
     clrs = {
@@ -113,12 +117,17 @@ class PlotHeads:
              
         """
 
-        self.ts = ts
+        self.reflist = ['datum','surface','mp']
+        if ref not in self.reflist:
+            msg = f'Reference level must be in {self.reflist} not {ref}'
+            raise TypeError(msg)
         self.ref = ref
 
-        if all(isinstance(gw, aq.gwseries.GwSeries) for gw in self.ts):
-            ##if self.ref=='datum':
-            self.ts = [gw.heads(ref=self.ref) for gw in self.ts]
+        self.ts = ts
+        if all(isinstance(gw, aq.gwseries.GwSeries) for gw in ts):
+            self.ts = [gw.heads(ref=self.ref) for gw in ts]
+        if self.ref=='surface':
+            self.ts = [ts*100 for ts in self.ts]
 
         if not all(isinstance(sr, pd.Series) for sr in self.ts):
             msg = {f'Wrong input of timeseries. Expected a list of',
@@ -192,6 +201,9 @@ class PlotHeads:
                 self.ts[i] = sr.fillna(0)
                 # TODO: user warning
 
+
+
+
     def _create_axes(self):
         """Create figuer object with axes"""
 
@@ -250,16 +262,14 @@ class PlotHeads:
                 self.plotargs[i]['color']=self.clr[i]
             self.plotargs[i]['lw']=0.9
 
-            #self._axgws = sr.plot(label=self.lbs[i], 
-            #                      **self.plotargs[i])
 
             self._axgws = sr.dropna().plot(label=self.lbs[i], 
                                   **self.plotargs[i])
-            #sr.plot(ax=self._axgws)
 
         # adjust plot appearance
-        self._set_xaxlim()
-        self._set_yaxlim()
+        self._set_xax_limits()
+        self._set_xax_locators()
+        self._set_yax_limits()
         self._set_ticklabels()
         self._set_axlabels()
         self._set_legend()
@@ -270,16 +280,19 @@ class PlotHeads:
             self._reference_graph()
 
 
-    def _set_yaxlim(self):
+    def _set_yax_limits(self):
         """ Set yax limits for groundwater level """
 
         if self.ylim is None:
-            #ymin,ymax = self.axeslist['axgws'].get_ylim()
 
             ymin = min([min(sr.dropna()) for sr in self.ts])
-            #ymin = (floor(ymin/10.))*10. # round to decimals
-            
             ymax = max([max(sr.dropna()) for sr in self.ts])
+
+            if ymin==0 and ymax==0: #all series are empty
+                ymin = -1.0
+                ymax = 1.0
+
+            #ymin = (floor(ymin/10.))*10. # round to decimals
             #ymax = (ceil(ymax/10.))*10.  # round to decimals
 
             self.ylim = [ymin,ymax]
@@ -288,35 +301,36 @@ class PlotHeads:
 
         if self.ref=="surface":
             self._axgws.set_ylim(self.ylim[::-1])
-            ##plt.yticks(range(200,-50-10,10))
 
 
-    def _set_xaxlim(self):
+    def _set_xax_limits(self,xlim=None):
         """ Set xax limits for dates) """
 
-        # calculate xax limits
+        if xlim is not None:
+            if type(xlim) is not list:
+                msg = f'xlim must be list not {type(xlim)}'
+                warnings.warn(msg)
+            else:
+                self.xlim = xlim
+
         if self.xlim is None:
             self.xlim = [self.mindate(),self.maxdate()]
-        else:
 
-            if (isinstance(self.xlim[0],pd.Timestamp) and 
-                isinstance(self.xlim[1],pd.Timestamp)):
-                pass
-                #self.xlim[0]
+        if type(self.xlim[0])==str and type(self.xlim[1])==str:
+            self.xlim[0] = dt.datetime.strptime(self.xlim[0],'%d-%m-%Y')
+            self.xlim[1] = dt.datetime.strptime(self.xlim[1],'%d-%m-%Y')
 
-            if type(self.xlim[0])==str and type(self.xlim[1])==str:
-                self.xlim[0] = dt.datetime.strptime(self.xlim[0],'%d-%m-%Y')
-                self.xlim[1] = dt.datetime.strptime(self.xlim[1],'%d-%m-%Y')
+        if type(self.xlim[0])==int and type(self.xlim[1])==int:
+            self.xlim[0] = dt.datetime(year=int(self.xlim[0]), 
+                           month=1, day=1)
+            self.xlim[1] = dt.datetime(year=int(self.xlim[1]), 
+                           month=12, day=31)
 
-            if type(self.xlim[0])==int and type(self.xlim[1])==int:
-                self.xlim[0] = dt.datetime(year=int(self.xlim[0]), 
-                               month=1, day=1)
-                self.xlim[1] = dt.datetime(year=int(self.xlim[1]), 
-                               month=12, day=31)
-
-        # set xax limits
         for ax in self.axeslist:
             self.axeslist[ax].set_xlim(self.xlim)
+
+
+    def _set_xax_locators(self):
 
         # set xaxis date locators
         self.xaxyears = self.xlim[1].year-self.xlim[0].year+1
@@ -328,9 +342,13 @@ class PlotHeads:
             years_fmt = mdates.DateFormatter('%Y')
 
             self.axeslist[ax].xaxis.set_major_formatter(years_fmt)
-            ##if self.xaxyears < 3:
+
+            print(f'self.xaxyears is {self.xaxyears}')
+
+            ##plt.rcParams['dates.epoch'] = '0000-12-31'
+            ##dt.set_epoch = '0000-12-31'
+
             if self.xaxyears in range(0,3):
-                ##self.axeslist[ax].xaxis.set_major_locator(years)
                 self.axeslist[ax].xaxis.set_major_locator(
                      YearLocator(1, month=1,day=1))
                 self.axeslist[ax].xaxis.set_major_formatter(years_fmt)
@@ -343,18 +361,29 @@ class PlotHeads:
                 self.axeslist[ax].set_xticklabels(labels, 
                      fontdict=myfontdic, minor=True)
 
-            elif self.xaxyears in range(3,5):
+            
+            if self.xaxyears in range(3,5):
+
+                #pass
+                #"""
                 self.axeslist[ax].xaxis.set_major_locator(
                      YearLocator(1, month=1,day=1))
                 self.axeslist[ax].xaxis.set_major_formatter(years_fmt)
+
+                
                 self.axeslist[ax].xaxis.set_minor_locator(
                      MonthLocator(bymonth=[4,7,10]))
                 labels = ['apr','jul','okt']*5
                 myfontdic = {'fontsize': 8}
                 self.axeslist[ax].set_xticklabels(labels, 
                      fontdict=myfontdic, minor=True)
+                #"""
 
-            elif self.xaxyears in range(5,11):
+                #self.axeslist[ax].xaxis.set_major_formatter(
+                #    DateFormatter('%y')) #%m-%d'))
+
+
+            if self.xaxyears in range(5,11):
                 self.axeslist[ax].xaxis.set_major_locator(
                      YearLocator(1, month=1,day=1))
                 self.axeslist[ax].xaxis.set_major_formatter(years_fmt)
@@ -362,17 +391,17 @@ class PlotHeads:
                      YearLocator(1, month=1,day=1))
 
 
-            elif self.xaxyears in range(11,25):
+            if self.xaxyears in range(11,25):
                 self.axeslist[ax].xaxis.set_major_locator(
                      YearLocator(5, month=1,day=1))
                 self.axeslist[ax].xaxis.set_minor_locator(
                      YearLocator(1, month=1,day=1))
 
-            elif self.xaxyears in range(25,50):
+            if self.xaxyears in range(25,50):
                 self.axeslist[ax].xaxis.set_major_locator(
                      YearLocator(5, month=1,day=1))
 
-            else:
+            if self.xaxyears in range(50,1000):
                 self.axeslist[ax].xaxis.set_major_locator(
                      YearLocator(10, month=1,day=1))
 
@@ -441,11 +470,10 @@ class PlotHeads:
         for legobj in leg.legendHandles:
             legobj.set_linewidth(2.0)
         """
-        
+
         leg = self.axeslist['axgws'].get_legend()
         for line in leg.get_lines():
             line.set_linewidth(2.5)
-        
 
 
     def _reference_graph(self):
@@ -508,7 +536,7 @@ class PlotHeads:
         if dpi is None:
             dpi = 200.0 # default dpi is 100.0
         self.fig.set_dpi(dpi)
-        self.fig.set_size_inches(160*mm,80*mm)
+        self.fig.set_size_inches(160*self.mm,80*self.mm)
         self.fig.savefig(
                 filename,dpi=dpi, 
                 facecolor='w', 
