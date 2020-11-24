@@ -17,12 +17,13 @@ from .read.hydromonitor import HydroMonitor
 from .read.knmi_stations import KnmiStations, knmilocations
 from .read.filedirtools import listdir, cleardir
 from .stats.utils import hydroyear, season, index1428, ts1428
-from .stats.gwstats import GwStats
+#from .stats.gwstats import GwStats
+from .stats.timestats import TimeStats
 from .stats.gxg import Gxg
 from .stats.quantiles import Quantiles
 
 __all__ = ['GwSeries','GwList','GwLocs','PlotGws','DinoGws',
-           'HydroMonitor','GwStats','Gxg','Quantiles','CrdCon',
+           'HydroMonitor','TimeStats','Gxg','Quantiles','CrdCon',
            'KnmiStations']
 
 logger = logging.getLogger(__name__)

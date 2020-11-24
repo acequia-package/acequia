@@ -57,17 +57,16 @@ class Quantiles:
         self.srname = srname
         self.days = days
 
-        # calculate quantiles table
         if self.days:
             self.days = [x*30 for x in range(12)] + [365]
             self.qt = [x/365 for x in self.days]
             self.qtlabels = [str(x) for x in self.days]
-            ##self.qtlabels[-1] = ''
             
         else:
             self.qt = np.linspace(0,1,nclasses+1) # list of quantiles
             self.qtlabels = ['p'+str(int(x*100)) for x in self.qt]
             self.days = [int(x*365) for x in self.qt]
+
         self.tbl = self._quantiles()
 
 
@@ -91,7 +90,8 @@ class Quantiles:
         return self.tbl
 
 
-    def plot(self,years=None,figpath=None,figtitle=None,ylim=None):
+    def plot(self,years=None,figpath=None,figtitle=None,ylim=None,
+        ignore=None):
         """Plot quantiles
 
         Parameters
@@ -102,8 +102,10 @@ class Quantiles:
             figure output path
         figtitle : str, optional
             figure title
-        ylim : list
+        ylim : list, optional
             ymin, ymax
+        ignore : list, optional
+            years to ignore in calculating reference
         """
 
         if years is None:
@@ -127,8 +129,30 @@ class Quantiles:
 
         tbl = self.tbl
         x = self.qt
-        upper = [tbl[col].quantile(0.05)*100 for col in tbl.columns]
-        lower = [tbl[col].quantile(0.95)*100 for col in tbl.columns]
+
+        reftbl = tbl.copy()
+        if ignore:
+            idx = [x for x in reftbl.index.values if x not in ignore]
+            reftbl = reftbl.loc[idx,:]
+
+        # reference based on quantiles
+        upper = reftbl.quantile(0.05)*100
+        lower = reftbl.quantile(0.95)*100
+
+        # alternative reference
+        #mean = tbl.median(axis=0,skipna=True)
+        #std = tbl.std(axis=0,skipna=True)
+        #upper = (mean+std)*100
+        #lower = (mean-std)*100
+
+        # alternative reference 2
+        # leave out lowest line
+        #upper = [tbl[col].sort_values()[:-1].quantile(0.05)*100 for col in tbl.columns]
+        #lower = [tbl[col].sort_values()[:-1].quantile(0.95)*100 for col in tbl.columns]
+
+
+
+
         ax.fill_between(x, upper, lower, color=csurf) 
 
         for year in self.tbl.index:

@@ -343,7 +343,7 @@ class PlotHeads:
 
             self.axeslist[ax].xaxis.set_major_formatter(years_fmt)
 
-            print(f'self.xaxyears is {self.xaxyears}')
+            ##print(f'self.xaxyears is {self.xaxyears}')
 
             ##plt.rcParams['dates.epoch'] = '0000-12-31'
             ##dt.set_epoch = '0000-12-31'
