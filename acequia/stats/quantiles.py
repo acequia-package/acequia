@@ -58,10 +58,16 @@ class Quantiles:
         self.days = days
 
         if self.days:
+            
             self.days = [x*30 for x in range(12)] + [365]
             self.qt = [x/365 for x in self.days]
             self.qtlabels = [str(x) for x in self.days]
-            
+            """
+            self.days = [x*5 for x in range(74)] #+ [365]
+            self.qt = [x/365 for x in self.days]
+            self.qtlabels = [str(x) for x in self.days] # if (x/30).is_integer()]
+            """
+
         else:
             self.qt = np.linspace(0,1,nclasses+1) # list of quantiles
             self.qtlabels = ['p'+str(int(x*100)) for x in self.qt]
@@ -77,6 +83,7 @@ class Quantiles:
         hydroyear = aq.hydroyear(self.ts)
         #allyears = np.arange(hydroyear.min(),hydroyear.max()+1)
         tbl = pd.DataFrame(index=set(hydroyear),columns=self.qtlabels)
+
 
         for i,(name,val) in enumerate(zip(self.qtlabels,self.qt)):
             grp = self.ts.groupby(hydroyear)
@@ -120,7 +127,7 @@ class Quantiles:
             figtitle = self.srname
 
         csurf = '#8ec7ff'
-        clines = '#c1e0ff'
+        clines = '#2f90f1' #'#c1e0ff'
         cyears = '#b21564'
 
         fig,ax = plt.subplots(1,1)
@@ -140,18 +147,15 @@ class Quantiles:
         lower = reftbl.quantile(0.95)*100
 
         # alternative reference
-        #mean = tbl.median(axis=0,skipna=True)
-        #std = tbl.std(axis=0,skipna=True)
+        #mean = reftbl.median(axis=0,skipna=True)
+        #std = reftbl.std(axis=0,skipna=True)
         #upper = (mean+std)*100
         #lower = (mean-std)*100
 
         # alternative reference 2
         # leave out lowest line
-        #upper = [tbl[col].sort_values()[:-1].quantile(0.05)*100 for col in tbl.columns]
-        #lower = [tbl[col].sort_values()[:-1].quantile(0.95)*100 for col in tbl.columns]
-
-
-
+        #upper = [reftbl[col].sort_values()[:-1].quantile(0.05)*100 for col in reftbl.columns]
+        #lower = [reftbl[col].sort_values()[:-1].quantile(0.95)*100 for col in reftbl.columns]
 
         ax.fill_between(x, upper, lower, color=csurf) 
 
