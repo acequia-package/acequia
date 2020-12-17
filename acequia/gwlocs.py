@@ -195,7 +195,7 @@ class GwLocs:
             srcloc = self._srcfiles
 
         if srcloc.empty:
-            msg = f'{self.name()}.list_locfiles returns empty dataframe.'
+            msg = f'list_locfiles returns empty dataframe.'
             warnings.warn(msg)
 
         return srcloc
