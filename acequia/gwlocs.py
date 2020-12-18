@@ -17,10 +17,23 @@ import acequia as aq
 class GwLocs:
     """Manage multiple groundwater heads series from one well location
 
+    Parameters
+    ----------
+    filedir : str
+        directory with source files
+
+    pathlist : list, optional
+        list of sourcefile names (without path)
+
+    filetype : ['.csv','.json'], optional
+        source file type 
+
+    groups : list, optional
+        list of location names, sublists are allowed (see examples)
 
     Methods
     -------
-    loctable(self,filedir=None)
+    sourcetable()
         return list of location and heads series names
 
     gwseries(self,loc=None)
@@ -52,19 +65,7 @@ class GwLocs:
     def __init__(self,filedir=None,pathlist=None,filetype=None,
         groups=None):
         """ 
-        Parameters
-        ----------
-        filedir : str
-            directory with source files
 
-        pathlist : list, optional
-            list of sourcefile names (without path)
-
-        filetype : ['.csv','.json'], optional
-            source file type 
-
-        groups : list, optional
-            list of location names, sublists are allowed (see examples)
         """
 
         self._filedir = filedir
@@ -93,14 +94,13 @@ class GwLocs:
             msg = f'Unsupported filetype {filetype}.'
             raise ValueError(msg)
 
-        self._srcfiles = self._list_sourcefiles()
-        self._locfiles = self.list_locfiles()
+        ##self._srcfiles = self._srctbl()
+        ##self._locfiles = self.list_locfiles()
         self._create_iterator()
 
 
     def __repr__(self):
-        nlocs = len(self._locfiles.groupby(by='loc').size())
-        nseries = len(self._locfiles)
+        nlocs = len(self._srctable().groupby(by='loc').size())
         return (f'GwLocs(nlocs={nlocs})')
 
 
@@ -112,8 +112,9 @@ class GwLocs:
         return sr.index[0]
 
 
-    def _list_sourcefiles(self):
-        """List all valid source files in filedir and return table"""
+    def _srctable(self):
+        """Return table of all valid source files"""
+
         if self._filetype=='.json':
             filepaths = [x for x in self._pathlist]
             fnames = [os.path.basename(path) for path in self._pathlist]
@@ -144,8 +145,9 @@ class GwLocs:
         return table
 
 
+    """
     def list_sourcefiles(self,filedir=None):
-        """Return table with list of series names and well location 
+        """ """Return table with list of series names and well location 
         names based on sourcefile names in directory filedir
 
         Parameters
@@ -163,7 +165,7 @@ class GwLocs:
         composed of <location name>_<filter>.<extension>, like in 
         'B28H0025_1.csv' or 'Mylocation_Myfilter.json'.
 
-        """
+        """ """
 
         if filedir is None:
             return self._srcfiles
@@ -172,40 +174,43 @@ class GwLocs:
             msg = f'{filedir} must be a valid directory'
             raise ValueError(msg)
 
-        return self._list_sourcefiles(filedir)
+        return self._srctable(filedir)
+    """
 
+    def sourcetable(self):
+        """Return table of source files for all series"""
 
-    def list_locfiles(self):
-        """List source files for all locations"""
-
-        def flatten_nested_list(nested_list):
-            # stackoverflow.com/questions/10823877/
-            for i in nested_list:
-                if isinstance(i, (list,tuple)):
-                    for j in flatten_nested_list(i):
-                        yield j
-                else:
-                    yield i
+        srctbl = self._srctable()
 
         if self._loclist is not None:
-            flatlist = flatten_nested_list(self._loclist)
-            mask = self._srcfiles['loc'].isin(flatlist)
-            srcloc = self._srcfiles[mask]
-        else:
-            srcloc = self._srcfiles
 
-        if srcloc.empty:
+            def flatten_nested_list(nested_list):
+                # stackoverflow.com/questions/10823877/
+                for i in nested_list:
+                    if isinstance(i, (list,tuple)):
+                        for j in flatten_nested_list(i):
+                            yield j
+                    else:
+                        yield i
+
+            flatlist = flatten_nested_list(self._loclist)
+            mask = srctbl['loc'].isin(flatlist)
+            srctbl = srctbl[mask]
+
+        if srctbl.empty:
             msg = f'list_locfiles returns empty dataframe.'
             warnings.warn(msg)
 
-        return srcloc
+        return srctbl
+
 
     def _create_iterator(self):
         """Create location series groups iterator """
         self._itercount = 0
         if self._loclist is None:
             ##grp = self._srcfiles.groupby(by='loc')
-            grp = self._locfiles.groupby(by='loc')
+            ##grp = self._locfiles.groupby(by='loc')
+            grp = self.sourcetable().groupby(by='loc')
             self._loclist = list(grp.groups.keys())
         else:
             self._loclist = self._loclist
@@ -233,15 +238,17 @@ class GwLocs:
         if isinstance(loc,str):
             loc = [loc]
 
-        gwlist = []
-        mask = self._srcfiles['loc'].isin(loc)
-        for i,(srname,row) in enumerate(self._srcfiles[mask].iterrows()):
+        mask = self._srctbl['loc'].isin(loc)
+        for i,(srname,row) in enumerate(self._srctbl[mask].iterrows()):
 
             filepath = os.path.join(self._filedir,row['filename'])
             if self._filetype=='.json':
                 gw = aq.GwSeries.from_json(filepath)
             if self._filetype=='.csv':
                 gw = aq.GwSeries.from_dinogws(filepath)
+
+            if i==0:
+                gwlist = []
             gwlist.append(gw)
 
         return gwlist

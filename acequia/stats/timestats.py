@@ -5,57 +5,93 @@ import pandas as pd
 from pandas import DataFrame, Series
 import acequia as aq 
 
-class TimeStats:
-    """ Return descriptive statistics of time series"""
+def timestats(ts,ref=None,name=None):
+    """Return table of groundwater head time series statistics
 
-    def __init__(self, ts, name=None):
+    Parameters
+    ----------
+    ts : pd.Series, aq.GwSeries
+        Groundwater head time series
+    ref : ['datum','surface','mp'], optional, default 'datum'
+        Reference level vfor groundwater heads
+    name : str, optional
+        Groundwater heads series name
+
+    Returns
+    -------
+    pd.DataFrame
+    """
+
+    tms = TimeStats(ts, ref=ref, name=name)
+    return tms.stats()
+
+
+class TimeStats:
+    """ Return descriptive statistics of time series
+
+    Examples
+    --------
+    ts = <valid groundwater heads series of GwSeries object>
+    tsr = aq.TimeStats(ts)
+    tsr.stats()
+
+    Note
+    ----
+    Custom function aq.timestats(ts) returns TimeStats.stats() directly.
+
+    """
+
+    def __init__(self, ts, ref=None, name=None):
         """
         Parameters
         ----------
         ts : pd.Series, aq.GwSeries
             timeseries with groundwater head measurments
 
+        ref : str, ['datum','surface'], optinal
+            reference level for measurements
+
+        name : str, optional
+            ground water heads series name
+
         """
 
-        self.ts = ts
-        self.name = name
-
-        """
-        if isinstance(self.ts,aq.GwSeries):
-            #if self.name is None:
-            #    self.name = self.ts.name()
-        """
-
-        if isinstance(self.ts,pd.Series):
-            if self.name is None: 
-                self.name = self.ts.name
-
-        if self.name is None: 
-            self.name = 'series'
+        self._ts = ts
+        self._name = name
 
 
-    def _heads(self,ref='datum'):
-        """Return timeseries with measured heads"""
-        if isinstance(self.ts,aq.GwSeries):
-            heads = self.ts.heads(ref=ref)
-        if isinstance(self.ts,pd.Series):
-            msg = f'heads series is type pd.Series, ref={ref} is ignored'
-            warnings.warn(msg)
-            heads = self.ts
-        return heads
+        if isinstance(self._ts,pd.Series):
+
+            self._heads = self._ts
+            if ref is not None:
+                msg = f'heads series is type pd.Series, ref={ref} is ignored'
+                warnings.warn(msg)
+
+            if self._name is None: 
+                self._name = self._ts.name
+
+        if isinstance(self._ts,aq.GwSeries):
+
+            self._heads = self._ts.heads(ref=ref)
+
+            if self._name is None:
+                self._name = self._ts.name()
+
+        if self._name is None:
+            self._name = 'series'
 
 
-    def stats(self, ref='datum'):
+    def stats(self):
         """Return time series desciptive statistics
 
-        Parameters
-        ----------
-        ref : str, ['datum','surface']
-            reference level for measurements
+        Returns
+        -------
+        pd.Dataframe
+
         """
 
-        heads = self._heads(ref=ref)
-        idx = self.name
+        heads = self._heads
+        idx = self._name
         stats = DataFrame(index=[idx])
 
         stats['firstdate'] = heads.index.min().date()
@@ -71,7 +107,8 @@ class TimeStats:
         q95 = heads.quantile(q=0.95)
         stats['q05'] = round(q05,2)
         stats['q95'] = round(q95,2)
-        stats['delta'] = round(q95-q05,2)
+        stats['dq0595'] = round(q95-q05,2)
 
-        return stats
+        self._stats = stats
+        return self._stats
 

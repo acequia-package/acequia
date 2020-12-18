@@ -9,6 +9,7 @@ T.J. de Meij januari 2020
 """ 
 
 import os
+import warnings
 from pandas import Series, DataFrame
 import pandas as pd
 import time
@@ -21,14 +22,14 @@ logger = logging.getLogger(__name__)
 
 
 def headsfiles(srcdir=None,srctype=None,loclist=None):
-    """Return list of sourcefiles
+    """Return list of sourcefiles in directory
 
     Parameters
     ---------
     srcdir : str
         directory with sourcefiles
 
-    srctype : {'dinocsv','json'}
+    srctype : {'dinocsv','json'}, optional
         sourcefiletype
 
     loclist : list, optional
@@ -44,19 +45,19 @@ def headsfiles(srcdir=None,srctype=None,loclist=None):
 
 
 class GwList():
-    """Contain list of GwSeries objects
+    """List of GwSeries objects
 
     Parameters
     ----------
     srcdir : str, optional
-        directory with groundwater level sourcefiles
-    srctype : {'dinocsv','json','hymon'}
+        directory with groundwater head sourcefiles
+    srctype : {'dinocsv','json','hymon'}, optional
         sourcefiletype
-    loclist : list
+    loclist : list, optional
         list of location names
     srcfile : str, optional
         path to sourcefile with list of sourcefiles (srctype 'json'
-        or ' dinocsv' or file with heads data (srctype ' hymon')
+        or 'dinocsv' or file with heads data (srctype 'hymon')
 
     Examples
     --------        
@@ -78,20 +79,23 @@ class GwList():
 
     Notes
     -----
-    When only srcdir and srctype are given, result will be a list of
+    When only srcdir is given, result will be a list of
     GwSeries objects for all sourcefiles in srcdir.
 
-    When loclist is given, names in this list will be used for 
-    selecting files in srcdir (if a filename contains any of the 
-    names in loclist, the file will be selected).
+    When both srcdir and srcfile are given, all files from srcdir will
+    be selected and srcfile will be ignored.
 
-    Sourcefiles can be given in two different ways: srcdir or 
-    srcfile. When values for both srcdir and srcfile are given, 
-    srcfile will be ignored.
+    When loclist is given, names in this list will be used for 
+    selecting files in srcdir. All series that belong to a location
+    will be selected as seperate series. For managing series that
+    belong to one location, us the GwLocs object.
     """
 
+    valid_srctype = ['dinocsv','json','hymon']
+
     def __repr__(self):
-        return (f'{self.__class__.__name__}()')
+        mylen = len(self)
+        return (f'{self.__class__.__name__}({mylen})')
 
 
     def __init__(self,srcdir=None,srctype='dinocsv',loclist=None,
@@ -103,11 +107,16 @@ class GwList():
         self.srcfile = srcfile
         self._valid_srctype = ['dinocsv','json','hymon']
 
+
+        """
         if self.srctype not in self._valid_srctype:
 
-            raise ValueError(' '.join(
+            msg = ' '.join([
                 f'{self.srctype} is not a valid sourcefile type. Valid',
-                f'(sourcefiletypes are {self._valid_srctype}',))
+                f'sourcefiletypes are {self._valid_srctype}',
+                ])
+            raise ValueError(msg)
+        """
 
 
         if (self.srcdir is None) and (self.srcfile is None):
@@ -132,12 +141,14 @@ class GwList():
             if not os.path.isdir(self.srcdir):
                 raise ValueError(f'Directory {srcdir} does not exist')
 
+            """
             if self.srctype not in ['dinocsv','json']:
-                msg = ' '.join(
+                msg = ' '.join([
                     f'Invalid parameter value: When srcdir is given',
                     f'srctype must be \'dinocsv\' or \'json\', not',
-                    f'{self.srctype}.',)
+                    f'{self.srctype}.'])
                 raise ValueError(msg)
+            """
 
             self._flist = self.filelist()
 
@@ -196,9 +207,9 @@ class GwList():
             logger.warning(msg)
             return None
 
-        msg = ' '.join(
+        msg = ' '.join([
             f'Unexpected combination of given parameters. No list of',
-            f'GwSeries objects is returned.',)
+            f'GwSeries objects is returned.',])
         logger.warning(msg)
         return None
 
@@ -231,12 +242,6 @@ class GwList():
         self.itercount += 1
         return self.gw
 
-    #def iterseries(self):
-    #    heads = self.delete_duplicate_data()
-    #    return heads.groupby(self.idkeys()).__iter__()
-
-    ###Iterate over series and return GwSeries objects one at a time:
-    ###>>>for (loc,fil),data in self.iterseries():
    
     def __len__(self):
 
@@ -313,27 +318,3 @@ class GwList():
         return gw
 
 
-
-    def locprops(self):
-        """ Return dataframe of locprops for locations """
-
-
-        for i,gw in enumerate(self):
-
-            if i==0:
-                srlist = [gw.locprops()]
-            else:
-                srlist.append(gw.locprops())
-
-        series = pd.concat(srlist,axis=0)
-        series.index.name = 'series'
-        series.to_csv('pmg_series.csv')
-
-        locs = series.groupby(by='locname').last()
-        locs['nfil']=series.groupby(by='locname').size().values
-        colnames = ['alias','nfil','xcr','ycr']
-        locs = locs[colnames].copy()
-
-        self.itercount = 0
-
-        return locs

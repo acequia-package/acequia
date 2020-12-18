@@ -297,22 +297,11 @@ class GwSeries:
         if minimal:
             tps = tps[self._tubeprops_minimal]
 
-        """
-        if last==False:
-            tps['startdate'] = tps['startdate'].dt.date
-            tps.insert(0,'series',self.name())
-        else:
-
-        'series','startdate','mplevel','filtop','filbot','surfacedate',
-        'surfacelevel'
-            #tps = DataFrame(self._tubeprops[['mplevel',
-            #                'surfacelevel','filtop','filbot']]).copy()
-            #tps.insert(0,'series',self.name())
-        """
         tps.insert(0,'series',self.name())
+
         if last:
             tps = tps.iloc[[-1]]
-            tps = tps.set_index('series')
+            #tps = tps.set_index('series')
 
         return tps
 
@@ -355,6 +344,9 @@ class GwSeries:
         
         """
 
+        if not ref:
+            ref = 'datum'
+
         if ref not in self._reflevels:
             msg = f'{ref} is not a valid reference point name'
             raise ValueError(msg)
@@ -391,7 +383,7 @@ class GwSeries:
         return heads
 
 
-    def stats(self,ref='datum'):
+    def stats(self,ref=None):
         """Return descriptice statistics
 
         Parameters
@@ -405,12 +397,19 @@ class GwSeries:
 
         #sr = gw.heads(ref='surface')
         #self._timestats.stats(ref=ref)
+
+        if not ref:
+            ref = 'datum'
+
         ts = self.heads(ref=ref)
-        stats = TimeStats(ts,name=self._heads.name)
-        return stats.stats(ref=ref)
+        stats = TimeStats(ts)
+
+        tp = self.tubeprops(last=True,minimal=True)
+
+        return stats.stats()
 
 
-    def describe(self,ref='datum'):
+    def describe(self,ref=None):
         """Return selection of properties and descriptive statistics
 
         Parameters
@@ -422,11 +421,18 @@ class GwSeries:
         -------
         pd.DataFrame """
 
+        if not ref:
+            ref = 'datum'
+
         locprops = self.locprops(minimal=True)
         tubeprops = self.tubeprops(last=True,minimal=True)
-        srstats = self.stats(ref=ref)
+        tubeprops = tubeprops.set_index('series')
+
         tbl = pd.merge(locprops,tubeprops,left_index=True,right_index=True,how='outer')
+
+        srstats = self.stats(ref=ref)
         tbl = pd.merge(tbl,srstats,left_index=True,right_index=True,how='outer')
+
         return tbl
 
 
