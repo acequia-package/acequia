@@ -238,8 +238,9 @@ class GwLocs:
         if isinstance(loc,str):
             loc = [loc]
 
-        mask = self._srctbl['loc'].isin(loc)
-        for i,(srname,row) in enumerate(self._srctbl[mask].iterrows()):
+        mask = self._srctable()['loc'].isin(loc)
+        gwlist = []
+        for i,(srname,row) in enumerate(self._srctable()[mask].iterrows()):
 
             filepath = os.path.join(self._filedir,row['filename'])
             if self._filetype=='.json':
@@ -247,8 +248,8 @@ class GwLocs:
             if self._filetype=='.csv':
                 gw = aq.GwSeries.from_dinogws(filepath)
 
-            if i==0:
-                gwlist = []
+            #if i==0:
+            #    gwlist = []
             gwlist.append(gw)
 
         return gwlist

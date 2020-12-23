@@ -1,6 +1,7 @@
 
 from collections import OrderedDict
 import warnings
+import numpy as np
 import pandas as pd
 from pandas import DataFrame, Series
 import acequia as aq 
@@ -94,20 +95,39 @@ class TimeStats:
         idx = self._name
         stats = DataFrame(index=[idx])
 
-        stats['firstdate'] = heads.index.min().date()
-        stats['lastdate'] = heads.index.max().date()
-        stats['minyear'] = heads.index.min().year
-        stats['maxyear'] = heads.index.max().year
-        stats['yearspan'] = stats['maxyear']-stats['minyear']+1
-        stats['nyears'] = len(set(heads.index.year))
-        stats['mean'] = round(heads.mean(),2)
-        stats['median'] = round(heads.median(),2)
+        if not heads.empty:
+            stats['firstdate'] = heads.index.min().date()
+            stats['lastdate'] = heads.index.max().date()
+            stats['minyear'] = heads.index.min().year
+            stats['maxyear'] = heads.index.max().year
+            stats['yearspan'] = stats['maxyear']-stats['minyear']+1
+            stats['nyears'] = len(set(heads.index.year))
+            stats['mean'] = round(heads.mean(),2)
+            stats['median'] = round(heads.median(),2)
 
-        q05 = heads.quantile(q=0.05)
-        q95 = heads.quantile(q=0.95)
-        stats['q05'] = round(q05,2)
-        stats['q95'] = round(q95,2)
-        stats['dq0595'] = round(q95-q05,2)
+            q05 = heads.quantile(q=0.05)
+            q95 = heads.quantile(q=0.95)
+            stats['q05'] = round(q05,2)
+            stats['q95'] = round(q95,2)
+            stats['dq0595'] = round(q95-q05,2)
+
+        else:
+
+            stats['firstdate'] = np.nan
+            stats['lastdate'] = np.nan
+            stats['minyear'] = np.nan
+            stats['maxyear'] = np.nan
+            stats['yearspan'] = np.nan
+            stats['nyears'] = np.nan
+            stats['mean'] = np.nan
+            stats['median'] = np.nan
+
+            q05 = np.nan
+            q95 = np.nan
+            stats['q05'] = np.nan
+            stats['q95'] = np.nan
+            stats['dq0595'] = np.nan
+
 
         self._stats = stats
         return self._stats

@@ -292,7 +292,8 @@ class GwSeries:
 
 
         tps = DataFrame(self._tubeprops[self._tubeprops_names]).copy()
-        tps['startdate'] = tps['startdate'].dt.date
+        #tps['startdate'] = tps['startdate'].dt.date
+        tps['startdate'].apply(pd.to_datetime, errors='coerce')
 
         if minimal:
             tps = tps[self._tubeprops_minimal]
@@ -300,7 +301,8 @@ class GwSeries:
         tps.insert(0,'series',self.name())
 
         if last:
-            tps = tps.iloc[[-1]]
+            #tps = tps.iloc[[-1]]
+            tps = tps.tail(1)
             #tps = tps.set_index('series')
 
         return tps
@@ -404,7 +406,7 @@ class GwSeries:
         ts = self.heads(ref=ref)
         stats = TimeStats(ts)
 
-        tp = self.tubeprops(last=True,minimal=True)
+        #tp = self.tubeprops(last=True,minimal=True)
 
         return stats.stats()
 

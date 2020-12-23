@@ -31,10 +31,7 @@ def timestatstable(srcdir=None,ref=None,locs=None):
     """
 
     ds = aq.Describe(srcdir)
-    tb = ds._table_series()
-
-    if locs:
-        tb = ds._table_locs()
+    tb = ds.timestatstable(locs=locs)
 
     return tb
 
@@ -73,12 +70,12 @@ class Describe:
         if not os.path.isdir(self.srcdir):
             raise ValueError(f'{self.srcdir} is not a valid directory name.')
 
-        if self.ref is None:
-            self.ref = 'datum'
+        #if self.ref is None:
+        #    self.ref = 'datum'
 
-        if self.ref not in aq.GwSeries._reflevels:
-            msg = f'{self.ref} is not a valid reference level name'
-            raise ValueError(msg)
+        #if self.ref not in aq.GwSeries._reflevels:
+        #    msg = f'{self.ref} is not a valid reference level name'
+        #    raise ValueError(msg)
 
 
     def __repr__(self):
@@ -106,7 +103,9 @@ class Describe:
 
             if i==0:
                 srlist = []
-            srlist.append(gw.describe(ref=self.ref))
+
+            if not gw._tubeprops.empty:
+                srlist.append(gw.describe(ref=self.ref))
 
         self.tbsr = pd.concat(srlist)
         self.tbsr.index.name = 'series'
@@ -155,7 +154,7 @@ class Describe:
         """
 
         if not locs:
-            tb = aelf._table_series()
+            tb = self._table_series()
         else:
             tb = self._table_locs()
 
