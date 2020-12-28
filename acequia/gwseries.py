@@ -307,6 +307,10 @@ class GwSeries:
 
         return tps
 
+    def surface(self):
+        """Return last known surface level"""
+        return self._tubeprops['surfacelevel'].iat[-1]
+
 
     def heads(self,ref='datum',freq=None):
         """ 
@@ -329,7 +333,7 @@ class GwSeries:
         'mp'   : elative to well top ('measurement point')
         'datum': relative to chosen level (would be meter +NAP for the
                  Netherlands, or TAW for Belgium)
-        'surf' : relative to surface level (meter minus maaiveld)
+        'surface' : relative to surface level (meter min maaiveld)
 
         Parameter 'freq' determines the time series frequency by setting
         the Pandas Offset Alias. When 'freq' is None, no resampling is

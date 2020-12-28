@@ -19,7 +19,7 @@ from .read.filedirtools import listdir, cleardir
 from .stats.utils import hydroyear, season, index1428, ts1428
 #from .stats.gwstats import GwStats
 from .stats.timestats import TimeStats, timestats
-from .stats.gxg import Gxg
+from .stats.gxg import Gxg, stats_gxg
 from .stats.quantiles import Quantiles
 from .stats.describe import Describe, timestatstable
 

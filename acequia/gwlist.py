@@ -47,17 +47,6 @@ def headsfiles(srcdir=None,srctype=None,loclist=None):
 class GwList():
     """List of GwSeries objects
 
-    Parameters
-    ----------
-    srcdir : str, optional
-        directory with groundwater head sourcefiles
-    srctype : {'dinocsv','json','hymon'}, optional
-        sourcefiletype
-    loclist : list, optional
-        list of location names
-    srcfile : str, optional
-        path to sourcefile with list of sourcefiles (srctype 'json'
-        or 'dinocsv' or file with heads data (srctype 'hymon')
 
     Examples
     --------        
@@ -100,7 +89,22 @@ class GwList():
 
     def __init__(self,srcdir=None,srctype='dinocsv',loclist=None,
         srcfile=None):
-        """Contain list of GwSeries objects"""
+        """List of GwSeries objects
+
+        Parameters
+        ----------
+        srcdir : str
+            directory with groundwater head sourcefiles
+        srctype : {'dinocsv','json','hymon'}, optional
+            sourcefiletype
+        loclist : list, optional
+            list of location names
+        srcfile : str, optional
+            path to file with paths to sourcefiles
+            (if srcfile is given, srcdir is ignored)
+            
+        """
+
         self.srcdir = srcdir
         self.srctype = srctype
         self.loclist = loclist
@@ -141,15 +145,6 @@ class GwList():
             if not os.path.isdir(self.srcdir):
                 raise ValueError(f'Directory {srcdir} does not exist')
 
-            """
-            if self.srctype not in ['dinocsv','json']:
-                msg = ' '.join([
-                    f'Invalid parameter value: When srcdir is given',
-                    f'srctype must be \'dinocsv\' or \'json\', not',
-                    f'{self.srctype}.'])
-                raise ValueError(msg)
-            """
-
             self._flist = self.filelist()
 
 
@@ -164,21 +159,12 @@ class GwList():
         if (self.srcfile is not None) and (self.srctype=='hymon'):
 
             self.hm = aq.HydroMonitor.from_csv(filepath=srcfile)
-            ##self.hm_itr = self.hm.iterseries()
-            ##self.gwlist = hm.to_list()
 
         self.itercount = 0
 
 
     def filelist(self):
-        """ Return list of filenames in source 
-        directory 
-
-        Returns
-        -------
-        List
-
-        """
+        """ Return list of sourcefile names """
 
         if (self.srcdir is not None) and (self.srctype 
                 in ['dinocsv','json']):
@@ -271,7 +257,8 @@ class GwList():
 
             if self.loclist is not None:
                 mask = dnfiles['loc'].isin(self.loclist)
-                dnfiles = dnfiles[mask].copy()
+                dnfiles = dnfiles[mask].reset_index(drop=True)
+                
 
             return dnfiles
 
@@ -291,7 +278,7 @@ class GwList():
 
             if self.loclist is not None:
                 mask = jsf['loc'].isin(self.loclist)
-                jsf = jsf[mask].copy()
+                jsf = jsf[mask].reset_index(drop=True)
 
             return jsf
 
