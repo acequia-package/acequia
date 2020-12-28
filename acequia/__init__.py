@@ -11,6 +11,7 @@ from .headsdif import HeadsDif
 from .headsdif import headsdif_from_gwseries as headsdif_from_gwseries
 from .geo.coordinate_conversion import CrdCon
 from .geo.waypoint_kml import WpKml
+from .geo.pointshapewriter import PointShapeWriter, pointshape_write
 from .plots.plotheads import PlotHeads
 from .read.dinogws import DinoGws, read_dinogws
 from .read.hydromonitor import HydroMonitor
@@ -24,7 +25,7 @@ from .stats.quantiles import Quantiles
 from .stats.describe import Describe, timestatstable
 
 __all__ = ['GwSeries','GwList','GwLocs','PlotGws','DinoGws',
-           'HydroMonitor','TimeStats','Gxg','Quantiles','CrdCon',
-           'KnmiStations','Describe','timestatstable']
+           'HydroMonitor','TimeStats','PointShapeWriter','Gxg','Quantiles','CrdCon',
+           'KnmiStations','Describe','timestatstable','pointshape_write']
 
 logger = logging.getLogger(__name__)
