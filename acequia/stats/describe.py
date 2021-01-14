@@ -10,7 +10,7 @@ import numpy as np
 import acequia as aq
 
 
-def timestatstable(srcdir=None,ref=None,locs=None):
+def timestatstable(srcdir=None,ref=None,locs=None,gxg=False):
     """Return table of decriptive statistics for multiple heads series
 
     Parameters
@@ -23,6 +23,8 @@ def timestatstable(srcdir=None,ref=None,locs=None):
         sourcefile type (will be inferred if not given)
     locs : bool, default False
         aggegate results to locations
+    gxg : bool, default False
+        include GxG descriptive statistics
 
     Return
     ------
@@ -30,13 +32,13 @@ def timestatstable(srcdir=None,ref=None,locs=None):
 
     """
 
-    ds = aq.Describe(srcdir)
-    tb = ds.timestatstable(locs=locs)
+    ds = aq.DescribeGwList(srcdir)
+    tb = ds.timestatstable(locs=locs, gxg=gxg)
 
     return tb
 
 
-class Describe:
+class DescribeGwList:
     """Return table of decriptive statistics for list of heads series
 
     Parameters
@@ -59,6 +61,7 @@ class Describe:
         self.ref = ref
         self.srctype = srctype
         self.locs = locs
+        
 
         # Creating _gwlist might take a long time, it is created after calling
         # _create_list()
@@ -93,8 +96,14 @@ class Describe:
         self._gwlist = aq.GwList(srcdir=self.srcdir) #, srctype=self.srctype)
 
 
-    def _table_series(self):
-        """Create table of series statistics"""
+    def _table_series(self,gxg=False):
+        """Create table of series statistics
+
+        Parameters
+        ----------
+        gxg : bool, default False
+            include GxG descriptive statistics
+        """
 
         if self._gwlist is None:
             self._create_list()
@@ -105,7 +114,8 @@ class Describe:
                 srlist = []
 
             if not gw._tubeprops.empty:
-                srlist.append(gw.describe(ref=self.ref))
+                desc = gw.describe(ref=self.ref,gxg=gxg)
+                srlist.append(desc)
 
         self.tbsr = pd.concat(srlist)
         self.tbsr.index.name = 'series'
@@ -133,7 +143,7 @@ class Describe:
            'maxyear':'max',
            'nyears':'max',
            'yearspan':'max',
-          } #todo: add difference of maan haed between filters
+          } #todo: add difference of mean head between filters
 
         self._missing_cols = [x for x in self.tbsr.keys() if x not in self._aggdict.keys()]
         if self._missing_cols:
@@ -141,20 +151,25 @@ class Describe:
             #warnings.warn(msg)
 
         self.tbloc = self.tbsr.groupby(by=['locname']).agg(self._aggdict)
+        coldict = {'filname':'nfil','filbot':'filbot_first',}
+        self.tbloc = self.tbloc.rename(columns=coldict)
 
         return self.tbloc
 
-    def timestatstable(self,locs=None):
+
+    def timestatstable(self,locs=None, gxg=False):
         """Return table of decriptive statistics for list of heads series
 
         Parameters
         ----------
         locs : bool, default False
             aggregate descriptions of head series to locations
+        gxg : bool, default False
+            include GxG descriptive statistics
         """
 
         if not locs:
-            tb = self._table_series()
+            tb = self._table_series(gxg=gxg)
         else:
             tb = self._table_locs()
 

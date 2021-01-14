@@ -57,7 +57,7 @@ class Gxg:
 
     n14 = 18
 
-    def __init__(self, gw, srname=None, ref='datum'):
+    def __init__(self, gw, srname=None, ref=None):
         """Create GxG object
 
         Parameters
@@ -65,7 +65,7 @@ class Gxg:
         gw : aq.GwSeries, pd.Series
             timeseries with groundwater head measurements
 
-        ref : ['datum','surface'], default 'datum'
+        ref : ['datum','surface'], default 'surface'
             reference level for measurements
 
         """
@@ -76,17 +76,23 @@ class Gxg:
         self.surface = None
 
         if isinstance(self.gw,aq.GwSeries):
-            self.srname = gw.name()
-            self.ts = gw.heads(ref=ref)
-            self.surface = gw.surface()
+            self.srname = self.gw.name()
+            self.ts = self.gw.heads(ref=ref)
+            self.surface = self.gw.surface()
             ##_tubeprops['surfacelevel'].iat[-1]
 
-        if isinstance(self.gw,pd.Series):
+        elif isinstance(self.gw,pd.Series):
             self.ts = self.gw
             self.srname = self.ts.name
 
+        else:
+            raise(f'{self.gw} is not of type aq.GwSeries or pd.Series')
+
         if self.srname is None:
             self.srname = 'unknown'
+
+        if self.ref is None:
+            self.ref = 'surface'
 
         self.ts1428 = aq.ts1428(self.ts,maxlag=3,remove_nans=False)
 
@@ -206,20 +212,28 @@ class Gxg:
         ------
         pd.DataFrame"""
 
-        gxg = pd.DataFrame(index=[self.srname])
-        xg = self.xg()
+        self._gxg = pd.DataFrame(index=[self.srname])
+        self._xg = self.xg()
 
         for col in xg.columns:
-            sr = xg[col][xg[col].notnull()]
-            gxg[col] = round(sr.mean(),2)
+            sr = self._xg[col][self._xg[col].notnull()]
+            self._gxg[col] = round(sr.mean(),2)
 
-        for col in xg.columns:
-            sr = xg[col][xg[col].notnull()]
-            gxg[f'{col}nyr'] = round(sr.count(),2)
+        for col in self._xg.columns:
+            sr = self._xg[col][self._xg[col].notnull()]
+            self._gxg[f'{col}nyr'] = round(sr.count(),2)
 
-        gxg['gt'] = self.gt()
+        self._gxg['gt'] = self.gt()
+        self._gxg['gtref'] = self.ref
 
-        return gxg
+        coldict = {'hg3':'ghg','lg3':'glg','hg3w':'ghg3w','lg3s':'glg3s',
+                   'vg3':'gvg3','vg1':'gvg1','n1428':'n1428',
+                   'hg3nyr':'ghg3nyr','lg3nyr':'glg3nyr',
+                   'hg3wnyr':'ghg3wnyr','lg3snyr':'glg3snyr','vg3nyr':'gvg3nyr',
+                   'vg1nyr':'gvg1nyr','n1428nyr':'n1428nyr','gt':'gt','gtref':'gtref'}
+        self._gxg = self._gxg.rename(columns=coldict)
+
+        return self._gxg
 
 
     def gt(self):

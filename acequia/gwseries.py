@@ -29,7 +29,7 @@ from .stats.gxg import Gxg
 from .stats.timestats import TimeStats
 
 class GwSeries:
-    """ Class that holds and manages a groundwater heads time series
+    """ Groundwater heads time series management
 
     Methods
     -------
@@ -38,6 +38,13 @@ class GwSeries:
 
     from_json(filepath)
         read heads series from json file
+
+    to_json(filepath)
+        read heads series from json file
+
+    to_csv(filepath)
+        read heads series from json file
+
 
     heads(ref,freq)
         return timeseries with measured heads
@@ -56,6 +63,10 @@ class GwSeries:
 
     describe()
         return selection of properties and descriptive statistics
+
+    gxg()
+        return tabel with gxg (desciptive statistics for groundwater 
+        series used in the Netherlands)
 
 
     Examples
@@ -242,11 +253,136 @@ class GwSeries:
 
         return cls(heads=sr,locprops=locprops,tubeprops=tubeprops)
 
+
+    @classmethod
+    def from_json(cls,filepath=None):
+        """ Read gwseries object from json file """
+
+        with open(filepath) as json_file:
+            json_dict = json.load(json_file)
+
+        locprops = DataFrame.from_dict(json_dict['locprops'],
+                                        orient='index')
+        locprops = Series(data=locprops[0],index=locprops.index,
+                                        name='locprops')
+
+        tubeprops = DataFrame.from_dict(json_dict['tubeprops'],
+                    orient='index')
+        tubeprops.name = 'tubeprops'
+        tubeprops['startdate'] = pd.to_datetime(tubeprops['startdate']) #.dt.date
+
+        heads = DataFrame.from_dict(json_dict['heads'],orient='index')
+        srindex = pd.to_datetime(heads.index)
+        srname = locprops['locname']+'_'+locprops['filname']
+        heads = Series(data=heads[0].values,index=srindex,name=srname)
+
+        return cls(heads=heads,locprops=locprops,tubeprops=tubeprops)
+
+
+    def to_json(self,dirpath=None):
+        """ Create json string from GwWeries object and optionally
+            write to file 
+        
+        Parameters
+        ----------
+        dirpath : str
+           directory json file will be written to
+           (if dirpath is not given no textfile will be written and 
+           only OrderedDict with valid JSON wil be retruned)
+
+        Returns
+        -------
+        OrderedDict with valid json
+
+        Note
+        ----
+        If no value for dirpath is given, a valid json string is
+        returned. If a value for dirpath is given, nothing is returned 
+        and a json file will be written to a file with the series name
+        in dirpath.
+
+        """
+
+        json_locprops = json.loads(
+            self._locprops.to_json()
+            )
+        json_tubeprops = json.loads(
+            self._tubeprops.to_json(date_format='iso',orient='index')
+            )
+        json_heads = json.loads(
+            self._heads.to_json(date_format='iso',orient='index',
+            date_unit='s')
+            )
+
+        json_dict = OrderedDict()
+        json_dict['locprops'] = json_locprops
+        json_dict['tubeprops'] = json_tubeprops
+        json_dict['heads'] = json_heads
+        json_formatted_str = json.dumps(json_dict, indent=2)
+
+        if isinstance(dirpath,str):
+            try:
+                filepath = os.path.join(dirpath,self.name()+'.json')
+                with open(filepath,"w") as f:
+                    f.write(json_formatted_str)
+            except FileNotFoundError:
+                print("Filepath {} does not exist".format(filepath))
+                return None
+            finally:
+                json_dict
+
+        return json_dict
+
+
+    def to_csv(self,path=None,ref=None):
+        """Export groundwater heads series to simple csv file
+
+        Parameters
+        ----------
+        path : str
+            csv file wil be exported to path, if path is a directory,
+            series will be saved as <path><name>.csv.
+            if path is not given, file is saved in present directory.
+
+        Examples
+        --------
+        Save heads to simple csv:
+        >>>aq.GwSeries.to_csv(<dirpath>)
+        Read back with standard Pandas:
+        >>>pd.read_csv(<filepath>,  parse_dates=['date'], 
+                  index_col='date', squeeze=True) 
+        
+        """
+        self._csvpath = path
+        self._csvref = ref
+
+        if self._csvpath is None:
+            self._csvpath = f'{self.name()}.csv'
+
+        if os.path.isdir(self._csvpath):
+            filename = f'{self.name()}.csv'
+            self._csvpath = os.path.join(self._csvpath,filename)
+
+        try:
+            sr = self.heads(ref=self._csvref)
+            sr.to_csv(self._csvpath,index=True,index_label='datetime',
+                header=['head'])
+        except FileNotFoundError:
+            msg = f'Filepath {self._csvpath} not found'
+            warnings.warn(msg)
+            result = None
+        else:
+            result = sr
+
+        return result
+
+
     def name(self):
         """ Return groundwater series name """
         location = str(self._locprops['locname'])
         filter = str(self._locprops['filname'])
         return location+'_'+filter
+
 
     def locname(self):
         """Return series location name"""
@@ -389,7 +525,7 @@ class GwSeries:
         return heads
 
 
-    def stats(self,ref=None):
+    def timestats(self,ref=None):
         """Return descriptice statistics
 
         Parameters
@@ -415,13 +551,15 @@ class GwSeries:
         return stats.stats()
 
 
-    def describe(self,ref=None):
+    def describe(self,ref=None,gxg=False):
         """Return selection of properties and descriptive statistics
 
         Parameters
         ----------
         ref  : {'mp','datum','surface'}, default 'datum'
             choosen reference level for groundwater heads
+        gxg : bool, default False
+            add GxG descriptive statistics
 
         Returns
         -------
@@ -436,115 +574,14 @@ class GwSeries:
 
         tbl = pd.merge(locprops,tubeprops,left_index=True,right_index=True,how='outer')
 
-        srstats = self.stats(ref=ref)
+        srstats = self.timestats(ref=ref)
         tbl = pd.merge(tbl,srstats,left_index=True,right_index=True,how='outer')
 
+        if gxg==True:
+            gxg = self.gxg()
+            tbl = pd.merge(tbl,gxg,left_index=True,right_index=True,how='left')
+
         return tbl
-
-
-    def to_csv(self,dirpath=None):
-        """Export groundwater heads series to simple csv file
-
-        Parameters
-        ----------
-        dirpath : str
-            csv file wil be exported to directory dirpath
-            if not given, file is saved in present work directory
-
-        Examples
-        --------
-        Save heads to simple csv:
-        >>>aq.GwSeries.to_csv(<dirpath>)
-        Read back with standard Pandas:
-        >>>pd.read_csv(<filepath>,  parse_dates=['date'], 
-                  index_col='date', squeeze=True) 
-        
-        """
-        if dirpath is None:
-            filepath = self.name()+'.csv'
-        else:
-            filepath = dirpath+self.name()+'.csv'
-        self.heads(ref='datum').to_csv(filepath,index=True,
-                    index_label='datetime',header=['head'])
-
-
-    @classmethod
-    def from_json(cls,filepath=None):
-        """ Read gwseries object from json file """
-
-        with open(filepath) as json_file:
-            json_dict = json.load(json_file)
-
-        locprops = DataFrame.from_dict(json_dict['locprops'],
-                                        orient='index')
-        locprops = Series(data=locprops[0],index=locprops.index,
-                                        name='locprops')
-
-        tubeprops = DataFrame.from_dict(json_dict['tubeprops'],
-                    orient='index')
-        tubeprops.name = 'tubeprops'
-        tubeprops['startdate'] = pd.to_datetime(tubeprops['startdate']) #.dt.date
-
-        heads = DataFrame.from_dict(json_dict['heads'],orient='index')
-        srindex = pd.to_datetime(heads.index)
-        srname = locprops['locname']+'_'+locprops['filname']
-        heads = Series(data=heads[0].values,index=srindex,name=srname)
-
-        return cls(heads=heads,locprops=locprops,tubeprops=tubeprops)
-
-    def to_json(self,dirpath=None):
-        """ Create json string from GwWeries object and optionally
-            write to file 
-        
-        Parameters
-        ----------
-        dirpath : str
-           directory json file will be written to
-           (if dirpath is not given no textfile will be written and 
-           only OrderedDict with valid JSON wil be retruned)
-
-        Returns
-        -------
-        OrderedDict with valid json
-
-        Note
-        ----
-        If no value for dirpath is given, a valid json string is
-        returned. If a value for dirpath is given, nothing is returned 
-        and a json file will be written to a file with the series name
-        in dirpath.
-
-        """
-
-        json_locprops = json.loads(
-            self._locprops.to_json()
-            )
-        json_tubeprops = json.loads(
-            self._tubeprops.to_json(date_format='iso',orient='index')
-            )
-        json_heads = json.loads(
-            self._heads.to_json(date_format='iso',orient='index',
-            date_unit='s')
-            )
-
-        json_dict = OrderedDict()
-        json_dict['locprops'] = json_locprops
-        json_dict['tubeprops'] = json_tubeprops
-        json_dict['heads'] = json_heads
-        json_formatted_str = json.dumps(json_dict, indent=2)
-
-        if isinstance(dirpath,str):
-            try:
-                filepath = os.path.join(dirpath,self.name()+'.json')
-                with open(filepath,"w") as f:
-                    f.write(json_formatted_str)
-            except FileNotFoundError:
-                print("Filepath {} does not exist".format(filepath))
-            finally:
-                return None
-        return json_dict
-
-
 
 
     def tubeprops_changes(self,proptype='mplevel'):
@@ -580,6 +617,7 @@ class GwSeries:
 
         return sr12
 
+
     def plotheads(self,proptype=None,filename=None):
         """Plot groundwater heads time series
 
@@ -591,10 +629,19 @@ class GwSeries:
 
         """
         if proptype in ['mplevel','surfacelevel','filtop','filbot']:
-            mps = self._tubeprops[proptype].values
+            ##mps = self._tubeprops[proptype].values
+            mps = self.tubeprops_changes(proptype=proptype)
+            self.headsplot = PlotHeads(ts=[self.heads()],mps=mps)
 
-        mps = self.tubeprops_changes(proptype=proptype)
-        self.headsplot = PlotHeads(ts=[self.heads()],mps=mps)
+        if proptype is None:
+            self.headsplot = PlotHeads(ts=[self.heads()])
 
         if filename is not None:
             self.headsplot.save(filename)
+
+
+    def gxg(self,ref=None):
+        """Return table with Gxg desciptive statistics"""
+        self._Gxg = Gxg(self, ref=ref)
+        return self._Gxg.gxg()
+

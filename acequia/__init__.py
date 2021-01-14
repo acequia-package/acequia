@@ -22,10 +22,10 @@ from .stats.utils import hydroyear, season, index1428, ts1428
 from .stats.timestats import TimeStats, timestats
 from .stats.gxg import Gxg, stats_gxg
 from .stats.quantiles import Quantiles
-from .stats.describe import Describe, timestatstable
+from .stats.describe import DescribeGwList, timestatstable
 
 __all__ = ['GwSeries','GwList','GwLocs','PlotGws','DinoGws',
            'HydroMonitor','TimeStats','PointShapeWriter','Gxg','Quantiles','CrdCon',
-           'KnmiStations','Describe','timestatstable','pointshape_write']
+           'KnmiStations','DescribeGwList','timestatstable','pointshape_write']
 
 logger = logging.getLogger(__name__)

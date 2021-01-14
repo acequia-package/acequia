@@ -66,7 +66,7 @@ if 0:
     plot.save(outpath)
 
 
-if 0:
+if 1:
 
     # --------------------------------------------
     # test PlotHeads() with reference change graph
@@ -83,7 +83,7 @@ if 0:
     mps = gw5.tubeprops_changes(proptype='filbot')
     plot = aq.PlotHeads(ts=[sr5],mps=mps)
 
-if 0:
+if 1:
 
     # ---------------------------------------------------
     # test PlotHeads() for heads relative to surfacelevel
@@ -94,7 +94,7 @@ if 0:
                 ts=[sr6],ref='surface', mps=mps)
 
 
-if 1:
+if 0:
 
     # ---------------------------------------------------
     # test PlotHeads() for all locations in testdata
