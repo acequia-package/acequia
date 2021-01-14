@@ -13,6 +13,7 @@ from .geo.coordinate_conversion import CrdCon
 from .geo.waypoint_kml import WpKml
 from .geo.pointshapewriter import PointShapeWriter, pointshape_write
 from .plots.plotheads import PlotHeads
+from .plots.tsmodelstatsplot import TsModelStatsPlot,plot_tsmodel_statistics
 from .read.dinogws import DinoGws, read_dinogws
 from .read.hydromonitor import HydroMonitor
 from .read.knmi_stations import KnmiStations, knmilocations
@@ -26,6 +27,7 @@ from .stats.describe import DescribeGwList, timestatstable
 
 __all__ = ['GwSeries','GwList','GwLocs','PlotGws','DinoGws',
            'HydroMonitor','TimeStats','PointShapeWriter','Gxg','Quantiles','CrdCon',
-           'KnmiStations','DescribeGwList','timestatstable','pointshape_write']
+           'KnmiStations','DescribeGwList','timestatstable','pointshape_write'
+           'TsModelStatsPlot','plot_tsmodel_statistics']
 
 logger = logging.getLogger(__name__)
