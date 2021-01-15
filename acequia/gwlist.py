@@ -9,6 +9,7 @@ T.J. de Meij januari 2020
 """ 
 
 import os
+import os.path
 import warnings
 from pandas import Series, DataFrame
 import pandas as pd
@@ -133,10 +134,10 @@ class GwList():
         if (self.srcdir is not None) and (self.srcfile is not None):
 
             self.srcfile = None # given value for srcfile is ignored!
-            msg = ' '.join(
+            msg = ' '.join([
                 f'Ambigious combination of parameter values: srcdir is',
                 f'{self.srcdir} (not None) and srcfile is {self.srcfile}',
-                f'(not None). Given value for srcfile will be ignored.',)
+                f'(not None). Given value for srcfile will be ignored.',])
             logger.warning(msg)
 
 
@@ -145,7 +146,7 @@ class GwList():
             if not os.path.isdir(self.srcdir):
                 raise ValueError(f'Directory {srcdir} does not exist')
 
-            self._flist = self.filetable()
+            self._flist = self.filetable() #_sourcefiles()
 
 
         if (self.srcfile is not None) and (
@@ -244,18 +245,15 @@ class GwList():
     def _sourcefiles(self):
         """ return list of sourcefiles in directory dir"""
 
-        # %timeit gwl.sourcefiles()
-        # 11.8 s ± 91.1 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
-
         if self.srctype=='dinocsv':
 
-            files = aq.listdir(self.srcdir, filetype='csv')
-            files = [f for f in files if f[11:13]=="_1"]
+            pathlist = aq.listdir(self.srcdir, filetype='csv')
+            filelist = [os.path.split(path)[-1] for path in pathlist if path.split('_')[-1].endswith('1.csv')]
+            dnfiles = pd.DataFrame({"file":filelist})
 
-            dnfiles = pd.DataFrame({"file":files})
             dnfiles["loc"] = dnfiles["file"].apply(lambda x:x[0:8])
             dnfiles["fil"] = dnfiles["file"].apply(
-                                        lambda x:x[8:11].lstrip("0"))
+                lambda x:x[8:11].lstrip("0"))
             dnfiles["kaartblad"] = dnfiles["loc"].apply(lambda x:x[1:4])
             dnfiles["series"]= dnfiles["loc"]+"_"+dnfiles["fil"]
             dnfiles["path"]= dnfiles["file"].apply(lambda x:self.srcdir+x)
@@ -263,7 +261,6 @@ class GwList():
             if self.loclist is not None:
                 mask = dnfiles['loc'].isin(self.loclist)
                 dnfiles = dnfiles[mask].reset_index(drop=True)
-                
 
             return dnfiles
 
