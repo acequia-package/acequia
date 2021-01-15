@@ -145,7 +145,7 @@ class GwList():
             if not os.path.isdir(self.srcdir):
                 raise ValueError(f'Directory {srcdir} does not exist')
 
-            self._flist = self.filelist()
+            self._flist = self.filetable()
 
 
         if (self.srcfile is not None) and (
@@ -163,13 +163,16 @@ class GwList():
         self.itercount = 0
 
 
-    def filelist(self):
+    def filetable(self):
         """ Return list of sourcefile names """
+
+        # %timeit gwl.filelist()
+        # 11.8 s ± 109 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
 
         if (self.srcdir is not None) and (self.srctype 
                 in ['dinocsv','json']):
 
-            return self.sourcefiles()
+            return self._sourcefiles()
 
         if (self.srcfile is not None) and (self.srctype in ['dinocsv','json']):
 
@@ -238,14 +241,16 @@ class GwList():
             return len(self.hm)
 
 
-    def sourcefiles(self):
+    def _sourcefiles(self):
         """ return list of sourcefiles in directory dir"""
 
+        # %timeit gwl.sourcefiles()
+        # 11.8 s ± 91.1 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+
         if self.srctype=='dinocsv':
-            files = [f for f in os.listdir(self.srcdir) 
-                     if os.path.isfile(os.path.join(self.srcdir,f)) 
-                     and f.split('.')[1]=='csv'
-                     and f[11:13]=="_1"]
+
+            files = aq.listdir(self.srcdir, filetype='csv')
+            files = [f for f in files if f[11:13]=="_1"]
 
             dnfiles = pd.DataFrame({"file":files})
             dnfiles["loc"] = dnfiles["file"].apply(lambda x:x[0:8])
@@ -263,9 +268,8 @@ class GwList():
             return dnfiles
 
         if self.srctype=='json':
-            files = [f for f in os.listdir(self.srcdir) 
-                     if os.path.isfile(os.path.join(self.srcdir,f)) 
-                     and f.split('.')[1]=='json']
+
+            files = aq.listdir(self.srcdir, filetype='json')
 
             jsf = pd.DataFrame({"file":files})
             jsf["series"]= jsf["file"].apply(lambda x:x.split('.')[0])

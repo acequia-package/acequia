@@ -177,7 +177,7 @@ class GwLocs:
         return self._srctable(filedir)
     """
 
-    def sourcetable(self):
+    def filetable(self):
         """Return table of source files for all series"""
 
         srctbl = self._srctable()
