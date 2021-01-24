@@ -71,22 +71,22 @@ class GwSeries:
 
     Examples
     --------
-    To create a GwSeries object from file:
-    >>>gw = GwSeries.from_dinogws(<filepath to dinocsv file>)
-    >>>gw = GwSeries.from_json(<filepath to acequia json file>)
+    To create a GwSeries object from file:  
+    >>>gw = GwSeries.from_dinogws(<filepath to dinocsv file>)  
+    >>>gw = GwSeries.from_json(<filepath to acequia json file>)  
 
-    To get GwSeries properties:
-    >>>GwSeries.heads()
-    >>>GwSeries.locprops()
-    >>>GwSeries.name()
-    >>>GwSeries.heads1428()
+    To get GwSeries properties:  
+    >>>GwSeries.heads()  
+    >>>GwSeries.locprops()  
+    >>>GwSeries.name()  
+    >>>GwSeries.heads1428()  
 
-    To export GwSeries data:
-    >>>GwSeries.to_csv(<filename>)
-    >>>GwSeries.To_json(<filename>)
+    To export GwSeries data:  
+    >>>GwSeries.to_csv(<filename>)  
+    >>>GwSeries.To_json(<filename>)  
 
-    Note
-    ----
+    Notes
+    -----
     Head measurements are stored in meters relatieve to welltopStores
     and served in several units: mwelltop,mref,msurfacelevel.
 

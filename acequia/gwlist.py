@@ -1,7 +1,6 @@
-
-
 """
-
+GwList
+======
 Object for maintaining a groundwater series iterator
 
 T.J. de Meij januari 2020
