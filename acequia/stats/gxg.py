@@ -2,7 +2,8 @@
 descriptive statistics from a series of groundwater head measurements
 used by groundwater practitioners in the Netherlands 
 
-Author: Thomas de Meij (who borrowed lavishly from Pastas dutch.py)
+The structure and many of the methods in this module are adopted 
+from the Pastas module dutch.py)
 
 """
 
@@ -26,10 +27,11 @@ def stats_gxg(ts,ref='datum'):
     ref : {'datum','surface'}, optional
         Reference level for groundwater heads
 
+    Returns
+    -------
+    pd.DataFrame
 
-    Return
-    ------
-    pd.DataFrame"""
+    """
 
     gxg = aq.Gxg(ts, ref=ref)
     return gxg.gxg()
@@ -37,6 +39,15 @@ def stats_gxg(ts,ref='datum'):
 
 class Gxg:
     """Calculate descriptive statistics for series of measured heads
+
+    Parameters
+    ----------
+    gw : aq.GwSeries, pd.Series
+        timeseries with groundwater head measurements
+
+    ref : ['datum','surface'], default 'surface'
+        reference level for measurements
+
 
     Notes
     -----
@@ -58,17 +69,7 @@ class Gxg:
     n14 = 18
 
     def __init__(self, gw, srname=None, ref=None):
-        """Create GxG object
-
-        Parameters
-        ----------
-        gw : aq.GwSeries, pd.Series
-            timeseries with groundwater head measurements
-
-        ref : ['datum','surface'], default 'surface'
-            reference level for measurements
-
-        """
+        """Return GxG object"""
 
         self.gw = gw
         self.srname = srname

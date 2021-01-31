@@ -17,26 +17,28 @@ import acequia as aq
 
 
 class Quantiles:
-    """Calculate quantiles from series of measured heads"""
+    """Calculate quantiles from series of measured heads
+
+    Parameters
+    ----------
+    ts : pd.Series, aq.GwSeries
+        timeseries with groundwater head measurments
+
+    ref : str, ['datum','surface']
+        reference level for measurements
+
+    nclasses : int (default 10)
+        number of quantile classes 
+
+    days : bool, default True
+        label xax with days or quantiles
+
+    """
 
     n14 = 18
 
     def __init__(self, gw, srname=None, ref='surface', nclasses=10, days=True):
-        """
-        Parameters
-        ----------
-        ts : pd.Series, aq.GwSeries
-            timeseries with groundwater head measurments
-
-        ref : str, ['datum','surface']
-            reference level for measurements
-
-        nclasses : int (default 10)
-            number of quantile classes 
-
-        days : bool, default True
-            label xax with days or quantiles
-        """
+        """Return quantiles object"""
 
         if isinstance(gw,aq.GwSeries):
             ts = gw.heads(ref=ref)

@@ -30,32 +30,31 @@ def timestats(ts,ref=None,name=None):
 class TimeStats:
     """ Return descriptive statistics of time series
 
+    Parameters
+    ----------
+    ts : pd.Series, aq.GwSeries
+        timeseries with groundwater head measurments
+
+    ref : str, ['datum','surface'], optinal
+        reference level for measurements
+
+    name : str, optional
+        ground water heads series name
+
     Examples
     --------
     ts = <valid groundwater heads series of GwSeries object>
     tsr = aq.TimeStats(ts)
     tsr.stats()
 
-    Note
-    ----
+    Notes
+    -----
     Custom function aq.timestats(ts) returns TimeStats.stats() directly.
 
     """
 
     def __init__(self, ts, ref=None, name=None):
-        """
-        Parameters
-        ----------
-        ts : pd.Series, aq.GwSeries
-            timeseries with groundwater head measurments
-
-        ref : str, ['datum','surface'], optinal
-            reference level for measurements
-
-        name : str, optional
-            ground water heads series name
-
-        """
+        """Return TimeStats object"""
 
         self._ts = ts
         self._name = name

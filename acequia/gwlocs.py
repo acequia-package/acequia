@@ -42,31 +42,40 @@ class GwLocs:
     Examples
     --------
     Create GwLocs object:
+
     >>>locs = GwLocs(filedir=<jsondir>)
 
     Return table of locations and series:
+
     >>>tbl = locs.loctable()
 
     Return al series for location B16D0037:
+
     >>>gws = GwLocs.gwseries(loc='B16D0037')
 
     Return list of GwSeries objects for locations in list:
+
     >>>names = ['B16D0037','B27G0237',['B28D1635','B28B1388'],'B28B1389']
+
     >>>for loc in GwLocs(filedir=<jsondir>,groups=names):
+
             print(f'{names[i]} group size is {len(gws)}')
 
     Explicitly iterate over locations:
+
     >>>locs = GwLocs(filedir=<jsondir>,groups=names)
+
     >>>for i in range(len(locs)):
+
             gws = next(locs)
+
             print(f'{names[i]} group size is {len(gws)}')
+
     """
 
     def __init__(self,filedir=None,pathlist=None,filetype=None,
         groups=None):
-        """ 
-
-        """
+        """Return GwLocs object"""
 
         self._filedir = filedir
         self._pathlist = pathlist

@@ -2,9 +2,9 @@
 
 """
 
-Object for maintaining a groundwater series iterator
+GwList is a class that holds a list of GwSeries objects and 
+provides methodes for iterating
 
-T.J. de Meij januari 2020
 
 """ 
 
@@ -26,7 +26,7 @@ def headsfiles(srcdir=None,srctype=None,loclist=None):
     """Return list of sourcefiles in directory
 
     Parameters
-    ---------
+    ----------
     srcdir : str
         directory with sourcefiles
 
@@ -46,25 +46,38 @@ def headsfiles(srcdir=None,srctype=None,loclist=None):
 
 
 class GwList():
-    """List of GwSeries objects
+    """Holds a list of GwSeries objects
 
+    Parameters
+    ----------
+    srcdir : str
+        directory with groundwater head sourcefiles
+    srctype : {'dinocsv','json','hymon'}, optional
+        sourcefiletype
+    loclist : list, optional
+        list of location names
+    srcfile : str, optional
+        path to file with paths to sourcefiles
+        (if srcfile is given, srcdir is ignored)
 
-    Examples
-    --------        
-    Loading sourcefiles:
-    >>>gwl = GwList(srcdir=<sourcedir>,srctype='dinocsv',loclist=<mylist>)
-    >>>gwl = GwList(srcdir=<sourcedir>,srctype='json',loclist=<mylist>)
-    >>>gwl = GwList(srcfile=<filepath>,srctype=<'json' or ' dinocsv'>)
-    >>>gwl = GwList(srfile=<hydromonitor csv export>,srctype='hymon')
+    Examples  
+    --------  
+    Create GwList object and load multiple sourcefiles:
 
-    Printing string repr of al GwSeries objects:
-    >>>for i,gw in enumerate(gwl):
-           print(i,gw)
+    >>>gwl = GwList(srcdir=<sourcedir>,srctype='dinocsv',loclist=<mylist>)  
 
-    Table with location properties:
+    >>>gwl = GwList(srcdir=<sourcedir>,srctype='json',loclist=<mylist>)    
+
+    >>>gwl = GwList(srcfile=<filepath>,srctype=<'json' or ' dinocsv'>)    
+    
+    >>>gwl = GwList(srfile=<hydromonitor csv export>,srctype='hymon')  
+  
+    Return table with location properties:
+
     >>>locp = gwl.locprops()
 
-    List of soourcefiles in <srcdir> of type ' dinocsv':
+    Return list of soourcefiles in <srcdir> of type ' dinocsv':
+
     >>>gwl.filelist()
 
     Notes
@@ -79,7 +92,10 @@ class GwList():
     selecting files in srcdir. All series that belong to a location
     will be selected as seperate series. For managing series that
     belong to one location, us the GwLocs object.
+    
+    
     """
+
 
     valid_srctype = ['dinocsv','json','hymon']
 
@@ -90,21 +106,7 @@ class GwList():
 
     def __init__(self,srcdir=None,srctype='dinocsv',loclist=None,
         srcfile=None):
-        """List of GwSeries objects
-
-        Parameters
-        ----------
-        srcdir : str
-            directory with groundwater head sourcefiles
-        srctype : {'dinocsv','json','hymon'}, optional
-            sourcefiletype
-        loclist : list, optional
-            list of location names
-        srcfile : str, optional
-            path to file with paths to sourcefiles
-            (if srcfile is given, srcdir is ignored)
-            
-        """
+        """Return GwList object"""
 
         self.srcdir = srcdir
         self.srctype = srctype
@@ -285,7 +287,17 @@ class GwList():
 
 
     def gwseries(self,srname):
-        """ Return named GwSeries object from list"""
+        """ Return single named GwSeries object from list
+
+        Parameters
+        ----------
+        srname : str
+            series name of requested GwSeries object
+
+        Returns
+        -------
+        acequia.GwSeries object
+        """
 
         if self.srctype in ['dinocsv','json']:
             row = self._flist[self._flist['series']==srname]
