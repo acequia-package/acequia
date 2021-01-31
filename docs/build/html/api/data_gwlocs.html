@@ -1,0 +1,299 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>module gwlocs &mdash; Acequia 0.01 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="module headsdif" href="data_headsdif.html" />
+    <link rel="prev" title="module gwlist" href="data_gwlist.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Acequia
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/getting_started.html">Getting started</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API docs</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index_data.html">Holding data</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="data_gwseries.html">module gwseries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_gwlist.html">module gwlist</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">module gwlocs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_headsdif.html">module headsdif</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index_plots.html">Plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index_stats.html">Statistics</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Acequia</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index_data.html">API Docs - Classes for holding data</a> &raquo;</li>
+        
+      <li>module gwlocs</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/data_gwlocs.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-acequia.gwlocs">
+<span id="module-gwlocs"></span><h1>module gwlocs<a class="headerlink" href="#module-acequia.gwlocs" title="Permalink to this headline">¶</a></h1>
+<p>This module contains the object GwLocs</p>
+<dl class="py class">
+<dt id="acequia.gwlocs.GwLocs">
+<em class="property">class </em><code class="sig-prename descclassname">acequia.gwlocs.</code><code class="sig-name descname">GwLocs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filedir</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">pathlist</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">filetype</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">groups</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#acequia.gwlocs.GwLocs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manage multiple groundwater heads series from one well location</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filedir</strong> (<em>str</em>) – directory with source files</p></li>
+<li><p><strong>pathlist</strong> (<em>list</em><em>, </em><em>optional</em>) – list of sourcefile names (without path)</p></li>
+<li><p><strong>filetype</strong> (<em>[</em><em>'.csv'</em><em>,</em><em>'.json'</em><em>]</em><em>, </em><em>optional</em>) – source file type</p></li>
+<li><p><strong>groups</strong> (<em>list</em><em>, </em><em>optional</em>) – list of location names, sublists are allowed (see examples)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="acequia.gwlocs.GwLocs.sourcetable">
+<code class="sig-name descname">sourcetable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#acequia.gwlocs.GwLocs.sourcetable" title="Permalink to this definition">¶</a></dt>
+<dd><p>return list of location and heads series names</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="acequia.gwlocs.GwLocs.gwseries">
+<code class="sig-name descname">gwseries</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">loc</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#acequia.gwlocs.GwLocs.gwseries" title="Permalink to this definition">¶</a></dt>
+<dd><p>return list of GwSeries objects</p>
+</dd></dl>
+
+<p class="rubric">Examples</p>
+<p>Create GwLocs object:</p>
+<p>&gt;&gt;&gt;locs = GwLocs(filedir=&lt;jsondir&gt;)</p>
+<p>Return table of locations and series:</p>
+<p>&gt;&gt;&gt;tbl = locs.loctable()</p>
+<p>Return al series for location B16D0037:</p>
+<p>&gt;&gt;&gt;gws = GwLocs.gwseries(loc=’B16D0037’)</p>
+<p>Return list of GwSeries objects for locations in list:</p>
+<p>&gt;&gt;&gt;names = [‘B16D0037’,’B27G0237’,[‘B28D1635’,’B28B1388’],’B28B1389’]</p>
+<p>&gt;&gt;&gt;for loc in GwLocs(filedir=&lt;jsondir&gt;,groups=names):</p>
+<blockquote>
+<div><p>print(f’{names[i]} group size is {len(gws)}’)</p>
+</div></blockquote>
+<p>Explicitly iterate over locations:</p>
+<p>&gt;&gt;&gt;locs = GwLocs(filedir=&lt;jsondir&gt;,groups=names)</p>
+<p>&gt;&gt;&gt;for i in range(len(locs)):</p>
+<blockquote>
+<div><p>gws = next(locs)</p>
+<p>print(f’{names[i]} group size is {len(gws)}’)</p>
+</div></blockquote>
+<dl class="py method">
+<dt id="acequia.gwlocs.GwLocs.filetable">
+<code class="sig-name descname">filetable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#acequia.gwlocs.GwLocs.filetable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return table of source files for all series</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="id0">
+<code class="sig-name descname">gwseries</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">loc</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of GwSeries objects with location name &lt;loc&gt;</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>loc</strong> (<em>str</em>) – name of location</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list of GwSeries objects</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>When parameter loc is a list of locations names, GwSeries objects
+for all these locations will be returned.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="data_headsdif.html" class="btn btn-neutral float-right" title="module headsdif" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="data_gwlist.html" class="btn btn-neutral float-left" title="module gwlist" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Thomas de Meij.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

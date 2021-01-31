@@ -1,0 +1,347 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>module Gxg &mdash; Acequia 0.01 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="module quantiles" href="stats_quantiles.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Acequia
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/getting_started.html">Getting started</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API docs</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index_data.html">Holding data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index_plots.html">Plotting</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index_stats.html">Statistics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="stats_timestats.html">module timestats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats_quantiles.html">module quantiles</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">module Gxg</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Acequia</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index_stats.html">API Docs - Statistics classes</a> &raquo;</li>
+        
+      <li>module Gxg</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/stats_gxg.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-acequia.stats.gxg">
+<span id="module-gxg"></span><h1>module Gxg<a class="headerlink" href="#module-acequia.stats.gxg" title="Permalink to this headline">¶</a></h1>
+<p>This module contains a class GwGxg that calculates some
+descriptive statistics from a series of groundwater head measurements
+used by groundwater practitioners in the Netherlands</p>
+<p>The structure and many of the methods in this module are adopted
+from the Pastas module dutch.py)</p>
+<dl class="py function">
+<dt id="acequia.stats.gxg.stats_gxg">
+<code class="sig-prename descclassname">acequia.stats.gxg.</code><code class="sig-name descname">stats_gxg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ts</span></em>, <em class="sig-param"><span class="n">ref</span><span class="o">=</span><span class="default_value">'datum'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#acequia.stats.gxg.stats_gxg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return table with GxG statistics</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ts</strong> (<em>aq.GwSeries</em><em>, </em><em>pd.Series</em>) – Groundwater head time series</p></li>
+<li><p><strong>ref</strong> (<em>{'datum'</em><em>,</em><em>'surface'}</em><em>, </em><em>optional</em>) – Reference level for groundwater heads</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="acequia.stats.gxg.Gxg">
+<em class="property">class </em><code class="sig-prename descclassname">acequia.stats.gxg.</code><code class="sig-name descname">Gxg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">gw</span></em>, <em class="sig-param"><span class="n">srname</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ref</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#acequia.stats.gxg.Gxg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate descriptive statistics for series of measured heads</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gw</strong> (<em>aq.GwSeries</em><em>, </em><em>pd.Series</em>) – timeseries with groundwater head measurements</p></li>
+<li><p><strong>ref</strong> (<em>[</em><em>'datum'</em><em>,</em><em>'surface'</em><em>]</em><em>, </em><em>default 'surface'</em>) – reference level for measurements</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Traditionally in the Netherlands groundwater head series are decribed
+using decriptive statistics that characterise the mean highest level
+(GHG), the mean lowest level (GLG) and the mean spring level (GVG).
+These statistics are defined on head series with measurements on the
+14th and 28th of each month. Therefore, heads series are internally
+resampled before calculating statistics.</p>
+<p>For further reference:
+P. van der SLuijs and J.J. de Gruijter (1985). ‘Water table classes:
+a method to decribe seasonal fluctuation and duration of water table
+classes on Dutch soil maps.’ Agricultural Water Management 10 (1985)
+109 - 125. Elsevier Science Publishers, Amsterdam.</p>
+<dl class="py method">
+<dt id="acequia.stats.gxg.Gxg.vg3">
+<code class="sig-name descname">vg3</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#acequia.stats.gxg.Gxg.vg3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return VG3 (Spring Level) for each year</p>
+<p>VG3 is calculated as the mean of groundwater head
+levels on 14 march, 28 march and 14 april</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.Series</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="acequia.stats.gxg.Gxg.vg1">
+<code class="sig-name descname">vg1</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">maxlag</span><span class="o">=</span><span class="default_value">7</span></em><span class="sig-paren">)</span><a class="headerlink" href="#acequia.stats.gxg.Gxg.vg1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return VG (Spring Level) for each year</p>
+<p>VG1 is calculated as measurement nearest
+to 1 april</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.Series</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="acequia.stats.gxg.Gxg.xg">
+<code class="sig-name descname">xg</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#acequia.stats.gxg.Gxg.xg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return table of GxG groundwater statistics for each
+hydrological year</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="acequia.stats.gxg.Gxg.gxg">
+<code class="sig-name descname">gxg</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#acequia.stats.gxg.Gxg.gxg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return table with GxG for one head series</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="acequia.stats.gxg.Gxg.gt">
+<code class="sig-name descname">gt</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#acequia.stats.gxg.Gxg.gt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return groundwater class table</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="stats_quantiles.html" class="btn btn-neutral float-left" title="module quantiles" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Thomas de Meij.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
