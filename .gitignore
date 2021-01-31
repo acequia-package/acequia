@@ -12,10 +12,6 @@ build
 
 dist
 
-/docs/build/
-
-/docs/source/
-
 /tests/output/
 
 *.log
