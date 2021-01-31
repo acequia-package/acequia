@@ -8,7 +8,6 @@
 
 acequia.egg-info
 
-
 dist
 
 /tests/output/
@@ -20,3 +19,5 @@ dist
 .vscode/*
 
 .DS_Store
+
+/build
