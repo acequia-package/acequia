@@ -21,3 +21,4 @@ dist
 .DS_Store
 
 /build/
+/build/lib/acequia/
