@@ -17,7 +17,7 @@ sys.setrecursionlimit(1500)
 
 # -- Project information -----------------------------------------------------
 
-project = 'Acequia'
+project = 'acequia'
 copyright = '2021, Thomas de Meij'
 author = 'Thomas de Meij'
 
@@ -71,6 +71,13 @@ html_theme_options = {
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
-autodoc_mock_imports = ['shapefile']
+#autodoc_mock_imports = [
+#    'math','numpy','pandas','csv','errno','requests','pkgutil','io',
+#    'matplotlib','matplotlib.pyplot','matplotlib.dates',
+#    'warnings','scipy','scipy.stats','statsmodels.api',
+#    'statsmodels.graphics.tsaplots','statsmodels.tsa.stattools',
+#    'collections','os','os.path','json','shapefile','time',
+#    'datetime','logging','seaborn','simplekml',]
 autoclass_content = "class" #"both"
 autodoc_member_order = 'bysource'
+

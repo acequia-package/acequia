@@ -1,5 +1,4 @@
 """
-<<<<<<< HEAD
 
 GwList is a class that holds a list of GwSeries objects and 
 provides methodes for iterating
@@ -7,7 +6,6 @@ provides methodes for iterating
 GwList
 ======
 Object for maintaining a groundwater series iterator
->>>>>>> 3c3f76ea7d6d5e431b2f38985719ab38fb7e97d5
 
 
 """ 
