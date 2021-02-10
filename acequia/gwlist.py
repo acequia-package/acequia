@@ -18,7 +18,7 @@ import pandas as pd
 import time
 from datetime import datetime
 
-import acequia as aq
+#import acequia as aq
 
 ##import logging
 ##logger = logging.getLogger(__name__)
