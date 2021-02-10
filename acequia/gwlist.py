@@ -20,8 +20,9 @@ from datetime import datetime
 
 import acequia as aq
 
-import logging
-logger = logging.getLogger(__name__)
+import warnings
+##import logging
+##logger = logging.getLogger(__name__)
 
 
 def headsfiles(srcdir=None,srctype=None,loclist=None):
@@ -142,7 +143,8 @@ class GwList():
                 f'Ambigious combination of parameter values: srcdir is',
                 f'{self.srcdir} (not None) and srcfile is {self.srcfile}',
                 f'(not None). Given value for srcfile will be ignored.',])
-            logger.warning(msg)
+            warnings.warn(msg)
+            ##logger.warning(msg)
 
 
         if self.srcdir is not None:
@@ -184,8 +186,8 @@ class GwList():
             ftime = datetime.fromtimestamp(os.path.getmtime(self.srcfile))
             fileage = datetime.now()-ftime
             if fileage.days > 1:
-                logger.warning(
-                f'Age of {self.srcfile} is {fileage.days} days.')
+                msg = f'Age of {self.srcfile} is {fileage.days} days.' 
+                warnings.warn(msg)
 
             #TODO: check if flist contains valid sourcefilenames
 
@@ -198,13 +200,15 @@ class GwList():
             msg = ' '.join([
                 f'function filelist() not supported for sourcetype',
                 f'\'hymon\' ',])
-            logger.warning(msg)
+            warnings.warn(msg)
+            ##logger.warning(msg)
             return None
 
         msg = ' '.join([
             f'Unexpected combination of given parameters. No list of',
             f'GwSeries objects is returned.',])
-        logger.warning(msg)
+        warnings.warn(msg)
+        ##logger.warning(msg)
         return None
 
 
