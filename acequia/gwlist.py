@@ -20,7 +20,6 @@ from datetime import datetime
 
 import acequia as aq
 
-import warnings
 ##import logging
 ##logger = logging.getLogger(__name__)
 
