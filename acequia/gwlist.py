@@ -12,13 +12,13 @@ Object for maintaining a groundwater series iterator
 
 import os
 import os.path
-import warnings
+#import warnings
 from pandas import Series, DataFrame
 import pandas as pd
 import time
 from datetime import datetime
 
-#import acequia as aq
+import acequia as aq
 
 ##import logging
 ##logger = logging.getLogger(__name__)
