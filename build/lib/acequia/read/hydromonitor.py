@@ -1,40 +1,70 @@
+"""This module contains the HydroMonitor object for reading groundwater
+head measurements from a HydroMonitor csv export file
 
-# Author:      Thomas de Meij
-# Created:     02-03-2014. To Py3 15-08-2015; To Acequia 2-7-2019
-#----------------------------------------------------------------------
+"""
 
 from collections import OrderedDict
 import warnings
+import os.path
+import errno
+import os
+
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from pandas import Series, DataFrame
 import pandas as pd
 import numpy as np
 
-#from ..core.gwseries import GwSeries
-#from ..gwseries import GwSeries
-import acequia.gwseries
+import acequia as aq
 
 
 class HydroMonitor:
     """Read and manage data from hydromonitor csv export file
+    
+    Parameters:
+    ---------
+    header : pandas dataframe, optional
+        header data from hydromonitor file as pandas dataframe
+    metadata : pandas dataframe, optional
+        metadata data from hydromonitor file as pandas dataframe
+    data : pandas dataframe, optional
+        measurements from hydromonitor file as pandas dataframe
 
-     Example:
-     -------
-     hm = HydroMonitor.from_csv(filepath=<path to csv source file>)
-     mylist = hm.to_gwseries()
+    Examples:
+    -------
+    Read hydromonitor csv export file:
+    >>>hm = HydroMonitor.from_csv(filepath=<path>)
+    Convert to list of GwSeries objects:
+    >>>mylist = hm.to_list()
+    Iterate over all series and return GwSeries objects one at a time:
+    >>>for i in range(len(hm)):
+        gw = next(hm)
+    Iterate over raw data and returnGwSeries objects: 
+    >>>for (loc,fil),data in hm.iterdata():
+        gw = hm.get_series(data=data,loc=loc,fil=fil)
+    Save all series to json files in <filedir>:
+    >>>hm.to_json(<filedir>)
 
     """
 
     CSVSEP = ";"
-    METATAG = 'StartDateTime;XCoordinate;YCoordinate;'
-    DATATAG = 'DateTime;LoggerHead;ManualHead;'
+    METATAG = 'StartDateTime' #;XCoordinate;YCoordinate;'
+    DATATAG = 'DateTime' #;LoggerHead;ManualHead;'
+
+
+    mapping_tubeprops = OrderedDict([
+        ('startdate','startdatetime'),
+        ('mplevel','welltoplevel'),
+        ('filtop','filtertoplevel'),
+        ('filbot','filterbottomlevel'),
+        ('surfacedate',''),
+        ('surfacelevel','surfacelevel'),
+        ])
 
 
     def __repr__(self):
-        ##return (f'{self.__class__.__name__} instance')
-        return (f'{self.name()} (n={len(self._data)})')
-        
+        return (f'{self.__class__.__name__} instance')
+      
 
     def __init__(self,header=None,metadata=None,data=None):
         """ Initialize HydroMonitor object """
@@ -66,6 +96,10 @@ class HydroMonitor:
                 message = 'data must be type None or type DataFrame'
                 raise TypeError(message)
 
+        # create generator
+        data = self.delete_duplicate_data()
+        self.srgen =  data.groupby(self.idkeys()).__iter__()
+        self.itercount = 0
 
     @classmethod
     def from_csv(cls,filepath):
@@ -75,7 +109,7 @@ class HydroMonitor:
         parameters
         ----------
         filepath : str
-                   path to hydromonitor csv export file
+            path to hydromonitor csv export file
 
         returns
         -------
@@ -89,43 +123,36 @@ class HydroMonitor:
     def _readcsv(self,filepath):
         """ Read hydromonitor csv export file """
         
-        # read header and line_numbers
-        textfile = self._open_file(self,filepath)
-        self.header,self.line_numbers = self._read_header(self,textfile)
-        textfile.close()
-
-        content_list = [x.lower() for x in self.header['file_contents']]
-        if 'metadata' in content_list:
-            self.metadata = self._read_metadata(self)
+        try:
+            self.filepath = filepath
+            textfile = open(self.filepath)
+        except IOError:
+            raise FileNotFoundError(
+                errno.ENOENT, os.strerror(errno.ENOENT), filepath)
+            textfile = None
         else:
-            self.metadata = None
-            warnings.warn("Metadata not specified.")
+            self.header,self.line_numbers = self._read_header(self,textfile)
+            textfile.close()
 
-        if 'data' in content_list:
-            self.data = self._read_data(self)
-        else:
-            self.data = None
-            warnings.warn("Data not specified.")
+            content_list = [x.lower() for x in self.header['file_contents']]
+            if 'metadata' in content_list:
+                self.metadata = self._read_metadata(self)
+            else:
+                self.metadata = None
+                warnings.warn("Metadata not specified.")
+
+            if 'data' in content_list:
+                if self.metadata is None:
+                    raise(f'Heads from {filepath} can not be read ',
+                          f'because metadata are not available.')                
+                self.data = self._read_data(self)
+            else:
+                self.data = None
+                warnings.warn("Data not specified.")
+        #finally:
 
         return self.header,self.metadata,self.data
 
-    def _open_file(self,filepath):
-        """ open hydromonitor csv file for reading and return file object """
-
-        try:
-            textfile = open(filepath,'r')
-
-        except (IOError, TypeError) as err:
-            errno, strerror = err.args
-            print("{!s}".format(errno), end="")
-            print("I/O fout{!s}".format(strerror), end="")
-            print (" : "+filepath)
-            textfile = None
-
-        else:
-            self.filepath = filepath
-
-        return textfile
 
     def _read_header(self,textfile):
         """ 
@@ -140,10 +167,13 @@ class HydroMonitor:
 
         """
 
+        metatag_found = False
+        datatag_found = False
+
         header = OrderedDict()
         for i,line in enumerate(textfile):
 
-            line = line.rstrip() #.rstrip(self.CSVSEP)
+            line = line.rstrip()
             linelist = line.split(self.CSVSEP)
 
             # read header tags
@@ -166,19 +196,28 @@ class HydroMonitor:
 
             # read metadata line number and column names
             elif self.METATAG in line:
+                metatag_found = True
                 self.metafirst = i+2
                 self.metacols = [x.lower() for x in linelist]
 
             # read data line number column names
             elif self.DATATAG in line:
+                datatag_found = True
                 self.datafirst = i+2
                 self.metalast = i-2
                 self.datacols = [x.lower() for x in linelist]
                 break # avoid iterating over lines after metadata
 
+        # warnings
+        if not metatag_found:
+            msg = f'Metadata header {self.METATAG} not found.'
+            warnings.warn(msg)
+
+        if not datatag_found:
+            msg = f'Data header {self.DATATAG} not found.'
+            warnings.warn(msg)
+
         # return variables
-        #self.header = DataFrame(header).T
-        #self.header = DataFrame.from_dict(header,orient='index',columns=['value'])
         self.header = Series(header)
         self.line_numbers = (self.metafirst,self.metalast,self.datafirst)
         return self.header,self.line_numbers
@@ -209,7 +248,16 @@ class HydroMonitor:
         if '' in list(dfmeta.columns):
             dfmeta = dfmeta.drop([''], axis=1)
 
-        dfmeta['startdatetime'] = pd.to_datetime(dfmeta['startdatetime'],format='%d-%m-%Y %H:%M')
+        dfmeta['startdatetime'] = pd.to_datetime(dfmeta['startdatetime'],
+                                  format='%d-%m-%Y %H:%M',
+                                  errors='coerce')
+
+        numcols = ['xcoordinate','ycoordinate','surfacelevel',
+                   'welltoplevel','filtertoplevel','filterbottomlevel',
+                   'wellbottomlevel',]
+        for col in numcols:
+            dfmeta[col] = pd.to_numeric(dfmeta[col],errors='coerce')
+
         return dfmeta
 
     def _read_data(self):
@@ -228,6 +276,30 @@ class HydroMonitor:
             encoding='latin-1',
             )
 
+        if 'loggerhead' not in self.datacols:
+        # when no loggerhead is available, menyanthes only exports
+        # the column manualheads and the column loggerheads is simply missing
+        # this happens when loggerdata without manual control measurments
+        # are imported from another source; Menyanthes marks these 
+        # measurements as manual heads.
+
+            pos = dfdata.columns.get_loc('datetime')+1
+            dfdata.insert(loc=pos,column='loggerhead',value=np.nan)
+
+            msg = f'Missing data column loggerhead added and filled with NaNs'
+            warnings.warn(msg)
+
+        if 'manualhead' not in self.datacols:
+        # this is a variation on the previous missing loggerhead issue
+
+            pos = len(dfdata.columns)
+            dfdata.insert(loc=pos,column='manualhead',value=np.nan)
+            #dfdata['manualhead'] = np.nan
+
+            msg = f'Missing data column loggerhead added and filled with NaNs'
+            warnings.warn(msg)
+
+
         # delete empty last column
         if '' in list(dfdata.columns):
             dfdata = dfdata.drop([''], axis=1)
@@ -238,66 +310,177 @@ class HydroMonitor:
         dfdata = dfdata[dfdata.nitgcode!='[String]'].copy()
 
         # parsing these dates is very time consuming
-        dfdata['datetime'] = pd.to_datetime(dfdata['datetime'],format='%d-%m-%Y %H:%M')
-        dfdata['loggerhead'] = pd.to_numeric(dfdata['loggerhead'], errors='coerce')
-        dfdata['manualhead'] = pd.to_numeric(dfdata['manualhead'], errors='coerce')
-
+        dfdata['datetime'] = pd.to_datetime(dfdata['datetime'],
+              dayfirst=True,format='%d-%m-%Y %H:%M',errors='coerce')
+        dfdata['loggerhead'] = pd.to_numeric(dfdata['loggerhead'], 
+                               errors='coerce')
+        dfdata['manualhead'] = pd.to_numeric(dfdata['manualhead'], 
+                               errors='coerce')
         return dfdata
 
 
+    def idkeys(self):
+        """Return column names that give a unique identification of a 
+        series """
+        # bug in hydromonitor export? id is allways nitgcode, filterno
+        # idkeys = ['nitgcode','filterno']
+        if len(self.header['object_identification'])>2:
+            message.warn('More than two object identification keys given')
+        return [x.lower() for x in self.header['object_identification']]
+
+
+    def delete_duplicate_data(self):
+        """Remove duplicate data from data and return pd.DataFrame
+
+        Duplicates occur in groundwater head measurments in
+        hydromonitor export when loggervalue and manual control 
+        measurement have the same timestamp."""
+        sortcols = self.idkeys() + ['datetime','manualhead']
+        data = self.data.sort_values(by=sortcols)
+        dropcols = self.idkeys() + ['datetime']
+        self.data_no_dups = data.drop_duplicates(subset=dropcols, 
+                            keep='first').copy()
+        return self.data_no_dups
+
+
+    def get_series(self,data=None,loc=None,fil=None):
+        """Return GwSeries object from HydroMonitor object
+
+        Parameters
+        ----------
+        data : pd.Dataframe
+            Table with groundwater head values
+        loc : str
+            Well location name
+        fil : str
+            Tube name
+
+        Returns
+        -------
+        GwSeries object
+
+        """
+
+        gws = aq.GwSeries()
+
+        # select metadata for series 
+        bool1 = self.metadata[self.idkeys()[0]]==loc
+        bool2 = self.metadata[self.idkeys()[1]]==fil
+        metadata = self.metadata[bool1&bool2]
+        firstindex = metadata.index[0]
+
+        # set tubeprops from hydro,onitor metadata
+        for prop in list(gws._tubeprops):
+            metakey = self.mapping_tubeprops[prop]
+            if len(metakey)>0:
+                gws._tubeprops[prop] = metadata[metakey].values
+            if prop not in self.mapping_tubeprops.keys():
+                warnings.warn(f"Unknown property {prop} in {type(gws)}")
+
+        # set locprops from hydro,onitor metadata
+        for prop in list(gws._locprops.index):
+
+            if prop=='locname':
+                gws._locprops[prop] = metadata.at[firstindex,self.idkeys()[0]]
+            
+            if prop=='filname':
+                gws._locprops[prop] = metadata.at[firstindex,self.idkeys()[1]]
+
+            if prop=='alias':
+                if 'nitgcode' in self.idkeys(): 
+                    alias_key = 'name'
+                else: 
+                    alias_key = 'nitgcode'
+                gws._locprops[prop] = metadata.at[firstindex,alias_key]
+
+            if prop=='xcr':
+                gws._locprops[prop] = metadata.at[firstindex,'xcoordinate']
+
+            if prop=='ycr':
+                gws._locprops[prop] = metadata.at[firstindex,'ycoordinate']
+
+            if prop=='height_datum':
+                gws._locprops[prop] = 'mnap'
+
+            if prop=='grid_reference':
+                gws._locprops[prop] = 'rd'
+
+            if prop not in ['locname','filname','alias','xcr','ycr',
+                            'height_datum','grid_reference']:
+
+                warnings.warn(f"Unknown property {prop} in {type(gws)}")
+
+
+        # set gwseries
+        datetimes = data['datetime'].values
+        heads = np.where(
+                    np.isnan(data['loggerhead'].values),
+                    data['manualhead'].values,
+                    data['loggerhead'].values)
+        heads = Series(data=heads,index=datetimes)
+
+        # remove rows with invalid datevalues and warn
+        NaTdate = pd.isna(heads.index)
+        nNaT = len(heads[NaTdate])
+        if nNaT!=0:
+            msg = f"Removed {nNaT} rows with invalid date from {gws.name()}"
+            warnings.warn(msg)
+            heads = heads[~NaTdate].copy()
+
+        # convert heads in mnap to mref
+        gws._heads = heads
+        for index,props in gws._tubeprops.iterrows():
+            mask = gws._heads.index >= props['startdate'] 
+            gws._heads = gws._heads.mask(
+                         mask,props['mplevel']-heads)
+
+        return gws
+
     def to_list(self):
-        """ Return data from HydroMonitor as a list of GwSeries() objects """
+        """ Return data from HydroMonitor as a list of GwSeries() 
+            objects """
 
         srlist = []
 
-        #srkeys = [x.lower() for x in self.header['object_identification']]
-        # bug in hydromonitor export? id is allways nitgcode, filterno
-        srkeys = ['nitgcode','filterno']
-        if len(srkeys)>2:
-            message.warn('More than two object identification keys given')
+        heads = self.delete_duplicate_data()
+        filgrp = heads.groupby(self.idkeys())
+        for (location,filnr),data in filgrp:
 
-        # duplicates occur in hydromonitor export when loggervalue
-        # and manual control measurement have the same timestamp
-        sortcols = srkeys + ['datetime','manualhead']
-        data = self.data.sort_values(by=sortcols)
-        dropcols = srkeys + ['datetime']
-        no_dups = data.drop_duplicates(subset=dropcols, keep='first').copy()
-        self.no_dups = no_dups.copy()
-
-        for (location,filter),sr in no_dups.groupby(srkeys):
-            gws = acequia.gwseries.GwSeries()
-            
-            bool1 = self.metadata[srkeys[0]]==location
-            bool2 = self.metadata[srkeys[1]]==filter
-            metadata = self.metadata[bool1&bool2]
-            firstindex = metadata.index[0]
-
-            # set tubeprops
-            gws._tubeprops.startdate = metadata.startdatetime.values
-            gws._tubeprops.mp = metadata.welltoplevel.values
-            gws._tubeprops.filtop = metadata.filtertoplevel.values
-            gws._tubeprops.filbot = metadata.filterbottomlevel.values
-            gws._tubeprops.surface = metadata.surfacelevel.values
-
-            # set locprops
-            gws._locprops.locname = metadata.at[firstindex,srkeys[0]]
-            gws._locprops.filname = metadata.at[firstindex,srkeys[1]]
-            if 'nitgcode' in srkeys:
-                alias_key = 'name'
-            else:
-                alias_key = 'nitgcode'
-            gws._locprops.alias = metadata.at[firstindex,alias_key]
-            gws._locprops.east = metadata.at[firstindex,'xcoordinate']
-            gws._locprops.north = metadata.at[firstindex,'ycoordinate']
-            gws._locprops.height_datum = 'mnap'
-            gws._locprops.grid_reference = 'rd'
-
-            # set gwseries
-            datetimes = sr.datetime.values
-            heads = np.where(np.isnan(sr.loggerhead.values),sr.manualhead.values,sr.loggerhead.values)
-            gws._heads = Series(data=heads,index=datetimes)
-
+            gws = self.get_series(data=data,loc=location,fil=filnr)
             srlist.append(gws)
 
         return srlist
 
+
+    def __iter__(self):
+        return self
+
+
+    def __next__(self):
+
+        if self.itercount >= len(self):
+            raise StopIteration
+
+        (loc,fil),data = next(self.srgen)
+        gw = self.get_series(data=data,loc=loc,fil=fil)
+
+        self.itercount+=1
+        return gw
+
+    def iterdata(self):
+        """Return generator for iterating over heads data"""
+        heads = self.delete_duplicate_data()
+        return heads.groupby(self.idkeys()).__iter__()
+
+    def __len__(self):
+        heads = self.delete_duplicate_data()
+        hymlen=0
+        for srname,sr in heads.groupby(self.idkeys()).__iter__():
+            hymlen+=1
+        return hymlen
+
+    def to_json(self,filedir=None):
+
+        for (loc,fil),data in self.iterdata():
+            gws = self.get_series(data=data,loc=loc,fil=fil)
+            gws.to_json(filedir)

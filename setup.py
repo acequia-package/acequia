@@ -15,7 +15,7 @@ setup(
                 'groundwater head time series.',
     long_description=long_description,
     long_description_content_type="text/x-rst",
-    url='https://github.com/tdmeij/acequia.git',
+    url='https://github.com/acequia-package/Acequia.git',
     author='T.J. de Meij',
     author_email='thomasdemeij@gmail.com',
     license='MIT',
