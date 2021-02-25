@@ -15,7 +15,7 @@ setup(
                 'groundwater head time series.',
     long_description=long_description,
     long_description_content_type="text/x-rst",
-    url='https://github.com/acequia-package/Acequia.git',
+    url='https://github.com/acequia-package/acequia.git',
     author='T.J. de Meij',
     author_email='thomasdemeij@gmail.com',
     license='MIT',
@@ -24,11 +24,17 @@ setup(
         'Intended Audience :: Science/Research',
         'Intended Audience :: Other Audience',
         'License :: OSI Approved :: MIT License',
-        'Topic :: Scientific/Engineering :: Hydrology :: Groundwater',
+        'Topic :: Scientific/Engineering',
     ],
     platforms='Windows, Mac OS-X',
+
+
+
     install_requires=['numpy>=1.15', 'matplotlib>=2.0', 'pandas>=0.23',
                       'scipy>=1.1'],
+
+    # pip will copy non-code files when installing
     include_package_data=True,
+
     packages=find_packages(exclude=[]),
 )
