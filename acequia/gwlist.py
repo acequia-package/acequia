@@ -12,7 +12,7 @@ Object for maintaining a groundwater series iterator
 
 import os
 import os.path
-#import warnings
+import warnings
 from pandas import Series, DataFrame
 import pandas as pd
 import time

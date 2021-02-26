@@ -1,3 +1,5 @@
+warnings
+pathlib
 numpy>=1.15
 matplotlib>=2.0
 pandas>=1.0

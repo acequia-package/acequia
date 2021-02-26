@@ -18,7 +18,6 @@ import pandas as pd
 from pandas import Series, DataFrame
 import pandas as pd
 
-#import logging
 import acequia as aq
 from acequia import CrdCon
 
