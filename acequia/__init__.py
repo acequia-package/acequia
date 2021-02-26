@@ -17,6 +17,7 @@ from .plots.tsmodelstatsplot import TsModelStatsPlot,plot_tsmodel_statistics
 from .read.dinogws import DinoGws, read_dinogws
 from .read.hydromonitor import HydroMonitor
 from .read.knmi_weather import KnmiWeather
+from .read.knmi_rain import KnmiRain
 from .read.knmi_stations import KnmiStations, knmilocations
 from .read.filedirtools import listdir, cleardir
 from .stats.utils import hydroyear, season, index1428, ts1428
@@ -28,8 +29,8 @@ from .stats.describe import DescribeGwList, timestatstable
 __all__ = ['GwSeries','GwList','GwLocs','PlotGws','DinoGws',
            'HydroMonitor','TimeStats','PointShapeWriter','Gxg',
            'Quantiles','CrdCon',
-           'KnmiWeather','KnmiStations','DescribeGwList','timestatstable',
-           'pointshape_write',
+           'KnmiWeather','KnmiRain', 'KnmiStations','DescribeGwList',
+           'timestatstable','pointshape_write',
            'TsModelStatsPlot','plot_tsmodel_statistics']
 
 logger = logging.getLogger(__name__)
