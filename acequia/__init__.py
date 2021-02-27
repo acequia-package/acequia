@@ -25,12 +25,14 @@ from .stats.timestats import TimeStats, timestats
 from .stats.gxg import Gxg, stats_gxg
 from .stats.quantiles import Quantiles
 from .stats.describe import DescribeGwList, timestatstable
+from .stats.meteo_drought import MeteoDrought
 
 __all__ = ['GwSeries','GwList','GwLocs','PlotGws','DinoGws',
            'HydroMonitor','TimeStats','PointShapeWriter','Gxg',
            'Quantiles','CrdCon',
            'KnmiWeather','KnmiRain', 'KnmiStations','DescribeGwList',
            'timestatstable','pointshape_write',
-           'TsModelStatsPlot','plot_tsmodel_statistics']
+           'TsModelStatsPlot','plot_tsmodel_statistics',
+           'MeteoDrought']
 
 logger = logging.getLogger(__name__)

@@ -30,8 +30,7 @@ if __name__ == '__main__':
     tbl = prc.units()
     print(tbl)
 
-    hdr('# read all possible variables and one not possible')
+    hdr('# get all possible variables and one not possible')
     for name in ['prc','dummy']:
         n = len(prc.timeseries(name))
         print(f'Number of {name}: {n}')
-

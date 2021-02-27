@@ -18,6 +18,8 @@ class KnmiWeather:
 
     VARNAMES = ['prc','evp','rch']
 
+    SKIPROWS = 48
+
     def __init__(self,fpath):
 
         self.colnames = self.NAMESTR.replace(' ','').split(',')
@@ -38,7 +40,8 @@ class KnmiWeather:
     def _readfile(self):
 
         # read csv to pd.DataFrame with only str values
-        self.rawdata = pd.read_csv(self.fpath,sep=',',skiprows=48,
+        self.rawdata = pd.read_csv(self.fpath,sep=',',
+            skiprows=self.SKIPROWS,
             names=self.colnames,dtype='str')
 
         # replace empty strings with NaN
