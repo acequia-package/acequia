@@ -24,6 +24,8 @@ class MeteoDrought:
 
     dro = aq.MeteoDrought(prc,evp)
 
+    drday = dro.daydrought()
+
     drsum = dro.summersum()
 
     drcum = dro.summercum()
@@ -37,16 +39,20 @@ class MeteoDrought:
     SUMMERDAYS = 183
 
 
-    def __init__(self,prc=None,evp=None):
+    def __init__(self,prc=None,evp=None,stn=None):
 
-        self.prc = prc
-        self.evp = evp
-        self.rch = self.recharge()
-        self.rchsmr = self.summer_recharge()
+        self._prc = prc
+        self._evp = evp
+        self._rch = self.recharge()
+        self._rchsmr = self.summer_recharge()
+
+        if stn is None:
+            stn = 'unknown'
+        self._stn = stn
 
 
     def __repr__(self):
-        return (f'{self.__class__.__name__} (n={len(self.rchsmr)})')
+        return (f'{self.__class__.__name__} (n={len(self._rchsmr)})')
 
 
     def recharge(self):
@@ -55,52 +61,52 @@ class MeteoDrought:
         Calculated as difference between precipitation and evaporation.
         Leading and trailing NaN values are removed."""
 
-        self.rch = self.prc - self.evp
+        self._rch = self._prc - self._evp
 
         # remove leading and trailing NaNs
-        first = self.rch.first_valid_index()
-        last = self.rch.sort_index(ascending=False).first_valid_index()
-        self.rch = self.rch[first:last]
+        first = self._rch.first_valid_index()
+        last = self._rch.sort_index(ascending=False).first_valid_index()
+        self._rch = self._rch[first:last]
 
         # remove first year if first date is after april 1st
-        if not self.rch.index[0].month<4:
-            firstyear = self.rch.index[0].year+1
+        if not self._rch.index[0].month<4:
+            firstyear = self._rch.index[0].year+1
             firstdate = pd.to_datetime(
                 self.YEARSTART.replace('YEAR',str(firstyear)))
-            self.rch = self.rch[firstdate:]
+            self._rch = self._rch[firstdate:]
 
         # remove last year is last date is before september 30th
-        if not self.rch.index[-1].month>9:
-            lastyear = self.rch.index[-1].year-1
+        if not self._rch.index[-1].month>9:
+            lastyear = self._rch.index[-1].year-1
             lastdate = pd.to_datetime(
                 self.YEAREND.replace('YEAR',str(lastyear)))
-            self.rch = self.rch[:lastdate]
+            self._rch = self._rch[:lastdate]
 
-        return self.rch
+        return self._rch
 
 
     def summer_recharge(self):
         """Return table with array of daily recharges for each summer"""
 
         # empty table
-        years = list(set(self.rch.index.year))
+        years = list(set(self._rch.index.year))
         days = np.arange(0,183)
-        self.rchsmr = Series(index=years,dtype=object)
-        self.rchsmr.index.name = 'year'
+        self._rchsmr = Series(index=years,dtype=object)
+        self._rchsmr.index.name = 'year'
 
         # daily rechsrge for all years
-        for year,rch in self.rch.groupby(by=self.rch.index.year):
+        for year,rch in self._rch.groupby(by=self._rch.index.year):
 
             firstdate = self.SUMMERSTART.replace('YEAR',str(year))
             lastdate = self.SUMMEREND.replace('YEAR',str(year))
-            rchsmr = self.rch[firstdate:lastdate].values
+            rchsmr = self._rch[firstdate:lastdate].values
 
-            self.rchsmr[year] = rchsmr
+            self._rchsmr[year] = rchsmr
 
-        return self.rchsmr
+        return self._rchsmr
 
 
-    def cumulative_drought(self,rchsmr):
+    def _cumulative_drought(self,rchsmr):
         """Return daily values of cumulative drought for one summer
 
         Parameters
@@ -120,8 +126,13 @@ class MeteoDrought:
         for i,val in enumerate(daydr):
 
             if i==0:
-                if daydr[i] > 0:
+
+                if np.isnan(daydr[i]):
                     cumdr[i] = daydr[i]
+
+                elif daydr[i] > 0:
+                    cumdr[i] = daydr[i]
+
                 else:
                     cumdr[i] = 0
 
@@ -133,8 +144,12 @@ class MeteoDrought:
         return cumdr
 
 
-    def daycum(self):
+    def daydrought(self):
         """Return cumulative drought on daily basis for all years
+
+        Returns
+        -------
+        pd.DataFrame
 
         Notes
         -----
@@ -143,28 +158,28 @@ class MeteoDrought:
 
         """
 
-        years = list(set(self.rch.index.year))
-        days = np.arange(0,self.SUMMERDAYS)
-        self.cumdr = DataFrame(columns=years,index=days)
+        years = list(set(self._rch.index.year))
+        days = np.arange(1,self.SUMMERDAYS+1)
+        self._daydrought = DataFrame(columns=years,index=days)
+        self._daydrought.index.name = 'daynr'
+        for year,rch in self._rchsmr.iteritems():
+            self._daydrought[year] = self._cumulative_drought(rch)
 
-        for year,rch in self.rchsmr.iteritems():
-            self.cumdr[year] = self.cumulative_drought(rch)
-
-        return self.cumdr
+        return self._daydrought
 
 
     def summercum(self):
         """Return maximum cumulative drought for each year"""
-        return self.daycum().max(axis=0)
+        return self.daydrought().max(axis=0)
 
 
     def summersum(self):
         """Return sum of drought for all years"""
 
-        self.smrsum = Series(index=self.rchsmr.index,dtype=float)
+        self._summersum = Series(index=self._rchsmr.index,dtype=float)
 
-        for year,rch in self.rchsmr.iteritems():
-            self.smrsum[year] = np.sum(-1*rch)
+        for year,rch in self._rchsmr.iteritems():
+            self._summersum[year] = np.sum(-1*rch)
 
-        return self.smrsum
+        return self._summersum
 

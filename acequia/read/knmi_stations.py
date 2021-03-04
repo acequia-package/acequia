@@ -228,11 +228,11 @@ class KnmiStations:
         str2 = r'/daggegevens/getdata_dag.cgi'
         url=str1+str2
         par = {'stns':'ALL'}
-        flines = requests.get(url,params=par).text.splitlines()
+        self._flines = requests.get(url,params=par).text.splitlines()
 
         # find first and last line of table with data in text
         startline=-1    
-        for i,line in enumerate(flines):
+        for i,line in enumerate(self._flines):
 
             if line.startswith(HEADERLINE):
                 startline=i+1
@@ -243,8 +243,8 @@ class KnmiStations:
 
         # table stn numbers and metadata
         wht_dict={}
-        for i,line in enumerate(flines[startline:endline+1]):
-        
+        for i,line in enumerate(self._flines[startline:endline+1]):
+
             linelist = line.split()
             stn = linelist[1].rstrip(':')
             stn_name = ' '.join(linelist[5:])

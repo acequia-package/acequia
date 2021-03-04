@@ -7,7 +7,25 @@ from pandas import DataFrame, Series
 
 
 class KnmiWeather:
-    """Read weather data from knmi file"""
+    """Read weather data from knmi file
+
+    Parameters
+    ----------
+    fpath : str
+        path to knmi txt file with weather data
+
+
+    Examples
+    --------
+
+    wth = aq.KnmiWeather(<filepath>)
+
+    evp = wth.timeseries('evp')
+
+    name = wth.name()
+
+
+    """
 
     NAMESTR = ''.join([
         'STN,YYYYMMDD,DDVEC,FHVEC,   FG,  FHX, FHXH,  FHN, FHNH,',
@@ -22,9 +40,11 @@ class KnmiWeather:
 
     def __init__(self,fpath):
 
+
         self.colnames = self.NAMESTR.replace(' ','').split(',')
         self.keepcols = 'YYYYMMDD,RH,EV24'.split(',')
         self.fpath = Path(fpath)
+
 
         if not (self.fpath.exists() and self.fpath.is_file()):
             msg = [f'Filepath \'{self.fpath}\' not found',
@@ -35,6 +55,9 @@ class KnmiWeather:
         else:
             self._readfile()
             self._clean_rawdata()
+
+
+        self.stn = self.rawdata.loc[0,'STN']
 
 
     def _readfile(self):
@@ -55,10 +78,19 @@ class KnmiWeather:
         for colname in list(self.data):
 
             if colname=='YYYYMMDD':
+
+                # create datetimeindex from string column
                 self.data[colname] = pd.to_datetime(self.data[colname],
                     infer_datetime_format=True)
                 self.data = self.data.set_index(
                     colname,verify_integrity=True)
+
+                # make sure all dates are in index
+                firstdate = self.data.index[0]
+                lastdate = self.data.index[-1]
+                idx = pd.date_range(start=firstdate, end=lastdate,
+                    freq='D')
+                self.data = self.data.reindex(idx)
                 self.data.index.name='date'
 
             if colname=='RH':
@@ -68,6 +100,7 @@ class KnmiWeather:
 
             if colname in ['RH','EV24']:
                 self.data[colname] = self.data[colname].astype(float)/10.
+
 
     def timeseries(self,varname):
         """Return timeseries with data
