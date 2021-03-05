@@ -216,7 +216,7 @@ class Gxg:
         self._gxg = pd.DataFrame(index=[self.srname])
         self._xg = self.xg()
 
-        for col in xg.columns:
+        for col in self._xg.columns:
             sr = self._xg[col][self._xg[col].notnull()]
             self._gxg[col] = round(sr.mean(),2)
 

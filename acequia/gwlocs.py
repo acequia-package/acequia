@@ -219,7 +219,7 @@ class GwLocs:
         if self._loclist is None:
             ##grp = self._srcfiles.groupby(by='loc')
             ##grp = self._locfiles.groupby(by='loc')
-            grp = self.sourcetable().groupby(by='loc')
+            grp = self.filetable().groupby(by='loc')
             self._loclist = list(grp.groups.keys())
         else:
             self._loclist = self._loclist
