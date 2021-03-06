@@ -32,7 +32,8 @@ release = '0.01'
 # ones.
 extensions = [
    'sphinx.ext.autodoc', 
-   'sphinx.ext.coverage', 
+   'sphinx.ext.coverage',
+   'nbsphinx',
    'sphinx.ext.napoleon',
 ]
 

@@ -347,8 +347,11 @@ class GwSeries:
         Examples
         --------
         Save heads to simple csv:
+
         >>>aq.GwSeries.to_csv(<dirpath>)
+
         Read back with standard Pandas:
+
         >>>pd.read_csv(<filepath>,  parse_dates=['date'], 
                   index_col='date', squeeze=True) 
         

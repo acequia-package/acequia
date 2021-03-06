@@ -1,0 +1,568 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>module gwseries &mdash; acequia 0.01 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="module gwlist" href="data_gwlist.html" />
+    <link rel="prev" title="API Docs - Classes for holding data" href="index_data.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> acequia
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/getting_started.html">Getting started</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/01_read%20and%20explore%20groundwater%20head%20data.html">Read and explore data</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API docs</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index_data.html">Holding data</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">module gwseries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_gwlist.html">module gwlist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_gwlocs.html">module gwlocs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_headsdif.html">module headsdif</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index_plots.html">Plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index_stats.html">Statistics</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">acequia</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index_data.html">API Docs - Classes for holding data</a> &raquo;</li>
+        
+      <li>module gwseries</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/data_gwseries.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="module-acequia.gwseries">
+<span id="module-gwseries"></span><h1>module gwseries<a class="headerlink" href="#module-acequia.gwseries" title="Permalink to this headline">¶</a></h1>
+<p>This module contains the base object GwSeries for maintaining a
+groundwater series</p>
+<p class="rubric">Examples</p>
+<p>gw = GwSeries.from_dinogws(&lt;filepath to dinocsv file&gt;)
+gw = GwSeries.from_json(&lt;filepath to acequia json file&gt;)</p>
+<dl class="py class">
+<dt id="acequia.gwseries.GwSeries">
+<em class="property">class </em><code class="sig-prename descclassname">acequia.gwseries.</code><code class="sig-name descname">GwSeries</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">heads</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">locprops</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">tubeprops</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#acequia.gwseries.GwSeries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Groundwater heads time series management</p>
+<dl class="py method">
+<dt id="acequia.gwseries.GwSeries.from_dinogws">
+<code class="sig-name descname">from_dinogws</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filepath</span></em><span class="sig-paren">)</span><a class="headerlink" href="#acequia.gwseries.GwSeries.from_dinogws" title="Permalink to this definition">¶</a></dt>
+<dd><p>read heads series from dinoloket csv file</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="acequia.gwseries.GwSeries.from_json">
+<code class="sig-name descname">from_json</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filepath</span></em><span class="sig-paren">)</span><a class="headerlink" href="#acequia.gwseries.GwSeries.from_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>read heads series from json file</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="acequia.gwseries.GwSeries.to_json">
+<code class="sig-name descname">to_json</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filepath</span></em><span class="sig-paren">)</span><a class="headerlink" href="#acequia.gwseries.GwSeries.to_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>read heads series from json file</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="acequia.gwseries.GwSeries.to_csv">
+<code class="sig-name descname">to_csv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filepath</span></em><span class="sig-paren">)</span><a class="headerlink" href="#acequia.gwseries.GwSeries.to_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>read heads series from json file</p>
+</dd></dl>
+
+<dl class="simple">
+<dt>heads(ref,freq)</dt><dd><p>return timeseries with measured heads</p>
+</dd>
+<dt>name()</dt><dd><p>return heads series name</p>
+</dd>
+<dt>locprops(minimal)</dt><dd><p>return location properties, optional minimal=True</p>
+</dd>
+<dt>tubeprops(last)</dt><dd><p>return tube properties, optinal only last row (last=True)</p>
+</dd>
+<dt>stats(ref)</dt><dd><p>return descriptice statistics</p>
+</dd>
+<dt>describe()</dt><dd><p>return selection of properties and descriptive statistics</p>
+</dd>
+<dt>gxg()</dt><dd><p>return tabel with gxg (desciptive statistics for groundwater
+series used in the Netherlands)</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>To create a GwSeries object from file:
+&gt;&gt;&gt;gw = GwSeries.from_dinogws(&lt;filepath to dinocsv file&gt;)
+&gt;&gt;&gt;gw = GwSeries.from_json(&lt;filepath to acequia json file&gt;)</p>
+<p>To get GwSeries properties:
+&gt;&gt;&gt;GwSeries.heads()
+&gt;&gt;&gt;GwSeries.locprops()
+&gt;&gt;&gt;GwSeries.name()
+&gt;&gt;&gt;GwSeries.heads1428()</p>
+<p>To export GwSeries data:
+&gt;&gt;&gt;GwSeries.to_csv(&lt;filename&gt;)
+&gt;&gt;&gt;GwSeries.To_json(&lt;filename&gt;)</p>
+<p class="rubric">Notes</p>
+<p>Head measurements are stored in meters relatieve to welltopStores
+and served in several units: mwelltop,mref,msurfacelevel.</p>
+<p>Valid row names for locprops and column names for tubeprops are
+stored in class variables locprops_names and tubeprops_names:
+&gt;&gt;&gt; print(acequia.GwSeries.locprops_names)
+&gt;&gt;&gt; print(acequia.GwSeries.tubeprops_names)</p>
+<dl class="py method">
+<dt id="id0">
+<em class="property">classmethod </em><code class="sig-name descname">from_dinogws</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filepath</span></em><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read tno dinoloket csvfile with groundwater measurements and return data as gwseries object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filepath</strong> (<em>str</em>) – path to dinocsv file with measured groundwater heads</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>result</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>GwSeries object</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>gw = GwSeries.from_dinogws(&lt;filepath&gt;)
+jsondict = gw.to_json(&lt;filepath&gt;)
+gw.from_json(&lt;filepath&gt;)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="id1">
+<em class="property">classmethod </em><code class="sig-name descname">from_json</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filepath</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#id1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read gwseries object from json file</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="id2">
+<code class="sig-name descname">to_json</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dirpath</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Create json string from GwWeries object and optionally</dt><dd><p>write to file</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dirpath</strong> (<em>str</em>) – directory json file will be written to
+(if dirpath is not given no textfile will be written and
+only OrderedDict with valid JSON wil be retruned)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>OrderedDict with valid json</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If no value for dirpath is given, a valid json string is
+returned. If a value for dirpath is given, nothing is returned
+and a json file will be written to a file with the series name
+in dirpath.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="id3">
+<code class="sig-name descname">to_csv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ref</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#id3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export groundwater heads series to simple csv file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – csv file wil be exported to path, if path is a directory,
+series will be saved as &lt;path&gt;&lt;name&gt;.csv.
+if path is not given, file is saved in present directory.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Save heads to simple csv:
+&gt;&gt;&gt;aq.GwSeries.to_csv(&lt;dirpath&gt;)
+Read back with standard Pandas:
+&gt;&gt;&gt;pd.read_csv(&lt;filepath&gt;,  parse_dates=[‘date’],</p>
+<blockquote>
+<div><p>index_col=’date’, squeeze=True)</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="acequia.gwseries.GwSeries.name">
+<code class="sig-name descname">name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#acequia.gwseries.GwSeries.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return groundwater series name</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="acequia.gwseries.GwSeries.locname">
+<code class="sig-name descname">locname</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#acequia.gwseries.GwSeries.locname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return series location name</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="acequia.gwseries.GwSeries.locprops">
+<code class="sig-name descname">locprops</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">minimal</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#acequia.gwseries.GwSeries.locprops" title="Permalink to this definition">¶</a></dt>
+<dd><p>return location properties as pd.DataFrame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>minimal</strong> (<em>bool</em><em>, </em><em>default=False</em>) – return only minimal selection of columns</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="acequia.gwseries.GwSeries.tubeprops">
+<code class="sig-name descname">tubeprops</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">last</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">minimal</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#acequia.gwseries.GwSeries.tubeprops" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return tube properties</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>last</strong> (<em>booean</em><em>, </em><em>default False</em>) – retun only the last row of tube properties without date</p></li>
+<li><p><strong>minimal</strong> (<em>bool</em><em>, </em><em>default False</em>) – return only minimal selection of columns</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="acequia.gwseries.GwSeries.surface">
+<code class="sig-name descname">surface</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#acequia.gwseries.GwSeries.surface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return last known surface level</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="acequia.gwseries.GwSeries.heads">
+<code class="sig-name descname">heads</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ref</span><span class="o">=</span><span class="default_value">'datum'</span></em>, <em class="sig-param"><span class="n">freq</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#acequia.gwseries.GwSeries.heads" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return groundwater head measurements</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ref</strong> (<em>{'mp'</em><em>,</em><em>'datum'</em><em>,</em><em>'surface'}</em><em>, </em><em>default 'datum'</em>) – choosen reference for groundwater heads</p></li>
+<li><p><strong>freq</strong> (<em>None</em><em> or </em><em>any valid Pandas Offset Alias</em>) – determine frequency of time series</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>result</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas time Series</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Parameter ‘ref’ determines the reference level for the heads:
+‘mp’   : elative to well top (‘measurement point’)
+‘datum’: relative to chosen level (would be meter +NAP for the</p>
+<blockquote>
+<div><p>Netherlands, or TAW for Belgium)</p>
+</div></blockquote>
+<p>‘surface’ : relative to surface level (meter min maaiveld)</p>
+<p>Parameter ‘freq’ determines the time series frequency by setting
+the Pandas Offset Alias. When ‘freq’ is None, no resampling is
+applied. Logical values for ‘freq’ would be:
+‘H’ : hourly frequency
+‘D’ : calender day frequency
+‘W’ : weekly frequency
+‘M’ : month end frequency
+‘MS’: month start freuency
+‘Q’ : quarter end frequency
+‘QS’: quarter start frequency
+‘A’ : year end frequency
+‘AS’: year start frequency</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="acequia.gwseries.GwSeries.timestats">
+<code class="sig-name descname">timestats</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ref</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#acequia.gwseries.GwSeries.timestats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return descriptice statistics</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ref</strong> (<em>{'mp'</em><em>,</em><em>'datum'</em><em>,</em><em>'surface'}</em><em>, </em><em>default 'datum'</em>) – choosen reference level for groundwater heads</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="acequia.gwseries.GwSeries.describe">
+<code class="sig-name descname">describe</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ref</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">gxg</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#acequia.gwseries.GwSeries.describe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return selection of properties and descriptive statistics</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ref</strong> (<em>{'mp'</em><em>,</em><em>'datum'</em><em>,</em><em>'surface'}</em><em>, </em><em>default 'datum'</em>) – choosen reference level for groundwater heads</p></li>
+<li><p><strong>gxg</strong> (<em>bool</em><em>, </em><em>default False</em>) – add GxG descriptive statistics</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="acequia.gwseries.GwSeries.tubeprops_changes">
+<code class="sig-name descname">tubeprops_changes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">proptype</span><span class="o">=</span><span class="default_value">'mplevel'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#acequia.gwseries.GwSeries.tubeprops_changes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return timeseries with tubeprops changes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>proptype</strong> (<em>[</em><em>'mplevel'</em><em>,</em><em>'surfacelevel'</em><em>,</em><em>'filtop'</em><em>,</em><em>'filbot'</em>) – tubeproperty that is shown in reference cange graph</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.Series</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="acequia.gwseries.GwSeries.plotheads">
+<code class="sig-name descname">plotheads</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">proptype</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">filename</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#acequia.gwseries.GwSeries.plotheads" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot groundwater heads time series</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>proptype</strong> (<em>[</em><em>'mplevel'</em><em>,</em><em>'surfacelevel'</em><em>,</em><em>'filtop'</em><em>,</em><em>'filbot'</em>) – tubeproperty that is shown in reference cange graph
+if not given, no reference plot will be shown</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="acequia.gwseries.GwSeries.gxg">
+<code class="sig-name descname">gxg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ref</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#acequia.gwseries.GwSeries.gxg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return table with Gxg desciptive statistics</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="data_gwlist.html" class="btn btn-neutral float-right" title="module gwlist" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index_data.html" class="btn btn-neutral float-left" title="API Docs - Classes for holding data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Thomas de Meij.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
