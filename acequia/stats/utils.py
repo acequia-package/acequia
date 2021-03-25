@@ -97,3 +97,30 @@ def ts1428(sr,maxlag=0,remove_nans=True):
 
     return ts1428
 
+def measurement_frequency(ts):
+    """Return estimated measurement frequency for each year in a time 
+    series"""
+
+    def frqclass(n):
+
+        if n>27: 
+            return "daily"
+        elif n>12: 
+            return "14days"
+        elif n>9: 
+            return "month"
+        else: 
+            return "seldom"
+
+    yearfrq = ts.groupby(ts.index.year).count()
+    return yearfrq.apply(frqclass)
+
+def max_frequency(ts):
+    """Return maximum of estimated yearly measurement frequencies in
+    a time series """
+
+    tsfrq = measurement_frequency(ts)
+    for freq in ['daily','14days','month','seldom']:
+        if np.any(tsfrq==freq): 
+            return freq
+

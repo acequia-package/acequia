@@ -7,17 +7,24 @@
 
 import acequia as aq
 
+def hdr(msg):
+    print()
+    print('#','-'*50)
+    print(msg)
+    print('#','-'*50)
+    print()
+
 
 if __name__ == '__main__':
 
     srcdir = r'.\testdata\dinogws\\'
     outdir = r'.\output\tables\\'
 
-    # test _create_list()
+    hdr('test _create_list()')
     ds = aq.DescribeGwList(srcdir)
     gws = ds._create_list()
 
-    # test _table_series()
+    hdr('test _table_series())
     ds = aq.DescribeGwList(srcdir)
     dfsr = ds._table_series()
 

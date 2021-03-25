@@ -4,7 +4,7 @@ import warnings
 import numpy as np
 import pandas as pd
 from pandas import DataFrame, Series
-import acequia as aq 
+import acequia as aq
 
 def timestats(ts,ref=None,name=None):
     """Return table of groundwater head time series statistics
@@ -101,9 +101,9 @@ class TimeStats:
             stats['maxyear'] = heads.index.max().year
             stats['yearspan'] = stats['maxyear']-stats['minyear']+1
             stats['nyears'] = len(set(heads.index.year))
+            stats['maxfrq'] = aq.max_frequency(heads)
             stats['mean'] = round(heads.mean(),2)
             stats['median'] = round(heads.median(),2)
-
             q05 = heads.quantile(q=0.05)
             q95 = heads.quantile(q=0.95)
             stats['q05'] = round(q05,2)
@@ -118,9 +118,9 @@ class TimeStats:
             stats['maxyear'] = np.nan
             stats['yearspan'] = np.nan
             stats['nyears'] = np.nan
+            stats['maxfrq'] = np.nan
             stats['mean'] = np.nan
             stats['median'] = np.nan
-
             q05 = np.nan
             q95 = np.nan
             stats['q05'] = np.nan

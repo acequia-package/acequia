@@ -21,14 +21,15 @@ from .read.knmi_rain import KnmiRain
 from .read.knmi_stations import KnmiStations, knmilocations
 from .read.filedirtools import listdir, cleardir
 from .stats.utils import hydroyear, season, index1428, ts1428
+from .stats.utils import measurement_frequency, max_frequency
 from .stats.timestats import TimeStats, timestats
-from .stats.gxg import Gxg, stats_gxg
+from .stats.gxg import GxgStats, stats_gxg
 from .stats.quantiles import Quantiles
 from .stats.describe import DescribeGwList, timestatstable
 from .stats.meteo_drought import MeteoDrought
 
 __all__ = ['GwSeries','GwList','GwLocs','PlotGws','DinoGws',
-           'HydroMonitor','TimeStats','PointShapeWriter','Gxg',
+           'HydroMonitor','TimeStats','PointShapeWriter','GxgStats',
            'Quantiles','CrdCon',
            'KnmiWeather','KnmiRain', 'KnmiStations','DescribeGwList',
            'timestatstable','pointshape_write',

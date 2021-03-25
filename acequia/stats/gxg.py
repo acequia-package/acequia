@@ -2,17 +2,22 @@
 descriptive statistics from a series of groundwater head measurements
 used by groundwater practitioners in the Netherlands 
 
-The structure and many of the methods in this module are adopted 
-from the Pastas module dutch.py)
+History: Created 16-08-2015, last updated 12-02-1016
+         Migrated to acequia on 15-06-2019
+
+@author: Thomas de Meij
 
 """
 
+
 from datetime import datetime
 import datetime as dt
+import warnings
 import numpy as np
 from pandas import Series, DataFrame
 import pandas as pd
 
+##from ..gwseries import GwSeries
 import acequia as aq
 
 
@@ -33,30 +38,37 @@ def stats_gxg(ts,ref='datum'):
 
     """
 
-    gxg = aq.Gxg(ts, ref=ref)
+    gxg = aq.GxgStats(ts, ref=ref)
     return gxg.gxg()
 
 
-class Gxg:
-    """Calculate descriptive statistics for series of measured heads
+class GxgStats:
+    """Calculate descriptive statistics for time series of measured heads
 
     Parameters
     ----------
     gw : aq.GwSeries, pd.Series
-        timeseries with groundwater head measurements
+        timeseries of groundwater head measurements
 
-    ref : ['datum','surface'], default 'surface'
-        reference level for measurements
+    ref : ['datum','surface'], default 'datum'
+        reference level for measured heads
 
+    srname : str, optional
+        name of groundwater head series
+
+    surflevel : float, optional
+        surface level height (if ref='datum' this option is ignored)
 
     Notes
     -----
-    Traditionally in the Netherlands groundwater head series are decribed
-    using decriptive statistics that characterise the mean highest level
-    (GHG), the mean lowest level (GLG) and the mean spring level (GVG).
-    These statistics are defined on head series with measurements on the
-    14th and 28th of each month. Therefore, heads series are internally
-    resampled before calculating statistics.
+    In the Netherlands, traditionally groundwater head series are 
+    summarized using decriptive statistics that characterise the mean 
+    highest level (GHG), the mean lowest level (GLG) and the mean spring 
+    level (GVG). These three measures together are reffered to as the GxG.
+    The definitions of GHG, GLG and GVG are based on time series with 
+    measured heads on the 14th and 28th of each month. Therefore the time 
+    series of measrued heads is internally resampled to values on the 14th
+    and 28yh before calculating the GxG statistics.
 
     For further reference: 
     P. van der SLuijs and J.J. de Gruijter (1985). 'Water table classes: 
@@ -66,36 +78,63 @@ class Gxg:
 
     """
 
-    n14 = 18
+    N14 = 18
+    REFERENCE = ['datum','surface']
+    FORMS = ['VDS82','VDS89pol','VDS89sto','RUNHAAR']
 
-    def __init__(self, gw, srname=None, ref=None):
+    def __init__(self, gw, ref=None, srname=None, surflevel=None):
         """Return GxG object"""
 
-        self.gw = gw
-        self.srname = srname
-        self.ref = ref
-        self.surface = None
+        if ref is None:
+            ref = self.REFERENCE[0]
+  
+        if ref not in self.REFERENCE:
+            warnings.warn(f'Reference level {ref} is not valid.',
+                f'Reference level {self.REFERENCE[0]} is assumed.')
+            ref = self.REFERENCE[0]
 
-        if isinstance(self.gw,aq.GwSeries):
-            self.srname = self.gw.name()
-            self.ts = self.gw.heads(ref=ref)
-            self.surface = self.gw.surface()
-            ##_tubeprops['surfacelevel'].iat[-1]
+        self._ref = ref
 
-        elif isinstance(self.gw,pd.Series):
-            self.ts = self.gw
-            self.srname = self.ts.name
+        if isinstance(gw,aq.GwSeries):
+
+            self._ts = gw.heads(ref=self._ref)
+            self.srname = gw.name()
+            if surflevel is None:
+                self._surflevel = gw.surface()
+            else:
+                self._surflevel = surflevel
+            self._gw = gw
+
+        elif isinstance(gw,pd.Series):
+
+            self._ts = gw
+            self.srname = self._ts.name
+            self._surflevel = surflevel
+            self._gw = None
 
         else:
-            raise(f'{self.gw} is not of type aq.GwSeries or pd.Series')
+            raise(f'{gw} is not of type aq.GwSeries or pd.Series')
 
-        if self.srname is None:
-            self.srname = 'unknown'
+        self._ts1428 = aq.ts1428(self._ts,maxlag=3,remove_nans=False)
 
-        if self.ref is None:
-            self.ref = 'surface'
 
-        self.ts1428 = aq.ts1428(self.ts,maxlag=3,remove_nans=False)
+    def _yearseries(self,ts,dtype='float64'):
+        """Return empty time series with years as index with all years
+        between min(year) and max(year) in index (no missing years)"""
+
+        if isinstance(ts,pd.Series):
+            years = set(ts.index.year)
+
+        elif isinstance(ts,(list,set,np.ndarray)):
+            years = set(ts)
+
+        else:
+            raise(f'{ts} must be list-like')
+
+        minyear = min(years)
+        maxyear= max(years)
+        sr = Series(index=range(minyear,maxyear+1),dtype=dtype)
+        return sr
 
 
     def vg3(self):
@@ -108,46 +147,52 @@ class Gxg:
         ------
         pd.Series"""
 
-        for i,year in enumerate(set(self.ts1428.index.year)):
-            v1 = self.ts1428[dt.datetime(year,3,14)]
-            v2 = self.ts1428[dt.datetime(year,3,28)]
-            v3 = self.ts1428[dt.datetime(year,4,14)]
-            mean = round((v1+v2+v3)/3,2)
+        if hasattr(self,'_vg3'):
+            return self._vg3
 
-            if i==0:
-                years = []
-                vg3 = []
-            years.append(year)
-            vg3.append(mean)
+        self._vg3 = self._yearseries(self._ts1428)
+        for i,year in enumerate(self._vg3.index):
 
-        return pd.Series(data=vg3,index=years)
+            v1 = self._ts1428[dt.datetime(year,3,14)]
+            v2 = self._ts1428[dt.datetime(year,3,28)]
+            v3 = self._ts1428[dt.datetime(year,4,14)]
+
+            with warnings.catch_warnings():
+                # numpy raises a silly warning with nanmean on NaNs
+                warnings.filterwarnings(action='ignore', 
+                    message='Mean of empty slice')
+                self._vg3[year] = round(np.nanmean([v1,v2,v3]),2)
+
+        self._vg3.name = 'VG3'
+        return self._vg3
 
 
     def vg1(self,maxlag=7):
         """Return VG (Spring Level) for each year
 
-        VG1 is calculated as measurement nearest
-        to 1 april
+        VG1 is calculated as the single measurement nearest to april 1st
 
         Return
         ------
-        pd.Series"""
+        pd.Series """
 
-        years = set(self.ts1428.index.year)
-        srvg1 = pd.Series(data=np.nan,index=years)
+        if hasattr(self,'_vg1'):
+            return self._vg1
 
-        for i,year in enumerate(srvg1.index):
+        self._vg1 = self._yearseries(self._ts1428)
+        for i,year in enumerate(self._vg1.index):
 
             date = dt.datetime(year,4,1)
-            daydeltas = self.ts.index - date
+            daydeltas = self._ts.index - date
             mindelta = np.amin(np.abs(daydeltas))
-            sr_nearest = self.ts[np.abs(daydeltas) == mindelta]
+            sr_nearest = self._ts[np.abs(daydeltas) == mindelta]
 
             maxdelta = pd.to_timedelta(f'{maxlag} days')
             if (mindelta <= maxdelta):
-                srvg1[year] = round(sr_nearest.iloc[0],2)
+                self._vg1[year] = round(sr_nearest.iloc[0],2)
 
-        return srvg1
+        self._vg1.name = 'VG1'
+        return self._vg1
 
 
     def xg(self):
@@ -158,36 +203,43 @@ class Gxg:
         ------
         pd.DataFrame"""
 
-        hydroyears = aq.hydroyear(self.ts1428)
-        tbl = pd.DataFrame(index=set(hydroyears))
+        if hasattr(self,'_xg'):
+            return self._xg
 
-        for year in tbl.index:
-            ts = self.ts1428[hydroyears==year]
+        hydroyears = aq.hydroyear(self._ts1428)
+        sr = self._yearseries(hydroyears)
+        self._xg = pd.DataFrame(index=sr.index)
+        ##self._xg = pd.DataFrame(index=set(hydroyears))
+
+        for year in self._xg.index:
+
+            ts = self._ts1428[hydroyears==year]
             ts = ts[ts.notnull()]
             n1428 = len(ts)
 
             hg3 = np.nan
             lg3 = np.nan
 
-            if n1428 >= self.n14:
+            if n1428 >= self.N14:
 
-                if self.ref=='datum':
+                if self._ref=='datum':
                     hg3 = ts.nlargest(n=3).mean()
                     lg3 = ts.nsmallest(n=3).mean()
 
                 else:
+
                     hg3 = ts.nsmallest(n=3).mean()
                     lg3 = ts.nlargest(n=3).mean()
 
             hg3w = np.nan
             lg3s = np.nan
 
-            if n1428 >= self.n14:
+            if n1428 >= self.N14:
 
                 ts_win = ts[aq.season(ts)=='winter']
                 ts_sum = ts[aq.season(ts)=='summer']
 
-                if self.ref=='datum':
+                if self._ref=='datum':
                     hg3w = ts_win.nlargest(n=3).mean()
                     lg3s = ts_sum.nsmallest(n=3).mean()
 
@@ -195,15 +247,16 @@ class Gxg:
                     hg3w = ts_win.nsmallest(n=3).mean()
                     lg3s = ts_sum.nlargest(n=3).mean()
 
-            tbl.loc[year,'hg3'] = round(hg3,2)
-            tbl.loc[year,'lg3'] = round(lg3,2)
-            tbl.loc[year,'hg3w'] = round(hg3w,2)
-            tbl.loc[year,'lg3s'] = round(lg3s,2)
-            tbl['vg3'] = self.vg3()
-            tbl['vg1'] = self.vg1()
-            tbl.loc[year,'n1428'] = n1428
+            self._xg.loc[year,'hg3'] = round(hg3,2)
+            self._xg.loc[year,'lg3'] = round(lg3,2)
+            self._xg.loc[year,'hg3w'] = round(hg3w,2)
+            self._xg.loc[year,'lg3s'] = round(lg3s,2)
+            self._xg['vg3'] = self.vg3()
+            self._xg['vg1'] = self.vg1()
 
-        return tbl
+            self._xg.loc[year,'n1428'] = n1428
+
+        return self._xg
 
 
     def gxg(self):
@@ -213,43 +266,118 @@ class Gxg:
         ------
         pd.DataFrame"""
 
-        self._gxg = pd.DataFrame(index=[self.srname])
-        self._xg = self.xg()
+        if hasattr(self,'_gxg'):
+            return self._gxg
 
+        if not hasattr(self,'_xg'):
+            self._xg = self.xg()
+
+        gxg = pd.Series(name=self.srname) #dtype='float64',
+
+        # xg to gxg
         for col in self._xg.columns:
             sr = self._xg[col][self._xg[col].notnull()]
-            self._gxg[col] = round(sr.mean(),2)
 
+            if self._ref=='datum':
+                gxg[col] = round(sr.mean(),2)
+
+            if self._ref=='surface':
+                gxg[col] = round(sr.mean()*100)
+
+                if col=='n1428':
+                    gxg[col] = round(sr.mean())
+
+        # gt
+        if self._ref=='surface':
+            gxg['gt'] = self.gt()
+
+            for form in self.FORMS:
+                rowname = 'gvg_'+form.lower()
+                gxg[rowname] = self.gvg_approx(form)
+
+        # reference
+        gxg['ref'] = self._ref
+
+        # std
+        for col in self._xg.columns:
+
+            if col=='n1428':
+                continue
+
+            ##sr = self._xg[col][self._xg[col].notnull()]
+
+            if self._ref=='datum':
+                gxg[col+'_std'] = np.round(self._xg[col].std(skipna=True),2)
+
+            if self._ref=='surface':
+                sr = self._xg[col]*100
+                gxg[col+'_std'] = np.round(sr.std(skipna=True))
+
+        # standard error
+        for col in self._xg.columns:
+
+            if col=='n1428':
+                continue
+
+            if self._ref=='datum':
+                sr = self._xg[col]
+                gxg[col+'_se'] = np.round(sr.std(skipna=True
+                    )/np.sqrt(sr.count()),2)
+
+            if self._ref=='surface':
+                sr = self._xg[col]*100
+                gxg[col+'_se'] = np.round(sr.std(skipna=True
+                    )/np.sqrt(sr.count()),0)
+
+        # count nyears
         for col in self._xg.columns:
             sr = self._xg[col][self._xg[col].notnull()]
-            self._gxg[f'{col}nyr'] = round(sr.count(),2)
+            gxg[f'{col}_nyrs'] = np.round(sr.count())
 
-        self._gxg['gt'] = self.gt()
-        self._gxg['gtref'] = self.ref
+        coldict = {'hg3':'ghg','lg3':'glg','hg3w':'ghgw','lg3s':'glgs',
+            'vg3':'gvg3','vg1':'gvg1','n1428':'n1428','hg3nyr':'ghgnyr',
+            'lg3nyr':'glgnyr','hg3wnyr':'ghgwnyr','lg3snyr':'glgsnyr',
+            'vg3nyr':'gvg3nyr','vg1nyr':'gvg1nyr','n1428nyr':'n1428nyr',
+            'gt':'gt','gtref':'gtref'}
+        ##self._gxg = self._gxg.rename(columns=coldict)
 
-        coldict = {'hg3':'ghg','lg3':'glg','hg3w':'ghg3w','lg3s':'glg3s',
-                   'vg3':'gvg3','vg1':'gvg1','n1428':'n1428',
-                   'hg3nyr':'ghg3nyr','lg3nyr':'glg3nyr',
-                   'hg3wnyr':'ghg3wnyr','lg3snyr':'glg3snyr','vg3nyr':'gvg3nyr',
-                   'vg1nyr':'gvg1nyr','n1428nyr':'n1428nyr','gt':'gt','gtref':'gtref'}
-        self._gxg = self._gxg.rename(columns=coldict)
+        self._gxg = gxg.rename(coldict)
 
         return self._gxg
 
 
+    def ghg(self):
+        """Return mean highest level (GHG)"""
+
+        if not hasattr(self,'_gxg'):
+            self._gxg = self.gxg()
+
+        return self._gxg['ghg']
+
+
+    def glg(self):
+        """Return mean highest level (GHG)"""
+
+        if not hasattr(self,'_gxg'):
+            self._gxg = self.gxg()
+
+        return self._gxg['glg']
+
+
     def gt(self):
-        """Return groundwater class table
+        """Return groundwater class table as str"""
 
-        Return
-        ------
-        str"""
+        if not hasattr(self,'_xg'):
+            self._xg = self.xg()
 
-        ghg = self.xg()['hg3'].mean()
-        glg = self.xg()['lg3'].mean()
+        # do not call self._gxg to avoid recursion error because gt() 
+        # is used in gxg()
+        ghg = np.nanmean(self._xg['hg3'])*100
+        glg = np.nanmean(self._xg['lg3'])*100
 
-        if self.ref=='datum':
-            ghg = self.surface-ghg
-            glg = self.surface-glg            
+        if self._ref=='datum':
+            ghg = self._surflevel-ghg
+            glg = self._surflevel-glg            
 
         if (ghg<0.20) & (glg<0.50):
             return 'I'
@@ -286,3 +414,59 @@ class Gxg:
 
         return None
         # acer palmatum
+
+
+    def gvg_approx(self,formula=None):
+        """Return GVG calculated with approximation based on GHG and GLG
+
+        Parameters
+        ----------
+        formula : {'VDS82','VDS89pol','VDS89sto','RUNHAAR'}, default 'VDS82'
+
+        Notes
+        -----
+        Values for GHG and GLG can be estimated from visual soil profile
+        characteristics, allowing mapping of groundwater classes on soil
+        maps. GVG unfortunately can not be estimeted is this way.
+        Therefore, several regression formulas have been given in litera-
+        ture for estimating GVG from GHG and GLG estimates. Three of them
+        are implemented: Van der Sluijs (1982), Van der Sluijs (1989) and
+        Runhaar (1989)"""
+
+
+        if formula is None:
+            formula = 'VDS82'
+
+        if formula not in self.FORMS:
+            warnings.warn(f'Parameter formula has value {formula}, must',
+                f'be in {self.FORMS}.')
+
+        if not hasattr(self,'_xg'):
+            self._xg = self.xg()
+
+        if formula in ['VDS82','RUNHAAR']:
+            GHG = np.nanmean(self._xg['hg3'])*100 # must be in cm
+            GLG = np.nanmean(self._xg['lg3'])*100
+
+        if formula in ['VDS89pol','VDS89sto']:
+            GHG = np.nanmean(self._xg['hg3w'])*100 # must be in cm
+            GLG = np.nanmean(self._xg['lg3s'])*100 # ...
+
+        if self._ref=='datum':
+            GHG = self._surflevel*100-GHG
+            GLG = self._surflevel*100-GLG
+
+        if formula=='VDS82': 
+            GVG = np.round(5.4 + 1.02*GHG + 0.19*(GLG-GHG))
+
+        if formula=='RUNHAAR':
+            GVG = np.round(0.5 + 0.85*GHG + 0.20*GLG) # (+/-7,5cm)
+
+        if formula=='VDS89pol':
+            GVG = np.round(12.0 + 0.96*GHG + 0.17*(GLG-GHG))
+
+        if formula=='VDS89sto':
+            GVG = np.round(4.0 + 0.97*GHG + 0.15*(GLG-GHG))
+
+        return GVG
+

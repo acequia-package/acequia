@@ -25,11 +25,20 @@ import numpy as np
 #from .read.dinogws import DinoGws
 import acequia.read.dinogws
 from .plots.plotheads import PlotHeads
-from .stats.gxg import Gxg
+from .stats.gxg import GxgStats
 from .stats.timestats import TimeStats
 
 class GwSeries:
     """ Groundwater heads time series management
+
+    Parameters
+    ----------
+    heads : pandas.Series
+        timeseries with groundwater heads
+    locprops : pandas.Series
+        series with location properties
+    tubprops : pandas.DataFrame
+        dataframe with tube properties in time
 
     Methods
     -------
@@ -44,7 +53,6 @@ class GwSeries:
 
     to_csv(filepath)
         read heads series from json file
-
 
     heads(ref,freq)
         return timeseries with measured heads
@@ -152,14 +160,6 @@ class GwSeries:
 
     def __init__(self,heads=None,locprops=None,tubeprops=None):
         """
-        Parameters
-        ----------
-        heads : pandas.Series
-            timeseries with groundwater heads
-        locprops : pandas.Series
-            series with location properties
-        tubprops : pandas.DataFrame
-            dataframe with tube properties in time
         """
 
         if locprops is None:
@@ -167,7 +167,8 @@ class GwSeries:
         elif isinstance(locprops,pd.Series):
             self._locprops = locprops
         else:
-            raise TypeError(f'locprops is not a pandas Series but {type(locprops)}')
+            raise TypeError(f'locprops is not a pandas Series but '
+                f'{type(locprops)}')
 
 
         if tubeprops is None:
@@ -176,7 +177,8 @@ class GwSeries:
             self._tubeprops = tubeprops
         else:
             #self._tubeprops = tubeprops
-            raise TypeError(f'tubeprops is not a pandas DataFrame but {type(tubeprops)}')
+            raise TypeError(f'tubeprops is not a pandas DataFrame '
+                f'but {type(tubeprops)}')
 
 
         if heads is None: 
