@@ -97,30 +97,76 @@ def ts1428(sr,maxlag=0,remove_nans=True):
 
     return ts1428
 
-def measurement_frequency(ts):
+
+def measfrqclass(n):
+    """Return measurement frequency class given number of yearly 
+    measurements n"""
+
+    if n>27: 
+        return "daily"
+    elif n>12: 
+        return "14days"
+    elif n>9: 
+        return "month"
+    elif n>0:
+        return "seldom"
+    else: 
+        return "never"
+
+
+def measfrq(ts):
     """Return estimated measurement frequency for each year in a time 
     series"""
 
-    def frqclass(n):
-
-        if n>27: 
-            return "daily"
-        elif n>12: 
-            return "14days"
-        elif n>9: 
-            return "month"
-        else: 
-            return "seldom"
-
     yearfrq = ts.groupby(ts.index.year).count()
-    return yearfrq.apply(frqclass)
+    yearfrq.index.name = 'year'
+    return yearfrq.apply(measfrqclass)
 
-def max_frequency(ts):
+
+def maxfrq(sr):
     """Return maximum of estimated yearly measurement frequencies in
-    a time series """
+    a time series.
 
-    tsfrq = measurement_frequency(ts)
-    for freq in ['daily','14days','month','seldom']:
-        if np.any(tsfrq==freq): 
+    Input can be pd.Series with pd.DatetimeIndex or pd.Int64Index or
+    a list or numpy array with measurement frequencies"""
+
+    frqs = ['daily','14days','month','seldom','never']
+
+    if isinstance(sr,pd.Series):
+
+        if isinstance(sr.index,pd.DatetimeIndex):
+            sr = measfrq(sr)
+
+        if isinstance(sr.index,pd.Int64Index):
+
+            if pd.to_numeric(sr, errors='coerce').notnull().all():
+                sr = sr.apply(measfrqclass).values
+
+            for freq in frqs:
+                if np.any(sr==freq): 
+                    return freq
+
+    if isinstance(sr,np.ndarray) or isinstance(sr,list):
+
+        if all(pd.notnull(pd.to_numeric(sr,errors='coerce'))):
+            sr = [measfrqclass(x) for x in sr]
+
+        for freq in frqs:
+            if any([x==freq for x in sr]):
+                return freq
+
+    """
+        ts = np.array(ts)
+        allint = all([x.dtype=='int32' for x in ts])
+        allfloat = all([x.dtype=='float64' for x in ts])
+
+        # ts is a np.ndarray or list of numbers
+        if allint or allfloat:
+            ts = [measfrqclass(x) for x in ts]
+
+    for freq in frqs:
+        if np.any(ts==freq): 
             return freq
+    """
+
 

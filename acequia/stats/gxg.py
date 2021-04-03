@@ -17,11 +17,10 @@ import numpy as np
 from pandas import Series, DataFrame
 import pandas as pd
 
-##from ..gwseries import GwSeries
 import acequia as aq
 
 
-def stats_gxg(ts,ref='datum'):
+def stats_gxg(ts,reflev='datum'):
     """Return table with GxG statistics
 
     Parameters
@@ -29,7 +28,7 @@ def stats_gxg(ts,ref='datum'):
     ts : aq.GwSeries, pd.Series
         Groundwater head time series
 
-    ref : {'datum','surface'}, optional
+    reflev : {'datum','surface'}, optional
         Reference level for groundwater heads
 
     Returns
@@ -38,8 +37,8 @@ def stats_gxg(ts,ref='datum'):
 
     """
 
-    gxg = aq.GxgStats(ts, ref=ref)
-    return gxg.gxg()
+    gxg = aq.GxgStats(ts)
+    return gxg.gxg(reflev=reflev)
 
 
 class GxgStats:
@@ -48,10 +47,7 @@ class GxgStats:
     Parameters
     ----------
     gw : aq.GwSeries, pd.Series
-        timeseries of groundwater head measurements
-
-    ref : ['datum','surface'], default 'datum'
-        reference level for measured heads
+        timeseries of groundwater head measurements relative to datum level
 
     srname : str, optional
         name of groundwater head series
@@ -80,24 +76,19 @@ class GxgStats:
 
     N14 = 18
     REFERENCE = ['datum','surface']
-    FORMS = ['VDS82','VDS89pol','VDS89sto','RUNHAAR']
+    APPROXIMATIONS = ['SLUIJS82','HEESEN74','SLUIJS76a','SLUIJS76b',
+        'SLUIJS89pol','SLUIJS89sto','RUNHAAR89','GAAST06',]
+    VGDATES = ['apr1','apr15','mar15']
+    VGREFDATE = 'apr1'
 
-    def __init__(self, gw, ref=None, srname=None, surflevel=None):
+
+    def __init__(self, gw, srname=None, surflevel=None):
         """Return GxG object"""
 
-        if ref is None:
-            ref = self.REFERENCE[0]
-  
-        if ref not in self.REFERENCE:
-            warnings.warn(f'Reference level {ref} is not valid.',
-                f'Reference level {self.REFERENCE[0]} is assumed.')
-            ref = self.REFERENCE[0]
-
-        self._ref = ref
 
         if isinstance(gw,aq.GwSeries):
 
-            self._ts = gw.heads(ref=self._ref)
+            self._ts = gw.heads(ref='datum')
             self.srname = gw.name()
             if surflevel is None:
                 self._surflevel = gw.surface()
@@ -145,10 +136,22 @@ class GxgStats:
 
         Return
         ------
-        pd.Series"""
+        pd.Series
 
-        if hasattr(self,'_vg3'):
-            return self._vg3
+
+        Notes
+        -----
+        Calculation of GVG based on the average of three dates was 
+        introduced by Finke et al. (1999)
+
+        References
+        ----------
+        Finke, P.A., D.J. Brus, T. Hoogland, J. Oude Voshaar, F. de Vries
+        & D. Walvoort (1999). Actuele grondwaterinformatie 1:10.000 in de
+        waterschappen Wold en Wieden en Meppelerdiep. Gebruik van digitale 
+        maaiveldshoogtes bij de kartering van GHG, GVG en GLG. SC-rapport
+        633. (in Dutch).
+        """
 
         self._vg3 = self._yearseries(self._ts1428)
         for i,year in enumerate(self._vg3.index):
@@ -167,32 +170,69 @@ class GxgStats:
         return self._vg3
 
 
-    def vg1(self,maxlag=7):
-        """Return VG (Spring Level) for each year
+    def vg1(self,refdate=VGREFDATE,maxlag=7):
+        """Return VG (Spring Level) for each year as the measurement
+        closest to refdate
 
-        VG1 is calculated as the single measurement nearest to april 1st
+        Parameters
+        ----------
+        refdate : {'apr1','apr15','mar15'}, default 'apr1'
+            reference date for estimating VG
+
+        maxlag : number
+            maximum allowed difference between measurement date en refdate
+
 
         Return
         ------
-        pd.Series """
+        pd.Series 
 
-        if hasattr(self,'_vg1'):
-            return self._vg1
+        Notes
+        -----
+        The VG (Voorjaars  Grondwaterstand, Spring Level) is estimated as 
+        the single measurement closest to the reference date given by 
+        refdate.
 
-        self._vg1 = self._yearseries(self._ts1428)
-        for i,year in enumerate(self._vg1.index):
+        The reference date for calculation of the GVG was changed from
+        april 15 to april 1st in de early eighties. In 2000 the 
+        Cultuurtechnisch Vademecum proposed march 15 as the new reference 
+        date for the GVG but this proposal was not generally adopted.
+        In practice april 1st is allways used as reference date and this 
+        is used as default for calculations.
 
-            date = dt.datetime(year,4,1)
+        References
+        ----------
+        Van der Gaast, J.W.J., H.Th.L. Massop & H.R.J. Vroon (2009). Actuele
+        grondwaterstandsituatie in natuurgebieden. Rapport 94 WOT. Alterra,
+        Wageningen. (in Dutch).
+        """
+
+        if refdate not in self.VGDATES:
+            warnings.warn((f'Reference date {refdate} for GVG is not '
+                f'recognised. Reference date \'{self.VGREFDATE}\' is '
+                f'assumed.'))
+            refdate = self.VGREFDATE
+
+        vg1 = self._yearseries(self._ts1428)
+        for i,year in enumerate(vg1.index):
+
+            if refdate=='apr1':
+                date = dt.datetime(year,4,1)
+            if refdate=='apr15':
+                date = dt.datetime(year,4,15)
+            if refdate=='mar15':
+                date = dt.datetime(year,3,15)
+
             daydeltas = self._ts.index - date
             mindelta = np.amin(np.abs(daydeltas))
             sr_nearest = self._ts[np.abs(daydeltas) == mindelta]
 
             maxdelta = pd.to_timedelta(f'{maxlag} days')
             if (mindelta <= maxdelta):
-                self._vg1[year] = round(sr_nearest.iloc[0],2)
+                vg1[year] = round(sr_nearest.iloc[0],2)
 
-        self._vg1.name = 'VG1'
-        return self._vg1
+        vg1.name = f'VG{refdate}'
+        return vg1
 
 
     def xg(self):
@@ -209,27 +249,20 @@ class GxgStats:
         hydroyears = aq.hydroyear(self._ts1428)
         sr = self._yearseries(hydroyears)
         self._xg = pd.DataFrame(index=sr.index)
-        ##self._xg = pd.DataFrame(index=set(hydroyears))
 
         for year in self._xg.index:
 
             ts = self._ts1428[hydroyears==year]
             ts = ts[ts.notnull()]
-            n1428 = len(ts)
+            n1428 = round(len(ts))
 
             hg3 = np.nan
             lg3 = np.nan
 
             if n1428 >= self.N14:
 
-                if self._ref=='datum':
-                    hg3 = ts.nlargest(n=3).mean()
-                    lg3 = ts.nsmallest(n=3).mean()
-
-                else:
-
-                    hg3 = ts.nsmallest(n=3).mean()
-                    lg3 = ts.nlargest(n=3).mean()
+                hg3 = ts.nlargest(n=3).mean()
+                lg3 = ts.nsmallest(n=3).mean()
 
             hg3w = np.nan
             lg3s = np.nan
@@ -239,111 +272,149 @@ class GxgStats:
                 ts_win = ts[aq.season(ts)=='winter']
                 ts_sum = ts[aq.season(ts)=='summer']
 
-                if self._ref=='datum':
-                    hg3w = ts_win.nlargest(n=3).mean()
-                    lg3s = ts_sum.nsmallest(n=3).mean()
-
-                else:
-                    hg3w = ts_win.nsmallest(n=3).mean()
-                    lg3s = ts_sum.nlargest(n=3).mean()
+                hg3w = ts_win.nlargest(n=3).mean()
+                lg3s = ts_sum.nsmallest(n=3).mean()
 
             self._xg.loc[year,'hg3'] = round(hg3,2)
             self._xg.loc[year,'lg3'] = round(lg3,2)
             self._xg.loc[year,'hg3w'] = round(hg3w,2)
             self._xg.loc[year,'lg3s'] = round(lg3s,2)
             self._xg['vg3'] = self.vg3()
-            self._xg['vg1'] = self.vg1()
+
+            for date in self.VGDATES:
+                self._xg[f'vg_{date}'] = self.vg1(refdate=date)
 
             self._xg.loc[year,'n1428'] = n1428
+
+        self._xg['measfrq'] = aq.measfrq(self._ts)
 
         return self._xg
 
 
-    def gxg(self):
+    def gxg(self, minimal=False, reflev='datum'):
         """Return table with GxG for one head series
+
+        Parameters
+        ----------
+        minimal : bool, default True
+            return minimal selection of stats
+
+        reflev : {'datum','surface'}, default 'datum'
+            reference level for gxg statistics
 
         Return
         ------
         pd.DataFrame"""
 
-        if hasattr(self,'_gxg'):
-            return self._gxg
+        """
+        if hasattr(self,'_minimal'):
+            if self._minimal!=minimal:
+                self._reset()
+        self._minimal = minimal
+
+        if self._reflev==reflev:
+            if hasattr(self,'_gxg'):
+                return self._gxg
+        else:
+            self._reset()
+            self._validate_reflev (reflev)
+        """
 
         if not hasattr(self,'_xg'):
             self._xg = self.xg()
 
-        gxg = pd.Series(name=self.srname) #dtype='float64',
+        if reflev is None:
+            reflev = self.REFERENCE[0]
+            warnings.warn((f'Reference level \'None\' is not allowed. '
+                f'Reference level {reflev} is assumed.'))
 
-        # xg to gxg
+        gxg = pd.Series(name=self.srname)
         for col in self._xg.columns:
             sr = self._xg[col][self._xg[col].notnull()]
 
-            if self._ref=='datum':
-                gxg[col] = round(sr.mean(),2)
-
-            if self._ref=='surface':
-                gxg[col] = round(sr.mean()*100)
-
-                if col=='n1428':
-                    gxg[col] = round(sr.mean())
-
-        # gt
-        if self._ref=='surface':
-            gxg['gt'] = self.gt()
-
-            for form in self.FORMS:
-                rowname = 'gvg_'+form.lower()
-                gxg[rowname] = self.gvg_approx(form)
-
-        # reference
-        gxg['ref'] = self._ref
-
-        # std
-        for col in self._xg.columns:
-
-            if col=='n1428':
+            if col=='measfrq':
+                gxg[col] = aq.maxfrq(sr)
                 continue
 
-            ##sr = self._xg[col][self._xg[col].notnull()]
+            if reflev=='datum':
+                gxg[col] = round(sr.mean(),2)
 
-            if self._ref=='datum':
-                gxg[col+'_std'] = np.round(self._xg[col].std(skipna=True),2)
+            if reflev=='surface':
+                gxg[col] = round(sr.mean()*100)
 
-            if self._ref=='surface':
+            if col=='n1428':
+                gxg[col] = round(sr.mean())
+
+        # calculate gt
+        if reflev=='surface':
+            gxg['gt'] = self.gt()
+
+            for apx in self.APPROXIMATIONS:
+                rowname = 'gvg_'+apx.lower()
+                gxg[rowname] = self.gvg_approximate(apx)
+
+        gxg['reflev'] = reflev
+
+        # calculate std
+        for col in self._xg.columns:
+
+            if col in ['n1428','measfrq']:
+                continue
+
+            if reflev=='datum':
+                gxg[col+'_std'] = np.round(self._xg[col].std(
+                    skipna=True),2)
+
+            elif reflev=='surface':
                 sr = self._xg[col]*100
                 gxg[col+'_std'] = np.round(sr.std(skipna=True))
 
-        # standard error
+            else:
+                raise ValueError((f'Reference level {reflev} is not valid.',
+                    f'Valid reference levels are {self.REFERENCE}'))
+
+        # calculate standard error
         for col in self._xg.columns:
 
-            if col=='n1428':
+            if col in ['n1428',]:
                 continue
 
-            if self._ref=='datum':
+            if col=='measfrq':
+                maxfreq = aq.maxfrq(self._xg[col])
+                gxg[col] = maxfreq
+                continue
+
+            if reflev=='datum':
                 sr = self._xg[col]
                 gxg[col+'_se'] = np.round(sr.std(skipna=True
                     )/np.sqrt(sr.count()),2)
 
-            if self._ref=='surface':
+            if reflev=='surface':
                 sr = self._xg[col]*100
                 gxg[col+'_se'] = np.round(sr.std(skipna=True
                     )/np.sqrt(sr.count()),0)
 
         # count nyears
         for col in self._xg.columns:
+
+            if col in ['n1428','measfrq']:
+                continue
+
             sr = self._xg[col][self._xg[col].notnull()]
             gxg[f'{col}_nyrs'] = np.round(sr.count())
 
-        coldict = {'hg3':'ghg','lg3':'glg','hg3w':'ghgw','lg3s':'glgs',
-            'vg3':'gvg3','vg1':'gvg1','n1428':'n1428','hg3nyr':'ghgnyr',
-            'lg3nyr':'glgnyr','hg3wnyr':'ghgwnyr','lg3snyr':'glgsnyr',
-            'vg3nyr':'gvg3nyr','vg1nyr':'gvg1nyr','n1428nyr':'n1428nyr',
-            'gt':'gt','gtref':'gtref'}
-        ##self._gxg = self._gxg.rename(columns=coldict)
 
-        self._gxg = gxg.rename(coldict)
+        replacements = [('hg3','ghg'),('lg3','glg'),('vg','gvg'),
+            ('measfrq','maxfrq')]
+        for old,new in replacements:
+            gxg.index = gxg.index.str.replace(old,new)
+        self._gxg = gxg        
 
-        return self._gxg
+        if minimal:
+            colnames = ['ghg','glg','gvg3','gvg_apr1','gt','reflev','n1428',]
+            gxg = gxg[self._gxg.index.intersection(colnames)]
+
+        return gxg
 
 
     def ghg(self):
@@ -375,7 +446,7 @@ class GxgStats:
         ghg = np.nanmean(self._xg['hg3'])*100
         glg = np.nanmean(self._xg['lg3'])*100
 
-        if self._ref=='datum':
+        if 1: #self._reflev=='datum':
             ghg = self._surflevel-ghg
             glg = self._surflevel-glg            
 
@@ -416,7 +487,7 @@ class GxgStats:
         # acer palmatum
 
 
-    def gvg_approx(self,formula=None):
+    def gvg_approximate(self,formula=None):
         """Return GVG calculated with approximation based on GHG and GLG
 
         Parameters
@@ -435,38 +506,54 @@ class GxgStats:
 
 
         if formula is None:
-            formula = 'VDS82'
+            formula = self.APPROXIMATIONS[0]
 
-        if formula not in self.FORMS:
-            warnings.warn(f'Parameter formula has value {formula}, must',
-                f'be in {self.FORMS}.')
+        if formula not in self.APPROXIMATIONS:
+            warnings.warn(f'GVG approximation formula name {formula} not'
+                f'recognised. {self.APPROXIMATIONS[0]} is assumed.')
 
         if not hasattr(self,'_xg'):
             self._xg = self.xg()
 
-        if formula in ['VDS82','RUNHAAR']:
+        if formula in ['SLUIS89pol','SLUIS89sto']:
+            GHG = np.nanmean(self._xg['hg3w'])*100 # must be in cm
+            GLG = np.nanmean(self._xg['lg3s'])*100 # ...
+        else:
             GHG = np.nanmean(self._xg['hg3'])*100 # must be in cm
             GLG = np.nanmean(self._xg['lg3'])*100
 
-        if formula in ['VDS89pol','VDS89sto']:
-            GHG = np.nanmean(self._xg['hg3w'])*100 # must be in cm
-            GLG = np.nanmean(self._xg['lg3s'])*100 # ...
-
-        if self._ref=='datum':
+        if 1: #self._ref=='datum':
             GHG = self._surflevel*100-GHG
             GLG = self._surflevel*100-GLG
 
-        if formula=='VDS82': 
-            GVG = np.round(5.4 + 1.02*GHG + 0.19*(GLG-GHG))
+        if formula=='HEESEN74': # april 15th
+            GVG = 0.2*(GLG-GHG)+GHG+12
 
-        if formula=='RUNHAAR':
-            GVG = np.round(0.5 + 0.85*GHG + 0.20*GLG) # (+/-7,5cm)
+        elif formula=='SLUIJS76a': # april 14th
+            GVG = 0.15*(GLG-GHG)+(1.01*GHG)+14.3
 
-        if formula=='VDS89pol':
-            GVG = np.round(12.0 + 0.96*GHG + 0.17*(GLG-GHG))
+        elif formula=='SLUIJS76b': # april 14th
+            GVG = 1.03*GHG+27.3
 
-        if formula=='VDS89sto':
-            GVG = np.round(4.0 + 0.97*GHG + 0.15*(GLG-GHG))
+        elif formula=='SLUIJS82': 
+            GVG = 5.4 + 1.02*GHG + 0.19*(GLG-GHG)
 
-        return GVG
+        elif formula=='RUNHAAR89':
+            GVG = 0.5 + 0.85*GHG + 0.20*GLG # (+/-7,5cm)
+
+        elif formula=='SLUIJS89pol':
+            GVG = 12.0 + 0.96*GHG + 0.17*(GLG-GHG)
+
+        elif formula=='SLUIJS89sto':
+            GVG = 4.0 + 0.97*GHG + 0.15*(GLG-GHG)
+
+        elif formula=='GAAST06':
+            GVG = 13.7 + 0.70*GHG + 0.25*GLG
+
+        else:
+            raise ValueError((f'\'{formula}\' was not recognised as a gvg '
+                f'approximation formula. Valid names are '
+                f'{self.APPROXIMATIONS}'))
+
+        return np.round(GVG)
 

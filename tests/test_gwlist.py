@@ -23,7 +23,7 @@ if __name__ == '__main__':
 
         sourcedir = r'.\testdata\dinogws\\'
         gwl = aq.GwList(srcdir=sourcedir,srctype='dinocsv')
-        gwl.flist.to_csv(r'.\output\dinocsv_sourcefiles.csv',index=False)
+        gwl._flist.to_csv(r'.\output\dinocsv_sourcefiles.csv',index=False)
 
         print(f'GwList with {len(gwl)} GwSeries has been created.')
         if listgws:
@@ -39,7 +39,7 @@ if __name__ == '__main__':
 
         sourcedir = r'.\output\json\\'
         gwl = aq.GwList(srcdir=sourcedir,srctype='json')
-        gwl.flist.to_csv(r'.\output\json_sourcefiles.csv',index=False)
+        gwl._flist.to_csv(r'.\output\json_sourcefiles.csv',index=False)
 
         print(f'GwList with {len(gwl)} GwSeries has been created.')
         if listgws:

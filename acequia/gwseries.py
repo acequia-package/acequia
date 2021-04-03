@@ -26,7 +26,7 @@ import numpy as np
 import acequia.read.dinogws
 from .plots.plotheads import PlotHeads
 from .stats.gxg import GxgStats
-from .stats.timestats import TimeStats
+from .stats.gwtimestats import GwTimeStats
 
 class GwSeries:
     """ Groundwater heads time series management
@@ -117,13 +117,13 @@ class GwSeries:
         'surfacelevel'
         ]
     _tubeprops_minimal = [
-        'mplevel','filbot','surfacelevel'
+        'mplevel','surfacelevel','filbot',
         ]
     _tubeprops_numcols = [
         'mplevel','surfacelevel','filtop','filbot'
         ]
     _reflevels = [
-        'mp','datum','surface'
+        'datum','surface','mp',
         ]
 
     _mapping_dinolocprops = OrderedDict([
@@ -197,8 +197,22 @@ class GwSeries:
             raise TypeError(f'heads is not a pandas Series but {type(heads)}')
 
         # load subclasses
-        ##self.gxg = GxG(self.heads)
+        ##self._gxg = GxgStats(self)
         ##_timestats = TimeStats(self,name=self._heads.name)
+
+
+    def _validate_reference(self,ref):
+
+        if ref is None:
+            return self._reflevels[0]
+
+        if ref not in self._reflevels:
+            warnings.warn((f'Reference level {ref} is not valid.'
+                f'Reference level {self._reflevels[0]} is assumed.'),
+                stacklevel=2)
+            return self._reflevels[0]
+
+        return ref
 
 
     @classmethod
@@ -531,29 +545,27 @@ class GwSeries:
 
 
     def timestats(self,ref=None):
-        """Return descriptice statistics
+        """Return descriptive statistics for heads time series
 
         Parameters
         ----------
         ref  : {'mp','datum','surface'}, default 'datum'
-            choosen reference level for groundwater heads
+            reference level for groundwater heads
 
         Returns
         -------
-        pd.DataFrame """
+        pd.Series """
+        ##pd.DataFrame
 
-        #sr = gw.heads(ref='surface')
-        #self._timestats.stats(ref=ref)
+        ##if not ref:
+        ##    ref = 'datum'
 
-        if not ref:
-            ref = 'datum'
+        self._ref = self._validate_reference(ref)
 
         ts = self.heads(ref=ref)
-        stats = TimeStats(ts)
+        gwstats = GwTimeStats(ts)
 
-        #tp = self.tubeprops(last=True,minimal=True)
-
-        return stats.stats()
+        return gwstats.stats()
 
 
     def describe(self,ref=None,gxg=False):
@@ -568,11 +580,23 @@ class GwSeries:
 
         Returns
         -------
-        pd.DataFrame """
+        pd.Series """
+        ##pd.DataFrame
 
-        if not ref:
-            ref = 'datum'
+        srlist = []
+        srlist.append(self._locprops[self._locprops_minimal])
+        srlist.append(self._tubeprops[self._tubeprops_minimal].tail(1).iloc[0,:])
 
+        self.ref = self._validate_reference(ref)
+        srlist.append(self.timestats(ref=ref))
+
+        if gxg==True:
+            srlist.append(self.gxg(minimal=True))
+
+        sr = pd.concat(srlist,axis=0)
+        sr.name = self.name()
+
+        """
         locprops = self.locprops(minimal=True)
         tubeprops = self.tubeprops(last=True,minimal=True)
         tubeprops = tubeprops.set_index('series')
@@ -585,8 +609,9 @@ class GwSeries:
         if gxg==True:
             gxg = self.gxg()
             tbl = pd.merge(tbl,gxg,left_index=True,right_index=True,how='left')
+        """
 
-        return tbl
+        return sr
 
 
     def tubeprops_changes(self,proptype='mplevel'):
@@ -645,8 +670,18 @@ class GwSeries:
             self.headsplot.save(filename)
 
 
-    def gxg(self,ref=None):
-        """Return table with Gxg desciptive statistics"""
-        self._Gxg = Gxg(self, ref=ref)
-        return self._Gxg.gxg()
+    def gxg(self,reflev='datum',minimal=False):
+        """Return table with desciptive statistics
+
+        Parameters
+        ----------
+        reflev : {'datum','surface'}, default 'datum'
+            reference level for gxg statistics
+
+        minimal : bool, default False
+            return minimal set of statistics
+        """
+
+        self._gxg = GxgStats(self)
+        return self._gxg.gxg(minimal=minimal,reflev=reflev)
 

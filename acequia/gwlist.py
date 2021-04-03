@@ -44,7 +44,7 @@ def headsfiles(srcdir=None,srctype=None,loclist=None):
 
     """
     gws = aq.GwList(srcdir=srcdir,srctype=srctype,loclist=loclist)
-    return gws.filelist()
+    return gws.filetable()
 
 
 class GwList():
@@ -160,7 +160,7 @@ class GwList():
             if not os.path.exists(self.srcfile):
                 raise ValueError(f'Filepath {self.srcfile} does not exist.')
 
-            self._flist = self.filelist()
+            self._flist = self.filetable()
 
         if (self.srcfile is not None) and (self.srctype=='hymon'):
 

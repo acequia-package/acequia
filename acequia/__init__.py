@@ -21,8 +21,8 @@ from .read.knmi_rain import KnmiRain
 from .read.knmi_stations import KnmiStations, knmilocations
 from .read.filedirtools import listdir, cleardir
 from .stats.utils import hydroyear, season, index1428, ts1428
-from .stats.utils import measurement_frequency, max_frequency
-from .stats.timestats import TimeStats, timestats
+from .stats.utils import measfrq, maxfrq
+from .stats.gwtimestats import GwTimeStats, gwtimestats
 from .stats.gxg import GxgStats, stats_gxg
 from .stats.quantiles import Quantiles
 from .stats.describe import DescribeGwList, timestatstable

@@ -6,7 +6,7 @@ import pandas as pd
 from pandas import DataFrame, Series
 import acequia as aq
 
-def timestats(ts,ref=None,name=None):
+def gwtimestats(ts,ref=None,name=None):
     """Return table of groundwater head time series statistics
 
     Parameters
@@ -23,12 +23,12 @@ def timestats(ts,ref=None,name=None):
     pd.DataFrame
     """
 
-    tms = TimeStats(ts, ref=ref, name=name)
-    return tms.stats()
+    gwstats = GwTimeStats(ts, ref=ref, name=name)
+    return gwstats.stats()
 
 
-class TimeStats:
-    """ Return descriptive statistics of time series
+class GwTimeStats:
+    """ Return descriptive statistics of groundwater heads time series
 
     Parameters
     ----------
@@ -64,7 +64,8 @@ class TimeStats:
 
             self._heads = self._ts
             if ref is not None:
-                msg = f'heads series is type pd.Series, ref={ref} is ignored'
+                msg = (f'heads series is type pd.Series, ref={ref} '
+                    f'is ignored')
                 warnings.warn(msg)
 
             if self._name is None: 
@@ -91,8 +92,9 @@ class TimeStats:
         """
 
         heads = self._heads
-        idx = self._name
-        stats = DataFrame(index=[idx])
+        ##idx = self._name
+        ##stats = DataFrame(index=[idx])
+        stats = Series(name=self._name,dtype='object')
 
         if not heads.empty:
             stats['firstdate'] = heads.index.min().date()
@@ -101,7 +103,7 @@ class TimeStats:
             stats['maxyear'] = heads.index.max().year
             stats['yearspan'] = stats['maxyear']-stats['minyear']+1
             stats['nyears'] = len(set(heads.index.year))
-            stats['maxfrq'] = aq.max_frequency(heads)
+            stats['maxfrq'] = aq.maxfrq(heads)
             stats['mean'] = round(heads.mean(),2)
             stats['median'] = round(heads.median(),2)
             q05 = heads.quantile(q=0.05)

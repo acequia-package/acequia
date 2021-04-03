@@ -160,7 +160,7 @@ if __name__ == '__main__':
         print(gw.tubeprops_changes())
 
 
-    if 1: 
+    if 0: 
 
         filepath = dinogwstestfilepath
         gw = GwSeries.from_dinogws(filepath)
@@ -175,8 +175,6 @@ if __name__ == '__main__':
         gw = GwSeries.from_dinogws(filepath)
 
         hdr('# test GwSeries.gxg()')
-        gxg = gw.gxg(ref='surface')
+        gxg = gw.gxg(reflev='surface')
         print(gxg)
-
-
 
