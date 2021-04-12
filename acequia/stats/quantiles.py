@@ -105,7 +105,7 @@ class Quantiles:
 
         Parameters
         ----------
-        years : list of int
+        years : list of int, optional
             years to plot in color
         figpath : str, optional
             figure output path

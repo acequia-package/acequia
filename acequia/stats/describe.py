@@ -117,7 +117,7 @@ class DescribeGwList:
                 desc = gw.describe(ref=self.ref,gxg=gxg)
                 srlist.append(desc)
 
-        self.tbsr = pd.concat(srlist)
+        self.tbsr = pd.concat(srlist,axis=1).T
         self.tbsr.index.name = 'series'
 
         return self.tbsr
