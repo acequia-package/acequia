@@ -279,9 +279,9 @@ class GxgStats:
 
             xg.loc[year,'n1428'] = n1428
 
-        xg['measfrq'] = aq.measfrq(self._ts)
-
+        ##xg['measfrq'] = aq.measfrq(self._ts)
         ##self._xg = xg
+
         return xg
 
 
@@ -311,7 +311,7 @@ class GxgStats:
 
         xg = self._xg.copy()
         for col in xg.columns:
-            if col in ['n1428','measfrq']:
+            if col in ['n1428']: ##,'measfrq']:
                 continue
 
             #if xg[col].dtype=='float64':
@@ -356,9 +356,9 @@ class GxgStats:
         for col in xg.columns:
             sr = xg[col][xg[col].notnull()]
 
-            if col=='measfrq':
-                gxg[col] = aq.maxfrq(sr)
-                continue
+            ##if col=='measfrq':
+            ##    gxg['maxfrq'] = aq.maxfrq(sr)
+            ##    continue
 
             if reference=='datum':
                 gxg[col] = np.round(sr.mean(),2)
@@ -377,7 +377,7 @@ class GxgStats:
         # calculate std
         for col in xg.columns:
 
-            if col in ['n1428','measfrq']:
+            if col in ['n1428',]: #'measfrq']:
                 continue
 
             if reference=='datum':
@@ -398,10 +398,10 @@ class GxgStats:
             if col in ['n1428',]:
                 continue
 
-            if col=='measfrq':
-                maxfreq = aq.maxfrq(xg[col])
-                gxg[col] = maxfreq
-                continue
+            ##if col=='measfrq':
+            ##    maxfreq = aq.maxfrq(xg[col])
+            ##    gxg['maxfrq'] = maxfreq
+            ##    continue
 
             if reference=='datum':
                 sr = xg[col]
@@ -416,14 +416,14 @@ class GxgStats:
         # count nyears
         for col in xg.columns:
 
-            if col in ['n1428','measfrq']:
+            if col in ['n1428',]: #'measfrq']:
                 continue
 
             sr = xg[col][xg[col].notnull()]
             gxg[f'{col}_nyrs'] = np.round(sr.count())
 
-        replacements = [('hg3','ghg'),('lg3','glg'),('vg','gvg'),
-            ('measfrq','maxfrq')]
+        replacements = [('hg3','ghg'),('lg3','glg'),('vg','gvg'),]
+        ##    ('measfrq','maxfrq')]
         for old,new in replacements:
             gxg.index = gxg.index.str.replace(old,new)
 
@@ -438,7 +438,7 @@ class GxgStats:
 
         if minimal:
             colnames = ['ghg','glg','gvg3','gvg_apr1','gt','gxgref',
-                'n1428','maxfrq']
+                'n1428',] ##'maxfrq']
             gxg = gxg[gxg.index.intersection(colnames)]
 
         return gxg

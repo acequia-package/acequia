@@ -17,28 +17,37 @@ def hdr(msg):
 
 if __name__ == '__main__':
 
-    srcdir = r'.\testdata\dinogws\\'
+    srcdir = r'.\testdata\dinogws_smalltest\\'
     outdir = r'.\output\tables\\'
 
-    hdr('test _create_list()')
-    ds = aq.DescribeGwList(srcdir)
+    fpath = f'{srcdir}B29A0016001_1.csv'
+    gw = aq.GwSeries.from_dinogws(fpath)
+
+
+    hdr('test self._create_list()')
+    ds = aq.GwListStats(srcdir)
     gws = ds._create_list()
 
-    hdr('test _table_series())
-    ds = aq.DescribeGwList(srcdir)
-    dfsr = ds._table_series()
+    hdr('test self._table_series()')
+    ds = aq.GwListStats(srcdir)
+    tbl1 = ds._table_series()
 
-    # test _table_locs()
-    ds = aq.DescribeGwList(srcdir)
-    dfloc = ds._table_locs()
+    hdr('# test self.timestatstable(gxg=False) ')
+    ds = aq.GwListStats(srcdir)
+    tbl2 = ds.timestatstable(gxg=False)
 
-    # test _table_timestatstable()
-    ds = aq.DescribeGwList(srcdir)
-    tbl = ds.timestatstable(locs=True, gxg=True)
+    hdr('# test self.timestatstable(gxg=True) ')
+    ds = aq.GwListStats(srcdir)
+    tbl3 = ds.timestatstable(gxg=True)
 
-    #  test custom function aq.describe()
-    tbsr = aq.timestatstable(srcdir,gxg=False)
-    tbloc = aq.timestatstable(srcdir,locs=True)
+    hdr('# test custom function aq.gwliststats(gxg=False)')
+    tbl4 = aq.gwliststats(srcdir, gxg=False)
 
-    #  test custom function aq.describe() with GxG is True
-    tbsr2 = aq.timestatstable(srcdir,gxg=True)
+    hdr('# test custom function aq.gwliststats(gxg=True)')
+    tbl5 = aq.gwliststats(srcdir, gxg=True, ref='surface')
+
+    hdr('# test custom function aq.gwlocstats() ')
+    tbl6 = aq.gwlocstats(tbl4)
+
+
+

@@ -92,8 +92,6 @@ class GwTimeStats:
         """
 
         heads = self._heads
-        ##idx = self._name
-        ##stats = DataFrame(index=[idx])
         stats = Series(name=self._name,dtype='object')
 
         if not heads.empty:
@@ -128,7 +126,6 @@ class GwTimeStats:
             stats['q05'] = np.nan
             stats['q95'] = np.nan
             stats['dq0595'] = np.nan
-
 
         self._stats = stats
         return self._stats

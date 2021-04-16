@@ -26,16 +26,17 @@ from .stats.utils import hydroyear, season, index1428, ts1428
 from .stats.utils import measfrq, maxfrq
 from .stats.gwtimestats import GwTimeStats, gwtimestats
 from .stats.gxg import GxgStats, stats_gxg
+from .stats.gwliststats import GwListStats, gwliststats, gwlocstats
 from .stats.quantiles import Quantiles
-from .stats.describe import DescribeGwList, timestatstable
 from .stats.meteo_drought import MeteoDrought
 
 __all__ = ['GwSeries','GwList','GwLocs','PlotGws','DinoGws', 
            'SwSeries','DinoSurfaceLevel',
            'HydroMonitor','TimeStats','PointShapeWriter','GxgStats',
            'Quantiles','CrdCon',
-           'KnmiWeather','KnmiRain', 'KnmiStations','DescribeGwList',
-           'timestatstable','pointshape_write',
+           'KnmiWeather','KnmiRain', 'KnmiStations',
+           'GwListStats','gwliststats','gwlocstats',
+           'pointshape_write',
            'TsModelStatsPlot','plot_tsmodel_statistics',
            'MeteoDrought']
 

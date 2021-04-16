@@ -202,8 +202,6 @@ class PlotHeads:
                 # TODO: user warning
 
 
-
-
     def _create_axes(self):
         """Create figuer object with axes"""
 
@@ -242,11 +240,12 @@ class PlotHeads:
 
         if xlim is not None:
             self.xlim = xlim
-            self._set_xaxlim()
+            ##self._set_xaxlimits(xlim)
+            self._set_xlim(xlim)
 
         if ylim is not None:
             self.ylim = ylim
-            self._set_yaxlim()
+            #self._set_yax_limits()
 
         if colors is not None:
             self.colors = colors
@@ -267,7 +266,7 @@ class PlotHeads:
                                   **self.plotargs[i])
 
         # adjust plot appearance
-        self._set_xax_limits()
+        self._set_xax_limits(xlim=self.xlim)
         self._set_xax_locators()
         self._set_yax_limits()
         self._set_ticklabels()
@@ -303,19 +302,36 @@ class PlotHeads:
             self._axgws.set_ylim(self.ylim[::-1])
 
 
-    def _set_xax_limits(self,xlim=None):
-        """ Set xax limits for dates) """
+    def _set_xlim(self,xlim=None):
+        """Set xlim (mindate,maxdate)"""
 
-        if xlim is not None:
-            if type(xlim) is not list:
-                msg = f'xlim must be list not {type(xlim)}'
-                warnings.warn(msg)
-            else:
-                self.xlim = xlim
+        if xlim is None:
+            xlim = [self.mindate(),self.maxdate()]
 
-        if self.xlim is None:
-            self.xlim = [self.mindate(),self.maxdate()]
+        if not isinstance(xlim,list):
+            warnings.warn(f'xlim must be list [mindate,maxdate] '
+                f'not {type(xlim)} ')
+            xlim = [self.mindate(),self.maxdate()]
 
+        if xlim[0] is None:
+            xlim[0] = self.mindate()
+
+        if xlim[1] is None:
+            xlim[1] = self.maxdate()
+
+        if isinstance(xlim[0],str):
+            xlim[0] = dt.datetime.strptime(xlim[0],'%d-%m-%Y')
+
+        if isinstance(xlim[1],str):
+            xlim[1] = dt.datetime.strptime(xlim[0],'%d-%m-%Y')
+
+        if isinstance(xlim[0],int):
+            xlim[0] = dt.datetime(year=int(xlim[0]), month=1, day=1)
+
+        if isinstance(xlim[1],int):
+            xlim[1] = dt.datetime(year=int(xlim[1]), month=1, day=1)
+
+        """
         if type(self.xlim[0])==str and type(self.xlim[1])==str:
             self.xlim[0] = dt.datetime.strptime(self.xlim[0],'%d-%m-%Y')
             self.xlim[1] = dt.datetime.strptime(self.xlim[1],'%d-%m-%Y')
@@ -325,6 +341,13 @@ class PlotHeads:
                            month=1, day=1)
             self.xlim[1] = dt.datetime(year=int(self.xlim[1]), 
                            month=12, day=31)
+        """
+        self.xlim = xlim
+
+    def _set_xax_limits(self,xlim=None):
+        """ Set xax limits for dates) """
+
+        self._set_xlim(xlim)
 
         for ax in self.axeslist:
             self.axeslist[ax].set_xlim(self.xlim)

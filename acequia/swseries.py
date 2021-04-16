@@ -132,10 +132,16 @@ class SwSeries:
         pd.Series
 
         """
+
         if dropnan:
-            return self._levels['level'].dropna()
+            sr = self._levels['level'].dropna()
         else:
-            return self._levels['level']
+            sr = self._levels['level']
+
+        sr.name = self.name()
+        return sr
+
+
 
     def stats(self):
         """Return descriptive statistics of surface water level series"""

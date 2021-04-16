@@ -146,6 +146,7 @@ def maxfrq(sr):
                 if np.any(sr==freq): 
                     return freq
 
+
     if isinstance(sr,np.ndarray) or isinstance(sr,list):
 
         if all(pd.notnull(pd.to_numeric(sr,errors='coerce'))):

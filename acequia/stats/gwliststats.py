@@ -10,7 +10,7 @@ import numpy as np
 import acequia as aq
 
 
-def timestatstable(srcdir=None,ref=None,locs=None,gxg=False):
+def gwliststats(srcdir=None,ref=None,gxg=False):
     """Return table of decriptive statistics for multiple heads series
 
     Parameters
@@ -32,13 +32,83 @@ def timestatstable(srcdir=None,ref=None,locs=None,gxg=False):
 
     """
 
-    ds = aq.DescribeGwList(srcdir)
-    tb = ds.timestatstable(locs=locs, gxg=gxg)
+    ds = aq.GwListStats(srcdir)
+    tb = ds.timestatstable(gxg=gxg)
 
     return tb
 
+def gwlocstats(srstats):
+    """Return table of descriptive statistics for groundwater well 
+    locations summarised from table of heads series statistics
 
-class DescribeGwList:
+    Parameters
+    ----------
+    srstats : pd.DataFrame
+        table with series stats (as returned by  
+        GwListTimeStats.timestatstable()
+
+    Returns
+    -------
+    pd.DataFrame
+
+    """
+
+    def get_maxfrq(sr):
+        """Return maximum observation frequency for a series"""
+        frqs = ['daily','14days','month','seldom','never']
+
+        if sr.empty:
+            return None
+
+        for freq in frqs:
+            if np.any(sr==freq):
+                return freq
+
+    def get_maxdif(sr):
+        """Calculate difference between maximum and minimum value
+        in a series"""
+        return np.round((sr.max()-sr.min())*100)
+
+
+    aggdict = {
+       'locname':'first',
+       'filname':'size',
+       'alias':'first',
+       'surfacelevel':'first',
+       'filbot':'min',
+       'xcr':'first',
+       'ycr':'first',
+       'firstdate':'min',
+       'lastdate':'max',
+       'minyear':'min',
+       'maxyear':'max',
+       'nyears':'max',
+       'yearspan':'max',
+       'maxfrq':[get_maxfrq],
+       'mean':[get_maxdif],
+      }
+
+    """
+    missing_cols = [x for x in srstats.keys() 
+        if x not in aggdict.keys()]
+    if len(missing_cols)!=0:
+        msg = f'Missing columns in aggdict :{missing_cols}'
+        warnings.warn(msg)
+    """
+
+    tbloc = srstats.groupby(by=['locname']).agg(aggdict)
+    tbloc.columns = tbloc.columns.get_level_values(0)
+    #tbloc.columns = [col[0] for col in tbloc.columns]
+
+    tbloc = tbloc.drop('locname',axis=1)
+
+    coldict = {'filname':'nfil','mean':'meandifcm'}
+    tbloc = tbloc.rename(columns=coldict)
+
+    return tbloc
+
+
+class GwListStats:
     """Return table of decriptive statistics for list of heads series
 
     Parameters
@@ -61,17 +131,18 @@ class DescribeGwList:
         self.ref = ref
         self.srctype = srctype
         self.locs = locs
-        
 
-        # Creating _gwlist might take a long time, it is created after calling
-        # _create_list()
+        # Creating _gwlist might take a long time, it is created after 
+        # calling _create_list()
         self._gwlist = None
 
         if self.srcdir is None:
-            raise ValueError(f'Name of  dino source directory must be given.')
+            raise ValueError((f'Name of  dino source directory must '
+                f'be given.'))
 
         if not os.path.isdir(self.srcdir):
-            raise ValueError(f'{self.srcdir} is not a valid directory name.')
+            raise ValueError((f'{self.srcdir} is not a valid directory '
+                f'name.'))
 
         #if self.ref is None:
         #    self.ref = 'datum'
@@ -122,42 +193,7 @@ class DescribeGwList:
 
         return self.tbsr
 
-
-    def _table_locs(self):
-        """Return table of location statistics"""
-
-        if self._gwlist is None:
-            self._table_series()
-
-        self._aggdict = {
-           'locname':'first',
-           'filname':'size',
-           'alias':'first',
-           'surfacelevel':'first',
-           'filbot':'min',
-           'xcr':'first',
-           'ycr':'first',
-           'firstdate':'min',
-           'lastdate':'max',
-           'minyear':'min',
-           'maxyear':'max',
-           'nyears':'max',
-           'yearspan':'max',
-          } #todo: add difference of mean head between filters
-
-        self._missing_cols = [x for x in self.tbsr.keys() if x not in self._aggdict.keys()]
-        if self._missing_cols:
-            msg = f'Missing columns in aggdict :{self._missing_cols}'
-            #warnings.warn(msg)
-
-        self.tbloc = self.tbsr.groupby(by=['locname']).agg(self._aggdict)
-        coldict = {'filname':'nfil','filbot':'filbot_first',}
-        self.tbloc = self.tbloc.rename(columns=coldict)
-
-        return self.tbloc
-
-
-    def timestatstable(self,locs=None, gxg=False):
+    def timestatstable(self,gxg=False):
         """Return table of decriptive statistics for list of heads series
 
         Parameters
@@ -167,11 +203,6 @@ class DescribeGwList:
         gxg : bool, default False
             include GxG descriptive statistics
         """
-
-        if not locs:
-            tb = self._table_series(gxg=gxg)
-        else:
-            tb = self._table_locs()
-
+        tb = self._table_series(gxg=gxg)
         return tb
 

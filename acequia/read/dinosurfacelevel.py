@@ -186,6 +186,8 @@ class DinoSurfaceLevel:
         self._data['level'] = pd.to_numeric(self._data['level'],
             errors='coerce',downcast='integer')
 
+        self._data['level'] = self._data['level']/100. #cm_to_m
+
         return self._data
 
 

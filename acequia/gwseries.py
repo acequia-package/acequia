@@ -683,5 +683,5 @@ class GwSeries:
         """
 
         self._gxg = GxgStats(self)
-        return self._gxg.gxg(minimal=minimal,reflev=reflev)
+        return self._gxg.gxg(minimal=minimal,reference=reflev)
 
