@@ -9,7 +9,7 @@ History: Created 16-08-2015, last updated 12-02-1016
 
 """
 
-
+import math
 from datetime import datetime
 import datetime as dt
 import warnings
@@ -321,7 +321,7 @@ class GxgStats:
         return xg
 
 
-    def gxg(self, minimal=False, reference='datum'):
+    def gxg(self, reference='datum',  minimal=False):
         """Return table with GxG for one head series
 
         Parameters
@@ -364,10 +364,14 @@ class GxgStats:
                 gxg[col] = np.round(sr.mean(),2)
 
             if reference=='surface':
-                gxg[col] = np.round(sr.mean())
+                ##gxg[col] = np.round(sr.mean())
+                if not np.isnan(sr.mean()):
+                    gxg[col] = math.floor(sr.mean())
+                else:
+                    gxg[col] = np.nan
 
             if col=='n1428':
-                gxg[col] = np.floor(sr.mean())
+                gxg[col] = math.floor(sr.mean())
 
         # calculate gt
         gxg['gt'] = self.gt()
@@ -438,7 +442,7 @@ class GxgStats:
 
         if minimal:
             colnames = ['ghg','glg','gvg3','gvg_apr1','gt','gxgref',
-                'n1428',] ##'maxfrq']
+                'n1428',]
             gxg = gxg[gxg.index.intersection(colnames)]
 
         return gxg
@@ -512,7 +516,7 @@ class GxgStats:
         if (ghg>140):
             return 'VII*'
 
-        return None
+        return np.nan
         # acer palmatum
 
 

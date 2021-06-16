@@ -9,6 +9,7 @@ gw = GwSeries.from_json(<filepath to acequia json file>)
 
 """ 
 
+import math
 import os
 import os.path
 from collections import OrderedDict
@@ -568,7 +569,7 @@ class GwSeries:
         return gwstats.stats()
 
 
-    def describe(self,ref=None,gxg=False):
+    def describe(self,ref='datum',gxg=False,minimal=True):
         """Return selection of properties and descriptive statistics
 
         Parameters
@@ -577,27 +578,48 @@ class GwSeries:
             choosen reference level for groundwater heads
         gxg : bool, default False
             add GxG descriptive statistics
+        minimal : bool, default True
+            return minimal selection of statistics
 
         Returns
         -------
         pd.Series """
-        ##pd.DataFrame
+
+        self._ref = self._validate_reference(ref)
 
         srlist = []
-        srlist.append(self._locprops[self._locprops_minimal])
-        srlist.append(self._tubeprops[self._tubeprops_minimal].tail(1).iloc[0,:])
 
-        self.ref = self._validate_reference(ref)
-        srlist.append(self.timestats(ref=ref))
+        srlist.append(self._locprops[self._locprops_minimal])
+
+        tubeprops = (self._tubeprops[self._tubeprops_minimal].tail(1
+            ).iloc[0,:])
+        srlist.append(tubeprops)
+
+        timestats = self.timestats(ref=self._ref)
+        srlist.append(timestats)
 
         if gxg==True:
-            srlist.append(self.gxg(minimal=True))
+            srlist.append(self.gxg(ref=self._ref,minimal=minimal))
 
         sr = pd.concat(srlist,axis=0)
         sr.name = self.name()
 
+        if self._ref=='surface':
+
+            for key in ['filbot']:
+                sr[key] = (sr['surfacelevel']-sr[key])*100
+
+            for key in ['mean','median','q05','q95','dq0595']:
+                sr[key] = sr[key]*100
+
+            for key in ['filbot','mean','median','q05','q95',
+                'dq0595','n1428']:
+                if not np.isnan(sr[key]):
+                    sr[key] = math.floor(sr[key])
+
+
         """
-        locprops = self.locprops(minimal=True)
+        locprops = self.locprops(minimal=minimal)
         tubeprops = self.tubeprops(last=True,minimal=True)
         tubeprops = tubeprops.set_index('series')
 
@@ -670,12 +692,12 @@ class GwSeries:
             self.headsplot.save(filename)
 
 
-    def gxg(self,reflev='datum',minimal=False):
+    def gxg(self,ref='datum',minimal=True):
         """Return table with desciptive statistics
 
         Parameters
         ----------
-        reflev : {'datum','surface'}, default 'datum'
+        ref : {'datum','surface'}, default 'datum'
             reference level for gxg statistics
 
         minimal : bool, default False
@@ -683,5 +705,5 @@ class GwSeries:
         """
 
         self._gxg = GxgStats(self)
-        return self._gxg.gxg(minimal=minimal,reference=reflev)
+        return self._gxg.gxg(reference=ref,minimal=minimal,)
 

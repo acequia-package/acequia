@@ -67,13 +67,15 @@ class GwTimeStats:
                 msg = (f'heads series is type pd.Series, ref={ref} '
                     f'is ignored')
                 warnings.warn(msg)
+                self._ref = ref
 
             if self._name is None: 
                 self._name = self._ts.name
 
         if isinstance(self._ts,aq.GwSeries):
 
-            self._heads = self._ts.heads(ref=ref)
+            self._ref = self._ts._validate_reference(ref)
+            self._heads = self._ts.heads(ref=self._ref)
 
             if self._name is None:
                 self._name = self._ts.name()
