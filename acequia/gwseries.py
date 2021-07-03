@@ -34,7 +34,7 @@ class GwSeries:
 
     Parameters
     ----------
-    heads : pandas.Series
+    heads : pandas.DataFrame
         timeseries with groundwater heads
     locprops : pandas.Series
         series with location properties
@@ -106,26 +106,40 @@ class GwSeries:
 
     """
 
+    _headprops_names = [
+        'headdatetime','headmp','headnote','remarks'
+        ]
+
     _locprops_names = [
         'locname','filname','alias','xcr','ycr','height_datum',
         'grid_reference'
         ]
+
     _locprops_minimal = [
         'locname','filname','alias','xcr','ycr'
         ]
+
     _tubeprops_names = [
         'startdate','mplevel','filtop','filbot','surfacedate',
         'surfacelevel'
         ]
+
     _tubeprops_minimal = [
         'mplevel','surfacelevel','filbot',
         ]
+
     _tubeprops_numcols = [
         'mplevel','surfacelevel','filtop','filbot'
         ]
+
     _reflevels = [
         'datum','surface','mp',
         ]
+
+    _mapping_dinoheadprops = OrderedDict([
+        ("headdatetime","peildatum"),("headmp","standcmmp"),
+        ("headnote","bijzonderheid"),("remarks","opmerking"),
+        ])
 
     _mapping_dinolocprops = OrderedDict([
         ('locname','nitgcode'),
@@ -171,7 +185,6 @@ class GwSeries:
             raise TypeError(f'locprops is not a pandas Series but '
                 f'{type(locprops)}')
 
-
         if tubeprops is None:
             self._tubeprops = DataFrame(columns=self._tubeprops_names)
         elif isinstance(tubeprops,pd.DataFrame):
@@ -181,25 +194,20 @@ class GwSeries:
             raise TypeError(f'tubeprops is not a pandas DataFrame '
                 f'but {type(tubeprops)}')
 
-
         if heads is None: 
-            self._heads = pd.Series()
-            self._heads.index.name = 'datetime'
-            self._heads.name = 'unknown'
+            self._heads = pd.DataFrame(columns=self._headprops_names) #Series()
+            #self._heads.index.name = 'datetime'
+            #self._heads.name = 'unknown'
             self._heads_original = self._heads.copy()
 
-        elif isinstance(heads,pd.Series):
-            self._heads = heads.copy()
-            self._heads.index.name = 'datetime'
-            self._heads.name = self.name()
+        elif isinstance(heads,pd.DataFrame):
+            self._heads = heads
+            #self._heads.index.name = 'datetime'
+            #self._heads.name = self.name()
             self._heads_original = self._heads.copy()
 
         else:
-            raise TypeError(f'heads is not a pandas Series but {type(heads)}')
-
-        # load subclasses
-        ##self._gxg = GxgStats(self)
-        ##_timestats = TimeStats(self,name=self._heads.name)
+            raise TypeError(f'heads is not a pandas DataFrame but {type(heads)}')
 
 
     def _validate_reference(self,ref):
@@ -266,9 +274,16 @@ class GwSeries:
                                  errors='coerce')/100.
 
         # get head measurements
-        sr = dn.series(units="cmmp")/100.
+        dinoprops = list(dn.headdata().columns)
+        heads = DataFrame(columns=cls._headprops_names)
+        for prop in cls._headprops_names:
+            dinoprop = cls._mapping_dinoheadprops[prop]
+            if dinoprop in dinoprops:
+                heads[prop] = dn.headdata()[dinoprop]
+        heads['headmp'] = heads['headmp']/100.
 
-        return cls(heads=sr,locprops=locprops,tubeprops=tubeprops)
+        return cls(heads=heads,locprops=locprops,tubeprops=tubeprops)
+
 
 
     @classmethod
@@ -510,33 +525,35 @@ class GwSeries:
             ref = 'datum'
 
         if ref not in self._reflevels:
-            msg = f'{ref} is not a valid reference point name'
+            msg = f'{ref} is not a valid reference level name'
             raise ValueError(msg)
 
-        if ref=='mp':
-            heads = self._heads
-       
+        heads = self._heads[['headdatetime','headmp']]
+        heads = heads.set_index('headdatetime',drop=True).squeeze()
+        heads.index.name = 'datetime'
+        heads.name = self.name()
+
+        headscopy = heads.copy()
+
         if ref in ['datum','surface']:
-            heads = self._heads
             for index,props in self._tubeprops.iterrows():
                 mask = heads.index>=props['startdate']
                 if ref=='datum':
-                    #if props['mplevel'] is None:
                     if not pd.api.types.is_number(props['mplevel']):
                         msg = f'{self.name()} tubeprops mplevel is None.'
                         warnings.warn(msg)
                         mp = 0
                     else:
                         mp = props['mplevel']
-                    heads = heads.mask(mask,mp-self._heads)
+                    heads = heads.mask(mask,mp-headscopy) ##self._heads)
                 if ref=='surface':
                     if not pd.isnull(props['surfacelevel']):
                         surfref = round(props['mplevel']-props['surfacelevel'],2)
-                        heads = heads.mask(mask,self._heads-surfref)
+                        heads = heads.mask(mask,headscopy-surfref) ##self._heads-surfref)
                     else:
                         msg = f'{self.name()} surface level is None'
                         warnings.warn(msg)
-                        heads = heads.mask(mask,self._heads)
+                        heads = heads.mask(mask,headscopy) #self._heads)
 
         if freq is not None:
             heads = heads.resample(freq).mean()
@@ -556,10 +573,6 @@ class GwSeries:
         Returns
         -------
         pd.Series """
-        ##pd.DataFrame
-
-        ##if not ref:
-        ##    ref = 'datum'
 
         self._ref = self._validate_reference(ref)
 
@@ -599,7 +612,8 @@ class GwSeries:
         srlist.append(timestats)
 
         if gxg==True:
-            srlist.append(self.gxg(ref=self._ref,minimal=minimal))
+            gxg = self.gxg(ref=self._ref,minimal=minimal)
+            srlist.append(gxg)
 
         sr = pd.concat(srlist,axis=0)
         sr.name = self.name()
@@ -692,18 +706,49 @@ class GwSeries:
             self.headsplot.save(filename)
 
 
-    def gxg(self,ref='datum',minimal=True):
-        """Return table with desciptive statistics
+    def gxg(self,ref='datum',minimal=True,name=True):
+        """Return tables with desciptive statistics GxG and xG
 
         Parameters
         ----------
         ref : {'datum','surface'}, default 'datum'
             reference level for gxg statistics
-
         minimal : bool, default False
             return minimal set of statistics
-        """
+        name : bool, default True
+            include series name in multiindex of xg
 
-        self._gxg = GxgStats(self)
-        return self._gxg.gxg(reference=ref,minimal=minimal,)
+        Returns
+        -------
+        gxg : pd.Series
+            gxg descriptive statistics """
+
+        if not hasattr(self,'_gxg'):
+            self._gxg = GxgStats(self)            
+
+        gxg = self._gxg.gxg(reference=ref,minimal=minimal)
+        
+        return gxg
+
+
+    def xg(self,ref='datum',name=True):
+        """Return tables with xg desciptive statistics for each year
+
+        Parameters
+        ----------
+        ref : {'datum','surface'}, default 'datum'
+            reference level for gxg statistics
+        name : bool, default True
+            include series name in multiindex of xg
+
+        Returns
+        -------
+        xg : pd.DataFrame """
+
+        if not hasattr(self,'_gxg'):
+            self._gxg = GxgStats(self)            
+
+        xg = self._gxg.xg(reference=ref,name=name)
+
+        return xg
 

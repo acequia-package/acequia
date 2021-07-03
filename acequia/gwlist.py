@@ -99,7 +99,7 @@ class GwList():
     """
 
 
-    valid_srctype = ['dinocsv','json','hymon']
+    _valid_srctype = ['dinocsv','json','hymon','waterweb']
 
     def __repr__(self):
         mylen = len(self)
@@ -110,92 +110,79 @@ class GwList():
         srcfile=None):
         """Return GwList object"""
 
-        self.srcdir = srcdir
-        self.srctype = srctype
-        self.loclist = loclist
-        self.srcfile = srcfile
-        self._valid_srctype = ['dinocsv','json','hymon']
+        self._srcdir = srcdir
+        self._srctype = srctype
+        self._loclist = loclist
+        self._srcfile = srcfile
+        self._itercount = 0
 
 
-        """
-        if self.srctype not in self._valid_srctype:
+        if self._srctype not in self._valid_srctype:
+            raise ValueError((f'{self._srctype} is not a valid ')
+                (f'sourcefile type. Valid sourcefiletypes are ')
+                (f'{self._valid_srctype}'))
 
-            msg = ' '.join([
-                f'{self.srctype} is not a valid sourcefile type. Valid',
-                f'sourcefiletypes are {self._valid_srctype}',
-                ])
-            raise ValueError(msg)
-        """
+        if (self._srcdir is None) and (self._srcfile is None):
+            raise ValueError((f'At least one of parameters srcdir or ')
+                (f'srclist must be given.'))
 
-
-        if (self.srcdir is None) and (self.srcfile is None):
-
-            raise ValueError(' '.join(
-                f'At least one of parameters srcdir or srclist must',
-                f'be given.',))
-
-
-        if (self.srcdir is not None) and (self.srcfile is not None):
-
-            self.srcfile = None # given value for srcfile is ignored!
-            msg = ' '.join([
-                f'Ambigious combination of parameter values: srcdir is',
-                f'{self.srcdir} (not None) and srcfile is {self.srcfile}',
-                f'(not None). Given value for srcfile will be ignored.',])
-            warnings.warn(msg)
+        if (self._srcdir is not None) and (self._srcfile is not None):
+            self._srcfile = None # given value for srcfile is ignored!
+            warnings.warn((f'Ambigious combination of parameter values: ')
+                (f'srcdir is {self._srcdir} (not None) and srcfile is ')
+                (f'{self._srcfile} (not None). Given value for srcfile ')
+                (f'will be ignored.'))
             ##logger.warning(msg)
 
 
-        if self.srcdir is not None:
+        if self._srcdir is not None:
 
-            if not os.path.isdir(self.srcdir):
-                raise ValueError(f'Directory {srcdir} does not exist')
+            if not os.path.isdir(self._srcdir):
+                raise ValueError(f'Directory {_srcdir} does not exist')
 
             self._flist = self.filetable() #_sourcefiles()
 
 
-        if (self.srcfile is not None) and (
-            self.srctype in ['dinocsv','json']):
+        if (self._srcfile is not None) and (
+            self._srctype in ['dinocsv','json']):
 
-            if not os.path.exists(self.srcfile):
-                raise ValueError(f'Filepath {self.srcfile} does not exist.')
+            if not os.path.exists(self._srcfile):
+                raise ValueError(f'Filepath {self._srcfile} does not exist.')
 
             self._flist = self.filetable()
 
-        if (self.srcfile is not None) and (self.srctype=='hymon'):
-
+        if (self._srcfile is not None) and (self._srctype=='hymon'):
             self.hm = aq.HydroMonitor.from_csv(filepath=srcfile)
 
-        self.itercount = 0
+        if (self._srcfile is not None) and (self._srctype=='waterweb'):
+            self._wwn = aq.WaterWebNetwork.read_csv(srcfile,network=None)
+
 
 
     def filetable(self):
         """ Return list of sourcefile names """
 
-        # %timeit gwl.filelist()
-        # 11.8 s ± 109 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
-
-        if (self.srcdir is not None) and (self.srctype 
+        if (self._srcdir is not None) and (self._srctype 
                 in ['dinocsv','json']):
 
             return self._sourcefiles()
 
-        if (self.srcfile is not None) and (self.srctype in ['dinocsv','json']):
+        if (self._srcfile is not None) and (self._srctype in ['dinocsv','json']):
 
-            ftime = datetime.fromtimestamp(os.path.getmtime(self.srcfile))
+            ftime = datetime.fromtimestamp(os.path.getmtime(self._srcfile))
             fileage = datetime.now()-ftime
             if fileage.days > 1:
-                msg = f'Age of {self.srcfile} is {fileage.days} days.' 
+                msg = f'Age of {self._srcfile} is {fileage.days} days.' 
                 warnings.warn(msg)
 
             #TODO: check if flist contains valid sourcefilenames
 
             ## flist must be a list of sourcefilesnames
-            flist = pd.read_csv(self.srcfile,index_col=False)
+            flist = pd.read_csv(self._srcfile,index_col=False)
 
             return flist
 
-        if (self.srcfile is not None) and (self.srctype=='hymon'):
+        if (self._srcfile is not None) and (self._srctype=='hymon'):
             msg = ' '.join([
                 f'function filelist() not supported for sourcetype',
                 f'\'hymon\' ',])
@@ -203,10 +190,8 @@ class GwList():
             ##logger.warning(msg)
             return None
 
-        msg = ' '.join([
-            f'Unexpected combination of given parameters. No list of',
-            f'GwSeries objects is returned.',])
-        warnings.warn(msg)
+        warnings.warn((f'Unexpected combination of given parameters. ')
+            (f'No list of GwSeries objects is returned.'))
         ##logger.warning(msg)
         return None
 
@@ -219,42 +204,59 @@ class GwList():
     def __next__(self):
         """ return next gwseries object in list """
         
-        if self.itercount >= self.__len__():
+        if self._itercount >= self.__len__():
+            self._itercount = 0
             raise StopIteration
 
-        if self.srctype == 'dinocsv':
-            idx = self._flist.index[self.itercount]
-            filename = self._flist.at[self.itercount,'path']
+        if self._srctype == 'dinocsv':
+            idx = self._flist.index[self._itercount]
+            filename = self._flist.at[self._itercount,'path']
             self.gw = aq.GwSeries.from_dinogws(filename)
  
-        elif self.srctype == 'json':
-            idx = self._flist.index[self.itercount]
+        if self._srctype == 'json':
+            idx = self._flist.index[self._itercount]
             filename = self._flist.at[idx,'path']
             self.gw = aq.GwSeries.from_json(filename)
 
-        elif self.srctype == 'hymon':
-            #self.gw = self.hm[self.itercount]
+        if self._srctype == 'hymon':
             self.gw = next(self.hm)
 
-        self.itercount += 1
+        if self._srctype == 'waterweb': 
+            srname = self._wwn.srnames()[self._itercount]
+            self.gw = self._wwn.gwseries(srname)
+
+        self._itercount += 1
         return self.gw
 
    
     def __len__(self):
 
-        if self.srctype in ['dinocsv','json']:
+        if self._srctype in ['dinocsv','json']:
             return len(self._flist)
 
-        if self.srctype in ['hymon']:
+        if self._srctype in ['hymon']:
             return len(self.hm)
+
+        if self._srctype=='waterweb':
+            return len(self._wwn)
+
+
+    def is_callable(self):
+        """Return True if object is waiting for a call"""
+
+        if self._itercount==0:
+            is_callable = True
+        else:
+            is_callable = False
+        return is_callable
 
 
     def _sourcefiles(self):
         """ return list of sourcefiles in directory dir"""
 
-        if self.srctype=='dinocsv':
+        if self._srctype=='dinocsv':
 
-            pathlist = aq.listdir(self.srcdir, filetype='csv')
+            pathlist = aq.listdir(self._srcdir, filetype='csv')
             filelist = [os.path.split(path)[-1] for path in pathlist if path.split('_')[-1].endswith('1.csv')]
             dnfiles = pd.DataFrame({"file":filelist})
 
@@ -263,17 +265,17 @@ class GwList():
                 lambda x:x[8:11].lstrip("0"))
             dnfiles["kaartblad"] = dnfiles["loc"].apply(lambda x:x[1:4])
             dnfiles["series"]= dnfiles["loc"]+"_"+dnfiles["fil"]
-            dnfiles["path"]= dnfiles["file"].apply(lambda x:self.srcdir+x)
+            dnfiles["path"]= dnfiles["file"].apply(lambda x:self._srcdir+x)
 
-            if self.loclist is not None:
-                mask = dnfiles['loc'].isin(self.loclist)
+            if self._loclist is not None:
+                mask = dnfiles['loc'].isin(self._loclist)
                 dnfiles = dnfiles[mask].reset_index(drop=True)
 
             return dnfiles
 
-        if self.srctype=='json':
+        if self._srctype=='json':
 
-            files = aq.listdir(self.srcdir, filetype='json')
+            files = aq.listdir(self._srcdir, filetype='json')
 
             jsf = pd.DataFrame({"file":files})
             jsf["series"]= jsf["file"].apply(lambda x:x.split('.')[0])
@@ -282,10 +284,10 @@ class GwList():
                          lambda x:x.split('_')[-1].lstrip("0"))
 
             jsf["path"]= jsf['file'].apply(lambda x:os.path.join(
-                                                    self.srcdir,x))
+                                                    self._srcdir,x))
 
-            if self.loclist is not None:
-                mask = jsf['loc'].isin(self.loclist)
+            if self._loclist is not None:
+                mask = jsf['loc'].isin(self._loclist)
                 jsf = jsf[mask].reset_index(drop=True)
 
             return jsf
@@ -304,21 +306,24 @@ class GwList():
         acequia.GwSeries object
         """
 
-        if self.srctype in ['dinocsv','json']:
+        if self._srctype in ['dinocsv','json']:
             row = self._flist[self._flist['series']==srname]
             indexval = row.index.values[0]
             filepath = self._flist.loc[indexval,'path']
 
-        if self.srctype=='json':
+        if self._srctype=='json':
             gw = aq.GwSeries.from_json(filepath)
 
-        if self.srctype=='dinocsv':
+        if self._srctype=='dinocsv':
             gw = aq.GwSeries.from_dinogws(filepath)
 
-        if self.srctype=='hymon':
+        if self._srctype=='hymon':
             for gw in self.hm:
                 if gw.name==srname:
                     break
+
+        if self._srctype=='waterweb':
+            gw = self._wwn.gwseries(srname)
 
         return gw
 

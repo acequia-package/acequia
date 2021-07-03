@@ -18,6 +18,7 @@ from .plots.tsmodelstatsplot import TsModelStatsPlot,plot_tsmodel_statistics
 from .read.dinogws import DinoGws, read_dinogws
 from .read.dinosurfacelevel import DinoSurfaceLevel
 from .read.hydromonitor import HydroMonitor
+from .read.waterwebnetwork import WaterWebNetwork
 from .read.knmi_weather import KnmiWeather
 from .read.knmi_rain import KnmiRain
 from .read.knmi_stations import KnmiStations, knmilocations
@@ -31,7 +32,7 @@ from .stats.quantiles import Quantiles
 from .stats.meteo_drought import MeteoDrought
 
 __all__ = ['GwSeries','GwList','GwLocs','PlotGws','DinoGws', 
-           'SwSeries','DinoSurfaceLevel',
+           'SwSeries','DinoSurfaceLevel','WaterWebNetwork',
            'HydroMonitor','TimeStats','PointShapeWriter','GxgStats',
            'Quantiles','CrdCon',
            'KnmiWeather','KnmiRain', 'KnmiStations',

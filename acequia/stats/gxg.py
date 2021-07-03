@@ -85,7 +85,6 @@ class GxgStats:
     def __init__(self, gw, srname=None, surface=None):
         """Return GxG object"""
 
-
         if isinstance(gw,aq.GwSeries):
 
             self._ts = gw.heads(ref='datum')
@@ -107,7 +106,7 @@ class GxgStats:
             raise(f'{gw} is not of type aq.GwSeries or pd.Series')
 
         self._ts1428 = aq.ts1428(self._ts,maxlag=3,remove_nans=False)
-        self._xg = self._calculate_xg()
+        self._xgnap = self._calculate_xg_nap()
 
 
     def _yearseries(self,ts,dtype='float64'):
@@ -236,18 +235,22 @@ class GxgStats:
         return vg1
 
 
-    def _calculate_xg(self):
+    def _calculate_xg_nap(self):
         """Calculate xg statistics for eacht year and return table""" 
 
         hydroyears = aq.hydroyear(self._ts1428)
         sr = self._yearseries(hydroyears)
         xg = pd.DataFrame(index=sr.index)
+        xg.index.name = 'year'
 
         for year in xg.index:
 
             ts = self._ts1428[hydroyears==year]
             ts = ts[ts.notnull()]
-            n1428 = np.floor(len(ts))
+
+            n1428 = len(ts)
+            if not np.isnan(n1428):
+                n1428 = math.floor(n1428)
 
             hg3 = np.nan
             lg3 = np.nan
@@ -279,13 +282,10 @@ class GxgStats:
 
             xg.loc[year,'n1428'] = n1428
 
-        ##xg['measfrq'] = aq.measfrq(self._ts)
-        ##self._xg = xg
-
         return xg
 
 
-    def xg(self,reference='datum'):
+    def xg(self,reference='datum',name=True):
         """Return table of GxG groundwater statistics for each 
         hydrological year
 
@@ -293,6 +293,9 @@ class GxgStats:
         ----------
         reference : {'datum','surface'}, default 'datum'
             reference level for gxg statistics
+
+        name : bool, default True
+            include series name in index
 
         Return
         ------
@@ -303,25 +306,29 @@ class GxgStats:
                 f'Reference level \'datum\' is assumed.'))
             reference = 'datum'
 
-        ##if not hasattr(self,'_xg'):
-        ##    self._calculate_xg()
+        xg = self._xgnap.copy()
+        if name==True:
+            xg = pd.concat({self.srname: xg}, names=['series'])
 
         if reference=='datum':
-            return self._xg
+            return xg
 
-        xg = self._xg.copy()
         for col in xg.columns:
-            if col in ['n1428']: ##,'measfrq']:
+
+            if col in ['n1428']:
                 continue
 
-            #if xg[col].dtype=='float64':
+            xg[col] = (self._surface - xg[col])*100
+            xg[col] = xg[col].apply(lambda x:math.floor(x) if 
+                not np.isnan(x) else x)
 
-            xg[col] = np.round((self._surface - xg[col])*100)
+            ##if not np.isnan(xg[col]):
+            ##    xg[col] = math.floor(xg[col])
 
         return xg
 
 
-    def gxg(self, reference='datum',  minimal=False):
+    def gxg(self,reference='datum',minimal=False):
         """Return table with GxG for one head series
 
         Parameters
@@ -332,8 +339,8 @@ class GxgStats:
         reference : {'datum','surface'}, default 'datum'
             reference level for gxg statistics
 
-        Return
-        ------
+        Returns
+        -------
         pd.DataFrame"""
 
         """
@@ -350,15 +357,11 @@ class GxgStats:
             self._validate_reflev (reflev)
         """
 
-        xg = self.xg(reference=reference)
+        xg = self.xg(reference=reference,name=False)
 
         gxg = pd.Series(name=self.srname)
         for col in xg.columns:
             sr = xg[col][xg[col].notnull()]
-
-            ##if col=='measfrq':
-            ##    gxg['maxfrq'] = aq.maxfrq(sr)
-            ##    continue
 
             if reference=='datum':
                 gxg[col] = np.round(sr.mean(),2)
@@ -402,11 +405,6 @@ class GxgStats:
             if col in ['n1428',]:
                 continue
 
-            ##if col=='measfrq':
-            ##    maxfreq = aq.maxfrq(xg[col])
-            ##    gxg['maxfrq'] = maxfreq
-            ##    continue
-
             if reference=='datum':
                 sr = xg[col]
                 gxg[col+'_se'] = np.round(sr.std(skipna=True
@@ -420,17 +418,15 @@ class GxgStats:
         # count nyears
         for col in xg.columns:
 
-            if col in ['n1428',]: #'measfrq']:
+            if col in ['n1428',]:
                 continue
 
             sr = xg[col][xg[col].notnull()]
             gxg[f'{col}_nyrs'] = np.round(sr.count())
 
         replacements = [('hg3','ghg'),('lg3','glg'),('vg','gvg'),]
-        ##    ('measfrq','maxfrq')]
         for old,new in replacements:
             gxg.index = gxg.index.str.replace(old,new)
-
 
         # gvg approximation formulas
         if reference=='surface':
@@ -470,7 +466,7 @@ class GxgStats:
         """Return groundwater class table as str"""
 
         if not hasattr(self,'_xg'):
-            self._calculate_xg()
+            self._calculate_xg_nap()
 
         # do not call self._gxg to avoid recursion error because gt() 
         # is used in gxg()
@@ -480,8 +476,8 @@ class GxgStats:
             warnings.filterwarnings(action='ignore', 
                 message='Mean of empty slice')
 
-            ghg = (self._surface - np.nanmean(self._xg['hg3']))*100
-            glg = (self._surface - np.nanmean(self._xg['lg3']))*100
+            ghg = (self._surface - np.nanmean(self._xgnap['hg3']))*100
+            glg = (self._surface - np.nanmean(self._xgnap['lg3']))*100
 
         if (ghg<20) & (glg<50):
             return 'I'
@@ -545,8 +541,8 @@ class GxgStats:
             warnings.warn(f'GVG approximation formula name {formula} not'
                 f'recognised. {self.APPROXIMATIONS[0]} is assumed.')
 
-        if not hasattr(self,'_xg'):
-            self._calculate_xg()
+        if not hasattr(self,'_xgnap'):
+            self._calculate_xg_nap()
 
         if formula in ['SLUIS89pol','SLUIS89sto']:
             with warnings.catch_warnings():
@@ -554,8 +550,8 @@ class GxgStats:
                 warnings.filterwarnings(action='ignore', 
                     message='Mean of empty slice')
 
-                GHG = np.nanmean(self._xg['hg3w'])
-                GLG = np.nanmean(self._xg['lg3s'])
+                GHG = np.nanmean(self._xgnap['hg3w'])
+                GLG = np.nanmean(self._xgnap['lg3s'])
 
         else:
             with warnings.catch_warnings():
@@ -563,8 +559,8 @@ class GxgStats:
                 warnings.filterwarnings(action='ignore', 
                     message='Mean of empty slice')
 
-                GHG = np.nanmean(self._xg['hg3'])
-                GLG = np.nanmean(self._xg['lg3'])
+                GHG = np.nanmean(self._xgnap['hg3'])
+                GLG = np.nanmean(self._xgnap['lg3'])
 
         GHG = (self._surface-GHG)*100
         GLG = (self._surface-GLG)*100
@@ -598,5 +594,7 @@ class GxgStats:
                 f'approximation formula. Valid names are '
                 f'{self.APPROXIMATIONS}'))
 
-        return np.round(GVG)
+        if not np.isnan(GVG):
+            GVG = math.floor(GVG)
 
+        return GVG

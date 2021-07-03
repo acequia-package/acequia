@@ -21,8 +21,8 @@ def gwliststats(srcdir=None,ref=None,gxg=False):
         head reference level
     srctype : str, optional
         sourcefile type (will be inferred if not given)
-    locs : bool, default False
-        aggegate results to locations
+    locs : list, optional
+        list of location names
     gxg : bool, default False
         include GxG descriptive statistics
 
@@ -68,31 +68,26 @@ class GwListStats:
 
     """
 
-    def __init__(self,srcdir=None,locs=None):
+    def __init__(self,srcdir=None,locs=None,gwlist=None,):
 
+        self._gwlist = gwlist
         self._srcdir = srcdir
         self._locs = locs
-        
 
         # Creating _gwlist might take a long time, it is created after 
         # calling _create_list()
-        self._gwlist = None
+        ##self._gwlist = None
         self._srstats = None
 
-        if self._srcdir is None:
-            raise ValueError((f'Name of  dino source directory must '
-                f'be given.'))
+        if self._gwlist is None:
 
-        if not os.path.isdir(self._srcdir):
-            raise ValueError((f'{self._srcdir} is not a valid directory '
-                f'name.'))
+            if self._srcdir is None:
+                raise ValueError((f'Name of  dino source directory must '
+                    f'be given.'))
 
-        ##if self._ref is None:
-        ##    self._ref = 'datum'
-
-        ##if self._ref not in aq.GwSeries._reflevels:
-        ##    msg = f'{self._ref} is not a valid reference level name'
-        ##    raise ValueError(msg)
+            if not os.path.isdir(self._srcdir):
+                raise ValueError((f'{self._srcdir} is not a valid directory '
+                    f'name.'))
 
 
     def __repr__(self):
@@ -103,6 +98,7 @@ class GwListStats:
             mylen = len(self._gwlist)
 
         return (f'{self.__class__.__name__}(n={mylen})')
+
 
 
     def _create_list(self):
@@ -121,18 +117,17 @@ class GwListStats:
             include GxG descriptive statistics
         """
 
-        ##if self._srstats is not None:
-        ##    return self._srstats
-
         if self._gwlist is None:
             self._create_list()
 
         srstats_list = []
+        xg_list = []
         for i,gw in enumerate(self._gwlist):
 
             if not gw._tubeprops.empty:
                 desc = gw.describe(ref=ref,gxg=gxg)
                 srstats_list.append(desc)
+                xg_list.append(gw.xg(ref=ref,name=True))
             else:
                 warnings.warn((f'{gw.name()} has no tubeproperties ' 
                     f' and will be ignored.'))
@@ -140,7 +135,19 @@ class GwListStats:
         self._srstats = pd.concat(srstats_list,axis=1).T
         self._srstats.index.name = 'series'
 
+        self._xg = pd.concat(xg_list,axis=0)
+
         return self._srstats
+
+
+    def xg(self):
+        """Return xg3 statistics for all series"""
+
+        if not hasattr(self,'_xg'):
+            self.srstats()
+
+        return self._xg
+
 
 
     def locstats(self):
@@ -204,4 +211,60 @@ class GwListStats:
         tbloc = tbloc.rename(columns=coldict)
 
         return tbloc
+
+
+    def save(self,fdir,ref='datum',gxg=False,prefix=None,suffix=None):
+        """Save all tables to directory
+
+        Parameters
+        ----------
+        fdir : str
+            directory to save tables to 
+        ref : {'datum', surface'}, default 'datum'
+            reference level for heads
+        prefix : str, optional
+            prefix for filenames
+        gxg : bool, default False
+            include gxg statistics
+        """
+        if prefix is None:
+            prefix = ''
+ 
+        if not isinstance(prefix,str):
+            warnings.warn((f'parameter prefix is of type {type(prefix)} ', 
+                f'not type str. Prefix will be ignored.'))
+            prefix = ''
+
+        if suffix is None:
+            suffix = ''
+ 
+        if not isinstance(suffix,str):
+            warnings.warn((f'parameter suffix is of type {type(suffix)} ', 
+                f'not type str. Suffix will be ignored.'))
+            suffix = ''
+
+        if self._gwlist is None:
+            self._create_list()
+
+        if not self._gwlist.is_callable():
+            self._create_list()
+
+        # series statistics
+        srstats = self.srstats(ref=ref,gxg=gxg)
+        outfilepath = f'{fdir}{prefix}srstats{suffix}'
+        srstats.to_csv(f'{outfilepath}.csv',index=True)
+        srstats.to_excel(f'{outfilepath}.xlsx',index=True,merge_cells=False)
+
+        # location statistics
+        locstats = self.locstats()
+        outfilepath = f'{fdir}{prefix}locstats{suffix}'
+        locstats.to_csv(f'{outfilepath}.csv',index=True)
+        locstats.to_excel(f'{outfilepath}.xlsx',index=True,merge_cells=False)
+
+        # xg statistcs for each year
+        if gxg==True:
+            xg = self.xg()
+            outfilepath = f'{fdir}{prefix}xg{suffix}'
+            xg.to_csv(f'{outfilepath}.csv',index=True)
+            xg.to_excel(f'{outfilepath}.xlsx',index=True,merge_cells=False)
 

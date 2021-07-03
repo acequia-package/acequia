@@ -254,6 +254,7 @@ class HydroMonitor:
 
         numcols = ['xcoordinate','ycoordinate','surfacelevel',
                    'welltoplevel','filtertoplevel','filterbottomlevel',
+
                    'wellbottomlevel',]
         for col in numcols:
             dfmeta[col] = pd.to_numeric(dfmeta[col],errors='coerce')
