@@ -2,6 +2,7 @@
 
 import pathlib
 import warnings
+import numpy as np
 from pandas import Series,DataFrame
 import pandas as pd
 import acequia as aq
@@ -48,6 +49,7 @@ class WaterWebNetwork:
         'Hoogte maaiveld tov maaiveld':'float64',
         'NAP hoogte bovenkant filter':'float64',
         'NAP hoogte onderkant filter':'float64',
+        'Peilstand':str,
         'Peilstand':'float64',
         'Peilstand in Meters':'float64',
         'Peilstand tov NAP':'float64',
@@ -108,16 +110,58 @@ class WaterWebNetwork:
     def __len__(self):
         return len(self.srnames())
 
+
     def _readcsv(self,fpath):
         """Read WaterWeb csv file"""
 
-        data = pd.read_csv(fpath,sep=';',quotechar='"',
-            decimal=',', dtype=self._typedict,
-            parse_dates=['Peilmoment'])
+        file = open(self._fpath,'r')
+        self._flines = file.readlines()
+        file.close()
 
-        data = data.rename(columns=self._coldict)
+        # read flines to list of lists
+        data = []
+        for rownr,line in enumerate(self._flines):
+
+            line = line.rstrip('\n').rstrip(';')
+
+            if rownr==0:
+                colnames = [x.strip('"') for x in line.split(';')]
+                continue
+
+            elms = [x.strip('"') for x in line.split(';')]
+            elms = [x.replace(',','.') for x in elms]
+
+            elms = [x if len(x)>1 else np.nan for x in elms]
+
+            if len(elms)>1:
+                data.append(elms)
+
+        # create dataframe and do type conversions
+        df = pd.DataFrame.from_records(data,columns=colnames)
+
+        #typedict = aq.WaterWebNetwork._typedict 
+        df = df.astype(dtype=self._typedict)
+
+        #coldict = aq.WaterWebNetwork._coldict
+        df = df.rename(columns=self._coldict)
+        df['peilmoment'] = pd.to_datetime(df['peilmoment'])
+
+        return df
+
+    def _readcsv_fast(self,fpath):
+        """Read WaterWeb csv file"""
+
+        try:
+            data = pd.read_csv(fpath,sep=';',quotechar='"',
+                decimal=',', dtype=self._typedict,
+                parse_dates=['Peilmoment'])
+            data = data.rename(columns=self._coldict)
+        except pd.errors.ParserError:
+            print("Dit is een error!")
+            data = DataFrame()
 
         return data
+
 
 
     @classmethod
