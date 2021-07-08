@@ -7,8 +7,8 @@ from pandas import Series,DataFrame
 import pandas as pd
 import acequia as aq
 
-class WaterWebNetwork:
-    """Manage WaterWeb Network dataset"""
+class WaterWeb:
+    """Manage WaterWeb network dataset"""
 
     _coldict = {
         'Lokatie':'sunloc',
@@ -90,10 +90,13 @@ class WaterWebNetwork:
         self._data = data
 
         if ((self._fpath is not None) and (self._data is None)):
+
+            if not pathlib.Path(self._fpath).is_file():
+                raise ValueError(f('{self._fpath} is not a valid file path.'))
+
             self._data = self._readcsv(self._fpath)
 
         if self._network is None:
-
             if self._fpath is not None:
                 path = pathlib.Path(fpath)
                 self._network = path.stem
@@ -101,6 +104,11 @@ class WaterWebNetwork:
                 self._network = 'waterweb'
 
         if self._data is not None:
+
+            if not isinstance(self._data,pd.DataFrame):
+                raise ValueError((f'{self._data} is not a valid Pandas ')
+                    (f'DataFrame.'))
+
             self._sunsr = self._data['sunsr'].unique()
 
 
@@ -114,12 +122,12 @@ class WaterWebNetwork:
     def _readcsv(self,fpath):
         """Read WaterWeb csv file"""
 
-        file = open(self._fpath,'r')
+        file = open(fpath,'r')
         self._flines = file.readlines()
         file.close()
 
         # read flines to list of lists
-        data = []
+        datalines = []
         for rownr,line in enumerate(self._flines):
 
             line = line.rstrip('\n').rstrip(';')
@@ -134,19 +142,16 @@ class WaterWebNetwork:
             elms = [x if len(x)>1 else np.nan for x in elms]
 
             if len(elms)>1:
-                data.append(elms)
+                datalines.append(elms)
 
         # create dataframe and do type conversions
-        df = pd.DataFrame.from_records(data,columns=colnames)
+        data = pd.DataFrame.from_records(datalines,columns=colnames)
+        data = data.astype(dtype=self._typedict)
+        data = data.rename(columns=self._coldict)
+        data['peilmoment'] = pd.to_datetime(data['peilmoment'])
 
-        #typedict = aq.WaterWebNetwork._typedict 
-        df = df.astype(dtype=self._typedict)
+        return data
 
-        #coldict = aq.WaterWebNetwork._coldict
-        df = df.rename(columns=self._coldict)
-        df['peilmoment'] = pd.to_datetime(df['peilmoment'])
-
-        return df
 
     def _readcsv_fast(self,fpath):
         """Read WaterWeb csv file"""
@@ -276,7 +281,7 @@ class WaterWebNetwork:
         data = data.drop_duplicates(subset=self._tubeprops_cols,
             keep='first')
         data = data[['peilmoment']+self._tubeprops_cols]
-        ##data = data.set_index('peilmoment',drop=True)
+        data = data.reset_index(drop=True)
 
         return data
 
@@ -350,7 +355,8 @@ class WaterWebNetwork:
                 gw._tubeprops[gwprop] = gw._tubeprops[gwprop]/100.
 
         #levels
-        levels = self._data[self._peilprops_cols]
+        levels = self._data[self._data['sunsr']==sunsr]
+        levels = levels[self._peilprops_cols]
         for gwprop in list(gw._headprops_names):
             if gwprop not in self._levels_mapping.keys():
                 continue
