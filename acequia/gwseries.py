@@ -174,11 +174,10 @@ class GwSeries:
 
 
     def __init__(self,heads=None,locprops=None,tubeprops=None):
-        """
-        """
 
         if locprops is None:
-            self._locprops = Series(index=self._locprops_names)
+            self._locprops = Series(index=self._locprops_names,
+                dtype='object')
         elif isinstance(locprops,pd.Series):
             self._locprops = locprops
         else:
@@ -251,7 +250,7 @@ class GwSeries:
         dinoprops = list(dn.header().columns)
 
         # get location metadata
-        locprops = Series(index=cls._locprops_names)
+        locprops = Series(index=cls._locprops_names,dtype='object')
 
         for propname in cls._locprops_names:
             dinoprop = cls._mapping_dinolocprops[propname]
@@ -285,7 +284,6 @@ class GwSeries:
         return cls(heads=heads,locprops=locprops,tubeprops=tubeprops)
 
 
-
     @classmethod
     def from_json(cls,filepath=None):
         """ Read gwseries object from json file """
@@ -304,9 +302,6 @@ class GwSeries:
         tubeprops['startdate'] = pd.to_datetime(tubeprops['startdate']) #.dt.date
 
         heads = DataFrame.from_dict(json_dict['heads'],orient='index')
-        srindex = pd.to_datetime(heads.index)
-        srname = locprops['locname']+'_'+locprops['filname']
-        heads = Series(data=heads[0].values,index=srindex,name=srname)
 
         return cls(heads=heads,locprops=locprops,tubeprops=tubeprops)
 
@@ -360,8 +355,8 @@ class GwSeries:
             except FileNotFoundError:
                 print("Filepath {} does not exist".format(filepath))
                 return None
-            finally:
-                json_dict
+            #finally:
+            #    json_dict
 
         return json_dict
 

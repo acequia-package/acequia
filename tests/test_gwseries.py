@@ -1,180 +1,105 @@
-"""
- testing module gwseries from acequia
 
-"""
-
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-from pandas import Series, DataFrame
-import pandas as pd
+import pytest
 import numpy as np
-
+import pandas as pd
 import acequia as aq
-from acequia import GwSeries
-from acequia import DinoGws
 
-def hdr(msg):
-    print()
-    print('#','-'*50)
-    print(msg)
-    print('#','-'*50)
-    print()
+dinodir = '.\\data\\dinogws\\'
+jsondir = '.\\data\\json\\'
+csvdir = '.\\data\\csv\\'
+figdir = '.\\data\\fig\\'
+dnpath = f'{dinodir}B29A0850002_1.csv'
 
 
-if __name__ == '__main__':
+@pytest.fixture
+def gws():
+    return aq.GwSeries.from_dinogws(dnpath)
 
-    dinodir = '.\\testdata\\dinogws\\'
-    dinogwstestfilepath = f'{dinodir}B29A0850002_1.csv'
-    jsontestfilepath = '.\\testdata\\json\\B29A0850_2.json'
-    jsonoutdir = '.\\output\\json\\'
-    csvoutdir = '.\\output\\csv\\'
-    plotsdir = f'.\\output\\plots\\'
+@pytest.fixture
+def name(gws):
+    return gws.name()
 
-    # B29A0848 (n=3)
 
-    if 1: 
+def test_GwSeries_init():
+    gw = aq.GwSeries()
+    assert isinstance(gw,aq.gwseries.GwSeries)
 
-        hdr('# test GwSeries() (create empty GwSeries object)')
 
-        gw = GwSeries()
-        print('Result: ',gw)
+def test_GwSeries_from_dinogws(name):
+    gwd = aq.GwSeries.from_dinogws(dnpath)
+    assert gwd.name()==name
 
 
-    if 1: 
+def test_GwSeries_to_json(gws):
+    gws.to_json(f'{jsondir}{gws.name()}.json')
 
-        hdr('# test GwSeries.from_dinogws()')
 
-        filepath = dinogwstestfilepath
-        gw = GwSeries.from_dinogws(filepath)
-        print('Result: ',gw)
+def test_GwSeries_from_json(gws,name):
+    gwj = aq.GwSeries.from_json(f'{jsondir}{gws.name()}.json')
+    assert gwj.name()==name
 
 
-    if 1:
+def test_GwSeries_to_csv(gws):
+    gws.to_csv(f'{csvdir}{gws.name()}.csv')
 
-        hdr('# test GwSeries.from_json()')
 
-        filepath = jsontestfilepath
-        gw = GwSeries.from_json(filepath)
-        print('Result: ',gw)
+def test_GwSeries_name(gws,name):
+    assert gws.name()==name
 
 
-    if 1: 
+def test_GwSeries_locname(gws):
+    assert isinstance(gws.locname(),str)
 
-        hdr('# test GwSeries.to_json()')
 
-        filepath = dinogwstestfilepath
-        gw = GwSeries.from_dinogws(filepath)
-        jdict = gw.to_json(jsonoutdir)
+def test_GwSeries_locprops(gws,name):
+    assert gws.locprops().index[0]==name
 
-        locname = jdict['locprops']['locname']
-        print(f'Result: jdict for {locname}')
-        for key in jdict:
-            print(f'{key} {len(jdict[key])}')
 
+def test_GwSeries_tubeprops(gws,name):
+    assert gws.tubeprops().iloc[0,0]==name
+    assert len(gws.tubeprops(last=True))==1
 
-    if 1: 
 
-        hdr('# test GwSeries.to_csv()')
+def test_GwSeries_tubeprops_changes(gws):
+    assert isinstance(gws.tubeprops_changes(),pd.Series)
+    assert not gws.tubeprops_changes().empty
 
-        filepath = dinogwstestfilepath
-        gw = GwSeries.from_dinogws(filepath)
-        series = gw.to_csv(csvoutdir)
 
-        if isinstance(series,pd.Series):
-            locname = series.name
-            print(f'Result: {locname} n={len(series)}')
-        else:
-            print(f'Result: {type(series)}')
+def test_GwSeries_surface(gws):
+    assert isinstance(gws.surface(),np.float64)
 
 
+def test_GwSeries_heads(gws):
+    assert isinstance(gws.heads(),pd.Series)
+    assert not gws.heads().empty
 
 
-    if 1: 
+def test_GwSeries_timestats(gws):
+    assert isinstance(gws.timestats(),pd.Series)
+    assert not gws.timestats().empty
 
-        filepath = dinogwstestfilepath
-        gw = GwSeries.from_dinogws(filepath)
 
-        hdr('# test GwSeries.name()')
-        print(gw.name())
+def test_GwSeries_descibe(gws):
+    assert isinstance(gws.describe(),pd.Series)
+    assert not gws.describe().empty
 
-        hdr('# test GwSeries.locname()')
-        print(gw.locname())
 
+def test_GwSeries_plotheads(gws):
+    figpath = f'{figdir}plotheads.jpg'
+    gws.plotheads(proptype='mplevel',filename=figpath)
 
-    if 1: 
 
-        filepath = dinogwstestfilepath
-        gw = GwSeries.from_dinogws(filepath)
+def test_GwSeries_gxg(gws):
+    gxgs = gws.gxg(ref='surface')
+    gxgd = gws.gxg(ref='datum')
+    assert isinstance(gxgs,pd.Series)
+    assert isinstance(gxgd,pd.Series)
+    assert not gxgs.empty
+    assert not gxgd.empty
+    assert gxgs['gxgref']=='surface'
+    assert gxgd['gxgref']=='datum'
+    assert gxgs['gt']==gxgd['gt']
 
-        hdr('# test GwSeries.locprops()')
-        sr = gw.locprops(minimal=False)
-        print(sr)
 
-        hdr('# test GwSeries.tubeprops()')
-        sr = gw.tubeprops()
-        print(sr)
-
-        hdr('# test GwSeries.tubeprops(last=True)')
-        sr = gw.tubeprops(last=True)
-        print(sr)
-
-        hdr('# test GwSeries.surface()')
-        print(f'Surface level is {gw.surface()}')
-
-
-    if 1: 
-
-        filepath = dinogwstestfilepath
-        gw = GwSeries.from_dinogws(filepath)
-
-        hdr('# test GwSeries.heads()')
-        sr = gw.heads()
-        print(f'number of measured heads is {len(sr)}')
-
-
-    if 1: 
-
-        filepath = dinogwstestfilepath
-        gw = GwSeries.from_dinogws(filepath)
-
-        hdr('# test GwSeries.timestats()')
-        print(gw.timestats())
-
-
-    if 1: 
-
-        filepath = dinogwstestfilepath
-        gw = GwSeries.from_dinogws(filepath)
-
-        hdr('# test GwSeries.describe()')
-        print(gw.describe(gxg=True))
-
-
-
-    if 1: 
-
-        filepath = dinogwstestfilepath
-        gw = GwSeries.from_dinogws(filepath)
-
-        hdr('# test GwSeries.tubeprops_changes()')
-        print(gw.tubeprops_changes())
-
-
-    if 0: 
-
-        filepath = dinogwstestfilepath
-        gw = GwSeries.from_dinogws(filepath)
-
-        hdr('# test GwSeries.plotheads()')
-        filepath = f'{plotsdir}{gw.name()}.jpg'
-        gw.plotheads(proptype='mplevel',filename=filepath)
-
-    if 1:
-
-        filepath = dinogwstestfilepath
-        gw = GwSeries.from_dinogws(filepath)
-
-        hdr('# test GwSeries.gxg()')
-        gxg = gw.gxg(reflev='surface')
-        print(gxg)
-
+def test_GwSeries_xg(gws):
+    assert not gws.xg().empty

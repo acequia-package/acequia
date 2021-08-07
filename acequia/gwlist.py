@@ -20,9 +20,6 @@ from datetime import datetime
 
 import acequia as aq
 
-##import logging
-##logger = logging.getLogger(__name__)
-
 
 def headsfiles(srcdir=None,srctype=None,loclist=None):
     """Return list of sourcefiles in directory
@@ -155,8 +152,7 @@ class GwList():
             self.hm = aq.HydroMonitor.from_csv(filepath=srcfile)
 
         if (self._srcfile is not None) and (self._srctype=='waterweb'):
-            self._wwn = aq.WaterWebNetwork.read_csv(srcfile,network=None)
-
+            self._wwn = aq.WaterWeb.read_csv(srcfile,network=None)
 
 
     def filetable(self):

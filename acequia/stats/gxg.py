@@ -359,7 +359,7 @@ class GxgStats:
 
         xg = self.xg(reference=reference,name=False)
 
-        gxg = pd.Series(name=self.srname)
+        gxg = pd.Series(name=self.srname,dtype='object')
         for col in xg.columns:
             sr = xg[col][xg[col].notnull()]
 

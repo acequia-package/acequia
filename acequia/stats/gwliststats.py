@@ -66,39 +66,44 @@ class GwListStats:
     locs : bool, default False
         aggegate results to locations
 
+    Examples
+    --------
+    gls = aq.GwListStats(srcdir=<directory with dinofiles>)
+    gls = aq.GwListStats(gwlist=<GwList object)
+
+    srstats = gls.srstats(ref='datum',gxg=True)
+    locstats = gls.locstats()
+    xg = gls.xg()
+
+    gls.save(<valid directory>,ref='datum',gxg=True)
+
     """
 
     def __init__(self,srcdir=None,locs=None,gwlist=None,):
+        """Create GwListStats object"""
 
-        self._gwlist = gwlist
         self._srcdir = srcdir
         self._locs = locs
-
-        # Creating _gwlist might take a long time, it is created after 
-        # calling _create_list()
-        ##self._gwlist = None
+        self._gwlist = gwlist
         self._srstats = None
 
-        if self._gwlist is None:
+        if (self._gwlist is None) and (self._srcdir is None):
+            raise ValueError((f'For creating a GwListStats object, ')
+                (f'either a GwList object or a valid source file ')
+                (f'directory must be given.'))
 
-            if self._srcdir is None:
-                raise ValueError((f'Name of  dino source directory must '
-                    f'be given.'))
-
+        if self._srcdir is not None:
             if not os.path.isdir(self._srcdir):
-                raise ValueError((f'{self._srcdir} is not a valid directory '
-                    f'name.'))
+                raise ValueError((f'{self._srcdir} is not a valid ')
+                    (f'directory name.'))
 
 
     def __repr__(self):
-
         if not self._gwlist:
             mylen = 0
         else:
             mylen = len(self._gwlist)
-
         return (f'{self.__class__.__name__}(n={mylen})')
-
 
 
     def _create_list(self):
@@ -149,10 +154,8 @@ class GwListStats:
         return self._xg
 
 
-
     def locstats(self):
         """Return location statistics"""
-
 
         def get_maxfrq(sr):
             """Return maximum observation frequency for a series"""
