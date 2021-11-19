@@ -53,50 +53,73 @@ def gwlocstats(srstats):
     pd.DataFrame
 
     """
-    pass
+    gws = aq.GwListStats(srstats=srstats)
+    return gws.locstats()
 
 
 class GwListStats:
     """Return table of decriptive statistics for list of heads series
 
-    Parameters
-    ----------
-    srcdir : str
-        directory name with groundwater head source files
-    locs : bool, default False
-        aggegate results to locations
+    Methods
+    -------
+    srstats(ref='datum',gxg=False)
+        Return series statistics
+    xg()
+        Return xg3 statistics for all series
+    locstats():
+        Return location statistics
+    save(fdir,ref='datum',gxg=False,prefix=None,suffix=None)
+        Save all tables to directory
 
     Examples
     --------
-    gls = aq.GwListStats(srcdir=<directory with dinofiles>)
-    gls = aq.GwListStats(gwlist=<GwList object)
-
-    srstats = gls.srstats(ref='datum',gxg=True)
-    locstats = gls.locstats()
-    xg = gls.xg()
-
-    gls.save(<valid directory>,ref='datum',gxg=True)
-
+    srstats = gst.srstats(ref='datum',gxg=True)
+    locstats = gst.locstats()
+    xg = gst.xg()
+    gst.save(<valid directory>,ref='datum',gxg=True)
+       
+       
     """
+        
+        
+    def __init__(self,srcdir=None,locs=None,gwlist=None,srstats=None):
+        """Create GwListStats object
 
-    def __init__(self,srcdir=None,locs=None,gwlist=None,):
-        """Create GwListStats object"""
+        Parameters
+        ----------
+        srcdir : str
+            directory name with groundwater head source files
+        locs : bool, default False
+            aggegate results to locations
+        gwlist : aq.GwList object, optional
+            list of gwseries objects
+        srstats : pd.DataFrame
+            table with series statistics as returned by stats() method
+
+        Examples
+        --------
+        gls = aq.GwListStats(srcdir=<directory with dinofiles>)
+        gls = aq.GwListStats(gwlist=<GwList object)
+
+        """
 
         self._srcdir = srcdir
         self._locs = locs
         self._gwlist = gwlist
-        self._srstats = None
+        self._srstats = srstats
 
-        if (self._gwlist is None) and (self._srcdir is None):
-            raise ValueError((f'For creating a GwListStats object, ')
-                (f'either a GwList object or a valid source file ')
-                (f'directory must be given.'))
+        #if (self._gwlist is None) and (self._srcdir is None):
+        #    raise ValueError(
+        #        (f'For creating a GwListStats object, '
+        #         f'either a GwList object or a valid source file '
+        #         f'directory must be given.'))
 
         if self._srcdir is not None:
             if not os.path.isdir(self._srcdir):
                 raise ValueError((f'{self._srcdir} is not a valid ')
                     (f'directory name.'))
 
+        
 
     def __repr__(self):
         if not self._gwlist:

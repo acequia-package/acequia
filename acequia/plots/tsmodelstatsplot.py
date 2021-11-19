@@ -50,8 +50,8 @@ class TsModelStatsPlot():
         'bandwidth' : '#fff98e',
         }
 
-    _axtitlefontsize = 14.
-    _axtitle_dict = {'fontsize':14.}
+    _axtitlefontsize = 18.
+    _axtitle_dict = {'fontsize':18.}
 
 
     def __init__(self,obs=None,sim=None,res=None,noise=None,figtitle=None):

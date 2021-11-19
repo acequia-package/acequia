@@ -524,31 +524,46 @@ class GwSeries:
             raise ValueError(msg)
 
         heads = self._heads[['headdatetime','headmp']]
-        heads = heads.set_index('headdatetime',drop=True).squeeze()
-        heads.index.name = 'datetime'
+        heads = heads.set_index('headdatetime',drop=True) ##.squeeze()
+        ##heads.index.name = 'datetime'
         heads.name = self.name()
 
         headscopy = heads.copy()
 
         if ref in ['datum','surface']:
+
+            srvals = headscopy.values.flatten()
+            srvals2 = headscopy.values.flatten()
             for index,props in self._tubeprops.iterrows():
+
                 mask = heads.index>=props['startdate']
                 if ref=='datum':
+
                     if not pd.api.types.is_number(props['mplevel']):
                         msg = f'{self.name()} tubeprops mplevel is None.'
                         warnings.warn(msg)
                         mp = 0
                     else:
                         mp = props['mplevel']
-                    heads = heads.mask(mask,mp-headscopy) ##self._heads)
+
+                    ##heads = heads.mask(mask,mp-headscopy) ##self._heads)
+                    srvals2 = np.where(mask,mp-srvals,srvals2)
+
+
                 if ref=='surface':
                     if not pd.isnull(props['surfacelevel']):
                         surfref = round(props['mplevel']-props['surfacelevel'],2)
-                        heads = heads.mask(mask,headscopy-surfref) ##self._heads-surfref)
+                        ##heads = heads.mask(mask,headscopy-surfref) ##self._heads-surfref)
+                        srvals2 = np.where(mask,srvals-surfref,srvals2)
+
                     else:
                         msg = f'{self.name()} surface level is None'
                         warnings.warn(msg)
-                        heads = heads.mask(mask,headscopy) #self._heads)
+                        ##heads = heads.mask(mask,headscopy) #self._heads)
+                        srvals2 = np.where(mask,srvals,srvals)
+
+            heads = Series(srvals2,index=heads.index)
+            heads.name = self.name()
 
         if freq is not None:
             heads = heads.resample(freq).mean()

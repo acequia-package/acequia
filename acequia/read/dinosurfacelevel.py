@@ -141,7 +141,7 @@ class DinoSurfaceLevel:
         self._header = pd.read_csv(self._fpath, sep=self.SEP, header=0,
             names=self.HEADERNAMES, skiprows=self._rowstart_header-2,
             nrows=self._rowcount_header,dtype=self.HEADERTYPES,
-            error_bad_lines=False)
+            on_bad_lines='warn')
 
         for colname in ['startdate','enddate']:
             self._header[colname] = pd.to_datetime(self._header[colname], 

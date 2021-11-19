@@ -8,9 +8,34 @@ import pandas as pd
 import acequia as aq
 
 class WaterWeb:
-    """Manage WaterWeb network dataset"""
+    """Manage WaterWeb network dataset
 
-    _coldict = {
+    Methods
+    -------
+    read_csv(fpath,networkname=None)
+        Read waterweb csv export file and return WaterWeb object
+    srnames()
+        Return list of series names
+    locname(srname)
+        Return location name for given series
+    filname(srname)
+        Return filter name for given series
+    seriestype(srname=None):
+        Return type of measurement series
+    networkname(name=None):
+        Return or set network name
+    locprops(srname)
+        Return series location properties
+    tubeprops(srname)
+        Return welltube properties
+    levels(srname,ref='mp')
+        Return measured levels
+    gwseries(srname)
+        Return gwseries object for one series
+
+    """
+
+    _column_mapping = {
         'Lokatie':'sunloc',
         'SUN-kode':'sunsr',
         'NITG-kode':'nitgsr',
@@ -24,7 +49,7 @@ class WaterWeb:
         'Hoogte maaiveld tov maaiveld':'mvmv',
         'NAP hoogte bovenkant filter':'filtopnap',
         'NAP hoogte onderkant filter':'filbotnap',
-        'Peilmoment':'peilmoment',
+        'Peilmoment':'datetime',
         'Peilstand':'peilcmmp',
         'Peilstand in Meters':'peilmmp',
         'Peilstand tov NAP':'peilcmnap',
@@ -65,7 +90,7 @@ class WaterWeb:
 
     _tubeprops_cols = ['mpnap','mvnap','filtopnap','filbotnap']
 
-    _peilprops_cols = ['peilmoment','peilcmmp','peilcode','peilopm']
+    _peilprops_cols = ['datetime','peilcmmp','peilcode','peilopm']
 
     _locprops_mapping = {
         'locname':'sunloc','alias':'nitgsr',
@@ -73,13 +98,13 @@ class WaterWeb:
         }
 
     _tubeprops_mapping = {
-        'startdate':'peilmoment','mplevel':'mpnap',
+        'startdate':'datetime','mplevel':'mpnap',
         'filtop':'filtopnap','filbot':'filbotnap',
         'surfacelevel':'mvnap'
         }
 
     _levels_mapping = {
-        'headdatetime':'peilmoment', 'headmp':'peilcmmp', 
+        'headdatetime':'datetime', 'headmp':'peilcmmp', 
         'headnote':'peilcode','remarks':'peilopm'}
 
 
@@ -109,8 +134,6 @@ class WaterWeb:
                 raise ValueError((f'{self._data} is not a valid Pandas ')
                     (f'DataFrame.'))
 
-            self._sunsr = self._data['sunsr'].unique()
-
 
     def __repr__(self):
         return (f'{self._network} (n={self.__len__()})') #len(self.srnames())})')
@@ -120,7 +143,17 @@ class WaterWeb:
 
 
     def _readcsv(self,fpath):
-        """Read WaterWeb csv file"""
+        """Read WaterWeb csv export file
+
+        Parameters
+        ----------
+        fpath : str
+            valid file path to WaterWeb csv export file
+
+        Returns
+        -------
+        pd.DataFrame
+        """
 
         file = open(fpath,'r')
         self._flines = file.readlines()
@@ -147,53 +180,62 @@ class WaterWeb:
         # create dataframe and do type conversions
         data = pd.DataFrame.from_records(datalines,columns=colnames)
         data = data.astype(dtype=self._typedict)
-        data = data.rename(columns=self._coldict)
-        data['peilmoment'] = pd.to_datetime(data['peilmoment'])
+        data = data.rename(columns=self._column_mapping)
+
+        # modify columns
+        data['datetime'] = pd.to_datetime(data['datetime'])
+        data['nitgsr'] = data['nitgsr'].apply(
+            lambda x:x[:8]+"_"+x[-3:].lstrip('0'))
 
         return data
-
-
-    def _readcsv_fast(self,fpath):
-        """Read WaterWeb csv file"""
-
-        try:
-            data = pd.read_csv(fpath,sep=';',quotechar='"',
-                decimal=',', dtype=self._typedict,
-                parse_dates=['Peilmoment'])
-            data = data.rename(columns=self._coldict)
-        except pd.errors.ParserError:
-            print("Dit is een error!")
-            data = DataFrame()
-
-        return data
-
 
 
     @classmethod
-    def read_csv(cls,fpath,network=None):
+    def read_csv(cls,fpath,networkname=None):
         """ 
-        read waterweb csv network file
+        Read waterweb csv network file and return new WaterWeb object
 
-        parameters
+        Parameters
         ----------
         filepath : str
             path to waterweb csv export file
 
-        network : str, optional
+        networkname : str, optional
             name of network
 
-        returns
+        Returns
         -------
         WaterWebNetwork object
 
         """
         data = cls._readcsv(cls,fpath)
-        return cls(fpath=fpath,data=data,network=network)
+        return cls(fpath=fpath,data=data,network=networkname)
 
 
     def srnames(self):
         """Return list of series names"""
-        return self._sunsr
+        return self._data['sunsr'].unique()
+
+    def seriestype(self,srname=None):
+        """Return type of measurement series
+
+        Parameters
+        ----------
+        srname : str, optional
+            series name, if not given, type of all series is returned
+
+        Returns
+        -------
+        str, numpy array of str """
+
+        srnames = self.srnames()
+        sr = Series(data=srnames,index=srnames,name='seriestype')
+        sr = sr.apply(lambda x:x[8])
+
+        if srname is not None:
+            return sr[srname]
+
+        return sr
 
 
     def locname(self,srname):
@@ -218,31 +260,28 @@ class WaterWeb:
         Notes
         -----
         WaterWeb uses the DINO-SUN convention of only explicitly naming
-        filters if more than one filter is present. For well locations 
-        with only one filter the location name and filter name would be
-        equal. This function always returns an 'A' as filter name for 
-        these well locations. """
+        filters if more than one filter is present."""
 
         filname = self.locprops(srname)['sunsr']
         if filname[-1].isalpha():
             return filname[-1]
-        return 'A'
+        return ''
 
 
-    def network(self,network=None):
+    def networkname(self,name=None):
         """Return or set network name
 
         Parameters
         ----------
-        network : str, optional
+        name : str, optional
             name of measurement network """
 
-        if isinstance(network,str):
-            self._network = network
+        if isinstance(name,str):
+            self._network = name
         return self._network
 
 
-    def locprops(self,sunsr):
+    def locprops(self,srname):
         """Return series location properties
 
         Parameters
@@ -254,18 +293,18 @@ class WaterWeb:
         ------
         pd.Series """
 
-        data = self._data[self._data['sunsr']==sunsr]
+        data = self._data[self._data['sunsr']==srname]
         lastrow = data.iloc[-1,:]
 
         sr = Series(index=self._locprops_cols,dtype='object',
-            name=sunsr)
+            name=srname)
         for col in self._locprops_cols:
             sr[col] = lastrow[col]
 
         return sr
 
 
-    def tubeprops(self,sunsr):
+    def tubeprops(self,srname):
         """Return welltube properties
 
         Parameters
@@ -277,21 +316,21 @@ class WaterWeb:
         -------
         pd.DataFrame """
 
-        data = self._data[self._data['sunsr']==sunsr]
+        data = self._data[self._data['sunsr']==srname]
         data = data.drop_duplicates(subset=self._tubeprops_cols,
             keep='first')
-        data = data[['peilmoment']+self._tubeprops_cols]
+        data = data[['datetime']+self._tubeprops_cols]
         data = data.reset_index(drop=True)
 
         return data
 
 
-    def levels(self,sunsr,ref='mp'):
+    def levels(self,srname,ref='mp'):
         """Return measured levels
 
         Parameters
         ----------
-        sunsr : str
+        srname : str
             name of series
         ref : {'mp','datum',' surface'}, default 'mp' 
 
@@ -306,22 +345,22 @@ class WaterWeb:
         if ref=='mv':
             col = 'peilcmmv'
 
-        data = self._data[self._data['sunsr']==sunsr]
-        data = data[[col,'peilmoment']]
-        data = data.set_index('peilmoment',drop=True).squeeze()
-        data.name = self.locname(sunsr)
+        data = self._data[self._data['sunsr']==srname]
+        data = data[[col,'datetime']]
+        data = data.set_index('datetime',drop=True).squeeze()
+        data.name = self.locname(srname)
         data.index.name = 'datetime' 
         data = data/100.
 
         return data
 
 
-    def gwseries(self,sunsr):
+    def gwseries(self,srname):
         """Return gwseries obect for one series
 
         Parameters
         ----------
-        sunsr : str
+        srname : str
             name of series to return
 
         Returns
@@ -333,19 +372,19 @@ class WaterWeb:
         gw = aq.GwSeries()
 
         # locprops
-        locprops = self.locprops(sunsr)
+        locprops = self.locprops(srname)
         for gwprop in list(gw._locprops.index):
             if gwprop not in self._locprops_mapping.keys():
                 continue
             wwnprop = self._locprops_mapping[gwprop]
             gw._locprops[gwprop] = locprops[wwnprop]
 
-        gw._locprops['filname'] = self.filname(sunsr)
+        gw._locprops['filname'] = self.filname(srname)
         gw._locprops['height_datum'] = 'mNAP'
         gw._locprops['grid_reference'] = 'RD'
 
         # tubeprops
-        tubeprops = self.tubeprops(sunsr)
+        tubeprops = self.tubeprops(srname)
         for gwprop in list(gw._tubeprops):
             if gwprop not in self._tubeprops_mapping.keys():
                 continue
@@ -355,7 +394,7 @@ class WaterWeb:
                 gw._tubeprops[gwprop] = gw._tubeprops[gwprop]/100.
 
         #levels
-        levels = self._data[self._data['sunsr']==sunsr]
+        levels = self._data[self._data['sunsr']==srname]
         levels = levels[self._peilprops_cols]
         for gwprop in list(gw._headprops_names):
             if gwprop not in self._levels_mapping.keys():

@@ -19,7 +19,7 @@ import time
 from datetime import datetime
 
 import acequia as aq
-
+newline = '\n'
 
 def headsfiles(srcdir=None,srctype=None,loclist=None):
     """Return list of sourcefiles in directory
@@ -114,28 +114,31 @@ class GwList():
         self._itercount = 0
 
 
-        if self._srctype not in self._valid_srctype:
-            raise ValueError((f'{self._srctype} is not a valid ')
-                (f'sourcefile type. Valid sourcefiletypes are ')
-                (f'{self._valid_srctype}'))
-
         if (self._srcdir is None) and (self._srcfile is None):
-            raise ValueError((f'At least one of parameters srcdir or ')
-                (f'srclist must be given.'))
+            raise ValueError((
+                'missing parameter value'
+                f'At least one of parameters srcdir or '
+                f'srclist must be given.'))
+
+        if self._srctype not in self._valid_srctype:
+            raise ValueError((
+                'srctype value not recognised.\n'
+                f'"{self._srctype}" is not a valid '
+                f'sourcefile type. Valid sourcefiletypes are '
+                f'{self._valid_srctype}'))
 
         if (self._srcdir is not None) and (self._srcfile is not None):
             self._srcfile = None # given value for srcfile is ignored!
-            warnings.warn((f'Ambigious combination of parameter values: ')
-                (f'srcdir is {self._srcdir} (not None) and srcfile is ')
-                (f'{self._srcfile} (not None). Given value for srcfile ')
-                (f'will be ignored.'))
-            ##logger.warning(msg)
-
+            warnings.warn((
+                'Ambigious combination of parameter values:\n'
+                f'srcdir is {self._srcdir} (not None) and srcfile is '
+                f'{self._srcfile} (not None). Given value for srcfile '
+                f'will be ignored.'))
 
         if self._srcdir is not None:
 
             if not os.path.isdir(self._srcdir):
-                raise ValueError(f'Directory {_srcdir} does not exist')
+                raise ValueError(f'Directory {self._srcdir} does not exist')
 
             self._flist = self.filetable() #_sourcefiles()
 
@@ -152,7 +155,7 @@ class GwList():
             self.hm = aq.HydroMonitor.from_csv(filepath=srcfile)
 
         if (self._srcfile is not None) and (self._srctype=='waterweb'):
-            self._wwn = aq.WaterWeb.read_csv(srcfile,network=None)
+            self._wwn = aq.WaterWeb.read_csv(srcfile,networkname=None)
 
 
     def filetable(self):
