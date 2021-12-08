@@ -13,7 +13,8 @@ from pandas import Series, DataFrame
 import pandas as pd
 import matplotlib.pyplot as plt
 
-import acequia as aq
+#import acequia as aq
+from acequia.gwseries import GwSeries
 
 
 class Quantiles:

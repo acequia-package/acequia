@@ -31,7 +31,7 @@ setup(
 
 
     install_requires=['numpy>=1.15', 'matplotlib>=2.0', 'pandas>=0.23',
-                      'scipy>=1.1'],
+                      'scipy>=1.1','geopandas','shapely'],
 
     # pip will copy non-code files when installing
     include_package_data=True,

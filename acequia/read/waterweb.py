@@ -1,11 +1,11 @@
 
-
 import pathlib
 import warnings
 import numpy as np
 from pandas import Series,DataFrame
 import pandas as pd
 import acequia as aq
+
 
 class WaterWeb:
     """Manage WaterWeb network dataset
@@ -29,9 +29,9 @@ class WaterWeb:
     tubeprops(srname)
         Return welltube properties
     levels(srname,ref='mp')
-        Return measured levels
+        Return measured levels for a series
     gwseries(srname)
-        Return gwseries object for one series
+        Return gwseries object for a series
 
     """
 
@@ -107,6 +107,10 @@ class WaterWeb:
         'headdatetime':'datetime', 'headmp':'peilcmmp', 
         'headnote':'peilcode','remarks':'peilopm'}
 
+    _reflevels = [
+        'datum','surface','mp',
+        ]
+
 
     def __init__(self,fpath=None,data=None,network=None):
 
@@ -138,6 +142,7 @@ class WaterWeb:
     def __repr__(self):
         return (f'{self._network} (n={self.__len__()})') #len(self.srnames())})')
 
+
     def __len__(self):
         return len(self.srnames())
 
@@ -152,7 +157,8 @@ class WaterWeb:
 
         Returns
         -------
-        pd.DataFrame
+        pd.DataFrame   
+        
         """
 
         file = open(fpath,'r')
@@ -338,9 +344,13 @@ class WaterWeb:
         -------
         pd.Series """
 
+        if ref not in self._reflevels:
+            warnings.warn((f'{ref} not in {self._references}. '),
+                (f'reference is set to "datum".')) 
+            ref = 'datum'
         if ref=='mp':
             col = 'peilcmmp'
-        if ref=='nap':
+        if ref=='datum':
             col = 'peilmnap'
         if ref=='mv':
             col = 'peilcmmv'
