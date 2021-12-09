@@ -47,17 +47,7 @@ def headsfiles(srcdir=None,srctype=None,loclist=None):
 class GwList():
     """Holds a list of GwSeries objects
 
-    Parameters
-    ----------
-    srcdir : str
-        directory with groundwater head sourcefiles
-    srctype : {'dinocsv','json','hymon'}, optional
-        sourcefiletype
-    loclist : list, optional
-        list of location names
-    srcfile : str, optional
-        path to file with paths to sourcefiles
-        (if srcfile is given, srcdir is ignored)
+
 
     Examples  
     --------  
@@ -105,7 +95,22 @@ class GwList():
 
     def __init__(self,srcdir=None,srctype='dinocsv',loclist=None,
         srcfile=None):
-        """Return GwList object"""
+        """Return GwList object
+
+        Parameters
+        ----------
+        srcdir : str
+            directory with groundwater head sourcefiles
+        srctype : {'dinocsv','json','hymon'}, optional
+            sourcefiletype
+        loclist : list, optional
+            list of location names
+        srcfile : str, optional
+            path to file with paths to sourcefiles
+            (if srcfile is given, srcdir is ignored)
+
+
+        """
 
         self._srcdir = srcdir
         self._srctype = srctype

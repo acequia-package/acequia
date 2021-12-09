@@ -32,14 +32,6 @@ from .stats.gwtimestats import GwTimeStats
 class GwSeries:
     """ Groundwater heads time series management
 
-    Parameters
-    ----------
-    heads : pandas.DataFrame
-        timeseries with groundwater heads
-    locprops : pandas.Series
-        series with location properties
-    tubprops : pandas.DataFrame
-        dataframe with tube properties in time
 
     Methods
     -------
@@ -174,6 +166,17 @@ class GwSeries:
 
 
     def __init__(self,heads=None,locprops=None,tubeprops=None):
+        """
+        Parameters
+        ----------
+        heads : pandas.DataFrame
+            timeseries with groundwater heads
+        locprops : pandas.Series
+            series with location properties
+        tubprops : pandas.DataFrame
+            dataframe with tube properties in time
+
+        """
 
         if locprops is None:
             self._locprops = Series(index=self._locprops_names,
