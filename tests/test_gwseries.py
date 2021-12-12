@@ -7,13 +7,14 @@ import acequia as aq
 dinodir = '.\\data\\dinogws\\'
 jsondir = '.\\data\\json\\'
 csvdir = '.\\data\\csv\\'
-figdir = '.\\data\\fig\\'
+figdir = '.\\output\\fig\\'
 dnpath = f'{dinodir}B29A0850002_1.csv'
 
 
 @pytest.fixture
 def gws():
     return aq.GwSeries.from_dinogws(dnpath)
+
 
 @pytest.fixture
 def name(gws):

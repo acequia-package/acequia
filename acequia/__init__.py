@@ -19,6 +19,7 @@ from .read.dinogws import DinoGws
 from .read.dinosurfacelevel import DinoSurfaceLevel
 from .read.hydromonitor import HydroMonitor
 from .read.waterweb import WaterWeb
+from .read.waterwebtools import measurement_types
 from .read.knmi_weather import KnmiWeather
 from .read.knmi_rain import KnmiRain
 from .read.knmi_stations import KnmiStations, knmilocations

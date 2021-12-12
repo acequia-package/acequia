@@ -8,33 +8,34 @@ import acequia as aq
 
 
 class WaterWeb:
-    """Manage WaterWeb network dataset
+    """
+    Manage WaterWeb dataset
 
     Methods
     -------
-    read_csv(fpath,networkname=None)
-        Read waterweb csv export file and return WaterWeb object
+    from_csv
+        Read waterweb csv export file and return WaterWeb object.
     srnames()
-        Return list of series names
+        Return list of series names.
     locname(srname)
-        Return location name for given series
+        Return location name for given series.
     filname(srname)
-        Return filter name for given series
-    seriestype(srname=None):
-        Return type of measurement series
+        Return filter name for given series.
+    seriestype
+        Return type of measurement series for series srname.
+    type_counts
+        Return table of measurement type counts.
     networkname(name=None):
-        Return or set network name
+        Return or set network name.
     locprops(srname)
-        Return series location properties
+        Return series location properties.
     tubeprops(srname)
-        Return welltube properties
+        Return welltube properties.
     levels(srname,ref='mp')
-        Return measured levels for a series
+        Return measured levels for a series.
     gwseries(srname)
-        Return gwseries object for a series
-
+        Return gwseries object for a series.
     """
-
     _column_mapping = {
         'Lokatie':'sunloc',
         'SUN-kode':'sunsr',
@@ -111,6 +112,8 @@ class WaterWeb:
         'datum','surface','mp',
         ]
 
+    _measurement_types = ['B','S','L','P']
+
 
     def __init__(self,fpath=None,data=None,network=None):
 
@@ -121,7 +124,8 @@ class WaterWeb:
         if ((self._fpath is not None) and (self._data is None)):
 
             if not pathlib.Path(self._fpath).is_file():
-                raise ValueError(f('{self._fpath} is not a valid file path.'))
+                raise ValueError((f'{self._fpath} is not a valid '
+                    'file path.'))
 
             self._data = self._readcsv(self._fpath)
 
@@ -197,7 +201,7 @@ class WaterWeb:
 
 
     @classmethod
-    def read_csv(cls,fpath,networkname=None):
+    def from_csv(cls,fpath,network=None):
         """ 
         Read waterweb csv network file and return new WaterWeb object
 
@@ -215,7 +219,7 @@ class WaterWeb:
 
         """
         data = cls._readcsv(cls,fpath)
-        return cls(fpath=fpath,data=data,network=networkname)
+        return cls(fpath=fpath,data=data,network=network)
 
 
     def srnames(self):
@@ -242,6 +246,16 @@ class WaterWeb:
             return sr[srname]
 
         return sr
+
+
+    def type_counts(self):
+        """Return table of measurement type counts."""
+        srtypelist = []
+        for name in self.srnames():
+            srtypelist.append(self.seriestype(name))
+        tbl = pd.Series(srtypelist).value_counts()
+        tbl.name = self.networkname()
+        return tbl
 
 
     def locname(self,srname):

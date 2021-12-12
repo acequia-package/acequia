@@ -22,7 +22,6 @@ import pandas as pd
 import numpy as np
 
 from .read.dinogws import DinoGws
-#import acequia.read.dinogws
 from .plots.plotheads import PlotHeads
 from .stats.gxg import GxgStats
 from .stats.gwtimestats import GwTimeStats
