@@ -103,3 +103,4 @@ def test_GwSeries_gxg(gws):
 
 def test_GwSeries_xg(gws):
     assert not gws.xg().empty
+

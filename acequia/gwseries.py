@@ -21,8 +21,8 @@ from pandas import Series, DataFrame
 import pandas as pd
 import numpy as np
 
-#from .read.dinogws import DinoGws
-import acequia.read.dinogws
+from .read.dinogws import DinoGws
+#import acequia.read.dinogws
 from .plots.plotheads import PlotHeads
 from .stats.gxg import GxgStats
 from .stats.gwtimestats import GwTimeStats
@@ -231,7 +231,9 @@ class GwSeries:
         """
 
         # read dinofile to DinoGws object
-        dn = acequia.read.dinogws.DinoGws(filepath=filepath)
+        ##dn = GwSeries.read.dinogws.DinoGws(filepath=filepath)
+        dn = DinoGws(filepath=filepath)
+
         dinoprops = list(dn.header().columns)
 
         # get location metadata
@@ -267,7 +269,6 @@ class GwSeries:
         heads['headmp'] = heads['headmp']/100.
 
         return cls(heads=heads,locprops=locprops,tubeprops=tubeprops)
-
 
     @classmethod
     def from_json(cls,filepath=None):
