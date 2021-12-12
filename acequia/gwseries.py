@@ -1,8 +1,6 @@
 """ 
 This module containes the class GwSeries for managing a head series.
 
-
-
 Examples
 --------
 gw = GwSeries.from_dinogws(<filepath to dinocsv file>)
