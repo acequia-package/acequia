@@ -344,7 +344,6 @@ class WaterWeb:
 
         return data
 
-
     def levels(self,srname,ref='mp'):
         """Return measured levels
 

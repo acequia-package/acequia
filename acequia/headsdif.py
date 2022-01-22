@@ -13,8 +13,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns; sns.set()
 import numpy as np
 
-import acequia
-
 
 def headsdif_from_gwseries(heads=None,locname=None,refcol=None):
     """Return HeadsDif object with data or None for invalid data.
