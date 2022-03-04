@@ -21,15 +21,8 @@ import pandas as pd
 
 sep = ","
 
-def read_dinogws():
-    """ read data from Dinoloket csv file with groundwater measurement 
-    data """
-    pass
-
-
 class DinoGws:
     """Read TNO Dinoloket csv file with groundwater measurement data"""
-
 
     _metatag = ','.join(
         ['Locatie','Filternummer','Externe aanduiding',

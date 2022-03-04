@@ -1,6 +1,6 @@
-
-""" Class Headsdif has methods for calculating and plotting heads
-differences between multiple groundwater series
+""" 
+This module contains the class HeadsDiff for calculating and plotting 
+differences between multiple groundwater head series.
 """
 
 import warnings
@@ -13,33 +13,29 @@ import matplotlib.pyplot as plt
 import seaborn as sns; sns.set()
 import numpy as np
 
-import acequia
-
 
 def headsdif_from_gwseries(heads=None,locname=None,refcol=None):
-    """Return HeadsDif object with data or None for invalid data
+    """Return HeadsDif object with data or None for invalid data.
 
     Parameters
     ----------
     heads : list of GwSeries objects
-        measured heads of multiple groundwater series
+        Measured heads of multiple groundwater series.
     locname : str
-        location name for annotating graphs
+        Location name for annotating graphs.
     refcol : str, optional
-        series name to use as reference
+        Series name to use as reference.
 
     Returns
     -------
-    HeadsDif object or None
+    HeadsDiff
+        HeadsDif object or None
 
     Examples
     --------
     >>>hd = headsdif_from_gwseries(heads=<heads>,locname=<locname>,
             refcol=<refcol>)
-
     """
-
-
     if not isinstance(heads,list):
         msg = 'Parameter heads must be a list of GwSeries onjects'
         warnings.warn(msg)
@@ -65,17 +61,26 @@ def headsdif_from_gwseries(heads=None,locname=None,refcol=None):
 
 
 class HeadsDif:
-    """Calculates head differences and descriptive statistics for 
+    """Calculate head differences and descriptive statistics for 
     multiple groundwater head series
 
-    Parameters
-    ----------
-    heads : list,pd.DataFrame
-        measured heads of multiple groundwater series
-    locname : str
-        location name for annotating graphs
-    refcol : str
-        series name to use as reference
+    Methods
+    -------
+    table_headsdif
+        Return table with head differences relative to series ref.
+    table_headsref
+        Return table with heads relative to mean of entire series.
+    difsums
+        Return table with head differences by season.
+    date_seasons
+        Return list with seasons for each datetime in index.
+    plot_time
+        Plot al heads in one graph and all head differences below that 
+        in one figure.
+    plot_head
+        Plot head difference by reference head value.
+    plot_freq
+        Plot head differences as grid of frequency plots.
 
     Notes
     -----
@@ -97,19 +102,20 @@ class HeadsDif:
             refcol=<refcol>)
     >>>if hd is None:
     >>>     continue
-
     """
-
     _period_names = {'quarter','half-year'}
 
-
-    def __repr__(self):
-        nsr = len(self.table_headsdif().columns)
-        return (f'{self.__class__.__name__}(n={nsr})')
-
-
     def __init__(self,heads=None,locname=None,refcol=None):
-
+        """
+        Parameters
+        ----------
+        heads : list,pd.DataFrame
+            Measured heads of multiple groundwater series.
+        locname : str
+            Location name for annotating graphs.
+        refcol : str
+            Series name to use as reference.
+        """
         if heads is None:
             msg = f'Parameter heads must be given'
             raise ValueError(msg)
@@ -147,17 +153,20 @@ class HeadsDif:
         self._headsdif = self.table_headsdif()
         self._headsref = self.table_headsref()
 
+    def __repr__(self):
+        nsr = len(self.table_headsdif().columns)
+        return (f'{self.__class__.__name__}(n={nsr})')
 
     def table_headsdif(self,ref=None):
-        """Return table with head differences relative to series ref.
+        """
+        Return table with head differences relative to series ref.
+
         If ref is not set, first series is taken as reference.
 
         Returns
         -------
         pd.DataFrame
-
         """
-
         if ref is None:
             ref = self._refcol
 
@@ -172,29 +181,26 @@ class HeadsDif:
 
         return hdif
 
-
     def table_headsref(self):
-        """Return table with heads relative to mean of entire series"""
+        """Return table with heads relative to mean of entire series."""
         heads = self._heads.copy()
         for i,col in enumerate(list(heads)):
             heads[col] = heads[col]-heads[col].mean()
         return heads
 
-
     def difsums(self,period='quarter'):
-        """Return table with head differences by season
+        """
+        Return table with head differences by season.
 
         Parameters
         ----------
         seasons : {'quarter','half-year'}
-            aggregation level
+            Aggregate by quarter or by year.
 
         Returns
         -------
         pd.DataFrame
-
         """
-
         if period not in self._period_names:
             msg = ''.join(
                   f'{period} is not a valid period name. ',
@@ -207,10 +213,11 @@ class HeadsDif:
         difsns.index.name = 'series'
         return difsns
 
-
     def _check_heads(self):
-        """Check heads measurement table for errors, repair and show
-        warnings.""" 
+        """
+        Check heads measurement table for errors, repair and show
+        warnings.
+        """ 
 
         for col in self._heads.columns:
             allnull = self._heads[col].isnull().all()
@@ -232,36 +239,36 @@ class HeadsDif:
 
 
     def date_seasons(self,dtindex,period='quarter'):
-        """Return list with seasons for each datetime in index
+        """
+        Return list with seasons for each datetime in index.
 
         Parameters
         ----------
         dtindex : pd.Datarame,pd.DateTimeIndex
-            index with dates
+            Index with dates.
 
         seasons : {'quarter','half-year'}
-            aggregation level
+            Aggregate by season or by six months.
 
         Returns
         -------
-        list with season for each datetime
-
+        list
+            Season for each datetime in dtindex
         """
-
         if isinstance(dtindex,pd.DataFrame):
             dtindex = dtindex.index
 
         if period=='quarter':
-            seasons = ['1_Winter', '1_Winter', '2_Voorjaar', '2_Voorjaar', 
-                       '2_Voorjaar', '3_Zomer', '3_Zomer', '3_Zomer', 
-                       '4_Herfst', '4_Herfst', 
-                       '4_Herfst', '1_Winter']
+            seasons = ['1_Winter', '1_Winter', '2_Spring', '2_Spring', 
+                       '2_Summer', '3_Summer', '3_Summer', '3_Summer', 
+                       '4_Autumn', '4_Autumn', 
+                       '4_Autumn', '1_Winter']
             month_to_season = dict(zip(range(1,13), seasons))
             seasons = dtindex.month.map(month_to_season).values
 
         if period=='half-year':
-            seasons = ['Winter', 'Winter', 'Winter', 'Zomer', 'Zomer', 
-                       'Zomer', 'Zomer', 'Zomer', 'Zomer', 'Winter', 
+            seasons = ['Winter', 'Winter', 'Winter', 'Summer', 'Summer', 
+                       'Summer', 'Summer', 'Summer', 'Summer', 'Winter', 
                        'Winter', 'Winter']
             month_to_season = dict(zip(range(1,13), seasons))
             seasons = dtindex.month.map(month_to_season).values
@@ -295,15 +302,6 @@ class HeadsDif:
             
             self._heads[col].dropna().plot(ax=axes[0],color=colors[i],
                                            title=title)
-            #heads[col].plot(ax=axes[i+1])
-            """
-            if col==self._refcol:
-                sr = self._headsref[col]*100
-                title = f'{sr.name} (reference difference to mean)'
-                sr.dropna().plot(ax=axes[i+1],color=colors[i],title=title)
-                axes[i+1].yaxis.set_label_text('relatieve stijghoogte (cm)')
-            else:
-            """
             sr = self._headsdif[col]*100
             sr.dropna().plot(ax=axes[i+1],color=colors[i])
 
@@ -322,7 +320,7 @@ class HeadsDif:
 
 
     def plot_head(self,figpath=None,color='season'):
-        """Plot head difference by reference head value """
+        """Plot head difference by reference head value."""
 
         colnames = self._headsdif.columns
 
@@ -389,17 +387,6 @@ class HeadsDif:
             ylab = 'stijghoogteverschil (cm)'
             ax.yaxis.set_label_text(ylab)
 
-            #plt.fill_between(
-            #    ax.axhline(y=2.5, color='darkgray',linestyle='--'),
-            #    ax.axhline(y=-2.5, color='darkgray',linestyle='--'),
-            #    )
-
-            #plt.fill_between([0.1,0.9],[0.1,0.9],
-            #                 color='#ffff00', alpha=0.5)
-            #ax.fill_between(x, y1, y2, where=y2 <= y1, facecolor='red', interpolate=True)
-            #ax.plot(x, y1, x, y2, color='black')
-            #        #facecolor='red', interpolate=True)
-
         fig.tight_layout()
         fig.savefig(figpath, dpi=300)
 
@@ -407,14 +394,13 @@ class HeadsDif:
 
 
     def plot_freq(self):
-        """Plot head differences as grid of frequency plots
+        """
+        Plot head differences as grid of frequency plots.
 
         Returns
         -------
         fig,ax
-
         """
-
         loclist = list(self._headsdif.columns)
         nrows = len(loclist)
         ncols = len(loclist)
@@ -471,4 +457,3 @@ class HeadsDif:
                                 horizontalalignment='center')
 
         return fig,axs
-

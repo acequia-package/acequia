@@ -160,7 +160,7 @@ class GwList():
             self.hm = aq.HydroMonitor.from_csv(filepath=srcfile)
 
         if (self._srcfile is not None) and (self._srctype=='waterweb'):
-            self._wwn = aq.WaterWeb.read_csv(srcfile,networkname=None)
+            self._wwn = aq.WaterWeb.from_csv(srcfile,networkname=None)
 
 
     def filetable(self):

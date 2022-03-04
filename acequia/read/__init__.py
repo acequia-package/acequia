@@ -1,2 +1,2 @@
-from .dinogws import read_dinogws, DinoGws
+from .dinogws import DinoGws
 from .hydromonitor import HydroMonitor
