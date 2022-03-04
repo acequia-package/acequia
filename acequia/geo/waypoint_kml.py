@@ -14,7 +14,7 @@ from collections import OrderedDict
 import pandas as pd
 from pandas import DataFrame, Series
 import numpy as np
-import simplekml as skml
+##import simplekml as skml
 from acequia.geo.coordinate_conversion import CrdCon as CrdCon
 import acequia as aq
 

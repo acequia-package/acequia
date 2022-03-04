@@ -116,8 +116,8 @@ class GwListStats:
 
         if self._srcdir is not None:
             if not os.path.isdir(self._srcdir):
-                raise ValueError((f'{self._srcdir} is not a valid ')
-                    (f'directory name.'))
+                raise ValueError((f'{self._srcdir} is not a valid '
+                    f'directory name.'))
 
         
 
