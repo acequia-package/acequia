@@ -11,7 +11,7 @@ from .headsdif import HeadsDif
 from .headsdif import headsdif_from_gwseries as headsdif_from_gwseries
 from .swseries import SwSeries
 from .geo.coordinate_conversion import CrdCon
-#from .geo.waypoint_kml import WpKml
+from .geo.waypoint_kml import WpKml
 from .geo.pointshapewriter import PointShapeWriter, pointshape_write
 from .plots.plotheads import PlotHeads
 from .plots.tsmodelstatsplot import TsModelStatsPlot,plot_tsmodel_statistics
