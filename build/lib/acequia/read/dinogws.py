@@ -21,46 +21,43 @@ import pandas as pd
 
 sep = ","
 
-def read_dinogws():
-    """ read data from Dinoloket csv file with groundwater measurement 
-    data """
-    pass
-
-
 class DinoGws:
     """Read TNO Dinoloket csv file with groundwater measurement data"""
 
+    _metatag = ','.join(
+        ['Locatie','Filternummer','Externe aanduiding',
+         'X-coordinaat','Y-coordinaat','Maaiveld (cm t.o.v. NAP)',
+         'Datum maaiveld gemeten','Startdatum','Einddatum',
+         'Meetpunt (cm t.o.v. NAP)','Meetpunt (cm t.o.v. MV)',
+         'Bovenkant filter (cm t.o.v. NAP)',
+         'Onderkant filter (cm t.o.v. NAP)'
+        ])
+
+    _datatag = ','.join(
+        ['Locatie','Filternummer','Peildatum',
+         'Stand (cm t.o.v. MP)','Stand (cm t.o.v. MV)',
+         'Stand (cm t.o.v. NAP)','Bijzonderheid,Opmerking','','',''
+         ])
+
+    _missingdata = (f'Van deze put zijn geen standen opgenomen',
+         f'in de DINO-database')
+
+    _header_cols = ["nitgcode","filter","tnocode","xcoor",
+        "ycoor","mvcmnap","mvdatum","startdatum","einddatum",
+        "mpcmnap","mpcmmv","filtopcmnap","filbotcmnap"]
+
+    _data_cols = ["nitgcode","filter","peildatum","standcmmp",
+        "standcmmv","standcmnap","bijzonderheid","opmerking"]
+
+    _head_cols = ['peildatum','standcmmp','bijzonderheid','opmerking']
+
 
     def __repr__(self):
-        return """ Read TNO Dinoloket csv file with groundwater 
-        measurement data """
-
+        return (f'{self.srname()} (n={len(self._data)})')
 
     def __init__(self,filepath=None,readall=True):
 
         # lines marking data blocks in dinofiles
-        self.metatag = ','.join(
-            ['Locatie','Filternummer','Externe aanduiding',
-             'X-coordinaat','Y-coordinaat','Maaiveld (cm t.o.v. NAP)',
-             'Datum maaiveld gemeten','Startdatum','Einddatum',
-             'Meetpunt (cm t.o.v. NAP)','Meetpunt (cm t.o.v. MV)',
-             'Bovenkant filter (cm t.o.v. NAP)',
-             'Onderkant filter (cm t.o.v. NAP)'
-            ])
-        self.datatag = ','.join(
-            ['Locatie','Filternummer','Peildatum',
-             'Stand (cm t.o.v. MP)','Stand (cm t.o.v. MV)',
-             'Stand (cm t.o.v. NAP)','Bijzonderheid,Opmerking','','',''
-             ])
-        self.missingdata = ','.join(
-            ['Van deze put zijn geen standen opgenomen',
-             'in de DINO-database'
-            ])
-        self.header_cols = ['nitgcode',"filter","tnocode","xcoor",
-            "ycoor","mvcmnap","mvdatum","startdatum","einddatum",
-            "mpcmnap","mpcmmv","filtopcmnap","filbotcmnap"]
-        self.data_cols = ["nitgcode","filter","peildatum","standcmmp",
-            "standcmmv","standcmnap","bijzonderheid","opmerking"]
 
         if isinstance(readall,bool):
             self.readall=readall
@@ -73,25 +70,25 @@ class DinoGws:
 
 
         # herekenningsregels dinofiles
-        self.metatag = "Locatie,Filternummer,Externe aanduiding,X-coordinaat,Y-coordinaat,Maaiveld (cm t.o.v. NAP),Datum maaiveld gemeten,Startdatum,Einddatum,Meetpunt (cm t.o.v. NAP),Meetpunt (cm t.o.v. MV),Bovenkant filter (cm t.o.v. NAP),Onderkant filter (cm t.o.v. NAP)"
-        self.datatag = "Locatie,Filternummer,Peildatum,Stand (cm t.o.v. MP),Stand (cm t.o.v. MV),Stand (cm t.o.v. NAP),Bijzonderheid,Opmerking,,,"
-        self.missingdata = "Van deze put zijn geen standen opgenomen in de DINO-database"
-        self.header_cols = ["nitgcode","filter","tnocode","xcoor","ycoor","mvcmnap","mvdatum","startdatum","einddatum","mpcmnap","mpcmmv","filtopcmnap","filbotcmnap"]
-        self.data_cols = ["nitgcode","filter","peildatum","standcmmp","standcmmv","standcmnap","bijzonderheid","opmerking"]
+        self._metatag = "Locatie,Filternummer,Externe aanduiding,X-coordinaat,Y-coordinaat,Maaiveld (cm t.o.v. NAP),Datum maaiveld gemeten,Startdatum,Einddatum,Meetpunt (cm t.o.v. NAP),Meetpunt (cm t.o.v. MV),Bovenkant filter (cm t.o.v. NAP),Onderkant filter (cm t.o.v. NAP)"
+        self._datatag = "Locatie,Filternummer,Peildatum,Stand (cm t.o.v. MP),Stand (cm t.o.v. MV),Stand (cm t.o.v. NAP),Bijzonderheid,Opmerking,,,"
+        self._missingdata = "Van deze put zijn geen standen opgenomen in de DINO-database"
+        self._header_cols = ["nitgcode","filter","tnocode","xcoor","ycoor","mvcmnap","mvdatum","startdatum","einddatum","mpcmnap","mpcmmv","filtopcmnap","filbotcmnap"]
+        self._data_cols = ["nitgcode","filter","peildatum","standcmmp","standcmmv","standcmnap","bijzonderheid","opmerking"]
 
         # create empty variables
         self._reset()
         
         if filepath != None:
             self.flines = self._readfile(filepath)
-            self.dfheader, self.dfdata = self._readlines()
+            self._header, self._data = self._readlines()
 
-        if self.dfheader.empty and not self.dfdata.empty:
-            self.dfheader = DataFrame(data=[[np.nan]*len(self.header_cols)],columns=self.header_cols)
-            self.dfheader = self.dfheader.astype({'nitgcode':str,'filter':str})
-            self.dfheader.at[0,'nitgcode'] = self.dfdata.at[0,'nitgcode']
-            self.dfheader.at[0,'filter'] = self.dfdata.at[0,'filter']
-            self.dfheader.at[0,'startdatum'] = self.dfdata.at[0,'peildatum']
+        if self._header.empty and not self._data.empty:
+            self._header = DataFrame(data=[[np.nan]*len(self._header_cols)],columns=self._header_cols)
+            self._header = self._header.astype({'nitgcode':str,'filter':str})
+            self._header.at[0,'nitgcode'] = self._data.at[0,'nitgcode']
+            self._header.at[0,'filter'] = self._data.at[0,'filter']
+            self._header.at[0,'startdatum'] = self._data.at[0,'peildatum']
             #self._tubeprops.at[0,'startdate'] = heads.index[0]
 
 
@@ -99,10 +96,10 @@ class DinoGws:
         """ Reset all variables """
         self.filepath = ""
         self.errors = []
-        self.dfdata = DataFrame()
-        self.dfheader = DataFrame()       
-        self.dfdatatext = DataFrame()
-        self.dfheadertext = DataFrame()
+        self._data = DataFrame()
+        self._header = DataFrame()       
+        self._datatext = DataFrame()
+        self._headertext = DataFrame()
         self.dfdesc = DataFrame()
         self.dfdescloc = DataFrame()
         self.seriesname = ""
@@ -156,17 +153,17 @@ class DinoGws:
         
         # read header
         if self.headerstart>0 and self.headerend>0: 
-            self.dfheader = self._readheader()
+            self._header = self._readheader()
         else:
-            self.dfheader = DataFrame()
+            self._header = DataFrame()
 
         # read data
         if self.datastart>0:
-            self.dfdata = self._readgws()
+            self._data = self._readgws()
         else:
-            self.dfdata = DataFrame()
+            self._data = DataFrame()
 
-        return self.dfheader, self.dfdata
+        return self._header, self._data
 
 
     def _findlines(self):
@@ -180,14 +177,14 @@ class DinoGws:
         # find variables
         for il in range(len(self.flines)):
 
-            if self.flines[il].startswith(self.missingdata):
+            if self.flines[il].startswith(self._missingdata):
                 # put zonder gegevens
                 self.errors.append([self.filepath,"Bestand bevat geen data"])
                 self.hasheader = False
                 self.hasdata = False
                 break
 
-            if self.flines[il].startswith(self.metatag): #("Locatie,Filternummer,Externe"):
+            if self.flines[il].startswith(self._metatag): #("Locatie,Filternummer,Externe"):
                 if not self.flines[il+1].startswith("B"): # er zijn geen headerlines onder de headerkop
                     self.hasheader = False
                     self.errors.append([self.filepath,"Bestand zonder header"])                               
@@ -205,7 +202,7 @@ class DinoGws:
                             self.headerend = il
                             break
                             
-            if self.flines[il].startswith(self.datatag): #("Locatie,Filternummer,Peildatum"):
+            if self.flines[il].startswith(self._datatag): #("Locatie,Filternummer,Peildatum"):
                 # bepaal eerste regelnummer met data
                 il+=1
                 if self.flines[il].startswith("B"):
@@ -243,26 +240,26 @@ class DinoGws:
 
 
         if self.headerstart>0 and self.headerend > self.headerstart:
-            # create dfheader
+            # create _header
             headerlist = [line[:-1].split(sep) for line in self.flines[self.headerstart:self.headerend]]
-            self.dfheader = DataFrame(headerlist, columns=self.header_cols)
-            self.dfheadertext = DataFrame(headerlist, columns=self.header_cols)
+            self._header = DataFrame(headerlist, columns=self._header_cols)
+            self._headertext = DataFrame(headerlist, columns=self._header_cols)
 
             # transform column values
-            self.dfheader["filter"] = self.dfheader["filter"].apply(lambda x: x.lstrip("0"))
-            self.dfheader["mvdatum"] = self.dfheader["mvdatum"].apply(lambda x:self.parse_dino_date(x))
-            self.dfheader["startdatum"] = self.dfheader["startdatum"].apply(lambda x:self.parse_dino_date(x))
-            self.dfheader["einddatum"] = self.dfheader["einddatum"].apply(lambda x:self.parse_dino_date(x))
+            self._header["filter"] = self._header["filter"].apply(lambda x: x.lstrip("0"))
+            self._header["mvdatum"] = self._header["mvdatum"].apply(lambda x:self.parse_dino_date(x))
+            self._header["startdatum"] = self._header["startdatum"].apply(lambda x:self.parse_dino_date(x))
+            self._header["einddatum"] = self._header["einddatum"].apply(lambda x:self.parse_dino_date(x))
 
             # make seriesname
-            ##self.seriesname = self.dfheader["nitgcode"].values[0]+"_"+str(self.dfheader["filter"].values[0])
+            ##self.seriesname = self._header["nitgcode"].values[0]+"_"+str(self._header["filter"].values[0])
         else:
             # create empty dataframe
-            self.dfheader = DataFrame(columns=self.header_cols)
-            self.dfheadertext = DataFrame(columns=self.header_cols)
+            self._header = DataFrame(columns=self._header_cols)
+            self._headertext = DataFrame(columns=self._header_cols)
             self.seriesname = "onbekend" # self.filename.split(".")[0]
             #print("warning : series has no header")
-        return self.dfheader
+        return self._header
 
 
     def _readgws(self):
@@ -280,59 +277,71 @@ class DinoGws:
 
             # create list of data from filelines
             data = [line[:-1].split(sep)[0:7]+[sep.join(line[:-1].split(sep)[7:])] for line in self.flines[self.datastart:]]            
-            self.dfdatatext = DataFrame(data,columns=self.data_cols)
-            self.dfdata = DataFrame(data,columns=self.data_cols)
+            self._datatext = DataFrame(data,columns=self._data_cols)
+            self._data = DataFrame(data,columns=self._data_cols)
 
             # transform column values
-            self.dfdata["peildatum"] = self.dfdata["peildatum"].apply(lambda x:datetime.strptime(x,"%d-%m-%Y"))  # 28-03-1958
-            self.dfdata["filter"] = self.dfdata["filter"].apply(lambda x: x.lstrip("0"))
-            #self.dfdata["standcmmp"] = self.dfdata["standcmmp"].apply(lambda x: float(x) if x.isdigit() else np.NaN)
-            #self.dfdata["standcmmv"] = self.dfdata["standcmmv"].apply(lambda x: float(x) if x.isdigit() else np.NaN)
-            #self.dfdata["standcmnap"] = self.dfdata["standcmnap"].apply(lambda x: float(x) if x.isdigit() else np.NaN)
-            self.dfdata["standcmmp"] = self.dfdata["standcmmp"].apply(lambda x: fstr2float(x))
-            self.dfdata["standcmmv"] = self.dfdata["standcmmv"].apply(lambda x: fstr2float(x))
-            self.dfdata["standcmnap"] = self.dfdata["standcmnap"].apply(lambda x: fstr2float(x))
+            self._data["peildatum"] = self._data["peildatum"].apply(lambda x:datetime.strptime(x,"%d-%m-%Y"))  # 28-03-1958
+            self._data["filter"] = self._data["filter"].apply(lambda x: x.lstrip("0"))
+            self._data["standcmmp"] = self._data["standcmmp"].apply(lambda x: fstr2float(x))
+            self._data["standcmmv"] = self._data["standcmmv"].apply(lambda x: fstr2float(x))
+            self._data["standcmnap"] = self._data["standcmnap"].apply(lambda x: fstr2float(x))
+            self._data["opmerking"] = self._data["opmerking"].apply(lambda x: x.strip(","))
 
         else:
-            self.dfdata = DataFrame(columns=self.data_cols)
-            self.dfdatatext = DataFrame(columns=self.data_cols)
-        return self.dfdata
+            self._data = DataFrame(columns=self._data_cols)
+            self._datatext = DataFrame(columns=self._data_cols)
+        return self._data
 
     def series(self,units="cmmv"):
         """ Return groundwater measurements as pandas time series 
         Possible values for parameter units are : "cmmv", "cmmp" or "cmnap"
         """
-        # create series from dfdata
-        if len(self.dfdata)>0:
+        # create series from _data
+        if len(self._data)>0:
             if units=="cmmv":
                 # data = self.data[self.data["standcmmv"]!=""] # alle ontbrekende waarden eruit
-                self.srseries = Series(self.dfdata["standcmmv"].values, index=self.dfdata["peildatum"],name=self.srname())
+                self.srseries = Series(self._data["standcmmv"].values, index=self._data["peildatum"],name=self.srname())
             if units=="cmmp":
-                self.srseries = Series(self.dfdata["standcmmp"].values, index=self.dfdata["peildatum"],name=self.srname())
+                self.srseries = Series(self._data["standcmmp"].values, index=self._data["peildatum"],name=self.srname())
             if units=="cmnap":
-                self.srseries = Series(self.dfdata["standcmnap"].values, index=self.dfdata["peildatum"],name=self.srname())
+                self.srseries = Series(self._data["standcmnap"].values, index=self._data["peildatum"],name=self.srname())
         else: # create empty series
             self.srseries = Series(name=self.srname())
         return self.srseries
 
+
+    def headdata(self):
+        """Return head data fromdino csv file"""
+
+        if len(self._data)>0:
+            data = self._data[self._head_cols].copy()
+        else:
+            data = DataFrame(columns=self._head_cols)
+
+        return data
+
+
     def header(self):
-        """ Return raw metadata from series as a pandas dataframe """
-        
-        return self.dfheader
+        """ Return raw metadata from series as a pandas dataframe """        
+        return self._header
+
 
     def data(self):
         """ Return raw data as Pandas dataframe """
-        return self.dfdata
+        return self._data
+
 
     def locname(self,newname=None):
         if newname!=None: 
             self.location = newname
         elif not self.header().empty:
-            self.location = self.dfheader.loc[0,"nitgcode"]
-            ##self.location = self.dfheader.at[0,"nitgcode"]
+            self.location = self._header.loc[0,"nitgcode"]
+            ##self.location = self._header.at[0,"nitgcode"]
         else:
             self.location = "B00A0000"
         return self.location
+
 
     def filname(self,newname=None):
         if newname!=None: 
@@ -342,9 +351,11 @@ class DinoGws:
         else: self.filter = "0"
         return self.filter
 
+
     def srname(self):
         self.seriesname = self.locname()+"_"+self.filname()
         return self.seriesname
+
 
     def describe(self):
         """ Return one line of metadata from series as a pandas dataframe """
@@ -381,10 +392,12 @@ class DinoGws:
 
         return self.dfdesc
 
+
     def mpref(self):
         """ create dataframe with series of mp reference changes (for plotting line of ref changes above gwseries graph)"""
         msg = 'mpref method is depricates. use GwSeries.tubepropchanges() instead.'
         warnings.warn(msg, warnings.DeprecationWarning)
+
 
     def locations(self,df=DataFrame()):
         """ create table of locations from dataframe with data from several filters created by function describe() """
@@ -409,6 +422,7 @@ class DinoGws:
 
         return dfloc
 
+
     def merge(self,dn2):
         """ add series of dinogws object to dinogws object and return merged object """
 
@@ -416,7 +430,7 @@ class DinoGws:
             raise TypeError("Input of dinogws.merge() must be another dinogws object")
 
         
-        if (not self.dfdata.empty) and (not dn2.dfdata.empty):
+        if (not self._data.empty) and (not dn2._data.empty):
 
             # determine possible overlap
             startdate1 = self.data().peildatum.min()
@@ -427,13 +441,14 @@ class DinoGws:
                 raise ValueError('date ranges from both series show overlap')
 
             # merge headers
-            self.dfheader = pd.concat([self.dfheader,dn2.dfheader])
-            self.dfheader = self.dfheader.sort_values(by=['startdatum']).reset_index()
+            self._header = pd.concat([self._header,dn2._header])
+            self._header = self._header.sort_values(by=['startdatum']).reset_index()
 
             # merge groundwater measurement data
-            self.dfdata = pd.concat([self.dfdata,dn2.dfdata]).sort_values(by=['peildatum'])
+            self._data = pd.concat([self._data,dn2._data]).sort_values(by=['peildatum'])
 
         return self
+
 
 def filesfromdir(dir):
     """Return list of dino sourcefiles from directory """

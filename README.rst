@@ -10,9 +10,16 @@ Acequia is written from the perspective of Dutch groundwater
 practitioners who deal with files from Dinoloket, Menyanthes,
 and KNMI for hydrological time series analysis.
 
-Currently supported functionality:
-* Import groundwater head measurements from DINOloket csv files
-and Menyanthes hydromonitor csv export files.
+
+Dependencies
+------------
+Acequia uses the following packages:
+numpy, scipy, pandas, maplotlib, statsmodels, seaborn, geopandas,
+simplekml.
+
+The package simplekml is available on pip:
+pip install simplekml
+
 
 
  

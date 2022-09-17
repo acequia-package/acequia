@@ -4,7 +4,7 @@ import warnings
 import numpy as np
 from pandas import Series,DataFrame
 import pandas as pd
-import acequia as aq
+from ..gwseries import GwSeries
 
 
 class WaterWeb:
@@ -141,7 +141,6 @@ class WaterWeb:
             if not isinstance(self._data,pd.DataFrame):
                 raise ValueError((f'{self._data} is not a valid Pandas ')
                     (f'DataFrame.'))
-
 
     def __repr__(self):
         return (f'{self._network} (n={self.__len__()})') #len(self.srnames())})')
@@ -392,7 +391,7 @@ class WaterWeb:
 
         """
 
-        gw = aq.GwSeries()
+        gw = GwSeries()
 
         # locprops
         locprops = self.locprops(srname)
