@@ -15,7 +15,7 @@ from pandas import Series, DataFrame
 import pandas as pd
 import numpy as np
 
-import acequia as aq
+from ..gwseries import GwSeries
 
 
 class HydroMonitor:
@@ -362,7 +362,7 @@ class HydroMonitor:
 
         """
 
-        gws = aq.GwSeries()
+        gws = GwSeries()
 
         # select metadata for series 
         bool1 = self.metadata[self.idkeys()[0]]==loc

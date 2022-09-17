@@ -18,8 +18,7 @@ import pandas as pd
 from pandas import Series, DataFrame
 import pandas as pd
 
-import acequia as aq
-from acequia import CrdCon
+from ..geo.coordinate_conversion import CrdCon
 
 
 def knmilocations(stntype='prc'):
@@ -36,7 +35,7 @@ def knmilocations(stntype='prc'):
 
     """
 
-    knmi = aq.KnmiStations()
+    knmi = KnmiStations()
 
     if stntype not in ['prc','wtr','all']:
         msg = f'Variable stntype must be "prc","wtr" or "all" '

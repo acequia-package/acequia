@@ -17,8 +17,8 @@ import numpy as np
 from pandas import Series, DataFrame
 import pandas as pd
 
-import acequia as aq
-
+from .. import gwseries
+from .utils import hydroyear
 
 def stats_gxg(ts,reflev='datum'):
     """Return table with GxG statistics
@@ -37,7 +37,7 @@ def stats_gxg(ts,reflev='datum'):
 
     """
 
-    gxg = aq.GxgStats(ts)
+    gxg = GxgStats(ts)
     return gxg.gxg(reflev=reflev)
 
 
@@ -85,7 +85,7 @@ class GxgStats:
     def __init__(self, gw, srname=None, surface=None):
         """Return GxG object"""
 
-        if isinstance(gw,aq.GwSeries):
+        if isinstance(gw,gwseries.GwSeries):
 
             self._ts = gw.heads(ref='datum')
             self.srname = gw.name()
@@ -103,9 +103,9 @@ class GxgStats:
             self._gw = None
 
         else:
-            raise(f'{gw} is not of type aq.GwSeries or pd.Series')
+            raise(f'{gw} is not of type GwSeries or pd.Series')
 
-        self._ts1428 = aq.ts1428(self._ts,maxlag=3,remove_nans=False)
+        self._ts1428 = ts1428(self._ts,maxlag=3,remove_nans=False)
         self._xgnap = self._calculate_xg_nap()
 
 
@@ -238,7 +238,7 @@ class GxgStats:
     def _calculate_xg_nap(self):
         """Calculate xg statistics for eacht year and return table""" 
 
-        hydroyears = aq.hydroyear(self._ts1428)
+        hydroyears = hydroyear(self._ts1428)
         sr = self._yearseries(hydroyears)
         xg = pd.DataFrame(index=sr.index)
         xg.index.name = 'year'

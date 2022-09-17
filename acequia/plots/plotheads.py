@@ -17,10 +17,9 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.dates import YearLocator, MonthLocator, DateFormatter
 import matplotlib.dates as mdates
-
 import numpy as np
-#from imp import reload
-import acequia as aq
+
+from .. import gwseries
 #inch = 25.4 mm
 
 
@@ -124,7 +123,7 @@ class PlotHeads:
         self.ref = ref
 
         self.ts = ts
-        if all(isinstance(gw, aq.gwseries.GwSeries) for gw in ts):
+        if all(isinstance(gw, gwseries.GwSeries) for gw in ts):
             self.ts = [gw.heads(ref=self.ref) for gw in ts]
         if self.ref=='surface':
             self.ts = [ts*100 for ts in self.ts]

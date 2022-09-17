@@ -6,8 +6,6 @@ import statsmodels.api as sm
 import statsmodels.graphics.tsaplots
 from statsmodels.tsa.stattools import ccf, acf, pacf
 
-import acequia as aq
-
 
 def plot_tsmodel_statistics(obs=None,sim=None,res=None,noise=None,
     figtitle=None,figtype='full'):

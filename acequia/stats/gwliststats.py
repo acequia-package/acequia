@@ -7,8 +7,7 @@ from pandas import Series, DataFrame
 import pandas as pd
 import numpy as np
 
-import acequia as aq
-
+from ..gwlist import GwList
 
 def gwliststats(srcdir=None,ref=None,gxg=False):
     """Return table of decriptive statistics for multiple heads series
@@ -32,7 +31,7 @@ def gwliststats(srcdir=None,ref=None,gxg=False):
 
     """
 
-    ds = aq.GwListStats(srcdir)
+    ds = GwListStats(srcdir)
     tb = ds.srstats(gxg=gxg)
 
     return tb
@@ -53,7 +52,7 @@ def gwlocstats(srstats):
     pd.DataFrame
 
     """
-    gws = aq.GwListStats(srstats=srstats)
+    gws = GwListStats(srstats=srstats)
     return gws.locstats()
 
 
@@ -131,7 +130,7 @@ class GwListStats:
 
     def _create_list(self):
         """Create aq.GwList object"""
-        self._gwlist = aq.GwList(srcdir=self._srcdir,loclist=self._locs)
+        self._gwlist = GwList(srcdir=self._srcdir,loclist=self._locs)
 
 
     def srstats(self,ref='datum',gxg=False):

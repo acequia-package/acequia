@@ -2,9 +2,11 @@
 from collections import OrderedDict
 import warnings
 import numpy as np
-import pandas as pd
 from pandas import DataFrame, Series
-import acequia as aq
+import pandas as pd
+
+from .. import gwseries
+from .utils import maxfrq, ts1428
 
 def gwtimestats(ts,ref=None,name=None):
     """Return table of groundwater head time series statistics
@@ -72,7 +74,7 @@ class GwTimeStats:
             if self._name is None: 
                 self._name = self._ts.name
 
-        if isinstance(self._ts,aq.GwSeries):
+        if isinstance(self._ts,gwseries.GwSeries):
 
             self._ref = self._ts._validate_reference(ref)
             self._heads = self._ts.heads(ref=self._ref)
@@ -103,7 +105,7 @@ class GwTimeStats:
             stats['maxyear'] = heads.index.max().year
             stats['yearspan'] = stats['maxyear']-stats['minyear']+1
             stats['nyears'] = len(set(heads.index.year))
-            stats['maxfrq'] = aq.maxfrq(heads)
+            stats['maxfrq'] = maxfrq(heads)
             stats['mean'] = round(heads.mean(),2)
             stats['median'] = round(heads.median(),2)
             q05 = heads.quantile(q=0.05)

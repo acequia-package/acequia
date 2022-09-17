@@ -13,8 +13,9 @@ from pandas import Series, DataFrame
 import pandas as pd
 import matplotlib.pyplot as plt
 
-#import acequia as aq
-from acequia.gwseries import GwSeries
+
+from ..gwseries import GwSeries
+from .utils import hydroyear
 
 
 class Quantiles:
@@ -41,7 +42,7 @@ class Quantiles:
     def __init__(self, gw, srname=None, ref='surface', nclasses=10, days=True):
         """Return quantiles object"""
 
-        if isinstance(gw,aq.GwSeries):
+        if isinstance(gw,GwSeries):
             ts = gw.heads(ref=ref)
             if srname is None:
                 srname = gw.name()
@@ -83,7 +84,7 @@ class Quantiles:
         """Return table with quantiles for each hydrological year"""
 
         # empty table with hydroyears and percentiles
-        hydroyear = aq.hydroyear(self.ts)
+        hydroyear = hydroyear(self.ts)
         #allyears = np.arange(hydroyear.min(),hydroyear.max()+1)
         tbl = pd.DataFrame(index=set(hydroyear),columns=self.qtlabels)
 

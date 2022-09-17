@@ -18,7 +18,11 @@ import pandas as pd
 import time
 from datetime import datetime
 
-import acequia as aq
+from . import gwseries as gwseriesmod
+from .read.hydromonitor import HydroMonitor
+from .read.waterweb import WaterWeb
+from .read.filedirtools import listdir
+
 newline = '\n'
 
 def headsfiles(srcdir=None,srctype=None,loclist=None):
@@ -40,7 +44,7 @@ def headsfiles(srcdir=None,srctype=None,loclist=None):
     pd.DataFrame with series sourcefilelist
 
     """
-    gws = aq.GwList(srcdir=srcdir,srctype=srctype,loclist=loclist)
+    gws = GwList(srcdir=srcdir,srctype=srctype,loclist=loclist)
     return gws.filetable()
 
 
@@ -157,10 +161,10 @@ class GwList():
             self._flist = self.filetable()
 
         if (self._srcfile is not None) and (self._srctype=='hymon'):
-            self.hm = aq.HydroMonitor.from_csv(filepath=srcfile)
+            self.hm = HydroMonitor.from_csv(filepath=srcfile)
 
         if (self._srcfile is not None) and (self._srctype=='waterweb'):
-            self._wwn = aq.WaterWeb.from_csv(srcfile,networkname=None)
+            self._wwn = WaterWeb.from_csv(srcfile,networkname=None)
 
 
     def filetable(self):
@@ -215,12 +219,12 @@ class GwList():
         if self._srctype == 'dinocsv':
             idx = self._flist.index[self._itercount]
             filename = self._flist.at[self._itercount,'path']
-            self.gw = aq.GwSeries.from_dinogws(filename)
+            self.gw = gwseriesmod.GwSeries.from_dinogws(filename)
  
         if self._srctype == 'json':
             idx = self._flist.index[self._itercount]
             filename = self._flist.at[idx,'path']
-            self.gw = aq.GwSeries.from_json(filename)
+            self.gw = gwseriesmod.GwSeries.from_json(filename)
 
         if self._srctype == 'hymon':
             self.gw = next(self.hm)
@@ -260,7 +264,7 @@ class GwList():
 
         if self._srctype=='dinocsv':
 
-            pathlist = aq.listdir(self._srcdir, filetype='csv')
+            pathlist = listdir(self._srcdir, filetype='csv')
             filelist = [os.path.split(path)[-1] for path in pathlist if path.split('_')[-1].endswith('1.csv')]
             dnfiles = pd.DataFrame({"file":filelist})
 
@@ -279,7 +283,7 @@ class GwList():
 
         if self._srctype=='json':
 
-            files = aq.listdir(self._srcdir, filetype='json')
+            files = listdir(self._srcdir, filetype='json')
 
             jsf = pd.DataFrame({"file":files})
             jsf["series"]= jsf["file"].apply(lambda x:x.split('.')[0])
@@ -307,7 +311,7 @@ class GwList():
 
         Returns
         -------
-        acequia.GwSeries object
+        GwSeries object
         """
 
         if self._srctype in ['dinocsv','json']:
@@ -316,10 +320,10 @@ class GwList():
             filepath = self._flist.loc[indexval,'path']
 
         if self._srctype=='json':
-            gw = aq.GwSeries.from_json(filepath)
+            gw = gwseriesmod.GwSeries.from_json(filepath)
 
         if self._srctype=='dinocsv':
-            gw = aq.GwSeries.from_dinogws(filepath)
+            gw = gwseriesmod.GwSeries.from_dinogws(filepath)
 
         if self._srctype=='hymon':
             for gw in self.hm:

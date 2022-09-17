@@ -11,8 +11,8 @@ from pandas import Series, DataFrame
 import pandas as pd
 import numpy as np
 
-import acequia as aq
-
+from .gwseries import GwSeries
+from .read.filedirtools import listdir
 
 class GwLocs:
     """Manage multiple groundwater heads series from one well location
@@ -91,7 +91,7 @@ class GwLocs:
             raise ValueError(msg)
 
         if self._pathlist is None:
-            self._pathlist = aq.listdir(dirpath=self._filedir)
+            self._pathlist = listdir(dirpath=self._filedir)
 
         if self._filetype is None:
             self._filetype = self._infer_filetype()
@@ -253,9 +253,9 @@ class GwLocs:
 
             filepath = os.path.join(self._filedir,row['filename'])
             if self._filetype=='.json':
-                gw = aq.GwSeries.from_json(filepath)
+                gw = GwSeries.from_json(filepath)
             if self._filetype=='.csv':
-                gw = aq.GwSeries.from_dinogws(filepath)
+                gw = GwSeries.from_dinogws(filepath)
 
             #if i==0:
             #    gwlist = []

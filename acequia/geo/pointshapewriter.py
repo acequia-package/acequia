@@ -4,11 +4,9 @@ import warnings
 import numpy as np
 from pandas import DataFrame,Series
 import pandas as pd
-#import shapefile
 from shapely.geometry import Point
 from geopandas import GeoDataFrame
 
-#import acequia as aq
 
 
 def pointshape_write(tbl=None,xfield=None,yfield=None,
@@ -127,23 +125,3 @@ class PointShapeWriter:
 
         # write shapefile
         self.gdf.to_file(self.filepath) #,schema=schema)
-
-
-    def _create_shapefile_old(self):
-
-        self.wp = shapefile.Writer(self.filepath, shapeType=1)
-        self.wp.field(self.indexname, 'C')
-
-        for name in self.colnames:
-            self.wp.field(name,'C')
-
-        for idx,row in self.tbl.iterrows():
-            self.wp.point(row[self.xfield],row[self.yfield])
-
-            reclist = [idx]
-            for name in self.colnames:
-                reclist.append(row[name])
-            self.wp.record(*reclist)
-
-        self.wp.balance()
-        self.wp.close()

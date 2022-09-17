@@ -21,8 +21,9 @@ from pandas import Series, DataFrame
 import pandas as pd
 import numpy as np
 
-from .read.dinogws import DinoGws
-from .plots.plotheads import PlotHeads
+
+from .read import dinogws
+from .plots import plotheads as plotheadsmodule
 from .stats.gxg import GxgStats
 from .stats.gwtimestats import GwTimeStats
 
@@ -231,7 +232,7 @@ class GwSeries:
 
         # read dinofile to DinoGws object
         ##dn = GwSeries.read.dinogws.DinoGws(filepath=filepath)
-        dn = DinoGws(filepath=filepath)
+        dn = dinogws.DinoGws(filepath=filepath)
 
         dinoprops = list(dn.header().columns)
 
@@ -693,10 +694,10 @@ class GwSeries:
         if proptype in ['mplevel','surfacelevel','filtop','filbot']:
             ##mps = self._tubeprops[proptype].values
             mps = self.tubeprops_changes(proptype=proptype)
-            self.headsplot = PlotHeads(ts=[self.heads()],mps=mps)
+            self.headsplot = plotheadsmodule.PlotHeads(ts=[self.heads()],mps=mps)
 
         if proptype is None:
-            self.headsplot = PlotHeads(ts=[self.heads()])
+            self.headsplot = plotheadsmodule.PlotHeads(ts=[self.heads()])
 
         if filename is not None:
             self.headsplot.save(filename)
