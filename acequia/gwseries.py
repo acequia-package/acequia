@@ -84,7 +84,7 @@ class GwSeries:
 
     Notes
     -----
-    Head measurements are stored in meters relatieve to welltopStores
+    Head measurements are stored in meters relative to welltop 
     and served in several units: mwelltop,mref,msurfacelevel.
 
     Valid row names for locprops and column names for tubeprops are
@@ -644,7 +644,7 @@ class GwSeries:
         return sr
 
 
-    def tubeprops_changes(self,proptype='mplevel'):
+    def tubeprops_changes(self,proptype='mplevel',relative=True):
         """
         Return timeseries with tubeprops changes.
 
@@ -652,6 +652,8 @@ class GwSeries:
         ----------
         proptype : ['mplevel','surfacelevel','filtop','filbot'
             Tubeproperty that is shown in reference cange graph.
+        relative : bool, default True
+            Changes relative to first value.
 
         Returns
         -------
@@ -672,7 +674,8 @@ class GwSeries:
         sr2 = Series(mps,index=idx)
 
         sr12 = pd.concat([sr1,sr2]).sort_index()
-        sr12 = sr12 - sr12[0]
+        if relative:
+            sr12 = sr12 - sr12[0]
 
         return sr12
 
