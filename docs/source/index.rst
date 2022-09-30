@@ -1,7 +1,7 @@
 
 Introduction
 ============
-Acequia is a python package for wrangling 
+Acequia is a python package for  
 groundwater head data. 
 
 
@@ -21,7 +21,7 @@ groundwater head data.
 
 .. toctree::
    :maxdepth: 4
-   :caption: API docs
+   :caption: API docsmanaging 
 
    Holding data <api/index_data>
    Plotting <api/index_plots>
