@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>module gwlocs &#8212; acequia 0.03 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/nature.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="module headsdif" href="data_headsdif.html" />
+    <link rel="prev" title="module gwlist" href="data_gwlist.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="data_headsdif.html" title="module headsdif"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="data_gwlist.html" title="module gwlist"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">acequia 0.03 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index_data.html" accesskey="U">API Docs - Classes for holding data</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">module gwlocs</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-acequia.gwlocs">
+<span id="module-gwlocs"></span><h1>module gwlocs<a class="headerlink" href="#module-acequia.gwlocs" title="Permalink to this heading">¶</a></h1>
+<p>This module contains the object GwLocs</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="acequia.gwlocs.GwLocs">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">acequia.gwlocs.</span></span><span class="sig-name descname"><span class="pre">GwLocs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filedir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathlist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filetype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#acequia.gwlocs.GwLocs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manage multiple groundwater heads series from one well location</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filedir</strong> (<em>str</em>) – directory with source files</p></li>
+<li><p><strong>pathlist</strong> (<em>list</em><em>, </em><em>optional</em>) – list of sourcefile names (without path)</p></li>
+<li><p><strong>filetype</strong> (<em>[</em><em>'.csv'</em><em>,</em><em>'.json'</em><em>]</em><em>, </em><em>optional</em>) – source file type</p></li>
+<li><p><strong>groups</strong> (<em>list</em><em>, </em><em>optional</em>) – list of location names, sublists are allowed (see examples)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="acequia.gwlocs.GwLocs.sourcetable">
+<span class="sig-name descname"><span class="pre">sourcetable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#acequia.gwlocs.GwLocs.sourcetable" title="Permalink to this definition">¶</a></dt>
+<dd><p>return list of location and heads series names</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="acequia.gwlocs.GwLocs.gwseries">
+<span class="sig-name descname"><span class="pre">gwseries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#acequia.gwlocs.GwLocs.gwseries" title="Permalink to this definition">¶</a></dt>
+<dd><p>return list of GwSeries objects</p>
+</dd></dl>
+
+<p class="rubric">Examples</p>
+<p>Create GwLocs object:</p>
+<p>&gt;&gt;&gt;locs = GwLocs(filedir=&lt;jsondir&gt;)</p>
+<p>Return table of locations and series:</p>
+<p>&gt;&gt;&gt;tbl = locs.loctable()</p>
+<p>Return al series for location B16D0037:</p>
+<p>&gt;&gt;&gt;gws = GwLocs.gwseries(loc=’B16D0037’)</p>
+<p>Return list of GwSeries objects for locations in list:</p>
+<p>&gt;&gt;&gt;names = [‘B16D0037’,’B27G0237’,[‘B28D1635’,’B28B1388’],’B28B1389’]</p>
+<p>&gt;&gt;&gt;for loc in GwLocs(filedir=&lt;jsondir&gt;,groups=names):</p>
+<blockquote>
+<div><p>print(f’{names[i]} group size is {len(gws)}’)</p>
+</div></blockquote>
+<p>Explicitly iterate over locations:</p>
+<p>&gt;&gt;&gt;locs = GwLocs(filedir=&lt;jsondir&gt;,groups=names)</p>
+<p>&gt;&gt;&gt;for i in range(len(locs)):</p>
+<blockquote>
+<div><p>gws = next(locs)</p>
+<p>print(f’{names[i]} group size is {len(gws)}’)</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="acequia.gwlocs.GwLocs.filetable">
+<span class="sig-name descname"><span class="pre">filetable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#acequia.gwlocs.GwLocs.filetable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return table of source files for all series</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">gwseries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of GwSeries objects with location name &lt;loc&gt;</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>loc</strong> (<em>str</em>) – name of location</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of GwSeries objects</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>When parameter loc is a list of locations names, GwSeries objects
+for all these locations will be returned.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="data_gwlist.html"
+                          title="previous chapter">module gwlist</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="data_headsdif.html"
+                          title="next chapter">module headsdif</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/api/data_gwlocs.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="data_headsdif.html" title="module headsdif"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="data_gwlist.html" title="module gwlist"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">acequia 0.03 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index_data.html" >API Docs - Classes for holding data</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">module gwlocs</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Thomas de Meij.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    </div>
+  </body>
+</html>

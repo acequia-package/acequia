@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>module Gxg &#8212; acequia 0.03 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/nature.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="module quantiles" href="stats_quantiles.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="stats_quantiles.html" title="module quantiles"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">acequia 0.03 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index_stats.html" accesskey="U">API Docs - Statistics classes</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">module Gxg</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-acequia.stats.gxg">
+<span id="module-gxg"></span><h1>module Gxg<a class="headerlink" href="#module-acequia.stats.gxg" title="Permalink to this heading">¶</a></h1>
+<p>This module contains a class GwGxg that calculates some
+descriptive statistics from a series of groundwater head measurements
+used by groundwater practitioners in the Netherlands</p>
+<dl class="simple">
+<dt>History: Created 16-08-2015, last updated 12-02-1016</dt><dd><p>Migrated to acequia on 15-06-2019</p>
+</dd>
+</dl>
+<p>&#64;author: Thomas de Meij</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="acequia.stats.gxg.stats_gxg">
+<span class="sig-prename descclassname"><span class="pre">acequia.stats.gxg.</span></span><span class="sig-name descname"><span class="pre">stats_gxg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reflev</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'datum'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#acequia.stats.gxg.stats_gxg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return table with GxG statistics</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ts</strong> (<em>aq.GwSeries</em><em>, </em><em>pd.Series</em>) – Groundwater head time series</p></li>
+<li><p><strong>reflev</strong> (<em>{'datum'</em><em>,</em><em>'surface'}</em><em>, </em><em>optional</em>) – Reference level for groundwater heads</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="acequia.stats.gxg.GxgStats">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">acequia.stats.gxg.</span></span><span class="sig-name descname"><span class="pre">GxgStats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">srname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#acequia.stats.gxg.GxgStats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate descriptive statistics for time series of measured heads</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gw</strong> (<em>aq.GwSeries</em><em>, </em><em>pd.Series</em>) – timeseries of groundwater head measurements relative to datum level</p></li>
+<li><p><strong>srname</strong> (<em>str</em><em>, </em><em>optional</em>) – name of groundwater head series</p></li>
+<li><p><strong>surface</strong> (<em>float</em><em>, </em><em>optional</em>) – surface level height (if ref=’datum’ this option is ignored)</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>In the Netherlands, traditionally groundwater head series are
+summarized using decriptive statistics that characterise the mean
+highest level (GHG), the mean lowest level (GLG) and the mean spring
+level (GVG). These three measures together are reffered to as the GxG.
+The definitions of GHG, GLG and GVG are based on time series with
+measured heads on the 14th and 28th of each month. Therefore the time
+series of measrued heads is internally resampled to values on the 14th
+and 28yh before calculating the GxG statistics.</p>
+<p>For further reference:
+P. van der SLuijs and J.J. de Gruijter (1985). ‘Water table classes:
+a method to decribe seasonal fluctuation and duration of water table
+classes on Dutch soil maps.’ Agricultural Water Management 10 (1985)
+109 - 125. Elsevier Science Publishers, Amsterdam.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="acequia.stats.gxg.GxgStats.vg3">
+<span class="sig-name descname"><span class="pre">vg3</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#acequia.stats.gxg.GxgStats.vg3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return VG3 (Spring Level) for each year</p>
+<p>VG3 is calculated as the mean of groundwater head
+levels on 14 march, 28 march and 14 april</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.Series</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Calculation of GVG based on the average of three dates was
+introduced by Finke et al. (1999)</p>
+<p class="rubric">References</p>
+<p>Finke, P.A., D.J. Brus, T. Hoogland, J. Oude Voshaar, F. de Vries
+&amp; D. Walvoort (1999). Actuele grondwaterinformatie 1:10.000 in de
+waterschappen Wold en Wieden en Meppelerdiep. Gebruik van digitale
+maaiveldshoogtes bij de kartering van GHG, GVG en GLG. SC-rapport
+633. (in Dutch).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="acequia.stats.gxg.GxgStats.vg1">
+<span class="sig-name descname"><span class="pre">vg1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">refdate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'apr1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxlag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#acequia.stats.gxg.GxgStats.vg1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return VG (Spring Level) for each year as the measurement
+closest to refdate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>refdate</strong> (<em>{'apr1'</em><em>,</em><em>'apr15'</em><em>,</em><em>'mar15'}</em><em>, </em><em>default 'apr1'</em>) – reference date for estimating VG</p></li>
+<li><p><strong>maxlag</strong> (<em>number</em>) – maximum allowed difference between measurement date en refdate</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pd.Series</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The VG (Voorjaars  Grondwaterstand, Spring Level) is estimated as
+the single measurement closest to the reference date given by
+refdate.</p>
+<p>The reference date for calculation of the GVG was changed from
+april 15 to april 1st in de early eighties. In 2000 the
+Cultuurtechnisch Vademecum proposed march 15 as the new reference
+date for the GVG but this proposal was not generally adopted.
+In practice april 1st is allways used as reference date and this
+is used as default for calculations.</p>
+<p class="rubric">References</p>
+<p>Van der Gaast, J.W.J., H.Th.L. Massop &amp; H.R.J. Vroon (2009). Actuele
+grondwaterstandsituatie in natuurgebieden. Rapport 94 WOT. Alterra,
+Wageningen. (in Dutch).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="acequia.stats.gxg.GxgStats.xg">
+<span class="sig-name descname"><span class="pre">xg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reference</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'datum'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#acequia.stats.gxg.GxgStats.xg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return table of GxG groundwater statistics for each
+hydrological year</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>reference</strong> (<em>{'datum'</em><em>,</em><em>'surface'}</em><em>, </em><em>default 'datum'</em>) – reference level for gxg statistics</p></li>
+<li><p><strong>name</strong> (<em>bool</em><em>, </em><em>default True</em>) – include series name in index</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="acequia.stats.gxg.GxgStats.gxg">
+<span class="sig-name descname"><span class="pre">gxg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reference</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'datum'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#acequia.stats.gxg.GxgStats.gxg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return table with GxG for one head series</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>minimal</strong> (<em>bool</em><em>, </em><em>default True</em>) – return minimal selection of stats</p></li>
+<li><p><strong>reference</strong> (<em>{'datum'</em><em>,</em><em>'surface'}</em><em>, </em><em>default 'datum'</em>) – reference level for gxg statistics</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="acequia.stats.gxg.GxgStats.ghg">
+<span class="sig-name descname"><span class="pre">ghg</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#acequia.stats.gxg.GxgStats.ghg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return mean highest level (GHG)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="acequia.stats.gxg.GxgStats.glg">
+<span class="sig-name descname"><span class="pre">glg</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#acequia.stats.gxg.GxgStats.glg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return mean highest level (GHG)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="acequia.stats.gxg.GxgStats.gt">
+<span class="sig-name descname"><span class="pre">gt</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#acequia.stats.gxg.GxgStats.gt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return groundwater class table as str</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="acequia.stats.gxg.GxgStats.gvg_approximate">
+<span class="sig-name descname"><span class="pre">gvg_approximate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">formula</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#acequia.stats.gxg.GxgStats.gvg_approximate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return GVG calculated with approximation based on GHG and GLG</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>formula</strong> (<em>{'VDS82'</em><em>,</em><em>'VDS89pol'</em><em>,</em><em>'VDS89sto'</em><em>,</em><em>'RUNHAAR'}</em><em>, </em><em>default 'VDS82'</em>) – </p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Values for GHG and GLG can be estimated from visual soil profile
+characteristics, allowing mapping of groundwater classes on soil
+maps. GVG unfortunately can not be estimeted is this way.
+Therefore, several regression formulas have been given in litera-
+ture for estimating GVG from GHG and GLG estimates. Three of them
+are implemented: Van der Sluijs (1982), Van der Sluijs (1989) and
+Runhaar (1989)</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="stats_quantiles.html"
+                          title="previous chapter">module quantiles</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/api/stats_gxg.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="stats_quantiles.html" title="module quantiles"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">acequia 0.03 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index_stats.html" >API Docs - Statistics classes</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">module Gxg</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Thomas de Meij.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    </div>
+  </body>
+</html>
