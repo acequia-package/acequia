@@ -21,6 +21,14 @@ installed you can do:
 ```>>> conda install fiona  
    >>> pip install acequia  
 ```
-Acequia depends on the following packages:  
-```	numpy, maplotlib, pandas, scipy, statsmodels, seaborn, geopandas, simplekml. ```  
+Acequia depends on the following packages: ```numpy, maplotlib, pandas, scipy, statsmodels, seaborn, geopandas, simplekml.```  
 
+## Basic example
+
+As a very basic example, read a Dinoloket csv file named B28A0475002_1.csv and resample to measurements on the 14th and 28th:
+'''
+>>> import acequia as aq
+>>> gw = aq.GwSeries.from_dinogws('B28A0475002_1.csv')
+>>> sr = gw.heads(ref='datum')
+>>> sr1428 = gw.heads1428(maxlag=3)
+'''
