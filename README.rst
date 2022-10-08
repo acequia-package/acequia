@@ -1,25 +1,32 @@
 ACEQUIA
 =======
 
-Acequia is a python package to facilitate data conversions of 
-groundwater head measurements. It's primary aim is to provide 
-tools to easily read and write common file formats and calculate 
-descriptive statistics from groundwater head time series. 
+Acequia is a python package to facilitate data management for
+ground water time series analysis. 
 
-Acequia is written from the perspective of Dutch groundwater 
-practitioners who deal with files from Dinoloket, Menyanthes,
-and KNMI for hydrological time series analysis.
+Acequia is aimed at Dutch groundwater practitioners who deal 
+with files from Dinoloket, Menyanthes, and KNMI for hydrological 
+time series analysis.
 
+Currently, Acequia can:
+* read grondwater head data from dinoloket csv files and 
+menyanthes hydromonitor csv files.
+* read knmi precipitation and evaporation data from downloaded
+csv files or download directly from the knmi website.
+* Calculate descriptive statistics for groundwater head series,
+taking into account hydrological years.
 
-Dependencies
-------------
-Acequia uses the following packages:
-numpy, scipy, pandas, maplotlib, statsmodels, seaborn, geopandas,
-simplekml.
+Getting started
+---------------
+Acequia depends on Fiona for reading spatial data. Unfortunately, 
+Fiona depends on GDAL wich can not be installed using pip. Therefore
+Fiona must be installed on your machine before you can install Acequia.
+For example, if you are using a clean conda environment with python 
+installed you can do:
+>>> conda install fiona
+>>> pip install acequia
 
-The package simplekml is available on pip:
-pip install simplekml
+Acequia depends on the following packages:
+	numpy, scipy, pandas, maplotlib, statsmodels, seaborn, geopandas,
+	simplekml.
 
-
-
- 
