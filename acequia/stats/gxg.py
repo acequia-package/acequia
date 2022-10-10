@@ -18,7 +18,8 @@ from pandas import Series, DataFrame
 import pandas as pd
 
 from .. import gwseries
-from .utils import hydroyear
+from .utils import ts1428, hydroyear, season
+
 
 def stats_gxg(ts,reflev='datum'):
     """Return table with GxG statistics
@@ -265,8 +266,8 @@ class GxgStats:
 
             if n1428 >= self.N14:
 
-                ts_win = ts[aq.season(ts)=='winter']
-                ts_sum = ts[aq.season(ts)=='summer']
+                ts_win = ts[season(ts)=='winter']
+                ts_sum = ts[season(ts)=='summer']
 
                 hg3w = ts_win.nlargest(n=3).mean()
                 lg3s = ts_sum.nsmallest(n=3).mean()

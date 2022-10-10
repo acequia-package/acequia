@@ -17,6 +17,7 @@ from .plots.plotheads import PlotHeads
 from .plots.tsmodelstatsplot import TsModelStatsPlot,plot_tsmodel_statistics
 from .read.dinogws import DinoGws
 from .read.dinosurfacelevel import DinoSurfaceLevel
+from .read.gpxtree import GpxTree
 from .read.hydromonitor import HydroMonitor
 from .read.waterweb import WaterWeb
 from .read.waterwebtools import measurement_types
@@ -40,6 +41,6 @@ __all__ = ['GwSeries','GwList','GwLocs','PlotGws','DinoGws',
            'GwListStats','gwliststats','gwlocstats',
            'pointshape_write',
            'TsModelStatsPlot','plot_tsmodel_statistics',
-           'MeteoDrought']
+           'MeteoDrought','GpxTree']
 
 logger = logging.getLogger(__name__)
