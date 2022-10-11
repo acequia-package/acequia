@@ -10,6 +10,7 @@ from .gwlocs import GwLocs
 from .headsdif import HeadsDif
 from .headsdif import headsdif_from_gwseries as headsdif_from_gwseries
 from .swseries import SwSeries
+from .data import knmi_data
 from .geo.coordinate_conversion import CrdCon
 from .geo.waypoint_kml import WpKml
 from .geo.pointshapewriter import PointShapeWriter, pointshape_write
@@ -23,7 +24,7 @@ from .read.waterweb import WaterWeb
 from .read.waterwebtools import measurement_types
 from .read.knmi_weather import KnmiWeather
 from .read.knmi_rain import KnmiRain
-from .read.knmi_stations import KnmiStations, knmilocations
+from .read.knmi_download import KnmiDownload
 from .read.filedirtools import listdir, cleardir
 from .stats.utils import hydroyear, season, index1428, ts1428
 from .stats.utils import measfrq, maxfrq

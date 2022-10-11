@@ -25,6 +25,7 @@ setup(
         'seaborn'>=0.11.2,
         'statsmodels'>=0.13.2,
         'simplekml'>=1.3.6,
+        'sphinx'>=5.0.2,
         ],
 
     # pip will copy non-code files when installing
