@@ -3,7 +3,7 @@
 import pytest
 from pandas import DataFrame
 from acequia import KnmiDownload
-
+from acequia.read.knmi_download import knmilocations
 
 def test__request_weather():
     """Request weather date from server""" 
@@ -42,3 +42,12 @@ def test_prc_stns():
     prc = stn.prc_stns
     assert isinstance(prc,DataFrame)
     assert not prc.empty
+
+def test_function_knmi_locations():
+    prc = knmilocations(stntype='prc')
+    assert isinstance(prc,DataFrame)
+    assert not prc.empty
+
+    wtr = knmilocations(stntype='wtr')
+    assert isinstance(wtr,DataFrame)
+    assert not wtr.empty

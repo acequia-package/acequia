@@ -23,14 +23,14 @@ import pandas as pd
 from json import JSONDecodeError
 
 from ..geo.coordinate_conversion import CrdCon
-from ..data.knmi_data import knmi_prc_coords
+##from ..data.knmi_data import knmi_prc_coords
 
 def knmilocations(stntype='prc'):
     """ Return table with KNMI stations.
     
     Parameters
     ----------
-    stntype : 'prc','wtr','all'
+    stntype : {'prc','wtr'}, default 'prc'
         type of knmi station
 
     Returns
@@ -39,32 +39,20 @@ def knmilocations(stntype='prc'):
 
     """
 
-    knmi = KnmiStations()
+    knmi = KnmiDownload()
 
-    if stntype not in ['prc','wtr','all']:
-        msg = f'Variable stntype must be "prc","wtr" or "all" '
-        raise ValueError(smg)
+    if stntype not in ['prc','wtr',]:
+        warnings.warn((f'Invalid stntype {stntype}. Default "prc" '
+            f'will be used.'))
+        stntype='prc'
     
     if stntype=='prc':
-        tbl = knmi.prc_stns()
+        tbl = knmi.prc_stns
 
     if stntype=='wtr':
-        tbl = knmi.wtr_stns()
+        tbl = knmi.wtr_stns
 
-    if stntype=='all':
-        tbl1 = knmi.prc_stns()
-        tbl2 = knmi.wtr_stns()
-        tbl = pd.concat([tbl1,tbl2])
-
-    xnull = pd.isnull(tbl.xcr)
-    ynull = pd.isnull(tbl.ycr)
-    crnan = list(tbl[(xnull|ynull)].stn_name.values)
-    if len(crnan)!=0:
-        msg = [f'{len(crnan)} stations with missing coordinates removed ',
-               f'from tabel: {crnan}']
-        warnings.warn(''.join(msg))
-
-    return tbl[(~xnull & ~ynull)]
+    return tbl
 
 
 class KnmiDownload:
@@ -100,7 +88,8 @@ class KnmiDownload:
 
         # read list of precipitation station coordinates from 
         # local csv file within package
-        self.prc_crd = knmi_prc_coords()
+        #self.prc_crd = knmi_prc_coords()
+        pass
 
     def __repr__(self):
         return self.__class__.__name__
@@ -270,7 +259,7 @@ class KnmiDownload:
             parts = lines[i].split()
             name = ' '.join(parts[5:]) # 'De Bilt' was split...
             rec = {
-                'stn':parts[1],
+                'stn':int(parts[1]),
                 'lon':parts[2],
                 'lat':parts[3],
                 'alt':parts[4],
@@ -280,65 +269,23 @@ class KnmiDownload:
 
         return DataFrame(wht_stn).set_index('stn')
 
-        """ 
-            if not stn in wht_dict.keys(): 
-                wht_dict[stn]={
-                    'lon':lon,
-                    'lat':lat,
-                    'alt':alt,
-                    'stn_name':stn_name,
-                    }
-
-        
-        wtrstn = pd.DataFrame.from_dict(wht_dict, orient='index')
-        wtrstn.index.name = self.STN_INDEX
-        wtrstn['stn_type'] = 'wtr'
-
-        nancols = [x for x in self.STN_COLS if x not in list(wtrstn)]
-        for col in nancols:
-            wtrstn[col]=np.nan
-
-        newcols = [x for x in list(wtrstn) if x not in self.STN_COLS]
-        cols = self.STN_COLS+newcols
-        wtrstn = wtrstn[cols]
-
-        crdcon = CrdCon()
-        for stn,sr in wtrstn.iterrows():
-            crddict = crdcon.WGS84toRD(sr['lon'],sr['lat'])
-            wtrstn.at[stn,'xcr'] = round(crddict['xRD'],0)
-            wtrstn.at[stn,'ycr'] = round(crddict['yRD'],0)
-
-        nmiss_xcr = wtrstn['xcr'].isnull().sum()
-        nmiss_ycr = wtrstn['ycr'].isnull().sum()
-        nmiss = max([nmiss_xcr,nmiss_ycr])
-        if nmiss!=0:
-            msg = [f'List of precipitation stations has {nmiss} ',
-                   f'missing coordinates in total of {len(wtrstn)} ',
-                   f'stations.',]
-            warnings.warn(''.join(msg))
-
-        if filepath:
-            wtrstn.to_csv(filepath,index=True)
-        """
-
-        return wtrstn
-
     @property
     def prc_stns(self):
         """ Return table of all available precipitation stations on KNMI site
 
-        Note
-        ----
+        Notes
+        -----
         Coordinates of precipitation stations are not available on the
-        KNMI website. This functions reads coordinates from a local csv 
-        file."""
+        KNMI website.
+        """
 
         text = self.download(kind='prc',stns='all',result='text')
         lines = text.splitlines()
 
         # find startline
-
         start = self._findline(lines=lines,tagline=self.PRC_HEADERLINE)
+
+        # find endline
         end = self._find_first_non_numeric_line(
             lines=lines,start=start)
 
@@ -349,67 +296,10 @@ class KnmiDownload:
             parts = lines[i].split()
             name = ' '.join(parts[2:]) # 'De Bilt' was split...
             rec = {
-                'stn':parts[1],
+                'stn':int(parts[1]),
                 'name':name,
                 }
             prc_stn.append(rec)
 
         return DataFrame(prc_stn).set_index('stn')
-        """
-        prc_dict={}
-        startline=-1
-        for i,line in enumerate(self._flines):
-
-            if startline>-1: # and i>=startline:
-                linelist = line.split(',')
-                stn = int(linelist[0])
-                stn_name = linelist[4].strip()
-                if not stn in prc_dict.keys(): 
-                    prc_dict[stn]={'stn_name':stn_name}
-
-            if line.startswith('STN,YYYYMMDD,'):
-                startline=i+1
-
-        prcstn = pd.DataFrame.from_dict(prc_dict, orient='index')
-        #prcstn.index = prcstn.index.astype(dtype='str')
-        prcstn.index.name = self.STN_INDEX
-        prcstn['stn_type'] = 'prc' 
-
-        nancols = [x for x in self.STN_COLS if x not in list(prcstn)]
-        for col in nancols:
-            prcstn[col]=np.nan
-        newcols = [x for x in list(prcstn) if x not in self.STN_COLS]
-        cols = self.STN_COLS+newcols
-        prcstn = prcstn[cols]
-
-        # fill in missing coordinates
-        if not self._prc_crd.empty:
-            xcrdict = self._prc_crd['xcrd'].to_dict()
-            ycrdict = self._prc_crd['ycrd'].to_dict()
-            for index,row in prcstn.iterrows():
-                if index in xcrdict.keys():
-                    prcstn.at[index,'xcr']=xcrdict[index]
-                if index in ycrdict.keys():
-                    prcstn.at[index,'ycr']=ycrdict[index]
-
-            crdcon = CrdCon()
-            for stn,sr in prcstn.iterrows():
-                crdict = crdcon.RDtoWGS84(sr['xcr'],sr['ycr'])
-                prcstn.at[stn,'lon'] = round(crdict['Lon'],3)
-                prcstn.at[stn,'lat'] = round(crdict['Lat'],3)
-
-        nmiss_xcr = prcstn['xcr'].isnull().sum()
-        nmiss_ycr = prcstn['ycr'].isnull().sum()
-        nmiss = max([nmiss_xcr,nmiss_ycr])
-        if nmiss!=0:
-            msg = [f'List of precipitation stations has {nmiss} ',
-                   f'missing coordinates in total of {len(prcstn)} ',
-                   f'stations.']
-            warnings.warn(''.join(msg))
-
-        if filepath:
-            prcstn.to_csv(filepath,index=True)
-
-        return prcstn
-        """
 
