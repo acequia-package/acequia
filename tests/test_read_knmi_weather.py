@@ -23,6 +23,10 @@ def test_data(wtr):
     assert isinstance(wtr.data,DataFrame)
     assert not wtr.data.empty
 
+def test_desc(wtr):
+    assert isinstance(wtr.desc,DataFrame)
+    assert not wtr.desc.empty
+
 def test_stn(wtr):
     assert isinstance(wtr.stn,int)
 

@@ -31,11 +31,12 @@ class KnmiWeather:
     VARNAMES = ['prc','evp','rch']
     SKIPROWS = 52
 
-    def __init__(self,rawdata,fpath=None):
+    def __init__(self,rawdata=None,desc=None,fpath=None):
         """Use KnmiWeather.from_file(fpath) to construct from csv file 
         path."""
         self.fpath = fpath
         self.rawdata = rawdata
+        self.desc = desc
         self.data = self._clean_rawdata(self.rawdata)
         self.stn = int(self.rawdata.loc[0,'STN'])
 
@@ -64,7 +65,25 @@ class KnmiWeather:
         rawdata = rawdata.apply(
             lambda x: x.str.strip()).replace('', np.nan)
 
-        return cls(rawdata,fpath=filepath)
+        # read metadata from header
+        with open(filepath, 'r') as fp:
+            line_numbers = list(range(10,50))
+            lines = []
+            for i, line in enumerate(fp):
+                if i in line_numbers:
+                    line = line.strip()
+                    desc = line[11:].strip()
+                    rec = {
+                        'variabele':line[0:10].strip(),
+                        'omschrijving':desc.split('/')[0].strip(),
+                        'description':desc.split('/')[1].strip(),
+                        }
+                    lines.append(rec)
+                elif i > 49:
+                    break
+        desc = DataFrame(lines)
+
+        return cls(rawdata=rawdata,desc=desc,fpath=filepath)
 
 
     def _clean_rawdata(self,rawdata):
