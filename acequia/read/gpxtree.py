@@ -41,7 +41,7 @@ class GpxTree:
         try:
             return f"{self.__class__.__name__} ('{self.meta['desc']}')"
         except KeyError as err:
-            return f"{self.__class__.__name__} ()"
+            return f"{self.__class__.__name__} (no description)"
 
     @classmethod
     def from_file(cls,fpath):

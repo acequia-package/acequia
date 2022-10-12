@@ -14,117 +14,123 @@ class KnmiWeather:
     fpath : str
         path to knmi txt file with weather data
 
-
     Examples
     --------
-
-    wth = aq.KnmiWeather(<filepath>)
-
-    evp = wth.timeseries('evp')
-
-    name = wth.name()
-
-
+    wtr = KnmiWeather.from_file(<filepath>)
+    evp = wtr.timeseries('evp')
+    name = wtr.name()
     """
-
     NAMESTR = ''.join([
         'STN,YYYYMMDD,DDVEC,FHVEC,   FG,  FHX, FHXH,  FHN, FHNH,',
         '  FXX, FXXH,   TG,   TN,  TNH,   TX,  TXH, T10N,T10NH,   SQ,',
         '   SP,    Q,   DR,   RH,  RHX, RHXH,   PG,   PX,  PXH,   PN,',
         '  PNH,  VVN, VVNH,  VVX, VVXH,   NG,   UG,   UX,  UXH,   UN,',
         '  UNH, EV24'])
-
+    COLNAMES = NAMESTR.replace(' ','').split(',')
+    KEEPCOLS = 'YYYYMMDD,RH,EV24'.split(',')
     VARNAMES = ['prc','evp','rch']
+    SKIPROWS = 52
 
-    SKIPROWS = 48
+    def __init__(self,rawdata,fpath=None):
+        """Use KnmiWeather.from_file(fpath) to construct from csv file 
+        path."""
+        self.fpath = fpath
+        self.rawdata = rawdata
+        self.data = self._clean_rawdata(self.rawdata)
+        self.stn = int(self.rawdata.loc[0,'STN'])
 
-    def __init__(self,fpath):
+    def __repr__(self):
+        return (f'{self.__class__.__name__} (n={len(self.data)})')
 
+    @classmethod
+    def from_file(cls,filepath):
+        """Read Knmi Weather csv file.
+        
+        Parameters
+        ----------
+        filepath : str
+            Valid filepath to csv file with weather data.
 
-        self.colnames = self.NAMESTR.replace(' ','').split(',')
-        self.keepcols = 'YYYYMMDD,RH,EV24'.split(',')
-        self.fpath = Path(fpath)
+        Returns
+        -------
+        pd.DataFrame
+        """
 
-
-        if not (self.fpath.exists() and self.fpath.is_file()):
-            msg = [f'Filepath \'{self.fpath}\' not found',
-                'empty dataframe is returned.']
-            warnings.warn(' '.join(msg))
-            self.rawdata = pd.DataFrame(columns=self.colnames)
-            self.data = pd.DataFrame(columns=self.keepcols)
-        else:
-            self._readfile()
-            self._clean_rawdata()
-
-
-        self.stn = self.rawdata.loc[0,'STN']
-
-
-    def _readfile(self):
-
-        # read csv to pd.DataFrame with only str values
-        self.rawdata = pd.read_csv(self.fpath,sep=',',
-            skiprows=self.SKIPROWS,
-            names=self.colnames,dtype='str')
+        rawdata = pd.read_csv(filepath,sep=',',
+            skiprows=cls.SKIPROWS,
+            names=cls.COLNAMES,dtype='str')
 
         # replace empty strings with NaN
-        self.rawdata = self.rawdata.apply(
+        rawdata = rawdata.apply(
             lambda x: x.str.strip()).replace('', np.nan)
 
+        return cls(rawdata,fpath=filepath)
 
-    def _clean_rawdata(self):
 
-        self.data = self.rawdata[self.keepcols].copy()
-        for colname in list(self.data):
+    def _clean_rawdata(self,rawdata):
+
+        data = rawdata[self.KEEPCOLS].copy()
+        for colname in list(data):
 
             if colname=='YYYYMMDD':
 
                 # create datetimeindex from string column
-                self.data[colname] = pd.to_datetime(self.data[colname],
+                data[colname] = pd.to_datetime(data[colname], #,format='%Y%m%d')
                     infer_datetime_format=True)
-                self.data = self.data.set_index(
+                data = data.set_index(
                     colname,verify_integrity=True)
 
                 # make sure all dates are in index
-                firstdate = self.data.index[0]
-                lastdate = self.data.index[-1]
+                firstdate = data.index[0]
+                lastdate = data.index[-1]
                 idx = pd.date_range(start=firstdate, end=lastdate,
                     freq='D')
-                self.data = self.data.reindex(idx)
-                self.data.index.name='date'
+                data = data.reindex(idx)
+                data.index.name='date'
 
             if colname=='RH':
                 # RH is precipitation in 0.1 mm/day
                 # RH = -1 means RH < 0.05 mm/day
-                self.data[colname] = self.data[colname].replace('-1','0.5')
+                data[colname] = data[colname].replace('-1','0.5')
 
             if colname in ['RH','EV24']:
-                self.data[colname] = self.data[colname].astype(float)/10.
+                data[colname] = data[colname].astype(float)/10.
 
+        # drop nans and reindex
+        data = data.dropna(how='all')
+        newindex = pd.date_range(data.index.min(),data.index.max())
+        data = data.reindex(newindex)
 
-    def timeseries(self,varname):
+        return data
+
+    def timeseries(self,var='prc'):
         """Return timeseries with data
 
         Parameters
         ----------
-        varname : {'prc','evp','rch')
+        var : {'prc','evp','rch'), default 'prc'
             variable to return
+            
+        Returns
+        -------
+        pd.Series
         """
- 
-        if varname not in self.VARNAMES:
-            msg = [f'{varname} is not a valid variable name.',
+        if var not in self.VARNAMES:
+            msg = [f'{var} is not a valid variable name.',
                 f'parameter varname must be in {self.VARNAMES}',
                 f'by default rain data are returned']
-            warnings.warn(' '.join(msg))
-            varname = 'prc'
+            warnings.warn((f'{var} is not a valid variable name. ',
+                f'parameter varname must be in {self.VARNAMES}'
+                f'by default rain data are returned.'))
+            var = 'prc'
 
-        if varname == 'prc':
+        if var == 'prc':
             sr = self.data['RH']
             sr.name = 'prc'
-        if varname == 'evp':
+        if var == 'evp':
             sr = self.data['EV24']
             sr.name = 'evp'
-        if varname == 'rch':
+        if var == 'rch':
             sr = self.data['RH']-self.data['EV24']
             sr.name = 'rch'
 
@@ -132,10 +138,9 @@ class KnmiWeather:
         last = sr.sort_index(ascending=False).first_valid_index()
         return sr[first:last]
 
-
+    @property
     def units(self):
         """Return table with definitions and units of variables"""
-
         tbl = pd.DataFrame({
             'variable' : ['prc','evp','rch'],
             'datacol' : ['RH','EV24','calculated'],
@@ -144,4 +149,18 @@ class KnmiWeather:
         tbl = tbl.set_index('variable')
         return tbl
 
+    @property
+    def prc(self):
+        """Return precipitation time series."""
+        return self.timeseries(var='prc')
+
+    @property
+    def evp(self):
+        """Return evaporation time series."""
+        return self.timeseries(var='evp')
+
+    @property
+    def recharge(self):
+        """Return recharge time series."""
+        return self.timeseries(var='rch')
 
