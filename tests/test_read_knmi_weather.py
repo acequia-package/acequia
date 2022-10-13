@@ -10,7 +10,7 @@ fpath = r'.\data\knmi_weather\etmgeg_251.txt'
 
 @pytest.fixture
 def wtr():
-    return KnmiWeather.from_file(fpath)
+    return KnmiWeather(filepath=fpath)
 
 def test_repr(wtr):
     print(wtr)
@@ -23,9 +23,9 @@ def test_data(wtr):
     assert isinstance(wtr.data,DataFrame)
     assert not wtr.data.empty
 
-def test_desc(wtr):
-    assert isinstance(wtr.desc,DataFrame)
-    assert not wtr.desc.empty
+def test_meta(wtr):
+    assert isinstance(wtr.meta,DataFrame)
+    assert not wtr.meta.empty
 
 def test_stn(wtr):
     assert isinstance(wtr.stn,int)

@@ -31,39 +31,37 @@ class KnmiWeather:
     VARNAMES = ['prc','evp','rch']
     SKIPROWS = 52
 
-    def __init__(self,rawdata=None,desc=None,fpath=None):
-        """Use KnmiWeather.from_file(fpath) to construct from csv file 
-        path."""
-        self.fpath = fpath
-        self.rawdata = rawdata
-        self.desc = desc
-        self.data = self._clean_rawdata(self.rawdata)
-        self.stn = int(self.rawdata.loc[0,'STN'])
-
-    def __repr__(self):
-        return (f'{self.__class__.__name__} (n={len(self.data)})')
-
-    @classmethod
-    def from_file(cls,filepath):
+    def __init__(self,filepath=None):
         """Read Knmi Weather csv file.
         
         Parameters
         ----------
         filepath : str
             Valid filepath to csv file with weather data.
-
-        Returns
-        -------
-        pd.DataFrame
         """
+        self.fpath = filepath
+        self.rawdata = self._read_data(filepath)
+        self.meta = self._read_meta(filepath)
+        self.data = self._clean_rawdata(self.rawdata)
+        self.stn = int(self.rawdata.loc[0,'STN'])
 
+    def __repr__(self):
+        return (f'{self.__class__.__name__} (n={len(self.data)})')
+
+    def _read_data(self,filepath):
+
+        # read data with pandas
         rawdata = pd.read_csv(filepath,sep=',',
-            skiprows=cls.SKIPROWS,
-            names=cls.COLNAMES,dtype='str')
+            skiprows=self.SKIPROWS,
+            names=self.COLNAMES,dtype='str')
 
         # replace empty strings with NaN
         rawdata = rawdata.apply(
             lambda x: x.str.strip()).replace('', np.nan)
+
+        return rawdata
+
+    def _read_meta(self,filepath):
 
         # read metadata from header
         with open(filepath, 'r') as fp:
@@ -82,9 +80,7 @@ class KnmiWeather:
                 elif i > 49:
                     break
         desc = DataFrame(lines)
-
-        return cls(rawdata=rawdata,desc=desc,fpath=filepath)
-
+        return desc
 
     def _clean_rawdata(self,rawdata):
 
