@@ -1,5 +1,6 @@
 """This module contains the HydroMonitor object for reading groundwater
 head measurements from a HydroMonitor csv export file
+
 """
 
 from collections import OrderedDict
@@ -16,7 +17,6 @@ import numpy as np
 
 from ..gwseries import GwSeries
 
-
 class HydroMonitor:
     """Read and manage data from hydromonitor csv export file
 
@@ -26,14 +26,19 @@ class HydroMonitor:
         Return GwSeries object from HydroMonitor object.
     to_list
         Return time series data as list of GwSeries objects.
-    to_json
-        Save all data to json files.
     iterdata
         Return generator for iterating over heads data.
     idkeys
         Return column names that uniquely identify a series.
     delete_duplicate_data
         Remove duplicate data from data and return DataFrame.
+    to_json
+        Save all data to json files.
+
+    Classmethods
+    ------------
+    from_csv(filepath)
+        Read hydromonitor csv file and return HydroMonitor instance.
 
     Examples
     --------
@@ -49,6 +54,7 @@ class HydroMonitor:
         gw = hm.get_series(data=data,loc=loc,fil=fil)
     Save all series to json files in <filedir>:
     >>>hm.to_json(<filedir>)
+
     """
 
     CSVSEP = ";"
@@ -67,27 +73,22 @@ class HydroMonitor:
 
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}') # ({len(self.metadata)} filters)')
-      
+        return (f'{self.__class__.__name__} ({len(self.metadata)} filters)')
 
-    def __init__(self,fpath): ##header=None,metadata=None,data=None):
+    def __init__(self,header=None,metadata=None,data=None):
         """
-        Parameters
-        ----------
+        Parameters:
+        ---------
+        header : Dataframe, optional
+            Header data from hydromonitor file.
+        metadata : pandas dataframe, optional
+            Metadata data from hydromonitor file.
+        data : Dataframe, optional
+            Measurements from hydromonitor file.
         fpath : str
             Valid filepath to hydromonitor csv file.
         """
-        #header : DataFrame, optional
-        #    Header data from hydromonitor file.
-        #metadata : DataFrame, optional
-        #    Metadata from hydromonitor file.
-        #data : DataFrame, optional
-        #    Measurements from hydromonitor file.
 
-        self.header,self.line_numbers = self._readcsv(fpath)
-        self.metadata,self.data = self._extract_data()
-
-        """
         if isinstance(header, pd.Series):
             self.header = header
         else:
@@ -114,76 +115,75 @@ class HydroMonitor:
             else:
                 message = 'data must be type None or type DataFrame'
                 raise TypeError(message)
-        """
 
         # create generator
         data = self.delete_duplicate_data()
         self.srgen =  data.groupby(self.idkeys()).__iter__()
         self.itercount = 0
 
-
-    #@classmethod
-    #def from_csv(cls,filepath):
+    @classmethod
+    def from_csv(cls,filepath):
         """ 
-        read menyanthes hydromonitor csv export file
+        Read menyanthes hydromonitor csv export file.
+
         parameters
         ----------
         filepath : str
             path to hydromonitor csv export file
+
         returns
         -------
         HydroMonitor object
+
         """
-        #header,metadata,data = cls._readcsv(cls,filepath)
-        #return cls(header=header,metadata=metadata,data=data)
+        header,metadata,data = cls._readcsv(cls,filepath)
+        return cls(header=header,metadata=metadata,data=data)
 
 
     def _readcsv(self,filepath):
-        """ Read hydromonitor csv export file """
-
+        """Read hydromonitor csv export file."""
+        
         try:
             self.filepath = filepath
-            textfile = open(self.filepath)
+            textfile = open(filepath)
         except IOError:
             raise FileNotFoundError(
                 errno.ENOENT, os.strerror(errno.ENOENT), filepath)
             textfile = None
         else:
-            self.header,self.line_numbers = self._read_header(textfile)
+            self.header,self.line_numbers = self._read_header(self,textfile)
             textfile.close()
 
-        return self.header,self.line_numbers
+            content_list = [x.lower() for x in self.header['file_contents']]
+            if 'metadata' in content_list:
+                self.metadata = self._read_metadata(self)
+            else:
+                self.metadata = None
+                warnings.warn("Metadata not specified.")
 
-    def _extract_data(self):
+            if 'data' in content_list:
+                if self.metadata is None:
+                    raise(f'Heads from {filepath} can not be read ',
+                          f'because metadata are not available.')                
+                self.data = self._read_data(self)
+            else:
+                self.data = None
+                warnings.warn("Data not specified.")
 
-        content_list = [x.lower() for x in self.header['file_contents']]
-        if 'metadata' in content_list:
-            self.metadata = self._read_metadata()
-        else:
-            self.metadata = None
-            warnings.warn("Metadata not specified.")
-
-        if 'data' in content_list:
-            if self.metadata is None:
-                raise(f'Heads from {filepath} can not be read ',
-                      f'because metadata are not available.')                
-            self.data = self._read_data()
-        else:
-            self.data = None
-            warnings.warn("Data not specified.")
-
-        return self.metadata,self.data
+        return self.header,self.metadata,self.data
 
 
     def _read_header(self,textfile):
         """ 
-        read header and linenumbers from hydromonitor export file 
-        returns
+        Read header and linenumbers from hydromonitor export file.
+
+        Returns
         -------
         header : pandas dataframe
             header items as pandas dataframe
         filelines : tuple
             line numbers
+
         """
 
         metatag_found = False
@@ -340,8 +340,8 @@ class HydroMonitor:
 
 
     def idkeys(self):
-        """Return column names that give a unique identification of a 
-        series """
+        """Return column names that uniquely identify a series."""
+
         # bug in hydromonitor export? id is allways nitgcode, filterno
         # idkeys = ['nitgcode','filterno']
         if len(self.header['object_identification'])>2:
@@ -350,7 +350,8 @@ class HydroMonitor:
 
 
     def delete_duplicate_data(self):
-        """Remove duplicate data from data and return pd.DataFrame
+        """Remove duplicate data from data and return ataFrame
+
         Duplicates occur in groundwater head measurments in
         hydromonitor export when loggervalue and manual control 
         measurement have the same timestamp."""
@@ -364,6 +365,7 @@ class HydroMonitor:
 
     def get_series(self,data=None,loc=None,fil=None):
         """Return GwSeries object from HydroMonitor object
+
         Parameters
         ----------
         data : pd.Dataframe
@@ -372,16 +374,15 @@ class HydroMonitor:
             Well location name
         fil : str
             Tube name
+
         Returns
         -------
         GwSeries object
-        """
 
-        gws = GwSeries()
-        
-        # ignore given data
+        """
         if data is None:
-            data = self.data
+            data = self.data #ignore given data
+        gws = GwSeries()
 
         # select metadata for series 
         bool1 = self.metadata[self.idkeys()[0]]==loc
@@ -457,8 +458,7 @@ class HydroMonitor:
         return gws
 
     def to_list(self):
-        """ Return data from HydroMonitor as a list of GwSeries() 
-            objects """
+        """ Return time series data as list of GwSeries objects."""
 
         srlist = []
 
@@ -500,6 +500,7 @@ class HydroMonitor:
         return hymlen
 
     def to_json(self,filedir=None):
+        """Save all data to json files."""
 
         for (loc,fil),data in self.iterdata():
             gws = self.get_series(data=data,loc=loc,fil=fil)
