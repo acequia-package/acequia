@@ -15,6 +15,7 @@ import csv
 import time
 import datetime as dt
 import warnings
+#from warnings import warn
 import numpy as np
 from pandas import Series, DataFrame
 import pandas as pd
@@ -52,24 +53,24 @@ class DinoGws:
     _head_cols = ['peildatum','standcmmp','bijzonderheid','opmerking']
 
 
-    def __repr__(self):
-        return (f'{self.srname()} (n={len(self._data)})')
-
     def __init__(self,filepath=None,readall=True):
-
-        # lines marking data blocks in dinofiles
+        """
+        Parameters
+        ----------
+        filepath : str
+            Valid filepath to dinoloket csv file.
+        readall : bool, default True
+            Read all data (True) or header only (False).
+        """
+        self.filepath = filepath
 
         if isinstance(readall,bool):
             self.readall=readall
         else:
-            self.readall=True
-            wrnstr = 'Variable \'{vname}\' not of type boolean' \
-                     'of type \'{tname}\'. Data wil be read.'.format(
-                     vname=readall,tname=type(readall))
-            warnings.warn(warnstr)
+            warnings.warn((f"Variable {readall} not of type 'bool' "
+                     "but type '{readall}'. Data wil be read."))
 
-
-        # herekenningsregels dinofiles
+        # herkenningsregels dinofiles
         self._metatag = "Locatie,Filternummer,Externe aanduiding,X-coordinaat,Y-coordinaat,Maaiveld (cm t.o.v. NAP),Datum maaiveld gemeten,Startdatum,Einddatum,Meetpunt (cm t.o.v. NAP),Meetpunt (cm t.o.v. MV),Bovenkant filter (cm t.o.v. NAP),Onderkant filter (cm t.o.v. NAP)"
         self._datatag = "Locatie,Filternummer,Peildatum,Stand (cm t.o.v. MP),Stand (cm t.o.v. MV),Stand (cm t.o.v. NAP),Bijzonderheid,Opmerking,,,"
         self._missingdata = "Van deze put zijn geen standen opgenomen in de DINO-database"
@@ -80,7 +81,7 @@ class DinoGws:
         self._reset()
         
         if filepath != None:
-            self.flines = self._readfile(filepath)
+            self.flines = self._readfile(filepath=self.filepath)
             self._header, self._data = self._readlines()
 
         if self._header.empty and not self._data.empty:
@@ -89,12 +90,14 @@ class DinoGws:
             self._header.at[0,'nitgcode'] = self._data.at[0,'nitgcode']
             self._header.at[0,'filter'] = self._data.at[0,'filter']
             self._header.at[0,'startdatum'] = self._data.at[0,'peildatum']
-            #self._tubeprops.at[0,'startdate'] = heads.index[0]
 
+
+    def __repr__(self):
+        return (f'{self.srname()} (n={len(self._data)})')
 
     def _reset(self):
         """ Reset all variables """
-        self.filepath = ""
+        ##self.filepath = ""
         self.errors = []
         self._data = DataFrame()
         self._header = DataFrame()       
@@ -104,27 +107,25 @@ class DinoGws:
         self.dfdescloc = DataFrame()
         self.seriesname = ""
 
-    def _readfile(self,filepath):
+    def _readfile(self,filepath=None):
         """ Open DINO csv file and return list of filelines """
 
         self._reset()
-        self.filepath = filepath
-
         try:
-            self.file = open(self.filepath,'r')
+            file = open(filepath,'r')
         except (IOError, TypeError) as err:
             errno, strerror = err.args
             print("{!s}".format(errno), end="")
             print("I/O fout{!s}".format(strerror), end="")
-            print (" : "+self.filepath)
+            print (" : "+filepath)
             self.errors.append(
-                    [self.filepath,
+                    [filepath,
                      "File can not be opened"])
             self.flines=[]
             raise
         else:
-            self.flines = self.file.readlines()
-            self.file.close()
+            self.flines = file.readlines()
+            file.close()
 
         return self.flines
 
@@ -224,11 +225,6 @@ class DinoGws:
                 if addtime==True: date = datetime.strptime(
                     datestring+" 12:00", "%d-%m-%Y %H:%M")
                 else: date = datetime.strptime(datestring, "%d-%m-%Y")                    
-                
-                ## replace invalid date with np.NaN
-                ##if date.year < 1900: date = np.NaN
-                ##elif date.year > datetime.now().year: date = np.NaN
-
             else:
                 date = np.NaN
         else:
@@ -237,7 +233,6 @@ class DinoGws:
 
     def _readheader(self): #public
         """ Read header data and return pandas dataframe """
-
 
         if self.headerstart>0 and self.headerend > self.headerstart:
             # create _header
@@ -294,18 +289,27 @@ class DinoGws:
         return self._data
 
     def series(self,units="cmmv"):
-        """ Return groundwater measurements as pandas time series 
-        Possible values for parameter units are : "cmmv", "cmmp" or "cmnap"
+        """ Return time series with groundwater measurements.
+
+        Parameters
+        ----------
+        units : {'cmmv','cmmp','cmnap'}, default 'cmmv'
+
+        Returns
+        -------
+        pd.Series
         """
         # create series from _data
         if len(self._data)>0:
             if units=="cmmv":
-                # data = self.data[self.data["standcmmv"]!=""] # alle ontbrekende waarden eruit
-                self.srseries = Series(self._data["standcmmv"].values, index=self._data["peildatum"],name=self.srname())
+                self.srseries = Series(self._data["standcmmv"].values, 
+                    index=self._data["peildatum"],name=self.srname())
             if units=="cmmp":
-                self.srseries = Series(self._data["standcmmp"].values, index=self._data["peildatum"],name=self.srname())
+                self.srseries = Series(self._data["standcmmp"].values, 
+                    index=self._data["peildatum"],name=self.srname())
             if units=="cmnap":
-                self.srseries = Series(self._data["standcmnap"].values, index=self._data["peildatum"],name=self.srname())
+                self.srseries = Series(self._data["standcmnap"].values, 
+                    index=self._data["peildatum"],name=self.srname())
         else: # create empty series
             self.srseries = Series(name=self.srname())
         return self.srseries
@@ -313,12 +317,10 @@ class DinoGws:
 
     def headdata(self):
         """Return head data fromdino csv file"""
-
         if len(self._data)>0:
             data = self._data[self._head_cols].copy()
         else:
             data = DataFrame(columns=self._head_cols)
-
         return data
 
 
@@ -392,15 +394,22 @@ class DinoGws:
 
         return self.dfdesc
 
-
+    
     def mpref(self):
         """ create dataframe with series of mp reference changes (for plotting line of ref changes above gwseries graph)"""
         msg = 'mpref method is depricates. use GwSeries.tubepropchanges() instead.'
-        warnings.warn(msg, warnings.DeprecationWarning)
+        warnings.warn(msg, warnings) #.DeprecationWarning)
 
 
     def locations(self,df=DataFrame()):
         """ create table of locations from dataframe with data from several filters created by function describe() """
+
+        warnings.warn('This method is deprecated. Use GwSeries instead.', 
+            DeprecationWarning, stacklevel=2)
+        return DataFrame()
+
+        # code below is depricated
+        # ------------------------
 
         # select one row for each group of filters
         grp = df.groupby("nitgcode")
@@ -423,13 +432,19 @@ class DinoGws:
         return dfloc
 
 
-    def merge(self,dn2):
+    def merge(self,dn2=None):
         """ add series of dinogws object to dinogws object and return merged object """
+
+        warnings.warn('This method is deprecated. Use GwSeries instead.', 
+            DeprecationWarning, stacklevel=2)
+        return DinoGws()
+
+        # code below is depricated
+        # ------------------------
 
         if not isinstance(self,dinogws):
             raise TypeError("Input of dinogws.merge() must be another dinogws object")
 
-        
         if (not self._data.empty) and (not dn2._data.empty):
 
             # determine possible overlap
@@ -455,8 +470,8 @@ def filesfromdir(dir):
 
     filenames = []
     seriesnames = []
-    for root, dirs, files in os.walk(sourcedir):
+    for root, dirs, files in os.walk(dir):
         seriesnames += [f[0:11] for f in files if f[11:13]=="_1"]
         filenames += [os.path.join(root, f) for f in files if f[11:13]=="_1"]
     return filenames, seriesnames
-
+    
