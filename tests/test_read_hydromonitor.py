@@ -32,8 +32,8 @@ def test_to_list(hm):
     assert isinstance(res,list)
     assert isinstance(res[0],GwSeries)
 
-def test_to_json(hm):
-    hm.to_json(r'.\output\json\\')
+#def test_to_json(hm):
+#    hm.to_json(r'.\output\json\\')
 
 def test_iterdata(hm):
     rownr = 0
@@ -47,24 +47,19 @@ def test_iterdata(hm):
 # --------------------
 
 def test__readcsv(hm):
-    header, line_numbers = hm._readcsv(fpath)
+    header, line_numbers, meta_colnames, data_colnames = hm._readcsv()
     assert not header.empty
-    assert isinstance(line_numbers,tuple)
+    assert isinstance(line_numbers,Series)
+    assert isinstance(meta_colnames,list)
+    assert len(meta_colnames)!=0
+    assert isinstance(data_colnames,list)
+    assert len(data_colnames)!=0
 
-def test__read_header(hm):
-    textfile = open(fpath)
-    header, line_numbers = hm._read_header(textfile)
-    assert not header.empty
-    assert isinstance(line_numbers,tuple)
-    assert len(line_numbers)==3
+def test__extract_contents(hm):
+    metadata, data = hm._extract_contents()
+    assert not metadata.empty
+    assert not data.empty
 
-def test__read_metadata(hm):
-    res = hm._read_metadata()
-    assert not res.empty
-
-def test__read_data(hm):
-    res = hm._read_data()
-    assert not res.empty
 
 
 
