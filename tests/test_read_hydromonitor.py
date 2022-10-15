@@ -32,8 +32,8 @@ def test_to_list(hm):
     assert isinstance(res,list)
     assert isinstance(res[0],GwSeries)
 
-#def test_to_json(hm):
-#    hm.to_json(r'.\output\json\\')
+def test_to_json(hm):
+    hm.to_json(r'.\output\json\\')
 
 def test_iterdata(hm):
     rownr = 0

@@ -52,19 +52,19 @@ class HydroMonitor:
     """
 
     CSVSEP = ";"
-    METATAG = 'StartDateTime' #;XCoordinate;YCoordinate;'
-    DATATAG = 'DateTime' #;LoggerHead;ManualHead;'
+    METATAG = 'StartDateTime'
+    DATATAG = 'DateTime'
 
     META_NUMCOLS = ['XCoordinate','YCoordinate','SurfaceLevel',
         'WellTopLevel','FilterTopLevel','FilterBottomLevel',
         'WellBottomLevel',]
 
-    mapping_tubeprops = OrderedDict([
+    MAPPING_TUBEPROPS = OrderedDict([
         ('startdate','StartDateTime'),
         ('mplevel','WellTopLevel'),
         ('filtop','FilterTopLevel'),
         ('filbot','FilterBottomLevel'),
-        ('surfacedate',''),
+        ('surfacedate',None),
         ('surfacelevel','SurfaceLevel'),
         ])
 
@@ -102,7 +102,7 @@ class HydroMonitor:
             textfile = open(self.fpath)
         except IOError:
             raise FileNotFoundError(
-                errno.ENOENT, os.strerror(errno.ENOENT), filepath)
+                errno.ENOENT, os.strerror(errno.ENOENT), self.fpath)
             textfile = None
         else:
             header, line_numbers, metacols, datacols = self._read_header(textfile)
@@ -301,7 +301,6 @@ class HydroMonitor:
                                errors='coerce')
         return data
 
-
     def idkeys(self):
         """Return column names that give a unique identification of a 
         series """
@@ -340,41 +339,55 @@ class HydroMonitor:
 
         gws = GwSeries()
         
-        # select metadata for series 
-        bool1 = self.metadata[self.idkeys()[0]]==loc
-        bool2 = self.metadata[self.idkeys()[1]]==fil
-        metadata = self.metadata[bool1&bool2]
-        firstindex = metadata.index[0]
+        # create DataFrame with HydroMonitor metadata for one series
+        bool_loc = self.metadata[self.idkeys()[0]]==loc
+        bool_fil = self.metadata[self.idkeys()[1]]==fil
+        metadata = self.metadata[bool_loc & bool_fil]
+        if metadata.empty:
+            raise ValueError((f"Combination of loc='{loc}' and fil='{fil}' "
+                f"not found in HydroMonitor metadata."))
 
-        # set tubeprops from hydro,onitor metadata
-        for prop in list(gws._tubeprops):
-            metakey = self.mapping_tubeprops[prop]
-            if len(metakey)>0:
+        # Metadata can have a new row of metadata for each change.
+        # Therefore, metaqdata can one or mulitple rows. For GwSeries
+        # locprops items
+        # all rows have the same value and metadata are simply taken 
+        # from the first row.
+        idx_firstrow = metadata.index[0]
+
+        # create DataFrame with Hydromonitor measurements for one series
+        bool_loc = self.data[self.idkeys()[0]]==loc
+        bool_fil = self.data[self.idkeys()[1]]==fil
+        data = self.data[bool_loc & bool_fil]
+
+        # GwSeries tubeprops from HydroMonitor metadata
+        for prop in GwSeries._tubeprops_names: #list(gws._tubeprops):
+            metakey = self.MAPPING_TUBEPROPS[prop]
+            if metakey is not None:
                 gws._tubeprops[prop] = metadata[metakey].values
-            if prop not in self.mapping_tubeprops.keys():
+            if prop not in self.MAPPING_TUBEPROPS.keys():
                 warnings.warn(f"Unknown property {prop} in {type(gws)}")
 
-        # set locprops from hydroonitor metadata
-        for prop in list(gws._locprops.index):
+        # GwSeries locprops from HydroMonitor metadata
+        for prop in GwSeries._locprops_names: ##list(gws._locprops.index):
 
             if prop=='locname':
-                gws._locprops[prop] = self.metadata.at[firstindex,self.idkeys()[0]]
+                gws._locprops[prop] = metadata.at[idx_firstrow,self.idkeys()[0]]
             
             if prop=='filname':
-                gws._locprops[prop] = self.metadata.at[firstindex,self.idkeys()[1]]
+                gws._locprops[prop] = metadata.at[idx_firstrow,self.idkeys()[1]]
 
             if prop=='alias':
                 if 'NITGCode' in self.idkeys(): 
                     alias_key = 'Name'
                 else: 
                     alias_key = 'NITGCode'
-                gws._locprops[prop] = self.metadata.at[firstindex,alias_key]
+                gws._locprops[prop] = metadata.at[idx_firstrow,alias_key]
 
             if prop=='xcr':
-                gws._locprops[prop] = self.metadata.at[firstindex,'XCoordinate']
+                gws._locprops[prop] = metadata.at[idx_firstrow,'XCoordinate']
 
             if prop=='ycr':
-                gws._locprops[prop] = self.metadata.at[firstindex,'YCoordinate']
+                gws._locprops[prop] = metadata.at[idx_firstrow,'YCoordinate']
 
             if prop=='height_datum':
                 gws._locprops[prop] = 'mnap'
@@ -382,35 +395,42 @@ class HydroMonitor:
             if prop=='grid_reference':
                 gws._locprops[prop] = 'rd'
 
-            if prop not in ['locname','filname','alias','xcr','ycr',
-                            'height_datum','grid_reference']:
-
+            if prop not in GwSeries._locprops_names:
                 warnings.warn(f"Unknown property {prop} in {type(gws)}")
 
-
         # set gwseries
-        datetimes = self.data['DateTime'].values
+        datetimes = data['DateTime'].values
         heads = np.where(
-                    np.isnan(self.data['LoggerHead'].values),
-                    self.data['ManualHead'].values,
-                    self.data['LoggerHead'].values)
-        heads = Series(data=heads,index=datetimes)
+            np.isnan(data['LoggerHead'].values),
+            data['ManualHead'].values,
+            data['LoggerHead'].values
+            )
+        rec = {}
+        for key in GwSeries._headprops_names:
+            if key=='headdatetime':
+                rec[key] = datetimes
+            elif key=='headmp':
+                rec[key] = heads
+            else: # all other columns in GwSeries headprops
+                rec[key] = np.full(len(heads),np.nan)
+        gws._heads = DataFrame(rec)
 
+        
         # remove rows with invalid datevalues and warn
-        NaTdate = pd.isna(heads.index)
-        nNaT = len(heads[NaTdate])
-        if nNaT!=0:
-            msg = f"Removed {nNaT} rows with invalid date from {gws.name()}"
+        mask = pd.isna(gws._heads['headdatetime'])
+        number_of_bad_dates = len(heads[mask])
+        if number_of_bad_dates!=0:
+            msg = f"Removed {number_of_bad_dates} rows with invalid date from {gws.name()}"
             warnings.warn(msg)
-            heads = heads[~NaTdate].copy()
+            heads = heads[~mask].copy()
 
         # convert heads in mnap to mref
-        gws._heads = heads
-        for index,props in gws._tubeprops.iterrows():
-            mask = gws._heads.index >= props['startdate'] 
-            gws._heads = gws._heads.mask(
-                         mask,props['mplevel']-heads)
-
+        heads = gws._heads['headmp'].copy()
+        dates = gws._heads['headdatetime'].copy()
+        for idx, props in gws._tubeprops.iterrows():
+            mask = dates >= props['startdate'] 
+            heads = heads.mask(mask,props['mplevel']-heads)
+        gws._heads['headmp'] = heads
         return gws
 
     def to_list(self):
@@ -435,13 +455,13 @@ class HydroMonitor:
 
     def __next__(self):
 
-        if self.itercount >= len(self):
+        if self._itercount >= len(self):
             raise StopIteration
 
-        (loc,fil),data = next(self.srgen)
-        gw = self.get_series(data=data,loc=loc,fil=fil)
+        (loc,fil),data = next(self._srgen)
+        gw = self.get_series(loc=loc,fil=fil)
 
-        self.itercount+=1
+        self._itercount+=1
         return gw
 
     def iterdata(self):

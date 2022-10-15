@@ -161,7 +161,7 @@ class GwList():
             self._flist = self.filetable()
 
         if (self._srcfile is not None) and (self._srctype=='hymon'):
-            self.hm = HydroMonitor.from_csv(filepath=srcfile)
+            self.hm = HydroMonitor(fpath=srcfile)
 
         if (self._srcfile is not None) and (self._srctype=='waterweb'):
             self._wwn = WaterWeb.from_csv(srcfile,networkname=None)
