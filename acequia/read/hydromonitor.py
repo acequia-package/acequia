@@ -38,7 +38,7 @@ class HydroMonitor:
     Examples
     --------
     Read hydromonitor csv export file:
-    >>>hm = HydroMonitor.from_csv(filepath=<path>)
+    >>>hm = HydroMonitor(filepath=<path>)
     Convert to list of GwSeries objects:
     >>>mylist = hm.to_list()
     Iterate over all series and return GwSeries objects one at a time:
@@ -84,10 +84,10 @@ class HydroMonitor:
         self.metadata, self.data = self._extract_contents()
 
         # remopve duplicate data
-        self.data = self.delete_duplicate_data()
+        self.data = self._delete_duplicate_data()
 
         # create generator
-        self._srgen = self.data.groupby(self.idkeys()).__iter__()
+        self._srgen = self.data.groupby(self.idkeys).__iter__()
         self._itercount = 0
 
 
@@ -301,6 +301,7 @@ class HydroMonitor:
                                errors='coerce')
         return data
 
+    @property
     def idkeys(self):
         """Return column names that give a unique identification of a 
         series """
@@ -311,14 +312,14 @@ class HydroMonitor:
         return [x for x in self.header['object_identification']]
 
 
-    def delete_duplicate_data(self):
+    def _delete_duplicate_data(self):
         """Remove duplicate data from data and return pd.DataFrame
         Duplicates occur in groundwater head measurments in
         hydromonitor export when loggervalue and manual control 
         measurement have the same timestamp."""
-        sortcols = self.idkeys() + ['DateTime','ManualHead']
+        sortcols = self.idkeys + ['DateTime','ManualHead']
         data = self.data.sort_values(by=sortcols)
-        dropcols = self.idkeys() + ['DateTime']
+        dropcols = self.idkeys + ['DateTime']
         self.data_no_dups = data.drop_duplicates(subset=dropcols, 
                             keep='first').copy()
         return self.data_no_dups
@@ -340,8 +341,8 @@ class HydroMonitor:
         gws = GwSeries()
         
         # create DataFrame with HydroMonitor metadata for one series
-        bool_loc = self.metadata[self.idkeys()[0]]==loc
-        bool_fil = self.metadata[self.idkeys()[1]]==fil
+        bool_loc = self.metadata[self.idkeys[0]]==loc
+        bool_fil = self.metadata[self.idkeys[1]]==fil
         metadata = self.metadata[bool_loc & bool_fil]
         if metadata.empty:
             raise ValueError((f"Combination of loc='{loc}' and fil='{fil}' "
@@ -355,8 +356,8 @@ class HydroMonitor:
         idx_firstrow = metadata.index[0]
 
         # create DataFrame with Hydromonitor measurements for one series
-        bool_loc = self.data[self.idkeys()[0]]==loc
-        bool_fil = self.data[self.idkeys()[1]]==fil
+        bool_loc = self.data[self.idkeys[0]]==loc
+        bool_fil = self.data[self.idkeys[1]]==fil
         data = self.data[bool_loc & bool_fil]
 
         # GwSeries tubeprops from HydroMonitor metadata
@@ -371,13 +372,13 @@ class HydroMonitor:
         for prop in GwSeries._locprops_names: ##list(gws._locprops.index):
 
             if prop=='locname':
-                gws._locprops[prop] = metadata.at[idx_firstrow,self.idkeys()[0]]
+                gws._locprops[prop] = metadata.at[idx_firstrow,self.idkeys[0]]
             
             if prop=='filname':
-                gws._locprops[prop] = metadata.at[idx_firstrow,self.idkeys()[1]]
+                gws._locprops[prop] = metadata.at[idx_firstrow,self.idkeys[1]]
 
             if prop=='alias':
-                if 'NITGCode' in self.idkeys(): 
+                if 'NITGCode' in self.idkeys: 
                     alias_key = 'Name'
                 else: 
                     alias_key = 'NITGCode'
@@ -428,10 +429,40 @@ class HydroMonitor:
         heads = gws._heads['headmp'].copy()
         dates = gws._heads['headdatetime'].copy()
         for idx, props in gws._tubeprops.iterrows():
-            mask = dates >= props['startdate'] 
-            heads = heads.mask(mask,props['mplevel']-heads)
+            try:
+                mask = dates >= props['startdate'] 
+                heads = heads.mask(mask,props['mplevel']-heads)
+            except TypeError as err:
+                # probably mplevel is NaN
+                warnings.warn((f'Warning: TypeError {err} on {gws.name()}'))
+                heads = heads.mask(mask,np.nan-heads)
         gws._heads['headmp'] = heads
         return gws
+
+    @property
+    def series(self):
+        """Return list of tuples wits series name and filter."""
+        tbl = self.metadata[self.idkeys]
+        srlist = []
+        for idx2,row in tbl.iterrows():
+            srtuple = (row[self.idkeys[0]],row[self.idkeys[1]])
+            srlist.append(srtuple)
+        return srlist
+        
+
+    @property
+    def locations(self):
+        """Return list of tuples with series name and filter grouped 
+        by well locations."""
+        locations = []        
+        tbl = self.metadata[self.idkeys]
+        for _,grp in tbl.groupby(by=self.idkeys[0]):
+            srnames = []
+            for _,row in grp.iterrows():
+                srtuple = (row[self.idkeys[0]],row[self.idkeys[1]])
+                srnames.append(srtuple)
+            locations.append(srnames)       
+        return locations
 
     def to_list(self):
         """ Return data from HydroMonitor as a list of GwSeries() 
@@ -440,7 +471,7 @@ class HydroMonitor:
         srlist = []
 
         heads = self.delete_duplicate_data()
-        filgrp = heads.groupby(self.idkeys())
+        filgrp = heads.groupby(self.idkeys)
         for (location,filnr),data in filgrp:
 
             gws = self.get_series(loc=location,fil=filnr)
@@ -467,12 +498,12 @@ class HydroMonitor:
     def iterdata(self):
         """Return generator for iterating over heads data"""
         heads = self.delete_duplicate_data()
-        return heads.groupby(self.idkeys()).__iter__()
+        return heads.groupby(self.idkeys).__iter__()
 
     def __len__(self):
-        heads = self.delete_duplicate_data()
+        heads = self._delete_duplicate_data()
         hymlen=0
-        for srname,sr in heads.groupby(self.idkeys()).__iter__():
+        for srname,sr in heads.groupby(self.idkeys).__iter__():
             hymlen+=1
         return hymlen
 

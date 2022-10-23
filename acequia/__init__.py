@@ -10,7 +10,7 @@ from .gwlocs import GwLocs
 from .headsdif import HeadsDif
 from .headsdif import headsdif_from_gwseries as headsdif_from_gwseries
 from .swseries import SwSeries
-from .data import knmi_data
+from .data.knmidata import KnmiData
 from .geo.coordinate_conversion import CrdCon
 from .geo.waypoint_kml import WpKml
 from .geo.pointshapewriter import PointShapeWriter, pointshape_write

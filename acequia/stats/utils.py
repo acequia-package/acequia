@@ -39,7 +39,7 @@ def index1428(minyear=None,maxyear=None,days=[14,28]):
 
     """
 
-    strdates = [str(day)+"-"+str(month)+"-"+str(year) #+' 12:00' 
+    strdates = [str(year)+"-"+str(month)+"-"+str(day) #+' 12:00' 
                 for year in list(range(minyear,maxyear+1)) 
                 for month in list(range(1,13)) for day in days]
 

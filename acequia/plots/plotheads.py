@@ -18,8 +18,7 @@ import matplotlib.pyplot as plt
 from matplotlib.dates import YearLocator, MonthLocator, DateFormatter
 import matplotlib.dates as mdates
 import numpy as np
-
-from .. import gwseries
+from .. import gwseries #import GwSeries directly gives circular import
 #inch = 25.4 mm
 
 
@@ -46,8 +45,6 @@ class PlotHeads:
             ['#2767fd','#d92950','#50d929','#ecee19','#ce11f2'],
         }
 
-
-
     font1 = {
         'family' : 'serif',
         'color'  : 'darkred',
@@ -57,46 +54,34 @@ class PlotHeads:
 
 
     def __init__(self,ts=[],ref="datum",lbs=None,mps=None,
-                 title=None,xlabel=None,ylabel=None,xlim=None,
-                 ylim=None,colors=None,plotargs=None,plot=True):
+        title=None,xlabel=None,ylabel=None,xlim=None,
+        ylim=None,colors=None,plotargs=None,plot=True):
         """ Plot list of groundwater head series in one graph
 
         Parameters
         ----------
-
-        ts : list
+        ts : list, Series
             list of pd.Series with pd.DateTimeIndex
-
         ref : {'datum','surface','mp'}, default 'datum'
             reference level for groundwater heads
-
         lbs : list of strings, optional
             labels for heads series
-
         mps : pd.Series
             Timeseries with change of measurement reference point level
-
         title : string, optional
             title for graph
-
         xlabel : string, optional
             graph xaxis label
-
         ylabel :  string, optional
             graph yaxis label
-
         xlim : tuple or list of TimeStamp,int or str, optional
             min and max of dates on xaxis
-
         ylim : tuple or list, optional
             min and max of heads on yaxis
-
         colors : list,optional
             valid pyplot colors for drawing lines
-
         plotargs : list of dicts, optional
             dict of pyplot plotting parameters for each series
-
         plot : boolean, default True
             plot heads immediately (if Flase, call PlotHeads.plotheads()
 
@@ -123,23 +108,27 @@ class PlotHeads:
         self.ref = ref
 
         self.ts = ts
+        # make sure self.ts is a list of pandas series with heads
+        if isinstance(ts,Series):
+            self.ts = [ts]
+        if isinstance(ts,gwseries.GwSeries):
+            self.ts = [ts]
         if all(isinstance(gw, gwseries.GwSeries) for gw in ts):
             self.ts = [gw.heads(ref=self.ref) for gw in ts]
+        
         if self.ref=='surface':
             self.ts = [ts*100 for ts in self.ts]
 
         if not all(isinstance(sr, pd.Series) for sr in self.ts):
-            msg = {f'Wrong input of timeseries. Expected a list of',
-                   f'Pandas Series with DateTime indexes.'}
-            raise TypeError(' '.join(msg))
+            raise TypeError((f'Wrong input of timeseries. Expected a '
+                    f'list of Pandas Series with DateTime indexes.'))
 
         if not all(isinstance(sr.index, pd.DatetimeIndex) for sr in self.ts):
-            msg = f'Index of series must be type DateTimeIndex'
-            raise TypeError(msg)
+            raise TypeError(f'Index of series must be type DateTimeIndex')
 
         if (not isinstance(mps, pd.Series)) and (mps is not None):
-            msg = f'Time series {mps} with referennce changes must be pd.Series'
-            raise TypeError(msg)
+            raise TypeError((f'Time series {mps} with referennce '
+                f'changes must be pd.Series'))
 
         if isinstance(colors,list):
             self.clr = colors*10

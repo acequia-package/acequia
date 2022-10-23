@@ -259,15 +259,15 @@ class KnmiDownload:
             parts = lines[i].split()
             name = ' '.join(parts[5:]) # 'De Bilt' was split...
             rec = {
-                'stn':int(parts[1]),
+                'stn_nr':int(parts[1]),
                 'lon':parts[2],
                 'lat':parts[3],
                 'alt':parts[4],
-                'name':name,
+                'stn_name':name,
                 }
             wht_stn.append(rec)
 
-        return DataFrame(wht_stn).set_index('stn')
+        return DataFrame(wht_stn).set_index('stn_nr')
 
     @property
     def prc_stns(self):
@@ -296,10 +296,10 @@ class KnmiDownload:
             parts = lines[i].split()
             name = ' '.join(parts[2:]) # 'De Bilt' was split...
             rec = {
-                'stn':int(parts[1]),
-                'name':name,
+                'stn_nr':int(parts[1]),
+                'stn_name':name,
                 }
             prc_stn.append(rec)
 
-        return DataFrame(prc_stn).set_index('stn')
+        return DataFrame(prc_stn).set_index('stn_nr')
 

@@ -17,7 +17,7 @@ def test_repr(hm):
 # -------------------
 
 def test_idkeys(hm):
-    assert isinstance(hm.idkeys(),list)
+    assert isinstance(hm.idkeys,list)
 
 def test_delete_duplicate_data(hm):
     res = hm.delete_duplicate_data()
@@ -26,6 +26,14 @@ def test_delete_duplicate_data(hm):
 def test_get_series(hm):
     gws = hm.get_series(loc='B29A0072',fil='1')    
     assert isinstance(gws,GwSeries)
+
+def test_series(hm):
+    assert isinstance(hm.series,list)
+    assert len(hm.series)!=0
+
+def test_locations(hm):
+    assert isinstance(hm.locations,list)
+    assert len(hm.locations)!=0
 
 def test_to_list(hm):
     res = hm.to_list()
