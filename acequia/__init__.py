@@ -26,6 +26,7 @@ from .read.knmi_weather import KnmiWeather
 from .read.knmi_rain import KnmiRain
 from .read.knmi_download import KnmiDownload
 from .read.filedirtools import listdir, cleardir
+from .read.brogldxml import BroGldXml
 from .stats.utils import hydroyear, season, index1428, ts1428
 from .stats.utils import measfrq, maxfrq
 from .stats.gwtimestats import GwTimeStats, gwtimestats
@@ -37,7 +38,7 @@ from .stats.meteo_drought import MeteoDrought
 __all__ = ['GwSeries','GwList','GwLocs','PlotGws','DinoGws', 
            'SwSeries','DinoSurfaceLevel','WaterWebNetwork',
            'HydroMonitor','TimeStats','PointShapeWriter','GxgStats',
-           'Quantiles','CrdCon',
+           'Quantiles','CrdCon','BroGldXml',
            'KnmiWeather','KnmiRain', 'KnmiStations',
            'GwListStats','gwliststats','gwlocstats',
            'pointshape_write',
