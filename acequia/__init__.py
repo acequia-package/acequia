@@ -16,6 +16,7 @@ from .geo.waypoint_kml import WpKml
 from .geo.pointshapewriter import PointShapeWriter, pointshape_write
 from .plots.plotheads import PlotHeads
 from .plots.tsmodelstatsplot import TsModelStatsPlot,plot_tsmodel_statistics
+from .plots.plotfun import plot_tubechanges
 from .read.dinogws import DinoGws
 from .read.dinosurfacelevel import DinoSurfaceLevel
 from .read.gpxtree import GpxTree
