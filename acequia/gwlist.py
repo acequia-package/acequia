@@ -56,21 +56,16 @@ class GwList():
     Examples  
     --------  
     Create GwList object and load multiple sourcefiles:
-
     >>>gwl = GwList(srcdir=<sourcedir>,srctype='dinocsv',loclist=<mylist>)  
-
     >>>gwl = GwList(srcdir=<sourcedir>,srctype='json',loclist=<mylist>)    
-
-    >>>gwl = GwList(srcfile=<filepath>,srctype=<'json' or ' dinocsv'>)    
-    
+    >>>gwl = GwList(srcfile=<filepath>,srctype=<'json' or ' dinocsv'>)      
     >>>gwl = GwList(srfile=<hydromonitor csv export>,srctype='hymon')  
+    >>>gwl = GwList(srfile=<waterweb csv export>,srctype='waterweb')
   
     Return table with location properties:
-
     >>>locp = gwl.locprops()
 
     Return list of soourcefiles in <srcdir> of type ' dinocsv':
-
     >>>gwl.filelist()
 
     Notes
@@ -105,14 +100,13 @@ class GwList():
         ----------
         srcdir : str
             directory with groundwater head sourcefiles
-        srctype : {'dinocsv','json','hymon'}, optional
+        srctype : {'dinocsv','json','hymon', 'waterweb'}, optional
             sourcefiletype
         loclist : list, optional
             list of location names
         srcfile : str, optional
             path to file with paths to sourcefiles
             (if srcfile is given, srcdir is ignored)
-
 
         """
 
@@ -164,7 +158,7 @@ class GwList():
             self.hm = HydroMonitor(fpath=srcfile)
 
         if (self._srcfile is not None) and (self._srctype=='waterweb'):
-            self._wwn = WaterWeb.from_csv(srcfile,networkname=None)
+            self._wwn = WaterWeb.from_csv(srcfile,network=None)
 
 
     def filetable(self):

@@ -62,12 +62,6 @@ class BroGldXml:
         self._tree = tree
         self._root = self._tree.getroot()
         self.NS = self._root.nsmap
-        
-        ##self.gldprops = self._gldprops(self._root)
-        ##self.proces = self._proces(self._root)
-        ##self.levels = self._levels(self._root)
-        ##self.tsprops = self._tsprops(self._root)
-
 
     def __repr__(self):
         return self.gldprops['broIdGld']

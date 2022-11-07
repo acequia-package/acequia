@@ -36,7 +36,7 @@ def measurement_types(fdir,zeros=True,rowsum=True,colsum=True):
     counts_list = []
     for fname in filelist:
         wwn = WaterWeb.from_csv(fname)
-        counts_list.append(wwn.type_counts())
+        counts_list.append(wwn.type_counts)
 
     # table of measurment type by network names
     tbl_list = [pd.DataFrame(sr).T for sr in counts_list]
