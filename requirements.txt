@@ -44,7 +44,7 @@ numpy @ file:///C:/ci/numpy_and_numpy_base_1653574840943/work
 packaging @ file:///tmp/build/80754af9/packaging_1637314298585/work
 pandas @ file:///C:/ci/pandas_1641461312795/work
 patsy==0.5.2
-Pillow==9.2.0
+Pillow==9.3.0
 pipenv==2020.11.15
 pkginfo==1.7.0
 pycparser @ file:///tmp/build/80754af9/pycparser_1636541352034/work
