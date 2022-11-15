@@ -1,5 +1,7 @@
 
 import numpy as np
+from pandas import DataFrame, Series
+import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from acequia import GwSeries
