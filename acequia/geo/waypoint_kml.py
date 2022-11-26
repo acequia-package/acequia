@@ -152,13 +152,11 @@ class WpKml:
         if label.lower() in self.wplist.keys():
             self.label = label.lower()
         else:
-            firstcol = self.wplist.keys()[0]
+            firstcol = list(self.wplist)[0]
             self.label = firstcol
-            msg = ''.join(
-                  f'Value {label} for label column not found in ',  
-                  f'{self.wplist} column names. Column {firstcol} is ',
-                  f'used for KML labels.')
-            warnings.warn(msg,UserWarning)
+            warnings.warn((f'Value {label} for label column not found '
+                f'in {self.wplist} column names. Column {firstcol} is ',
+                f'used for KML labels.'))
 
         if stylecol is not None:
             stylecol = stylecol.lower()

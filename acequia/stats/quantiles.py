@@ -212,28 +212,42 @@ class Quantiles:
                 xvals = self.qt
                 ax.plot(xvals,yvals,color=cyears)
 
-        # format xax
-        ax.set_xticks(self.qt)
-        ax.set_xticklabels(list(quantiles)) ##self.qtlabels)
+        # xax set ticks
+        qtlen = len(self.qt)
+        step = int(np.ceil((qtlen-2)/6))
+        idx = list(range(0,qtlen,step))
+        xticks = [self.qt[i] for i in idx]
+        ax.set_xticks(xticks)
+
+        #qlabels = list(quantiles)
+        #qlables = ['0','90','180','270','360']
+        qtlabels = [self.qtlabels[i] for i in idx]
+        ax.set_xticklabels(qtlabels,fontsize=7.) ##self.qtlabels)
         if unit=='days':
             ax.set_xlabel('dagen/jaar') #, fontsize=15)
         else:
             ax.set_xlabel('percentiel') #, fontsize=15)
+        ax.set_xlabel('')
+
         ax.set_xlim(1,0)
         ax.invert_xaxis()
 
         # format yax
         if ylim is not None:
             ax.set_ylim(ylim[0],ylim[1])
+
+        yticklabels = [str(int(x)) for x in ax.get_yticks()]
+        ax.set_yticklabels(yticklabels,fontsize=10.) 
         
         #if self.headsref=='surface':
         #    ax.invert_yaxis()
 
-        ax.set_ylabel('grondwaterstand (cm -mv)') #, fontsize=15)
+        #ax.set_ylabel('grondwaterstand (cm -mv)') #, fontsize=15)
+        ax.set_ylabel('')
 
         ax.text(0.99, 0.97, figtitle, horizontalalignment='right',
-                verticalalignment='top', transform=ax.transAxes,)
-                #fontsize = 16)
+                verticalalignment='top', transform=ax.transAxes,
+                fontsize = 10.)
 
         if figpath is not None:
             plt.savefig(figpath,bbox_inches='tight')

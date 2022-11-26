@@ -36,7 +36,7 @@ def measurement_types(fdir,zeros=True,rowsum=True,colsum=True):
     counts_list = []
     for fname in filelist:
         wwn = WaterWeb.from_csv(fname)
-        counts_list.append(wwn.type_counts)
+        counts_list.append(wwn.measurement_types)
 
     # table of measurment type by network names
     tbl_list = [pd.DataFrame(sr).T for sr in counts_list]
@@ -45,8 +45,8 @@ def measurement_types(fdir,zeros=True,rowsum=True,colsum=True):
         tbl[col] = tbl[col].astype(int)
 
     # sort column names
-    if not set(tbl.columns) - set(wwn._measurement_types):
-        tbl = tbl.reindex(wwn._measurement_types, axis=1)
+    if not set(tbl.columns) - set(wwn.MEASUREMENT_TYPES):
+        tbl = tbl.reindex(wwn.MEASUREMENT_TYPES, axis=1)
     else: #tbl2.columns contains names not in _measurement_types
         warnings.warn('Non-standard measurement types found.')
         tbl = tbl.reindex(sorted(tbl.columns), axis=1)
