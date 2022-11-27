@@ -470,7 +470,7 @@ class HydroMonitor:
 
         srlist = []
 
-        heads = self.delete_duplicate_data()
+        heads = self._delete_duplicate_data()
         filgrp = heads.groupby(self.idkeys)
         for (location,filnr),data in filgrp:
 
@@ -497,7 +497,7 @@ class HydroMonitor:
 
     def iterdata(self):
         """Return generator for iterating over heads data"""
-        heads = self.delete_duplicate_data()
+        heads = self._delete_duplicate_data()
         return heads.groupby(self.idkeys).__iter__()
 
     def __len__(self):

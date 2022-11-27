@@ -20,7 +20,7 @@ def test_idkeys(hm):
     assert isinstance(hm.idkeys,list)
 
 def test_delete_duplicate_data(hm):
-    res = hm.delete_duplicate_data()
+    res = hm._delete_duplicate_data()
     assert not res.empty
 
 def test_get_series(hm):

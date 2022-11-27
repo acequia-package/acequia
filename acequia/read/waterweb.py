@@ -207,7 +207,7 @@ class WaterWeb:
         # change column contents
         data['Peilmoment'] = pd.to_datetime(data['Peilmoment'])
         data['NITG-kode'] = data['NITG-kode'].apply(
-            lambda x:x[:8]+"_"+x[-3:].lstrip('0'))
+            lambda x:x[:8]+"_"+x[-3:].lstrip('0') if not pd.isnull(x) else np.nan)
 
         return cls(fpath=fpath,data=data,network=network)
 
@@ -437,7 +437,8 @@ class WaterWeb:
 
         # from series to locations
         locprops = locprops.drop_duplicates(subset=['sunloc'], keep='first')
-        nitg = locprops['nitgsr'].apply(lambda x:x.split('_')[0])
+        nitg = locprops['nitgsr'].apply(lambda x:x.split('_')[0] if 
+            not pd.isnull(x) else np.nan)
         locprops.insert(2,'nitgcode',nitg)
         locprops = locprops.drop(columns=['sunsr','nitgsr','name'])
 
