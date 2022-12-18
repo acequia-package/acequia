@@ -5,59 +5,19 @@ differences between multiple groundwater head series.
 
 import warnings
 import math
-
+import numpy as np
 from pandas import Series, DataFrame
+from pandas import DatetimeIndex
 import pandas as pd
 
 import matplotlib.pyplot as plt
+import matplotlib as mpl
+import matplotlib.dates as mdates
+import matplotlib as mpl
 import seaborn as sns; sns.set()
-import numpy as np
 
+from .gwseries import GwSeries
 
-def headsdif_from_gwseries(heads=None,locname=None,refcol=None):
-    """Return HeadsDif object with data or None for invalid data.
-
-    Parameters
-    ----------
-    heads : list of GwSeries objects
-        Measured heads of multiple groundwater series.
-    locname : str
-        Location name for annotating graphs.
-    refcol : str, optional
-        Series name to use as reference.
-
-    Returns
-    -------
-    HeadsDiff
-        HeadsDif object or None
-
-    Examples
-    --------
-    >>>hd = headsdif_from_gwseries(heads=<heads>,locname=<locname>,
-            refcol=<refcol>)
-    """
-    if not isinstance(heads,list):
-        msg = 'Parameter heads must be a list of GwSeries onjects'
-        warnings.warn(msg)
-        return None
-
-    if not all([isinstance(x,acequia.gwseries.GwSeries) for x in heads]):
-        msg = 'Parameter heads must be a list of GwSeries onjects'
-        warnings.warn(msg)
-        return None
-
-    valid_heads = [x for x in heads if not x.heads().isnull().all()]
-    if not len(valid_heads)==len(heads):
-        removed = list(set(heads).difference(valid_heads))
-        msg = f'Series {removed} with only NaNs removed from list'
-        warnings.warn(msg)
-
-    if len(valid_heads)<2:
-        msg = 'Less than two heads series left after validation.'
-        warnings.warn(msg)
-        return None
-
-    return HeadsDif(heads=valid_heads,locname=locname,refcol=refcol)
 
 
 class HeadsDif:
@@ -103,260 +63,411 @@ class HeadsDif:
     >>>if hd is None:
     >>>     continue
     """
-    _period_names = {'quarter','half-year'}
+
+
+    FOURSEASONSKEY = 'seasons'
+    FOURSEASONS = ['Winter','Winter','Spring','Spring',
+        'Summer','Summer','Summer','Summer','Autumn', 
+        'Autumn','Autumn', 'Winter',]
+    FOURSEASONS_COLORS =  {'Winter':'#0057e7', 'Spring':'#74d4f0',
+        'Summer':'#ff0000','Autumn':'#ffa500'}
+    FOURSEASONS_COLNAMES = ['Spring','Summer','Autumn','Winter']
+    TWOSEASONSKEY = 'biannual'
+    TWOSEASONS = ['Winter', 'Winter', 'Winter', 'Summer', 'Summer', 
+        'Summer', 'Summer', 'Summer', 'Summer', 'Winter', 'Winter', 
+        'Winter']
+    TWOSEASONS_COLORS = {'Winter':'#2196f3','Summer':'#ffb74d'}
+    PERIOD_DEFAULT = FOURSEASONSKEY
+    PERIOD_NAMES = {FOURSEASONSKEY,TWOSEASONSKEY}
+
+    MPL_STYLE_DEFAULT = 'seaborn-v0_8-darkgrid' #'ggplot'
 
     def __init__(self,heads=None,locname=None,refcol=None):
         """
         Parameters
         ----------
-        heads : list,pd.DataFrame
+        heads : pd.DataFrame
             Measured heads of multiple groundwater series.
-        locname : str
+        locname : str, optional
             Location name for annotating graphs.
-        refcol : str
+        refcol : str, optional
             Series name to use as reference.
+
+        Notes
+        -----
+        If no values are given for parameters locname and refcol, 
+        values will be derived from the first column in heads.
         """
-        if heads is None:
-            msg = f'Parameter heads must be given'
-            raise ValueError(msg)
 
-        if isinstance(heads,list):
+        # validate heads
+        if not isinstance(heads,DataFrame):
+            raise ValueError((f'Init {self.__class__.__name__}: '
+                f'Parameter heads must be a Pandas DataFrame, not '
+                f'a {heads.__class__.__name__}.'))
+        self.heads = heads
 
-            if isinstance(heads[0],acequia.GwSeries):
-                heads = [gw for gw in heads if not 
-                         gw.heads().isnull().all()]
-
-                tslist = [gw.heads(ref='datum',freq='D')
-                          for gw in heads]
-
-                if locname is None:
-                    self.locname = heads[0].locname()
-
-            if isinstance(heads[0],pd.Series):
-                tslist = heads
-
-            self._heads = pd.concat(tslist, axis=1)
-
-        if isinstance(heads,pd.DataFrame):
-            self._heads = heads
-
+        # validate locname
         if locname is None:
-            self.locname = self._heads.columns[0].split('_')[0]
+            locname = list(self.heads)[0]
+        if '_' in locname:
+            locname = locname.split('_')[0]
         self.locname = locname
 
-        if refcol is None:
-            refcol = list(self._heads)[0]
-        self._refcol = refcol
+        # drop empty columns
+        for col in self.heads.columns:
+            if self.heads[col].isnull().all():
+                self.heads = self.heads.drop(columns=[col])
 
-        # create standard variables
-        self._check_heads()
-        self._headsdif = self.table_headsdif()
-        self._headsref = self.table_headsref()
-
-    def __repr__(self):
-        nsr = len(self.table_headsdif().columns)
-        return (f'{self.__class__.__name__}(n={nsr})')
-
-    def table_headsdif(self,ref=None):
-        """
-        Return table with head differences relative to series ref.
-
-        If ref is not set, first series is taken as reference.
-
-        Returns
-        -------
-        pd.DataFrame
-        """
-        if ref is None:
-            ref = self._refcol
-
-        if (ref not in self._heads.columns) and (ref is not None):
-            msg = f'Reference column {ref} not in heads table.'
-            warnings.warn(msg)
-
-        heads = self._heads.copy()
-        hdif = self._heads.copy()
-        for i,col in enumerate(list(hdif)):
-            hdif[col] = heads[col]-heads[ref]
-
-        return hdif
-
-    def table_headsref(self):
-        """Return table with heads relative to mean of entire series."""
-        heads = self._heads.copy()
-        for i,col in enumerate(list(heads)):
-            heads[col] = heads[col]-heads[col].mean()
-        return heads
-
-    def difsums(self,period='quarter'):
-        """
-        Return table with head differences by season.
-
-        Parameters
-        ----------
-        seasons : {'quarter','half-year'}
-            Aggregate by quarter or by year.
-
-        Returns
-        -------
-        pd.DataFrame
-        """
-        if period not in self._period_names:
-            msg = ''.join(
-                  f'{period} is not a valid period name. ',
-                  f'Period must be in {self._period_names}.',)
-            raise ValueError(msg)
-
-        seasons = self.date_seasons(self._headsdif,period=period)
-        difsns = (self._headsdif*100).groupby(seasons).mean().round(2).T
-        difsns.columns.name = None
-        difsns.index.name = 'series'
-        return difsns
-
-    def _check_heads(self):
-        """
-        Check heads measurement table for errors, repair and show
-        warnings.
-        """ 
-
-        for col in self._heads.columns:
-            allnull = self._heads[col].isnull().all()
-            if allnull:
-                self._heads = self._heads.drop(columns=[col])
-
-        refcol_missing = self._refcol not in self._heads.columns
-        ncols = len(self._heads.columns)
-        if refcol_missing and ncols>1:
-            old_refcol = self._refcol
-            self._refcol = self._heads.columns[0]
-
-            msg = f'Dropped reference column {old_refcol}, replaced with {self._refcol}'
-            warnings.warn(msg)
-
-        if ncols < 2:
+        if len(list(self.heads)) < 2:
             msg = f'Less than two columns with valid data in {self.locname}'
             raise ValueError(msg)
 
+        # validate refcol
+        if refcol is None:
+            refcol = list(self.heads)[0]
+        self.refcol = refcol
 
-    def date_seasons(self,dtindex,period='quarter'):
+        if self.refcol not in list(self.heads):
+            old_refcol = self.refcol
+            self.refcol = list(self.heads)[0]
+            warnings.warn((f'Dropped reference column {old_refcol}, '
+                f'replaced with {self.refcol}'))
+
+
+    def __repr__(self):
+        nsr = len(self.heads.columns)
+        return (f'{self.__class__.__name__}({nsr} series)')
+
+
+    @classmethod
+    def from_series(cls,heads=None,locname=None,refcol=None):
+        """Create HeadsDif object from list of GwSeries objects.
+
+        Parameters
+        ----------
+        heads : list of GwSeries objects
+            Measured heads of multiple groundwater series.
+        locname : str, optional
+            Location name for annotating graphs, optional.
+        refcol : str, optional
+            Series name to use as reference.
+
+        Returns
+        -------
+        HeadsDiff
+            HeadsDif object
+
+        Examples
+        --------
+        >>>hd = HeadsDif.from_gwseries(heads=<heads>,locname=<locname>,
+                refcol=<refcol>)
+
+        Notes
+        -----
+        If no values are given for paramaters locname and refcol, 
+        values will be used from the first GwSeries or Series in heads.
+        """
+
+        is_no_list_warning = ((f'Parameter heads must be a list of '
+            f'GwSeries or Pandas Series objects'))
+
+        if not isinstance(heads,list):
+            raise ValueError(is_no_list_warning)
+
+        if isinstance(heads[0],GwSeries):
+
+            if not all([isinstance(x,GwSeries) for x in heads]):
+                raise ValueError(is_no_list_warning)
+
+            ##tslist = [gw.heads(ref='datum',freq='D') for gw in heads]
+            if locname is None:
+                locname = heads[0].locname()
+            if refcol is None:
+                refcol = heads[0].name()
+            heads = [gw.heads() for gw in heads]
+            """
+            valid_heads = [x for x in heads if not x.heads().isnull().all()]
+            if not len(valid_heads)==len(heads):
+                removed = list(set(heads).difference(valid_heads))
+                warnings.warn((f'Removed following heads series with only '
+                    f'NaN valuess: {removed}.'))
+
+            if len(valid_heads)<2:
+                msg = 'Less than two heads series left after validation.'
+                warnings.warn(msg)
+                return None
+            """
+
+        if not all([isinstance(x,Series) for x in heads]):
+            warnings.warn(is_no_list_warning)
+            return None
+
+        headstable = pd.concat(heads, axis=1)
+        return HeadsDif(heads=headstable,locname=locname,refcol=refcol)
+
+
+    def get_relative_heads(self):
+        """Return table with heads relative to mean of entire series."""
+        relheads = self.heads.copy()
+        for i,col in enumerate(list(self.heads)):
+            relheads[col] = self.heads[col]-self.heads[col].mean()
+        return relheads
+
+
+    def get_difference(self,refcol=None):
+        """Return table with head differences.
+
+        Parameters
+        ----------
+        refcol : str, optional
+            Head differences will be calculated relative to this column.
+
+        Returns
+        -------
+        pd.DataFrame
+        """
+        if refcol is None:
+            refcol = self.refcol
+
+        if (refcol not in self.heads.columns):
+            firstcol = list(self.heads)[0]
+            warnings.warn((f'Reference column {refcol} not in heads '
+                f'table. First column "{firstcol}" will be used.'))
+            refcol = firstcol
+
+        hdif = self.heads.copy()
+        for i,col in enumerate(list(hdif)):
+            hdif[col] = self.heads[col]-self.heads[refcol]
+        return hdif
+
+
+    def get_seasons(self,dates=None,period=PERIOD_DEFAULT):
         """
         Return list with seasons for each datetime in index.
 
         Parameters
         ----------
-        dtindex : pd.Datarame,pd.DateTimeIndex
+        dates : pd.DataFrame, pd.DateTimeIndex, optional
             Index with dates.
 
-        seasons : {'quarter','half-year'}
-            Aggregate by season or by six months.
+        period : {'seasons','biannual'}, default 'seasons'
+            Aggregate by seasons or by half-year.
 
         Returns
         -------
-        list
-            Season for each datetime in dtindex
+        numpy array
+            Season for each datetime in dates
         """
-        if isinstance(dtindex,pd.DataFrame):
-            dtindex = dtindex.index
+        if dates is None:
+            dates = self.heads
 
-        if period=='quarter':
-            seasons = ['1_Winter', '1_Winter', '2_Spring', '2_Spring', 
-                       '2_Summer', '3_Summer', '3_Summer', '3_Summer', 
-                       '4_Autumn', '4_Autumn', 
-                       '4_Autumn', '1_Winter']
-            month_to_season = dict(zip(range(1,13), seasons))
+        if isinstance(dates,pd.DataFrame):
+            dtindex = dates.index
+
+        if isinstance(dates,pd.Series):
+            dtindex = dates.index
+
+        if isinstance(dates,DatetimeIndex):
+            dtindex = dates
+
+        if period not in self.PERIOD_NAMES:
+            warnings.warn((f"Period '{period}' not in {self.PERIOD_NAMES},"
+                "Default {self.PERIOD_DEFAULT} will be used."))
+            period = self.PERIOD_DEFAULT
+
+        if period==self.FOURSEASONSKEY:
+            month_to_season = dict(zip(range(1,13), self.FOURSEASONS))
             seasons = dtindex.month.map(month_to_season).values
 
-        if period=='half-year':
-            seasons = ['Winter', 'Winter', 'Winter', 'Summer', 'Summer', 
-                       'Summer', 'Summer', 'Summer', 'Summer', 'Winter', 
-                       'Winter', 'Winter']
-            month_to_season = dict(zip(range(1,13), seasons))
+        if period==self.TWOSEASONSKEY:
+
+            month_to_season = dict(zip(range(1,13), self.TWOSEASONS))
             seasons = dtindex.month.map(month_to_season).values
 
         return seasons
 
 
+    def get_difference_by_season(self,period=PERIOD_DEFAULT):
+        """Return table with head differences grouped by season.
+
+        Parameters
+        ----------
+        seasons : {'seasons','biannual'}, default 'seasons'
+            Aggregate by season or by half-year.
+
+        Returns
+        -------
+        pd.DataFrame
+        """
+        headsdif = self.get_difference()
+        seasons = self.get_seasons(headsdif,period=period)
+        difsns = (headsdif*100).groupby(seasons).mean().round(2).T
+        difsns.columns.name = None
+        difsns.index.name = 'series'
+        if period==self.FOURSEASONSKEY:
+            difsns = difsns[self.FOURSEASONS_COLNAMES]
+        return difsns
+
+    @mpl.rc_context(plt.style.use(MPL_STYLE_DEFAULT))
     def plot_time(self,figpath=None,figsize=None,colors=None):
         """Plot al heads in one graph and all head differences below that 
-           in one figure """
+           in one figure 
+           
+        Parameters
+        ----------
+        figpath : str
+            Valid filepath for output figure.
+        figsize : [width,height]
+            Figure size in inches.
+        colors : list of tuples or strings
+            Colors for head lines (RGB tuples or Hexcodes).
 
-        if figpath is None:
-            msg = f'Parameter figpath must be given'
-            raise ValueError(msg)
+        Returns
+        -------
+        axes
+        """
 
-        if figsize is None:
-            figsize = [12,18]
+        headsdif = self.get_difference()
+        seasons = self.get_seasons(dates=headsdif,period='biannual')
 
+        # colors for heads lines
         if colors is None:
-            colors = sns.color_palette('bright')
+            cm = mpl.colormaps['tab10_r'].reversed() #mpl colormap
+            colorlist = cm.colors #list of RGB-tuples
+            
+            colors = {}
+            for i,col in enumerate(list(headsdif)):
+                colors[col] = colorlist[i]
 
-        nrows = len(list(self._heads))+1
-        fig,axes = plt.subplots(nrows,1)
-        plt.subplots_adjust(hspace=0.4)
+        # colors for seasonal colored differences
+        """
+        cm2 = mpl.colormaps['tab10_r']
+        season_colors ={
+            'Winter':cm2.colors[0],
+            'Summer':cm2.colors[2],
+            }
+        """
+        season_colors = self.TWOSEASONS_COLORS
+
+        # figure settings
+        nrows = len(list(self.heads))
+        fig,axs = plt.subplots(nrows=nrows,ncols=1,sharex=True,constrained_layout=True)
+        if figsize is None:
+            figsize = [7,5]
         fig.set_figwidth(figsize[0])
         fig.set_figheight(figsize[1])
+        ##plt.subplots_adjust(hspace=0.4)
 
-        for i,col in enumerate(list(self._heads)):
+        # plot heads on first ax
+        for col in list(self.heads):
+            heads = self.heads[col].dropna().squeeze()
+            #heads.plot(ax=axs[0],color=colors[col])
+            axs[0].plot(heads.index,heads,label=col,color=colors[col])
+        axs[0].set_title(label=f'Location {self.locname}',fontsize=10.)
+        axs[0].yaxis.set_label_text('stijghoogte', fontsize=7.)
+        ncols = min(len(list(self.heads)),4)
+        legend = axs[0].legend(loc='upper left', bbox_to_anchor=(0.0, 0.0),
+            fancybox=False, shadow=False, edgecolor="white",
+            ncols=ncols,fontsize=7.)
+        legend.get_frame().set_alpha(None)
+        legend.get_frame().set_facecolor((0, 0, 0, 0.0))
 
-            title = f'{self.locname} (all series)'
-            
-            self._heads[col].dropna().plot(ax=axes[0],color=colors[i],
-                                           title=title)
-            sr = self._headsdif[col]*100
-            sr.dropna().plot(ax=axes[i+1],color=colors[i])
+        # plot head differences on next axes
+        colnames = [x for x in list(self.heads) if x!=self.refcol]
+        for i,col in enumerate(colnames):
 
-            axes[i+1].set_title(sr.name, fontsize='large')
-            axes[i+1].yaxis.set_label_text('stijghoogteverschil (cm)')
+            sr = headsdif[col].dropna()*100
+            periods = self.get_seasons(dates=sr,period='biannual')
+            srw = sr[periods=='Winter']
+            srs = sr[periods=='Summer']
 
-            axes[i+1].axhline(y=0, color='darkgray',linestyle='--')
+            srw.plot(ax=axs[i+1],color=season_colors['Winter'],style='.',ms=2,label='winter')
+            srs.plot(ax=axs[i+1],color=season_colors['Summer'],style='.',ms=2,label='zomer')
 
-        for i in range(len(axes)):
-                axes[i].set_xlabel(' ')
-        #fig.suptitle(locname,fontsize=12)
+            axs[i+1].axhline(y=0, color='darkgray',linestyle='--')
+            titletext = f'stijghoogteverschil {sr.name} met {self.refcol}'
+            axs[i+1].set_title(titletext, fontsize=10.)
+            axs[i+1].yaxis.set_label_text('stijghoogteverschil (cm)', fontsize=7.)
 
-        fig.savefig(figpath, dpi=300, facecolor='w', edgecolor='w')
+            axs[i+1].legend(['winter', 'zomer',], loc='lower left',ncols=2,edgecolor=None)
 
-        return fig,axes
+        # xax formatter
+        half_year_locator = mdates.MonthLocator(bymonth=(4, 10))
+        year_month_formatter = mdates.DateFormatter("%m\n%Y")
+        for i in range(len(axs)):
 
+            axs[i].set_xlabel(' ')
+            axs[i].tick_params(axis='y', labelsize=7.)
+            axs[i].tick_params(axis='x', which='both', bottom=False, labelsize=9.)
 
-    def plot_head(self,figpath=None,color='season'):
-        """Plot head difference by reference head value."""
+            if i==len(axs)-1: #last axis only
+                axs[i].xaxis.set_major_locator(half_year_locator) # Locator for major axis only.
+                axs[i].xaxis.set_major_formatter(year_month_formatter) # formatter for major axis only
+                axs[i].xaxis.set_minor_locator(mdates.MonthLocator())
+        
+        for i in range(len(axs)):
 
-        colnames = self._headsdif.columns
+                for label in axs[i].get_xticklabels(which='major'):
+                    label.set(rotation=0, horizontalalignment='center')
 
-        if len(self._headsdif.columns) <= 2:
+        if figpath is not None:
+            fig.savefig(figpath, dpi=300, facecolor='w', edgecolor='w')
+
+        return axs
+
+    @mpl.rc_context(plt.style.use(MPL_STYLE_DEFAULT))
+    def plot_head(self,figsize=None,figpath=None,period='biannual'):
+        """Plot head difference by reference head value.
+
+        Parameters
+        ----------
+        figpath : str, optional
+
+        period : {'seasonal,'biannual'}, default 'season'
+
+        """
+        headsdif = self.get_difference()
+        relheads = self.get_relative_heads()
+        colnames = headsdif.columns
+
+        # create fig, ax
+        if figsize is None:
+            figsize=(8.5,8.5)
+
+        if len(headsdif.columns) <= 2:
             ncols = 1
             nrows = 1
-            figsize = (8.5,8.5)
+            figsize = figsize
         else:
             naxs = len(colnames)-1
             ncols = 2
             nrows = math.ceil(naxs/ncols)
-            figsize = (8.5,4*nrows)
+            figsize = (figsize[0],figsize[1]/2*nrows)
 
         fig, axs = plt.subplots(
                     nrows, ncols, squeeze=False, 
                     sharex=True, sharey=False,
                     figsize=figsize, dpi=100)
 
-        axix = [(r,c) for r in range(nrows) for c in range(ncols)]
+        ax_idx = [(r,c) for r in range(nrows) for c in range(ncols)]
 
-        if color=='half-year':
-            seasons = self.date_seasons(self._headsdif,periods='half-year')
-            coldict = {'Winter':'#0057e7','Zomer':'#ffa500'}
+        if period=='biannual':
+            #seasons = self.date_seasons(self._headsdif,periods='half-year')
+            seasons = self.get_seasons(dates=headsdif,period='biannual')
+            coldict = self.TWOSEASONS_COLORS
             colors = [coldict[x] for x in seasons]
 
-        if color=='season':
-            seasons = self.date_seasons(self._headsdif,period='quarter')
-            coldict = {'1_Winter':'#0057e7', '2_Voorjaar':'#74d4f0',
-                       '3_Zomer':'#ff0000','4_Herfst':'#ffa500'}
+        if period=='season':
+            #seasons = self.date_seasons(self._headsdif,period='quarter')
+            seasons = self.get_seasons(dates=headsdif,period='biannual')
+            coldict = self.FOURSEASONS_COLORS
             colors = [coldict[x] for x in seasons]
 
         pal = sns.color_palette(colors)
 
         for i in range(len(colnames)-1):
 
-            ax = axs[axix[i]]
+            ax = axs[ax_idx[i]]
 
             ax.axhline(y=0, color='darkgray',linestyle='--')
             ax.axvline(x=0, color='darkgray',linestyle='--')
@@ -364,8 +475,8 @@ class HeadsDif:
             ax.axhline(y=5, color='slategray',linestyle='-.')
             ax.axhline(y=-5, color='slategray',linestyle='-.')
 
-            data = self._headsdif
-            data[self._refcol] = self._headsref[self._refcol]
+            data = headsdif
+            data[self.refcol] = relheads[self.refcol]
 
             ax = sns.scatterplot(
                     x = colnames[0], 
@@ -388,11 +499,12 @@ class HeadsDif:
             ax.yaxis.set_label_text(ylab)
 
         fig.tight_layout()
-        fig.savefig(figpath, dpi=300)
+        if figpath:
+            fig.savefig(figpath, dpi=300)
 
-        return fig, axs
+        return axs
 
-
+    @mpl.rc_context(plt.style.use(MPL_STYLE_DEFAULT))
     def plot_freq(self):
         """
         Plot head differences as grid of frequency plots.
@@ -401,7 +513,10 @@ class HeadsDif:
         -------
         fig,ax
         """
-        loclist = list(self._headsdif.columns)
+        headsdif = self.get_difference()
+        ##ref = self.ref
+
+        loclist = list(headsdif.columns)
         nrows = len(loclist)
         ncols = len(loclist)
         fig, axs = plt.subplots(nrows=nrows,ncols=ncols,sharex=True)
@@ -416,7 +531,7 @@ class HeadsDif:
 
         for i,ref in enumerate(loclist):
 
-            tbl = self.table_headsdif(ref)
+            tbl = headsdif  #(ref)
             for j,col in enumerate(loclist):
                 x = (tbl[col]-tbl[col].mean()).values*100
                 
@@ -456,4 +571,4 @@ class HeadsDif:
                                 fontsize='large',
                                 horizontalalignment='center')
 
-        return fig,axs
+        return axs

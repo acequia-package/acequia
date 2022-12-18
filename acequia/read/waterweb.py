@@ -432,6 +432,7 @@ class WaterWeb:
             sr = self.get_locprops(srname)
             sr['name'] = sr.name
             sr['mptype'] = self.get_type(srname)
+            sr['network'] = self.networkname
             propslist.append(DataFrame(sr).T)
         locprops = pd.concat(propslist,ignore_index=True)
 
@@ -451,7 +452,7 @@ class WaterWeb:
             locprops['xcr'], locprops['ycr'], crs='EPSG:28992'))
 
         return gdf
-    
+
     def to_kml(self,filepath):
         """Save locations to KML file."""
 
@@ -460,4 +461,33 @@ class WaterWeb:
         wp = WpKml(locs[colnames],label='label',xcoor='xcr',ycoor='ycr',
             styledict=self.KMLSTYLES,stylecol='mptype')
         wp.writekml(filepath)
+
+    def to_gpx(self,filepath):
+        """Save locations to GPX waypoints file.
         
+        Parameters
+        ----------
+        filepath :str
+            Valid filepath for saving GPX file.
+            
+        """
+        # source for this solution:
+        # https://github.com/geopandas/geopandas/issues/684
+        # jose1911 suggestes adding all requeierd files to dataframe en 
+
+        locs = self.locations.copy()
+        locs = locs.to_crs(4326)
+
+        # adding columns that are propably expected by apps that import
+        # gpx waypoint files.
+        locs['name']=locs['label']
+        locs['ele']=0
+        locs['magvar']=0
+        locs['time']='2019-08-02T14:17:50Z'
+        locs['geoidheight'] = 0
+        colnames = ['geometry', 'ele', 'time', 'magvar', 'geoidheight', 'name']
+        
+        # saving gpx file
+        if not filepath.endswith('.gpx'):
+            filepath = f'{filepath}.gpx'
+        locs[colnames].to_file(filepath,'GPX')

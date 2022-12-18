@@ -8,7 +8,6 @@ from .gwlist import GwList
 from .gwlist import headsfiles as headsfiles
 from .gwlocs import GwLocs
 from .headsdif import HeadsDif
-from .headsdif import headsdif_from_gwseries as headsdif_from_gwseries
 from .swseries import SwSeries
 from .data.knmidata import KnmiData
 from .geo.coordinate_conversion import CrdCon
