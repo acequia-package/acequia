@@ -161,8 +161,8 @@ class HydroMonitor:
                 datatag_found = True
                 datafirst = i+2
                 metalast = i-2
-                datacols = [x.lower() for x in linelist]
-                datacols = [x for x in linelist]
+                ##datacols = [x.lower() for x in linelist]
+                datacols = [x for x in linelist if len(x)>0]
                 break # avoid iterating over lines after metadata
 
         # warnings
@@ -244,17 +244,21 @@ class HydroMonitor:
         """ read data from hydromonitor csv export file """
 
         #read data
+        colidx = list(range(len(self.data_colnames)))
         data = pd.read_csv(
             self.fpath,
             sep=self.CSVSEP,
             index_col=False,
             header=None,
             names=self.data_colnames,
+            usecols = colidx,
             skiprows=self._line_numbers['datafirst'],
             #parse_dates=['datetime'], # don't, this takes a lot of time
             dtype=str,
             encoding='latin-1',
             )
+
+        self._rawdata = data
 
         if 'LoggerHead' not in self.data_colnames:
         # when no loggerhead is available, menyanthes only exports
@@ -268,6 +272,12 @@ class HydroMonitor:
 
             msg = f'Missing data column LoggerHead added and filled with NaNs'
             warnings.warn(msg)
+
+        # convert head columns to numeric
+        for colname in ['LoggerHead','ManualHead']:
+            if colname in self.data_colnames:
+                data[colname] = data[colname].str.replace(',','.')
+                data[colname] = pd.to_numeric(data[colname],errors='coerce')
 
         if 'ManualHead' not in self.data_colnames:
         # this is a variation on the previous missing loggerhead issue
@@ -295,10 +305,8 @@ class HydroMonitor:
         # parsing these dates is very time consuming
         data['DateTime'] = pd.to_datetime(data['DateTime'],
               dayfirst=True,format='%d-%m-%Y %H:%M',errors='coerce')
-        data['LoggerHead'] = pd.to_numeric(data['LoggerHead'], 
-                               errors='coerce')
-        data['ManualHead'] = pd.to_numeric(data['ManualHead'], 
-                               errors='coerce')
+
+
         return data
 
     @property

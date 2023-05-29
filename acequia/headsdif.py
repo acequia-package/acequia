@@ -80,7 +80,8 @@ class HeadsDif:
     PERIOD_DEFAULT = FOURSEASONSKEY
     PERIOD_NAMES = {FOURSEASONSKEY,TWOSEASONSKEY}
 
-    MPL_STYLE_DEFAULT = 'seaborn-darkgrid' #'ggplot'
+    MPL_STYLE_DEFAULT = 'seaborn-v0_8-darkgrid'
+
 
     def __init__(self,heads=None,locname=None,refcol=None):
         """

@@ -122,7 +122,7 @@ class KnmiDownload:
                 'fmt':'json'}
 
         # make actual request to knmi server
-        self._response = requests.get(self.PRECIPITATION_URL,params=par) 
+        self._response = requests.get(self.PRECIPITATION_URL,params=par)
         self._response_code = self._response.status_code
         self._response_url = self._response.url
         return self._response

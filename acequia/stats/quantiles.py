@@ -28,13 +28,13 @@ class Quantiles:
         Parameters
         ----------
         heads : pd.Series, aq.GwSeries
-            Timeseries with groundwater head measurments
+            Timeseries with groundwater head measurements.
 
         srname : str
             User defined series name.
 
         headsref : {'datum','surface'}, default 'surface'
-            Reference level for measurements
+            Reference level for measurements.
 
         """
 
@@ -66,8 +66,8 @@ class Quantiles:
         return f'{self.__class__.__name__}({self.srname})'
 
 
-    def quantiles(self,unit='days',step=None):
-        """Return table with quantiles for each hydrological year
+    def get_quantiles(self,unit='days',step=None):
+        """Return table with quantiles for each hydrological year.
         
         Parameters
         ----------
@@ -115,14 +115,14 @@ class Quantiles:
                 f'or "quantiles", not {unit}'))
 
         # create empty table with hydroyears and percentiles
-        yrs = hydroyear(self.ts)
-        quantiles = pd.DataFrame(index=set(yrs),columns=self.qtlabels)
+        hydroyears = hydroyear(self.ts)
+        unique_years = np.unique(allyears)
+        quantiles = pd.DataFrame(index=unique_years,columns=self.qtlabels)
 
         # calculate quantiles
+        grp = self.ts.groupby(hydroyears)
         for i,(name,quantile) in enumerate(zip(self.qtlabels,self.qt)):
-            grp = self.ts.groupby(yrs)
             quantiles[name] = grp.quantile(quantile).round(2)
-
         return quantiles
 
 
@@ -153,7 +153,7 @@ class Quantiles:
             Ax to plot on.
         """
 
-        quantiles = self.quantiles(unit=unit,step=step)
+        quantiles = self.get_quantiles(unit=unit,step=step)
 
         if coloryears is None:
             coloryears = []
@@ -172,8 +172,8 @@ class Quantiles:
 
         if ax is None:
             fig,ax = plt.subplots(1,1)
-            fig.set_figwidth(13)
-            fig.set_figheight(7)
+            fig.set_figwidth(8)
+            fig.set_figheight(4)
 
         x = self.qt
         reftbl = quantiles.copy()
@@ -233,14 +233,15 @@ class Quantiles:
         ax.invert_xaxis()
 
         # format yax
+        if self.headsref=='surface':
+            ax.invert_yaxis()
+
         if ylim is not None:
             ax.set_ylim(ylim[0],ylim[1])
 
         yticklabels = [str(int(x)) for x in ax.get_yticks()]
         ax.set_yticklabels(yticklabels,fontsize=10.) 
         
-        #if self.headsref=='surface':
-        #    ax.invert_yaxis()
 
         #ax.set_ylabel('grondwaterstand (cm -mv)') #, fontsize=15)
         ax.set_ylabel('')

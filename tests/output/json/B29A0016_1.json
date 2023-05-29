@@ -1,0 +1,3641 @@
+{
+  "locprops": {
+    "locname": "B29A0016",
+    "filname": "1",
+    "alias": "29AB0016",
+    "xcr": "264970",
+    "ycr": "488520",
+    "height_datum": "mNAP",
+    "grid_reference": "RD"
+  },
+  "tubeprops": {
+    "0": {
+      "startdate": "1951-10-15T00:00:00.000",
+      "mplevel": 25.13,
+      "filtop": 5.38,
+      "filbot": -16.12,
+      "surfacedate": "1943-01-01T00:00:00.000",
+      "surfacelevel": 25.48
+    }
+  },
+  "heads": {
+    "0": {
+      "headdatetime": "1951-10-15T00:00:00",
+      "headmp": 1.72,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1": {
+      "headdatetime": "1951-10-29T00:00:00",
+      "headmp": 1.72,
+      "headnote": "",
+      "remarks": ""
+    },
+    "2": {
+      "headdatetime": "1951-11-14T00:00:00",
+      "headmp": 1.4,
+      "headnote": "",
+      "remarks": ""
+    },
+    "3": {
+      "headdatetime": "1951-11-28T00:00:00",
+      "headmp": 1.1,
+      "headnote": "",
+      "remarks": ""
+    },
+    "4": {
+      "headdatetime": "1951-12-14T00:00:00",
+      "headmp": 1.04,
+      "headnote": "",
+      "remarks": ""
+    },
+    "5": {
+      "headdatetime": "1951-12-28T00:00:00",
+      "headmp": 1.22,
+      "headnote": "",
+      "remarks": ""
+    },
+    "6": {
+      "headdatetime": "1952-01-14T00:00:00",
+      "headmp": 0.97,
+      "headnote": "",
+      "remarks": ""
+    },
+    "7": {
+      "headdatetime": "1952-01-28T00:00:00",
+      "headmp": 1.07,
+      "headnote": "",
+      "remarks": ""
+    },
+    "8": {
+      "headdatetime": "1952-02-14T00:00:00",
+      "headmp": 0.98,
+      "headnote": "",
+      "remarks": ""
+    },
+    "9": {
+      "headdatetime": "1952-02-28T00:00:00",
+      "headmp": 1.11,
+      "headnote": "",
+      "remarks": ""
+    },
+    "10": {
+      "headdatetime": "1952-03-14T00:00:00",
+      "headmp": 1.19,
+      "headnote": "",
+      "remarks": ""
+    },
+    "11": {
+      "headdatetime": "1952-03-28T00:00:00",
+      "headmp": 1.12,
+      "headnote": "",
+      "remarks": ""
+    },
+    "12": {
+      "headdatetime": "1952-04-15T00:00:00",
+      "headmp": 1.24,
+      "headnote": "",
+      "remarks": ""
+    },
+    "13": {
+      "headdatetime": "1952-04-28T00:00:00",
+      "headmp": 1.38,
+      "headnote": "",
+      "remarks": ""
+    },
+    "14": {
+      "headdatetime": "1952-05-14T00:00:00",
+      "headmp": 1.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "15": {
+      "headdatetime": "1952-05-28T00:00:00",
+      "headmp": 1.61,
+      "headnote": "",
+      "remarks": ""
+    },
+    "16": {
+      "headdatetime": "1952-06-14T00:00:00",
+      "headmp": 1.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "17": {
+      "headdatetime": "1952-06-28T00:00:00",
+      "headmp": 1.63,
+      "headnote": "",
+      "remarks": ""
+    },
+    "18": {
+      "headdatetime": "1952-07-14T00:00:00",
+      "headmp": 1.3,
+      "headnote": "",
+      "remarks": ""
+    },
+    "19": {
+      "headdatetime": "1952-07-28T00:00:00",
+      "headmp": 1.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "20": {
+      "headdatetime": "1952-08-14T00:00:00",
+      "headmp": 1.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "21": {
+      "headdatetime": "1952-08-28T00:00:00",
+      "headmp": 1.3,
+      "headnote": "",
+      "remarks": ""
+    },
+    "22": {
+      "headdatetime": "1952-09-15T00:00:00",
+      "headmp": 1.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "23": {
+      "headdatetime": "1952-09-29T00:00:00",
+      "headmp": 1.47,
+      "headnote": "",
+      "remarks": ""
+    },
+    "24": {
+      "headdatetime": "1952-10-14T00:00:00",
+      "headmp": 1.3,
+      "headnote": "",
+      "remarks": ""
+    },
+    "25": {
+      "headdatetime": "1952-10-28T00:00:00",
+      "headmp": 1.24,
+      "headnote": "",
+      "remarks": ""
+    },
+    "26": {
+      "headdatetime": "1952-11-14T00:00:00",
+      "headmp": 0.91,
+      "headnote": "",
+      "remarks": ""
+    },
+    "27": {
+      "headdatetime": "1952-11-28T00:00:00",
+      "headmp": 1.04,
+      "headnote": "",
+      "remarks": ""
+    },
+    "28": {
+      "headdatetime": "1952-12-15T00:00:00",
+      "headmp": 0.99,
+      "headnote": "",
+      "remarks": ""
+    },
+    "29": {
+      "headdatetime": "1952-12-29T00:00:00",
+      "headmp": 0.96,
+      "headnote": "",
+      "remarks": ""
+    },
+    "30": {
+      "headdatetime": "1953-01-14T00:00:00",
+      "headmp": 1.15,
+      "headnote": "",
+      "remarks": ""
+    },
+    "31": {
+      "headdatetime": "1953-01-28T00:00:00",
+      "headmp": 1.03,
+      "headnote": "",
+      "remarks": ""
+    },
+    "32": {
+      "headdatetime": "1953-02-14T00:00:00",
+      "headmp": 0.96,
+      "headnote": "",
+      "remarks": ""
+    },
+    "33": {
+      "headdatetime": "1953-02-28T00:00:00",
+      "headmp": 1.01,
+      "headnote": "",
+      "remarks": ""
+    },
+    "34": {
+      "headdatetime": "1953-03-14T00:00:00",
+      "headmp": 1.09,
+      "headnote": "",
+      "remarks": ""
+    },
+    "35": {
+      "headdatetime": "1953-03-28T00:00:00",
+      "headmp": 1.2,
+      "headnote": "",
+      "remarks": ""
+    },
+    "36": {
+      "headdatetime": "1953-04-14T00:00:00",
+      "headmp": 1.23,
+      "headnote": "",
+      "remarks": ""
+    },
+    "37": {
+      "headdatetime": "1953-04-28T00:00:00",
+      "headmp": 1.29,
+      "headnote": "",
+      "remarks": ""
+    },
+    "38": {
+      "headdatetime": "1953-05-15T00:00:00",
+      "headmp": 1.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "39": {
+      "headdatetime": "1953-05-28T00:00:00",
+      "headmp": 1.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "40": {
+      "headdatetime": "1953-06-15T00:00:00",
+      "headmp": 1.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "41": {
+      "headdatetime": "1953-06-29T00:00:00",
+      "headmp": 1.28,
+      "headnote": "",
+      "remarks": ""
+    },
+    "42": {
+      "headdatetime": "1953-07-14T00:00:00",
+      "headmp": 1.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "43": {
+      "headdatetime": "1953-07-28T00:00:00",
+      "headmp": 1.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "44": {
+      "headdatetime": "1953-08-14T00:00:00",
+      "headmp": 1.77,
+      "headnote": "",
+      "remarks": ""
+    },
+    "45": {
+      "headdatetime": "1953-08-28T00:00:00",
+      "headmp": 1.69,
+      "headnote": "",
+      "remarks": ""
+    },
+    "46": {
+      "headdatetime": "1953-09-14T00:00:00",
+      "headmp": 1.71,
+      "headnote": "",
+      "remarks": ""
+    },
+    "47": {
+      "headdatetime": "1953-09-28T00:00:00",
+      "headmp": 1.71,
+      "headnote": "",
+      "remarks": ""
+    },
+    "48": {
+      "headdatetime": "1953-10-14T00:00:00",
+      "headmp": 1.8,
+      "headnote": "",
+      "remarks": ""
+    },
+    "49": {
+      "headdatetime": "1953-10-28T00:00:00",
+      "headmp": 1.82,
+      "headnote": "",
+      "remarks": ""
+    },
+    "50": {
+      "headdatetime": "1953-11-14T00:00:00",
+      "headmp": 1.83,
+      "headnote": "",
+      "remarks": ""
+    },
+    "51": {
+      "headdatetime": "1953-11-28T00:00:00",
+      "headmp": 1.75,
+      "headnote": "",
+      "remarks": ""
+    },
+    "52": {
+      "headdatetime": "1953-12-14T00:00:00",
+      "headmp": 1.7,
+      "headnote": "",
+      "remarks": ""
+    },
+    "53": {
+      "headdatetime": "1953-12-28T00:00:00",
+      "headmp": 1.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "54": {
+      "headdatetime": "1954-01-14T00:00:00",
+      "headmp": 1.36,
+      "headnote": "",
+      "remarks": ""
+    },
+    "55": {
+      "headdatetime": "1954-01-28T00:00:00",
+      "headmp": 1.42,
+      "headnote": "",
+      "remarks": ""
+    },
+    "56": {
+      "headdatetime": "1954-02-19T00:00:00",
+      "headmp": 1.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "57": {
+      "headdatetime": "1954-03-01T00:00:00",
+      "headmp": 1.31,
+      "headnote": "",
+      "remarks": ""
+    },
+    "58": {
+      "headdatetime": "1954-03-15T00:00:00",
+      "headmp": 1.26,
+      "headnote": "",
+      "remarks": ""
+    },
+    "59": {
+      "headdatetime": "1954-03-29T00:00:00",
+      "headmp": 1.28,
+      "headnote": "",
+      "remarks": ""
+    },
+    "60": {
+      "headdatetime": "1954-04-14T00:00:00",
+      "headmp": 1.3,
+      "headnote": "",
+      "remarks": ""
+    },
+    "61": {
+      "headdatetime": "1954-04-28T00:00:00",
+      "headmp": 1.41,
+      "headnote": "",
+      "remarks": ""
+    },
+    "62": {
+      "headdatetime": "1954-05-14T00:00:00",
+      "headmp": 1.61,
+      "headnote": "",
+      "remarks": ""
+    },
+    "63": {
+      "headdatetime": "1954-05-28T00:00:00",
+      "headmp": 1.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "64": {
+      "headdatetime": "1954-06-14T00:00:00",
+      "headmp": 1.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "65": {
+      "headdatetime": "1954-06-28T00:00:00",
+      "headmp": 1.75,
+      "headnote": "",
+      "remarks": ""
+    },
+    "66": {
+      "headdatetime": "1954-07-14T00:00:00",
+      "headmp": 1.72,
+      "headnote": "",
+      "remarks": ""
+    },
+    "67": {
+      "headdatetime": "1954-07-28T00:00:00",
+      "headmp": 1.31,
+      "headnote": "",
+      "remarks": ""
+    },
+    "68": {
+      "headdatetime": "1954-08-14T00:00:00",
+      "headmp": 1.29,
+      "headnote": "",
+      "remarks": ""
+    },
+    "69": {
+      "headdatetime": "1954-08-28T00:00:00",
+      "headmp": 1.03,
+      "headnote": "",
+      "remarks": ""
+    },
+    "70": {
+      "headdatetime": "1954-09-14T00:00:00",
+      "headmp": 1.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "71": {
+      "headdatetime": "1954-09-28T00:00:00",
+      "headmp": 1.03,
+      "headnote": "",
+      "remarks": ""
+    },
+    "72": {
+      "headdatetime": "1954-10-14T00:00:00",
+      "headmp": 1.0,
+      "headnote": "",
+      "remarks": ""
+    },
+    "73": {
+      "headdatetime": "1954-10-28T00:00:00",
+      "headmp": 0.95,
+      "headnote": "",
+      "remarks": ""
+    },
+    "74": {
+      "headdatetime": "1954-11-15T00:00:00",
+      "headmp": 0.9,
+      "headnote": "",
+      "remarks": ""
+    },
+    "75": {
+      "headdatetime": "1954-11-29T00:00:00",
+      "headmp": 0.98,
+      "headnote": "",
+      "remarks": ""
+    },
+    "76": {
+      "headdatetime": "1954-12-15T00:00:00",
+      "headmp": 0.99,
+      "headnote": "",
+      "remarks": ""
+    },
+    "77": {
+      "headdatetime": "1954-12-29T00:00:00",
+      "headmp": 0.73,
+      "headnote": "",
+      "remarks": ""
+    },
+    "78": {
+      "headdatetime": "1955-01-14T00:00:00",
+      "headmp": 1.03,
+      "headnote": "",
+      "remarks": ""
+    },
+    "79": {
+      "headdatetime": "1955-01-28T00:00:00",
+      "headmp": 0.94,
+      "headnote": "",
+      "remarks": ""
+    },
+    "80": {
+      "headdatetime": "1955-02-15T00:00:00",
+      "headmp": 0.97,
+      "headnote": "",
+      "remarks": ""
+    },
+    "81": {
+      "headdatetime": "1955-02-28T00:00:00",
+      "headmp": 1.28,
+      "headnote": "",
+      "remarks": ""
+    },
+    "82": {
+      "headdatetime": "1955-03-14T00:00:00",
+      "headmp": 1.24,
+      "headnote": "",
+      "remarks": ""
+    },
+    "83": {
+      "headdatetime": "1955-03-28T00:00:00",
+      "headmp": 1.13,
+      "headnote": "",
+      "remarks": ""
+    },
+    "84": {
+      "headdatetime": "1955-04-14T00:00:00",
+      "headmp": 1.11,
+      "headnote": "",
+      "remarks": ""
+    },
+    "85": {
+      "headdatetime": "1955-04-28T00:00:00",
+      "headmp": 1.24,
+      "headnote": "",
+      "remarks": ""
+    },
+    "86": {
+      "headdatetime": "1955-05-14T00:00:00",
+      "headmp": 1.2,
+      "headnote": "",
+      "remarks": ""
+    },
+    "87": {
+      "headdatetime": "1955-05-28T00:00:00",
+      "headmp": 1.12,
+      "headnote": "",
+      "remarks": ""
+    },
+    "88": {
+      "headdatetime": "1955-06-15T00:00:00",
+      "headmp": 1.37,
+      "headnote": "",
+      "remarks": ""
+    },
+    "89": {
+      "headdatetime": "1955-07-14T00:00:00",
+      "headmp": 1.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "90": {
+      "headdatetime": "1955-07-28T00:00:00",
+      "headmp": 1.67,
+      "headnote": "",
+      "remarks": ""
+    },
+    "91": {
+      "headdatetime": "1955-08-13T00:00:00",
+      "headmp": 1.64,
+      "headnote": "",
+      "remarks": ""
+    },
+    "92": {
+      "headdatetime": "1955-08-29T00:00:00",
+      "headmp": 1.68,
+      "headnote": "",
+      "remarks": ""
+    },
+    "93": {
+      "headdatetime": "1955-09-14T00:00:00",
+      "headmp": 1.32,
+      "headnote": "",
+      "remarks": ""
+    },
+    "94": {
+      "headdatetime": "1955-09-28T00:00:00",
+      "headmp": 1.41,
+      "headnote": "",
+      "remarks": ""
+    },
+    "95": {
+      "headdatetime": "1955-10-14T00:00:00",
+      "headmp": 1.35,
+      "headnote": "",
+      "remarks": ""
+    },
+    "96": {
+      "headdatetime": "1955-10-28T00:00:00",
+      "headmp": 1.11,
+      "headnote": "",
+      "remarks": ""
+    },
+    "97": {
+      "headdatetime": "1955-11-14T00:00:00",
+      "headmp": 1.3,
+      "headnote": "",
+      "remarks": ""
+    },
+    "98": {
+      "headdatetime": "1955-11-28T00:00:00",
+      "headmp": 1.21,
+      "headnote": "",
+      "remarks": ""
+    },
+    "99": {
+      "headdatetime": "1955-12-14T00:00:00",
+      "headmp": 1.09,
+      "headnote": "",
+      "remarks": ""
+    },
+    "100": {
+      "headdatetime": "1955-12-28T00:00:00",
+      "headmp": 0.98,
+      "headnote": "",
+      "remarks": ""
+    },
+    "101": {
+      "headdatetime": "1956-01-14T00:00:00",
+      "headmp": 0.95,
+      "headnote": "",
+      "remarks": ""
+    },
+    "102": {
+      "headdatetime": "1956-01-28T00:00:00",
+      "headmp": 0.91,
+      "headnote": "",
+      "remarks": ""
+    },
+    "103": {
+      "headdatetime": "1956-02-14T00:00:00",
+      "headmp": 1.27,
+      "headnote": "",
+      "remarks": ""
+    },
+    "104": {
+      "headdatetime": "1956-02-28T00:00:00",
+      "headmp": 1.32,
+      "headnote": "",
+      "remarks": ""
+    },
+    "105": {
+      "headdatetime": "1956-03-14T00:00:00",
+      "headmp": 1.0,
+      "headnote": "",
+      "remarks": ""
+    },
+    "106": {
+      "headdatetime": "1956-03-28T00:00:00",
+      "headmp": 1.11,
+      "headnote": "",
+      "remarks": ""
+    },
+    "107": {
+      "headdatetime": "1956-04-14T00:00:00",
+      "headmp": 1.11,
+      "headnote": "",
+      "remarks": ""
+    },
+    "108": {
+      "headdatetime": "1956-04-28T00:00:00",
+      "headmp": 1.2,
+      "headnote": "",
+      "remarks": ""
+    },
+    "109": {
+      "headdatetime": "1956-05-14T00:00:00",
+      "headmp": 1.42,
+      "headnote": "",
+      "remarks": ""
+    },
+    "110": {
+      "headdatetime": "1956-05-28T00:00:00",
+      "headmp": 1.42,
+      "headnote": "",
+      "remarks": ""
+    },
+    "111": {
+      "headdatetime": "1956-06-14T00:00:00",
+      "headmp": 1.31,
+      "headnote": "",
+      "remarks": ""
+    },
+    "112": {
+      "headdatetime": "1956-06-28T00:00:00",
+      "headmp": 1.42,
+      "headnote": "",
+      "remarks": ""
+    },
+    "113": {
+      "headdatetime": "1956-07-14T00:00:00",
+      "headmp": 1.32,
+      "headnote": "",
+      "remarks": ""
+    },
+    "114": {
+      "headdatetime": "1956-07-28T00:00:00",
+      "headmp": 1.23,
+      "headnote": "",
+      "remarks": ""
+    },
+    "115": {
+      "headdatetime": "1956-08-14T00:00:00",
+      "headmp": 1.13,
+      "headnote": "",
+      "remarks": ""
+    },
+    "116": {
+      "headdatetime": "1956-08-28T00:00:00",
+      "headmp": 1.01,
+      "headnote": "",
+      "remarks": ""
+    },
+    "117": {
+      "headdatetime": "1956-09-14T00:00:00",
+      "headmp": 1.07,
+      "headnote": "",
+      "remarks": ""
+    },
+    "118": {
+      "headdatetime": "1956-09-28T00:00:00",
+      "headmp": 1.2,
+      "headnote": "",
+      "remarks": ""
+    },
+    "119": {
+      "headdatetime": "1956-10-15T00:00:00",
+      "headmp": 1.18,
+      "headnote": "",
+      "remarks": ""
+    },
+    "120": {
+      "headdatetime": "1956-10-29T00:00:00",
+      "headmp": 1.08,
+      "headnote": "",
+      "remarks": ""
+    },
+    "121": {
+      "headdatetime": "1956-11-14T00:00:00",
+      "headmp": 1.1,
+      "headnote": "",
+      "remarks": ""
+    },
+    "122": {
+      "headdatetime": "1956-11-28T00:00:00",
+      "headmp": 1.14,
+      "headnote": "",
+      "remarks": ""
+    },
+    "123": {
+      "headdatetime": "1956-12-14T00:00:00",
+      "headmp": 0.98,
+      "headnote": "",
+      "remarks": ""
+    },
+    "124": {
+      "headdatetime": "1956-12-28T00:00:00",
+      "headmp": 1.09,
+      "headnote": "",
+      "remarks": ""
+    },
+    "125": {
+      "headdatetime": "1957-01-14T00:00:00",
+      "headmp": 0.94,
+      "headnote": "",
+      "remarks": ""
+    },
+    "126": {
+      "headdatetime": "1957-01-28T00:00:00",
+      "headmp": 1.09,
+      "headnote": "",
+      "remarks": ""
+    },
+    "127": {
+      "headdatetime": "1957-02-14T00:00:00",
+      "headmp": 1.1,
+      "headnote": "",
+      "remarks": ""
+    },
+    "128": {
+      "headdatetime": "1957-03-14T00:00:00",
+      "headmp": 1.02,
+      "headnote": "",
+      "remarks": ""
+    },
+    "129": {
+      "headdatetime": "1957-03-28T00:00:00",
+      "headmp": 0.92,
+      "headnote": "",
+      "remarks": ""
+    },
+    "130": {
+      "headdatetime": "1957-04-15T00:00:00",
+      "headmp": 1.13,
+      "headnote": "",
+      "remarks": ""
+    },
+    "131": {
+      "headdatetime": "1957-04-28T00:00:00",
+      "headmp": 1.22,
+      "headnote": "",
+      "remarks": ""
+    },
+    "132": {
+      "headdatetime": "1957-05-14T00:00:00",
+      "headmp": 1.29,
+      "headnote": "",
+      "remarks": ""
+    },
+    "133": {
+      "headdatetime": "1957-05-28T00:00:00",
+      "headmp": 1.38,
+      "headnote": "",
+      "remarks": ""
+    },
+    "134": {
+      "headdatetime": "1957-06-14T00:00:00",
+      "headmp": 1.39,
+      "headnote": "",
+      "remarks": ""
+    },
+    "135": {
+      "headdatetime": "1957-06-28T00:00:00",
+      "headmp": 1.62,
+      "headnote": "",
+      "remarks": ""
+    },
+    "136": {
+      "headdatetime": "1957-07-15T00:00:00",
+      "headmp": 1.7,
+      "headnote": "",
+      "remarks": ""
+    },
+    "137": {
+      "headdatetime": "1957-07-29T00:00:00",
+      "headmp": 1.43,
+      "headnote": "",
+      "remarks": ""
+    },
+    "138": {
+      "headdatetime": "1957-08-14T00:00:00",
+      "headmp": 1.64,
+      "headnote": "",
+      "remarks": ""
+    },
+    "139": {
+      "headdatetime": "1957-08-28T00:00:00",
+      "headmp": 1.41,
+      "headnote": "",
+      "remarks": ""
+    },
+    "140": {
+      "headdatetime": "1957-09-14T00:00:00",
+      "headmp": 1.24,
+      "headnote": "",
+      "remarks": ""
+    },
+    "141": {
+      "headdatetime": "1957-09-28T00:00:00",
+      "headmp": 1.18,
+      "headnote": "",
+      "remarks": ""
+    },
+    "142": {
+      "headdatetime": "1957-10-14T00:00:00",
+      "headmp": 1.23,
+      "headnote": "",
+      "remarks": ""
+    },
+    "143": {
+      "headdatetime": "1957-10-28T00:00:00",
+      "headmp": 1.06,
+      "headnote": "",
+      "remarks": ""
+    },
+    "144": {
+      "headdatetime": "1957-11-14T00:00:00",
+      "headmp": 1.09,
+      "headnote": "",
+      "remarks": ""
+    },
+    "145": {
+      "headdatetime": "1957-11-28T00:00:00",
+      "headmp": 1.16,
+      "headnote": "",
+      "remarks": ""
+    },
+    "146": {
+      "headdatetime": "1957-12-14T00:00:00",
+      "headmp": 0.98,
+      "headnote": "",
+      "remarks": ""
+    },
+    "147": {
+      "headdatetime": "1957-12-28T00:00:00",
+      "headmp": 1.0,
+      "headnote": "",
+      "remarks": ""
+    },
+    "148": {
+      "headdatetime": "1958-01-14T00:00:00",
+      "headmp": 1.3,
+      "headnote": "",
+      "remarks": ""
+    },
+    "149": {
+      "headdatetime": "1958-01-28T00:00:00",
+      "headmp": 0.3,
+      "headnote": "",
+      "remarks": ""
+    },
+    "150": {
+      "headdatetime": "1958-02-14T00:00:00",
+      "headmp": 0.8,
+      "headnote": "",
+      "remarks": ""
+    },
+    "151": {
+      "headdatetime": "1958-02-28T00:00:00",
+      "headmp": 0.73,
+      "headnote": "",
+      "remarks": ""
+    },
+    "152": {
+      "headdatetime": "1958-03-14T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "153": {
+      "headdatetime": "1958-03-28T00:00:00",
+      "headmp": 0.73,
+      "headnote": "",
+      "remarks": ""
+    },
+    "154": {
+      "headdatetime": "1958-04-14T00:00:00",
+      "headmp": 1.27,
+      "headnote": "",
+      "remarks": ""
+    },
+    "155": {
+      "headdatetime": "1958-04-28T00:00:00",
+      "headmp": 1.06,
+      "headnote": "",
+      "remarks": ""
+    },
+    "156": {
+      "headdatetime": "1958-05-14T00:00:00",
+      "headmp": 1.11,
+      "headnote": "",
+      "remarks": ""
+    },
+    "157": {
+      "headdatetime": "1958-05-28T00:00:00",
+      "headmp": 0.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "158": {
+      "headdatetime": "1958-06-14T00:00:00",
+      "headmp": 1.28,
+      "headnote": "",
+      "remarks": ""
+    },
+    "159": {
+      "headdatetime": "1958-06-28T00:00:00",
+      "headmp": 1.28,
+      "headnote": "",
+      "remarks": ""
+    },
+    "160": {
+      "headdatetime": "1958-07-14T00:00:00",
+      "headmp": 1.32,
+      "headnote": "",
+      "remarks": ""
+    },
+    "161": {
+      "headdatetime": "1958-07-28T00:00:00",
+      "headmp": 0.44,
+      "headnote": "",
+      "remarks": ""
+    },
+    "162": {
+      "headdatetime": "1958-08-28T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "163": {
+      "headdatetime": "1958-09-15T00:00:00",
+      "headmp": 1.21,
+      "headnote": "",
+      "remarks": ""
+    },
+    "164": {
+      "headdatetime": "1958-09-29T00:00:00",
+      "headmp": 0.81,
+      "headnote": "",
+      "remarks": ""
+    },
+    "165": {
+      "headdatetime": "1958-10-14T00:00:00",
+      "headmp": 0.34,
+      "headnote": "",
+      "remarks": ""
+    },
+    "166": {
+      "headdatetime": "1958-10-28T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "167": {
+      "headdatetime": "1958-11-14T00:00:00",
+      "headmp": 0.79,
+      "headnote": "",
+      "remarks": ""
+    },
+    "168": {
+      "headdatetime": "1958-11-28T00:00:00",
+      "headmp": 1.01,
+      "headnote": "",
+      "remarks": ""
+    },
+    "169": {
+      "headdatetime": "1958-12-15T00:00:00",
+      "headmp": 1.17,
+      "headnote": "",
+      "remarks": ""
+    },
+    "170": {
+      "headdatetime": "1958-12-29T00:00:00",
+      "headmp": 1.02,
+      "headnote": "",
+      "remarks": ""
+    },
+    "171": {
+      "headdatetime": "1959-01-14T00:00:00",
+      "headmp": 0.4,
+      "headnote": "",
+      "remarks": ""
+    },
+    "172": {
+      "headdatetime": "1959-01-28T00:00:00",
+      "headmp": 0.24,
+      "headnote": "",
+      "remarks": ""
+    },
+    "173": {
+      "headdatetime": "1959-02-14T00:00:00",
+      "headmp": 0.44,
+      "headnote": "",
+      "remarks": ""
+    },
+    "174": {
+      "headdatetime": "1959-02-28T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "175": {
+      "headdatetime": "1959-03-14T00:00:00",
+      "headmp": 0.38,
+      "headnote": "",
+      "remarks": ""
+    },
+    "176": {
+      "headdatetime": "1959-03-28T00:00:00",
+      "headmp": 0.43,
+      "headnote": "",
+      "remarks": ""
+    },
+    "177": {
+      "headdatetime": "1959-04-20T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "178": {
+      "headdatetime": "1959-04-28T00:00:00",
+      "headmp": 0.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "179": {
+      "headdatetime": "1959-05-14T00:00:00",
+      "headmp": 0.68,
+      "headnote": "",
+      "remarks": ""
+    },
+    "180": {
+      "headdatetime": "1959-05-28T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "181": {
+      "headdatetime": "1959-06-15T00:00:00",
+      "headmp": 0.89,
+      "headnote": "",
+      "remarks": ""
+    },
+    "182": {
+      "headdatetime": "1959-06-29T00:00:00",
+      "headmp": 0.98,
+      "headnote": "",
+      "remarks": ""
+    },
+    "183": {
+      "headdatetime": "1959-07-14T00:00:00",
+      "headmp": 1.08,
+      "headnote": "",
+      "remarks": ""
+    },
+    "184": {
+      "headdatetime": "1959-07-28T00:00:00",
+      "headmp": 1.1,
+      "headnote": "",
+      "remarks": ""
+    },
+    "185": {
+      "headdatetime": "1959-08-14T00:00:00",
+      "headmp": 0.92,
+      "headnote": "",
+      "remarks": ""
+    },
+    "186": {
+      "headdatetime": "1959-08-28T00:00:00",
+      "headmp": 1.16,
+      "headnote": "",
+      "remarks": ""
+    },
+    "187": {
+      "headdatetime": "1959-09-14T00:00:00",
+      "headmp": 1.02,
+      "headnote": "",
+      "remarks": ""
+    },
+    "188": {
+      "headdatetime": "1959-09-28T00:00:00",
+      "headmp": 1.2,
+      "headnote": "",
+      "remarks": ""
+    },
+    "189": {
+      "headdatetime": "1959-10-14T00:00:00",
+      "headmp": 1.22,
+      "headnote": "",
+      "remarks": ""
+    },
+    "190": {
+      "headdatetime": "1959-10-28T00:00:00",
+      "headmp": 0.93,
+      "headnote": "",
+      "remarks": ""
+    },
+    "191": {
+      "headdatetime": "1959-11-14T00:00:00",
+      "headmp": 1.21,
+      "headnote": "",
+      "remarks": ""
+    },
+    "192": {
+      "headdatetime": "1959-11-28T00:00:00",
+      "headmp": 1.34,
+      "headnote": "",
+      "remarks": ""
+    },
+    "193": {
+      "headdatetime": "1959-12-14T00:00:00",
+      "headmp": 1.08,
+      "headnote": "",
+      "remarks": ""
+    },
+    "194": {
+      "headdatetime": "1959-12-28T00:00:00",
+      "headmp": 1.43,
+      "headnote": "",
+      "remarks": ""
+    },
+    "195": {
+      "headdatetime": "1960-01-14T00:00:00",
+      "headmp": 1.41,
+      "headnote": "",
+      "remarks": ""
+    },
+    "196": {
+      "headdatetime": "1960-01-28T00:00:00",
+      "headmp": 1.45,
+      "headnote": "",
+      "remarks": ""
+    },
+    "197": {
+      "headdatetime": "1960-02-15T00:00:00",
+      "headmp": 1.42,
+      "headnote": "",
+      "remarks": ""
+    },
+    "198": {
+      "headdatetime": "1960-02-29T00:00:00",
+      "headmp": 1.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "199": {
+      "headdatetime": "1960-03-14T00:00:00",
+      "headmp": 1.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "200": {
+      "headdatetime": "1960-03-28T00:00:00",
+      "headmp": 1.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "201": {
+      "headdatetime": "1960-04-14T00:00:00",
+      "headmp": 1.46,
+      "headnote": "",
+      "remarks": ""
+    },
+    "202": {
+      "headdatetime": "1960-04-28T00:00:00",
+      "headmp": 1.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "203": {
+      "headdatetime": "1960-05-14T00:00:00",
+      "headmp": 1.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "204": {
+      "headdatetime": "1960-05-28T00:00:00",
+      "headmp": 1.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "205": {
+      "headdatetime": "1960-06-14T00:00:00",
+      "headmp": 1.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "206": {
+      "headdatetime": "1960-06-28T00:00:00",
+      "headmp": 1.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "207": {
+      "headdatetime": "1960-07-14T00:00:00",
+      "headmp": 1.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "208": {
+      "headdatetime": "1960-07-28T00:00:00",
+      "headmp": 1.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "209": {
+      "headdatetime": "1960-08-16T00:00:00",
+      "headmp": 0.98,
+      "headnote": "",
+      "remarks": ""
+    },
+    "210": {
+      "headdatetime": "1960-08-29T00:00:00",
+      "headmp": 0.82,
+      "headnote": "",
+      "remarks": ""
+    },
+    "211": {
+      "headdatetime": "1960-09-14T00:00:00",
+      "headmp": 0.9,
+      "headnote": "",
+      "remarks": ""
+    },
+    "212": {
+      "headdatetime": "1960-09-28T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "213": {
+      "headdatetime": "1960-10-14T00:00:00",
+      "headmp": 0.68,
+      "headnote": "",
+      "remarks": ""
+    },
+    "214": {
+      "headdatetime": "1960-10-28T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "215": {
+      "headdatetime": "1960-11-14T00:00:00",
+      "headmp": 0.73,
+      "headnote": "",
+      "remarks": ""
+    },
+    "216": {
+      "headdatetime": "1960-11-28T00:00:00",
+      "headmp": 0.11,
+      "headnote": "",
+      "remarks": ""
+    },
+    "217": {
+      "headdatetime": "1960-12-14T00:00:00",
+      "headmp": 0.28,
+      "headnote": "",
+      "remarks": ""
+    },
+    "218": {
+      "headdatetime": "1960-12-28T00:00:00",
+      "headmp": 0.44,
+      "headnote": "",
+      "remarks": ""
+    },
+    "219": {
+      "headdatetime": "1961-01-01T00:00:00",
+      "headmp": 0.42,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "220": {
+      "headdatetime": "1961-01-14T00:00:00",
+      "headmp": 0.26,
+      "headnote": "",
+      "remarks": ""
+    },
+    "221": {
+      "headdatetime": "1961-01-28T00:00:00",
+      "headmp": 0.45,
+      "headnote": "",
+      "remarks": ""
+    },
+    "222": {
+      "headdatetime": "1961-02-14T00:00:00",
+      "headmp": 0.25,
+      "headnote": "",
+      "remarks": ""
+    },
+    "223": {
+      "headdatetime": "1961-02-28T00:00:00",
+      "headmp": 0.1,
+      "headnote": "",
+      "remarks": ""
+    },
+    "224": {
+      "headdatetime": "1961-03-14T00:00:00",
+      "headmp": 0.43,
+      "headnote": "",
+      "remarks": ""
+    },
+    "225": {
+      "headdatetime": "1961-03-28T00:00:00",
+      "headmp": 0.4,
+      "headnote": "",
+      "remarks": ""
+    },
+    "226": {
+      "headdatetime": "1961-04-14T00:00:00",
+      "headmp": 0.37,
+      "headnote": "",
+      "remarks": ""
+    },
+    "227": {
+      "headdatetime": "1961-04-28T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "228": {
+      "headdatetime": "1961-05-17T00:00:00",
+      "headmp": 0.44,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "229": {
+      "headdatetime": "1961-05-30T00:00:00",
+      "headmp": 0.62,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "230": {
+      "headdatetime": "1961-06-16T00:00:00",
+      "headmp": 0.67,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "231": {
+      "headdatetime": "1961-06-29T00:00:00",
+      "headmp": 0.69,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "232": {
+      "headdatetime": "1961-07-15T00:00:00",
+      "headmp": 0.63,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "233": {
+      "headdatetime": "1961-07-29T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "234": {
+      "headdatetime": "1961-08-15T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "235": {
+      "headdatetime": "1961-08-29T00:00:00",
+      "headmp": 0.45,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "236": {
+      "headdatetime": "1961-09-15T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "237": {
+      "headdatetime": "1961-09-29T00:00:00",
+      "headmp": 0.63,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "238": {
+      "headdatetime": "1961-10-15T00:00:00",
+      "headmp": 0.91,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "239": {
+      "headdatetime": "1961-10-29T00:00:00",
+      "headmp": 0.42,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "240": {
+      "headdatetime": "1961-11-16T00:00:00",
+      "headmp": 0.45,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "241": {
+      "headdatetime": "1961-11-29T00:00:00",
+      "headmp": 0.44,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "242": {
+      "headdatetime": "1961-12-15T00:00:00",
+      "headmp": 0.19,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "243": {
+      "headdatetime": "1961-12-29T00:00:00",
+      "headmp": 0.41,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "244": {
+      "headdatetime": "1962-01-01T00:00:00",
+      "headmp": 0.4,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "245": {
+      "headdatetime": "1963-01-28T00:00:00",
+      "headmp": 1.29,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "246": {
+      "headdatetime": "1963-02-28T00:00:00",
+      "headmp": 1.51,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "247": {
+      "headdatetime": "1963-03-15T00:00:00",
+      "headmp": 0.68,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "248": {
+      "headdatetime": "1963-03-29T00:00:00",
+      "headmp": 0.78,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "249": {
+      "headdatetime": "1963-04-17T00:00:00",
+      "headmp": 0.72,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "250": {
+      "headdatetime": "1963-04-30T00:00:00",
+      "headmp": 0.78,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "251": {
+      "headdatetime": "1963-05-15T00:00:00",
+      "headmp": 0.68,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "252": {
+      "headdatetime": "1963-05-29T00:00:00",
+      "headmp": 0.8,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "253": {
+      "headdatetime": "1963-06-15T00:00:00",
+      "headmp": 0.98,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "254": {
+      "headdatetime": "1963-07-16T00:00:00",
+      "headmp": 1.15,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "255": {
+      "headdatetime": "1963-07-30T00:00:00",
+      "headmp": 1.35,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "256": {
+      "headdatetime": "1963-08-15T00:00:00",
+      "headmp": 1.03,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "257": {
+      "headdatetime": "1963-08-29T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "258": {
+      "headdatetime": "1963-09-14T00:00:00",
+      "headmp": 0.72,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "259": {
+      "headdatetime": "1963-09-28T00:00:00",
+      "headmp": 1.01,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "260": {
+      "headdatetime": "1963-10-15T00:00:00",
+      "headmp": 1.03,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "261": {
+      "headdatetime": "1963-10-29T00:00:00",
+      "headmp": 1.07,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "262": {
+      "headdatetime": "1963-11-15T00:00:00",
+      "headmp": 1.04,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "263": {
+      "headdatetime": "1963-11-29T00:00:00",
+      "headmp": 0.46,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "264": {
+      "headdatetime": "1963-12-14T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "265": {
+      "headdatetime": "1963-12-28T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "266": {
+      "headdatetime": "1964-01-01T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "267": {
+      "headdatetime": "1964-01-14T00:00:00",
+      "headmp": 1.04,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "268": {
+      "headdatetime": "1964-01-29T00:00:00",
+      "headmp": 0.92,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "269": {
+      "headdatetime": "1964-02-14T00:00:00",
+      "headmp": 0.82,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "270": {
+      "headdatetime": "1964-02-28T00:00:00",
+      "headmp": 1.11,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "271": {
+      "headdatetime": "1964-03-13T00:00:00",
+      "headmp": 0.64,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "272": {
+      "headdatetime": "1964-03-26T00:00:00",
+      "headmp": 0.98,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "273": {
+      "headdatetime": "1964-04-14T00:00:00",
+      "headmp": 0.87,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "274": {
+      "headdatetime": "1964-05-16T00:00:00",
+      "headmp": 0.98,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "275": {
+      "headdatetime": "1964-05-28T00:00:00",
+      "headmp": 1.07,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "276": {
+      "headdatetime": "1964-06-15T00:00:00",
+      "headmp": 1.35,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "277": {
+      "headdatetime": "1964-06-29T00:00:00",
+      "headmp": 1.49,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "278": {
+      "headdatetime": "1964-08-14T00:00:00",
+      "headmp": 2.3,
+      "headnote": "",
+      "remarks": ""
+    },
+    "279": {
+      "headdatetime": "1964-08-28T00:00:00",
+      "headmp": 2.26,
+      "headnote": "",
+      "remarks": ""
+    },
+    "280": {
+      "headdatetime": "1964-09-14T00:00:00",
+      "headmp": 2.25,
+      "headnote": "",
+      "remarks": ""
+    },
+    "281": {
+      "headdatetime": "1964-09-28T00:00:00",
+      "headmp": 2.25,
+      "headnote": "",
+      "remarks": ""
+    },
+    "282": {
+      "headdatetime": "1964-10-14T00:00:00",
+      "headmp": 2.25,
+      "headnote": "",
+      "remarks": ""
+    },
+    "283": {
+      "headdatetime": "1964-10-28T00:00:00",
+      "headmp": 2.2,
+      "headnote": "",
+      "remarks": ""
+    },
+    "284": {
+      "headdatetime": "1964-11-14T00:00:00",
+      "headmp": 2.2,
+      "headnote": "",
+      "remarks": ""
+    },
+    "285": {
+      "headdatetime": "1964-11-26T00:00:00",
+      "headmp": 2.09,
+      "headnote": "",
+      "remarks": ""
+    },
+    "286": {
+      "headdatetime": "1964-12-15T00:00:00",
+      "headmp": 1.3,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "287": {
+      "headdatetime": "1964-12-29T00:00:00",
+      "headmp": 1.21,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "288": {
+      "headdatetime": "1965-01-01T00:00:00",
+      "headmp": 1.18,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "289": {
+      "headdatetime": "1965-01-15T00:00:00",
+      "headmp": 1.05,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "290": {
+      "headdatetime": "1965-01-29T00:00:00",
+      "headmp": 0.87,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "291": {
+      "headdatetime": "1965-02-16T00:00:00",
+      "headmp": 0.93,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "292": {
+      "headdatetime": "1965-03-02T00:00:00",
+      "headmp": 0.89,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "293": {
+      "headdatetime": "1965-03-20T00:00:00",
+      "headmp": 1.03,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "294": {
+      "headdatetime": "1965-03-30T00:00:00",
+      "headmp": 1.11,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "295": {
+      "headdatetime": "1965-04-15T00:00:00",
+      "headmp": 0.99,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "296": {
+      "headdatetime": "1965-04-30T00:00:00",
+      "headmp": 0.75,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "297": {
+      "headdatetime": "1965-05-29T00:00:00",
+      "headmp": 0.55,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "298": {
+      "headdatetime": "1965-06-16T00:00:00",
+      "headmp": 0.76,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "299": {
+      "headdatetime": "1965-06-29T00:00:00",
+      "headmp": 0.8,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "300": {
+      "headdatetime": "1965-07-15T00:00:00",
+      "headmp": 0.64,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "301": {
+      "headdatetime": "1965-07-29T00:00:00",
+      "headmp": 0.66,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "302": {
+      "headdatetime": "1965-08-14T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "303": {
+      "headdatetime": "1965-08-29T00:00:00",
+      "headmp": 0.79,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "304": {
+      "headdatetime": "1965-09-15T00:00:00",
+      "headmp": 0.83,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "305": {
+      "headdatetime": "1965-09-29T00:00:00",
+      "headmp": 1.0,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "306": {
+      "headdatetime": "1965-10-15T00:00:00",
+      "headmp": 1.28,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "307": {
+      "headdatetime": "1965-10-29T00:00:00",
+      "headmp": 1.0,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "308": {
+      "headdatetime": "1965-11-16T00:00:00",
+      "headmp": 1.44,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "309": {
+      "headdatetime": "1965-11-30T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "310": {
+      "headdatetime": "1965-12-15T00:00:00",
+      "headmp": 0.0,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "311": {
+      "headdatetime": "1965-12-29T00:00:00",
+      "headmp": 0.28,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "312": {
+      "headdatetime": "1966-01-01T00:00:00",
+      "headmp": 0.31,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "313": {
+      "headdatetime": "1966-01-14T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "314": {
+      "headdatetime": "1966-01-28T00:00:00",
+      "headmp": 0.32,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "315": {
+      "headdatetime": "1966-02-14T00:00:00",
+      "headmp": 0.32,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "316": {
+      "headdatetime": "1966-02-28T00:00:00",
+      "headmp": 0.28,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "317": {
+      "headdatetime": "1966-03-15T00:00:00",
+      "headmp": 0.37,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "318": {
+      "headdatetime": "1966-03-29T00:00:00",
+      "headmp": 0.29,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "319": {
+      "headdatetime": "1966-04-15T00:00:00",
+      "headmp": 0.32,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "320": {
+      "headdatetime": "1966-04-29T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "321": {
+      "headdatetime": "1966-05-14T00:00:00",
+      "headmp": 0.73,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "322": {
+      "headdatetime": "1966-05-28T00:00:00",
+      "headmp": 0.87,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "323": {
+      "headdatetime": "1966-06-15T00:00:00",
+      "headmp": 0.43,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "324": {
+      "headdatetime": "1966-06-29T00:00:00",
+      "headmp": 0.78,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "325": {
+      "headdatetime": "1966-07-15T00:00:00",
+      "headmp": 0.84,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "326": {
+      "headdatetime": "1966-07-29T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "327": {
+      "headdatetime": "1966-08-17T00:00:00",
+      "headmp": 0.75,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "328": {
+      "headdatetime": "1966-08-30T00:00:00",
+      "headmp": 0.62,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "329": {
+      "headdatetime": "1966-09-15T00:00:00",
+      "headmp": 0.95,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "330": {
+      "headdatetime": "1966-09-29T00:00:00",
+      "headmp": 1.05,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "331": {
+      "headdatetime": "1966-10-15T00:00:00",
+      "headmp": 1.13,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "332": {
+      "headdatetime": "1966-10-29T00:00:00",
+      "headmp": 1.03,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "333": {
+      "headdatetime": "1966-11-15T00:00:00",
+      "headmp": 1.14,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "334": {
+      "headdatetime": "1966-12-14T00:00:00",
+      "headmp": 0.43,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "335": {
+      "headdatetime": "1966-12-28T00:00:00",
+      "headmp": 0.27,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "336": {
+      "headdatetime": "1967-01-01T00:00:00",
+      "headmp": 0.31,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "337": {
+      "headdatetime": "1967-01-13T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "338": {
+      "headdatetime": "1967-01-27T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "339": {
+      "headdatetime": "1967-02-14T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "340": {
+      "headdatetime": "1967-02-28T00:00:00",
+      "headmp": 0.36,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "341": {
+      "headdatetime": "1967-03-15T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "342": {
+      "headdatetime": "1967-03-29T00:00:00",
+      "headmp": 0.44,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "343": {
+      "headdatetime": "1967-04-15T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "344": {
+      "headdatetime": "1967-04-28T00:00:00",
+      "headmp": 0.75,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "345": {
+      "headdatetime": "1967-05-17T00:00:00",
+      "headmp": 0.85,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "346": {
+      "headdatetime": "1967-05-30T00:00:00",
+      "headmp": 0.85,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "347": {
+      "headdatetime": "1967-06-14T00:00:00",
+      "headmp": 0.99,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "348": {
+      "headdatetime": "1967-06-29T00:00:00",
+      "headmp": 0.73,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "349": {
+      "headdatetime": "1967-07-15T00:00:00",
+      "headmp": 1.03,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "350": {
+      "headdatetime": "1967-07-29T00:00:00",
+      "headmp": 1.39,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "351": {
+      "headdatetime": "1967-08-15T00:00:00",
+      "headmp": 0.83,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "352": {
+      "headdatetime": "1967-08-29T00:00:00",
+      "headmp": 0.97,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "353": {
+      "headdatetime": "1967-09-15T00:00:00",
+      "headmp": 1.39,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "354": {
+      "headdatetime": "1967-09-28T00:00:00",
+      "headmp": 0.68,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "355": {
+      "headdatetime": "1967-10-14T00:00:00",
+      "headmp": 0.93,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "356": {
+      "headdatetime": "1967-11-15T00:00:00",
+      "headmp": 0.78,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "357": {
+      "headdatetime": "1967-11-28T00:00:00",
+      "headmp": 0.83,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "358": {
+      "headdatetime": "1967-12-15T00:00:00",
+      "headmp": 0.63,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "359": {
+      "headdatetime": "1967-12-28T00:00:00",
+      "headmp": 0.34,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "360": {
+      "headdatetime": "1968-01-29T00:00:00",
+      "headmp": 0.34,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "361": {
+      "headdatetime": "1968-02-14T00:00:00",
+      "headmp": 0.55,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "362": {
+      "headdatetime": "1968-02-28T00:00:00",
+      "headmp": 0.65,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "363": {
+      "headdatetime": "1968-03-14T00:00:00",
+      "headmp": 0.73,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "364": {
+      "headdatetime": "1968-03-28T00:00:00",
+      "headmp": 0.69,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "365": {
+      "headdatetime": "1968-04-18T00:00:00",
+      "headmp": 0.87,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "366": {
+      "headdatetime": "1968-04-30T00:00:00",
+      "headmp": 0.99,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "367": {
+      "headdatetime": "1968-05-14T00:00:00",
+      "headmp": 0.93,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "368": {
+      "headdatetime": "1968-05-28T00:00:00",
+      "headmp": 0.83,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "369": {
+      "headdatetime": "1968-06-15T00:00:00",
+      "headmp": 1.02,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "370": {
+      "headdatetime": "1968-06-28T00:00:00",
+      "headmp": 1.25,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "371": {
+      "headdatetime": "1968-07-16T00:00:00",
+      "headmp": 1.06,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "372": {
+      "headdatetime": "1968-07-30T00:00:00",
+      "headmp": 0.82,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "373": {
+      "headdatetime": "1968-08-15T00:00:00",
+      "headmp": 1.2,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "374": {
+      "headdatetime": "1968-08-28T00:00:00",
+      "headmp": 1.33,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "375": {
+      "headdatetime": "1968-09-27T00:00:00",
+      "headmp": 0.45,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "376": {
+      "headdatetime": "1968-10-15T00:00:00",
+      "headmp": 0.31,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "377": {
+      "headdatetime": "1968-10-29T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "378": {
+      "headdatetime": "1968-11-15T00:00:00",
+      "headmp": 0.56,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "379": {
+      "headdatetime": "1968-12-01T00:00:00",
+      "headmp": 0.68,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "380": {
+      "headdatetime": "1968-12-14T00:00:00",
+      "headmp": 0.79,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "381": {
+      "headdatetime": "1968-12-28T00:00:00",
+      "headmp": 0.83,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "382": {
+      "headdatetime": "1969-01-01T00:00:00",
+      "headmp": 0.8,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "383": {
+      "headdatetime": "1969-01-14T00:00:00",
+      "headmp": 0.73,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "384": {
+      "headdatetime": "1969-01-29T00:00:00",
+      "headmp": 0.77,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "385": {
+      "headdatetime": "1969-02-15T00:00:00",
+      "headmp": 0.71,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "386": {
+      "headdatetime": "1969-02-28T00:00:00",
+      "headmp": 0.64,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "387": {
+      "headdatetime": "1969-03-15T00:00:00",
+      "headmp": 0.63,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "388": {
+      "headdatetime": "1969-03-29T00:00:00",
+      "headmp": 0.67,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "389": {
+      "headdatetime": "1969-04-16T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "390": {
+      "headdatetime": "1969-04-30T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "391": {
+      "headdatetime": "1969-05-16T00:00:00",
+      "headmp": 0.68,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "392": {
+      "headdatetime": "1969-05-29T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "393": {
+      "headdatetime": "1969-06-14T00:00:00",
+      "headmp": 0.63,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "394": {
+      "headdatetime": "1969-06-29T00:00:00",
+      "headmp": 0.79,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "395": {
+      "headdatetime": "1969-07-15T00:00:00",
+      "headmp": 0.99,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "396": {
+      "headdatetime": "1969-07-29T00:00:00",
+      "headmp": 1.27,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "397": {
+      "headdatetime": "1969-08-15T00:00:00",
+      "headmp": 1.56,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "398": {
+      "headdatetime": "1969-08-29T00:00:00",
+      "headmp": 1.69,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "399": {
+      "headdatetime": "1969-09-16T00:00:00",
+      "headmp": 1.47,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "400": {
+      "headdatetime": "1969-09-29T00:00:00",
+      "headmp": 1.66,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "401": {
+      "headdatetime": "1969-10-16T00:00:00",
+      "headmp": 1.77,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "402": {
+      "headdatetime": "1969-10-29T00:00:00",
+      "headmp": 1.87,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "403": {
+      "headdatetime": "1969-11-14T00:00:00",
+      "headmp": 0.64,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "404": {
+      "headdatetime": "1969-11-29T00:00:00",
+      "headmp": 1.33,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "405": {
+      "headdatetime": "1969-12-15T00:00:00",
+      "headmp": 1.47,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "406": {
+      "headdatetime": "1969-12-30T00:00:00",
+      "headmp": 1.54,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "407": {
+      "headdatetime": "1970-01-01T00:00:00",
+      "headmp": 1.43,
+      "headnote": "",
+      "remarks": "GEDIGITALISEERD"
+    },
+    "408": {
+      "headdatetime": "1970-01-14T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "409": {
+      "headdatetime": "1970-01-28T00:00:00",
+      "headmp": 0.84,
+      "headnote": "",
+      "remarks": ""
+    },
+    "410": {
+      "headdatetime": "1970-02-13T00:00:00",
+      "headmp": 0.92,
+      "headnote": "",
+      "remarks": ""
+    },
+    "411": {
+      "headdatetime": "1970-02-27T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "412": {
+      "headdatetime": "1970-03-13T00:00:00",
+      "headmp": 0.69,
+      "headnote": "",
+      "remarks": ""
+    },
+    "413": {
+      "headdatetime": "1970-03-26T00:00:00",
+      "headmp": 0.78,
+      "headnote": "",
+      "remarks": ""
+    },
+    "414": {
+      "headdatetime": "1970-04-14T00:00:00",
+      "headmp": 0.44,
+      "headnote": "",
+      "remarks": ""
+    },
+    "415": {
+      "headdatetime": "1970-04-28T00:00:00",
+      "headmp": 0.61,
+      "headnote": "",
+      "remarks": ""
+    },
+    "416": {
+      "headdatetime": "1970-05-14T00:00:00",
+      "headmp": 0.75,
+      "headnote": "",
+      "remarks": ""
+    },
+    "417": {
+      "headdatetime": "1970-05-28T00:00:00",
+      "headmp": 1.01,
+      "headnote": "",
+      "remarks": ""
+    },
+    "418": {
+      "headdatetime": "1970-06-15T00:00:00",
+      "headmp": 1.36,
+      "headnote": "",
+      "remarks": ""
+    },
+    "419": {
+      "headdatetime": "1970-06-29T00:00:00",
+      "headmp": 1.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "420": {
+      "headdatetime": "1970-07-14T00:00:00",
+      "headmp": 1.18,
+      "headnote": "",
+      "remarks": ""
+    },
+    "421": {
+      "headdatetime": "1970-07-28T00:00:00",
+      "headmp": 0.73,
+      "headnote": "",
+      "remarks": ""
+    },
+    "422": {
+      "headdatetime": "1970-08-14T00:00:00",
+      "headmp": 0.84,
+      "headnote": "",
+      "remarks": ""
+    },
+    "423": {
+      "headdatetime": "1970-08-28T00:00:00",
+      "headmp": 1.01,
+      "headnote": "",
+      "remarks": ""
+    },
+    "424": {
+      "headdatetime": "1970-09-14T00:00:00",
+      "headmp": 1.22,
+      "headnote": "",
+      "remarks": ""
+    },
+    "425": {
+      "headdatetime": "1970-09-28T00:00:00",
+      "headmp": 0.85,
+      "headnote": "",
+      "remarks": ""
+    },
+    "426": {
+      "headdatetime": "1970-10-14T00:00:00",
+      "headmp": 1.18,
+      "headnote": "",
+      "remarks": ""
+    },
+    "427": {
+      "headdatetime": "1970-10-28T00:00:00",
+      "headmp": 1.19,
+      "headnote": "",
+      "remarks": ""
+    },
+    "428": {
+      "headdatetime": "1970-11-13T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "429": {
+      "headdatetime": "1970-11-27T00:00:00",
+      "headmp": 0.61,
+      "headnote": "",
+      "remarks": ""
+    },
+    "430": {
+      "headdatetime": "1970-12-14T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "431": {
+      "headdatetime": "1970-12-28T00:00:00",
+      "headmp": 0.68,
+      "headnote": "",
+      "remarks": ""
+    },
+    "432": {
+      "headdatetime": "1971-01-14T00:00:00",
+      "headmp": 0.77,
+      "headnote": "",
+      "remarks": ""
+    },
+    "433": {
+      "headdatetime": "1971-01-28T00:00:00",
+      "headmp": 0.66,
+      "headnote": "",
+      "remarks": ""
+    },
+    "434": {
+      "headdatetime": "1971-02-15T00:00:00",
+      "headmp": 0.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "435": {
+      "headdatetime": "1971-03-01T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "436": {
+      "headdatetime": "1971-03-15T00:00:00",
+      "headmp": 0.67,
+      "headnote": "",
+      "remarks": ""
+    },
+    "437": {
+      "headdatetime": "1971-03-29T00:00:00",
+      "headmp": 0.74,
+      "headnote": "",
+      "remarks": ""
+    },
+    "438": {
+      "headdatetime": "1971-04-14T00:00:00",
+      "headmp": 0.86,
+      "headnote": "",
+      "remarks": ""
+    },
+    "439": {
+      "headdatetime": "1971-04-28T00:00:00",
+      "headmp": 0.99,
+      "headnote": "",
+      "remarks": ""
+    },
+    "440": {
+      "headdatetime": "1971-05-14T00:00:00",
+      "headmp": 1.19,
+      "headnote": "",
+      "remarks": ""
+    },
+    "441": {
+      "headdatetime": "1971-05-28T00:00:00",
+      "headmp": 1.27,
+      "headnote": "",
+      "remarks": ""
+    },
+    "442": {
+      "headdatetime": "1971-06-14T00:00:00",
+      "headmp": 1.45,
+      "headnote": "",
+      "remarks": ""
+    },
+    "443": {
+      "headdatetime": "1971-06-28T00:00:00",
+      "headmp": 1.4,
+      "headnote": "",
+      "remarks": ""
+    },
+    "444": {
+      "headdatetime": "1971-07-14T00:00:00",
+      "headmp": 1.4,
+      "headnote": "",
+      "remarks": ""
+    },
+    "445": {
+      "headdatetime": "1971-07-28T00:00:00",
+      "headmp": 1.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "446": {
+      "headdatetime": "1971-08-13T00:00:00",
+      "headmp": 1.66,
+      "headnote": "",
+      "remarks": ""
+    },
+    "447": {
+      "headdatetime": "1971-08-27T00:00:00",
+      "headmp": 1.76,
+      "headnote": "",
+      "remarks": ""
+    },
+    "448": {
+      "headdatetime": "1971-09-14T00:00:00",
+      "headmp": 1.85,
+      "headnote": "",
+      "remarks": ""
+    },
+    "449": {
+      "headdatetime": "1971-09-28T00:00:00",
+      "headmp": 1.91,
+      "headnote": "",
+      "remarks": ""
+    },
+    "450": {
+      "headdatetime": "1971-10-14T00:00:00",
+      "headmp": 1.95,
+      "headnote": "",
+      "remarks": ""
+    },
+    "451": {
+      "headdatetime": "1971-10-28T00:00:00",
+      "headmp": 1.99,
+      "headnote": "",
+      "remarks": ""
+    },
+    "452": {
+      "headdatetime": "1971-11-15T00:00:00",
+      "headmp": 2.06,
+      "headnote": "",
+      "remarks": ""
+    },
+    "453": {
+      "headdatetime": "1971-11-29T00:00:00",
+      "headmp": 2.03,
+      "headnote": "",
+      "remarks": ""
+    },
+    "454": {
+      "headdatetime": "1971-12-14T00:00:00",
+      "headmp": 2.02,
+      "headnote": "",
+      "remarks": ""
+    },
+    "455": {
+      "headdatetime": "1971-12-28T00:00:00",
+      "headmp": 1.95,
+      "headnote": "",
+      "remarks": ""
+    },
+    "456": {
+      "headdatetime": "1972-01-14T00:00:00",
+      "headmp": 1.91,
+      "headnote": "",
+      "remarks": ""
+    },
+    "457": {
+      "headdatetime": "1972-01-28T00:00:00",
+      "headmp": 1.89,
+      "headnote": "",
+      "remarks": ""
+    },
+    "458": {
+      "headdatetime": "1972-02-14T00:00:00",
+      "headmp": 1.87,
+      "headnote": "",
+      "remarks": ""
+    },
+    "459": {
+      "headdatetime": "1972-02-28T00:00:00",
+      "headmp": 1.85,
+      "headnote": "",
+      "remarks": ""
+    },
+    "460": {
+      "headdatetime": "1972-03-14T00:00:00",
+      "headmp": 1.88,
+      "headnote": "",
+      "remarks": ""
+    },
+    "461": {
+      "headdatetime": "1972-03-28T00:00:00",
+      "headmp": 1.86,
+      "headnote": "",
+      "remarks": ""
+    },
+    "462": {
+      "headdatetime": "1972-04-14T00:00:00",
+      "headmp": 1.85,
+      "headnote": "",
+      "remarks": ""
+    },
+    "463": {
+      "headdatetime": "1972-04-28T00:00:00",
+      "headmp": 1.81,
+      "headnote": "",
+      "remarks": ""
+    },
+    "464": {
+      "headdatetime": "1972-05-15T00:00:00",
+      "headmp": 1.76,
+      "headnote": "",
+      "remarks": ""
+    },
+    "465": {
+      "headdatetime": "1972-05-29T00:00:00",
+      "headmp": 1.72,
+      "headnote": "",
+      "remarks": ""
+    },
+    "466": {
+      "headdatetime": "1972-06-14T00:00:00",
+      "headmp": 1.72,
+      "headnote": "",
+      "remarks": ""
+    },
+    "467": {
+      "headdatetime": "1972-06-28T00:00:00",
+      "headmp": 1.73,
+      "headnote": "",
+      "remarks": ""
+    },
+    "468": {
+      "headdatetime": "1972-07-14T00:00:00",
+      "headmp": 0.66,
+      "headnote": "",
+      "remarks": ""
+    },
+    "469": {
+      "headdatetime": "1972-07-28T00:00:00",
+      "headmp": 0.63,
+      "headnote": "",
+      "remarks": ""
+    },
+    "470": {
+      "headdatetime": "1972-08-14T00:00:00",
+      "headmp": 0.61,
+      "headnote": "",
+      "remarks": ""
+    },
+    "471": {
+      "headdatetime": "1972-08-28T00:00:00",
+      "headmp": 0.98,
+      "headnote": "",
+      "remarks": ""
+    },
+    "472": {
+      "headdatetime": "1972-09-14T00:00:00",
+      "headmp": 1.29,
+      "headnote": "",
+      "remarks": ""
+    },
+    "473": {
+      "headdatetime": "1972-09-28T00:00:00",
+      "headmp": 1.16,
+      "headnote": "",
+      "remarks": ""
+    },
+    "474": {
+      "headdatetime": "1972-10-13T00:00:00",
+      "headmp": 1.38,
+      "headnote": "",
+      "remarks": ""
+    },
+    "475": {
+      "headdatetime": "1972-10-27T00:00:00",
+      "headmp": 1.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "476": {
+      "headdatetime": "1972-11-14T00:00:00",
+      "headmp": 1.38,
+      "headnote": "",
+      "remarks": ""
+    },
+    "477": {
+      "headdatetime": "1972-11-28T00:00:00",
+      "headmp": 1.29,
+      "headnote": "",
+      "remarks": ""
+    },
+    "478": {
+      "headdatetime": "1972-12-14T00:00:00",
+      "headmp": 1.26,
+      "headnote": "",
+      "remarks": ""
+    },
+    "479": {
+      "headdatetime": "1972-12-28T00:00:00",
+      "headmp": 1.32,
+      "headnote": "",
+      "remarks": ""
+    },
+    "480": {
+      "headdatetime": "1973-01-15T00:00:00",
+      "headmp": 1.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "481": {
+      "headdatetime": "1973-01-29T00:00:00",
+      "headmp": 1.69,
+      "headnote": "",
+      "remarks": ""
+    },
+    "482": {
+      "headdatetime": "1973-02-14T00:00:00",
+      "headmp": 1.71,
+      "headnote": "",
+      "remarks": ""
+    },
+    "483": {
+      "headdatetime": "1973-02-28T00:00:00",
+      "headmp": 1.37,
+      "headnote": "",
+      "remarks": ""
+    },
+    "484": {
+      "headdatetime": "1973-03-14T00:00:00",
+      "headmp": 0.96,
+      "headnote": "",
+      "remarks": ""
+    },
+    "485": {
+      "headdatetime": "1973-03-28T00:00:00",
+      "headmp": 1.05,
+      "headnote": "",
+      "remarks": ""
+    },
+    "486": {
+      "headdatetime": "1973-04-13T00:00:00",
+      "headmp": 0.78,
+      "headnote": "",
+      "remarks": ""
+    },
+    "487": {
+      "headdatetime": "1973-04-27T00:00:00",
+      "headmp": 0.89,
+      "headnote": "",
+      "remarks": ""
+    },
+    "488": {
+      "headdatetime": "1973-05-14T00:00:00",
+      "headmp": 0.88,
+      "headnote": "",
+      "remarks": ""
+    },
+    "489": {
+      "headdatetime": "1973-05-28T00:00:00",
+      "headmp": 1.14,
+      "headnote": "",
+      "remarks": ""
+    },
+    "490": {
+      "headdatetime": "1973-06-14T00:00:00",
+      "headmp": 1.3,
+      "headnote": "",
+      "remarks": ""
+    },
+    "491": {
+      "headdatetime": "1973-06-28T00:00:00",
+      "headmp": 1.83,
+      "headnote": "",
+      "remarks": ""
+    },
+    "492": {
+      "headdatetime": "1973-07-13T00:00:00",
+      "headmp": 1.87,
+      "headnote": "",
+      "remarks": ""
+    },
+    "493": {
+      "headdatetime": "1973-07-27T00:00:00",
+      "headmp": 1.95,
+      "headnote": "",
+      "remarks": ""
+    },
+    "494": {
+      "headdatetime": "1973-08-14T00:00:00",
+      "headmp": 2.05,
+      "headnote": "",
+      "remarks": ""
+    },
+    "495": {
+      "headdatetime": "1973-08-28T00:00:00",
+      "headmp": 2.14,
+      "headnote": "",
+      "remarks": ""
+    },
+    "496": {
+      "headdatetime": "1973-09-14T00:00:00",
+      "headmp": 2.19,
+      "headnote": "",
+      "remarks": ""
+    },
+    "497": {
+      "headdatetime": "1973-09-28T00:00:00",
+      "headmp": 2.24,
+      "headnote": "",
+      "remarks": ""
+    },
+    "498": {
+      "headdatetime": "1973-10-15T00:00:00",
+      "headmp": 2.22,
+      "headnote": "",
+      "remarks": ""
+    },
+    "499": {
+      "headdatetime": "1973-10-29T00:00:00",
+      "headmp": 1.24,
+      "headnote": "",
+      "remarks": ""
+    },
+    "500": {
+      "headdatetime": "1973-11-14T00:00:00",
+      "headmp": 1.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "501": {
+      "headdatetime": "1973-11-28T00:00:00",
+      "headmp": 1.65,
+      "headnote": "",
+      "remarks": ""
+    },
+    "502": {
+      "headdatetime": "1973-12-14T00:00:00",
+      "headmp": 1.47,
+      "headnote": "",
+      "remarks": ""
+    },
+    "503": {
+      "headdatetime": "1974-01-03T00:00:00",
+      "headmp": 0.92,
+      "headnote": "",
+      "remarks": ""
+    },
+    "504": {
+      "headdatetime": "1974-01-14T00:00:00",
+      "headmp": 0.86,
+      "headnote": "",
+      "remarks": ""
+    },
+    "505": {
+      "headdatetime": "1974-01-28T00:00:00",
+      "headmp": 0.81,
+      "headnote": "",
+      "remarks": ""
+    },
+    "506": {
+      "headdatetime": "1974-02-14T00:00:00",
+      "headmp": 0.69,
+      "headnote": "",
+      "remarks": ""
+    },
+    "507": {
+      "headdatetime": "1974-02-28T00:00:00",
+      "headmp": 0.91,
+      "headnote": "",
+      "remarks": ""
+    },
+    "508": {
+      "headdatetime": "1974-03-14T00:00:00",
+      "headmp": 1.05,
+      "headnote": "",
+      "remarks": ""
+    },
+    "509": {
+      "headdatetime": "1974-03-29T00:00:00",
+      "headmp": 1.01,
+      "headnote": "",
+      "remarks": ""
+    },
+    "510": {
+      "headdatetime": "1974-04-16T00:00:00",
+      "headmp": 1.36,
+      "headnote": "",
+      "remarks": ""
+    },
+    "511": {
+      "headdatetime": "1974-04-29T00:00:00",
+      "headmp": 1.67,
+      "headnote": "",
+      "remarks": ""
+    },
+    "512": {
+      "headdatetime": "1974-05-14T00:00:00",
+      "headmp": 1.82,
+      "headnote": "",
+      "remarks": ""
+    },
+    "513": {
+      "headdatetime": "1974-05-28T00:00:00",
+      "headmp": 1.86,
+      "headnote": "",
+      "remarks": ""
+    },
+    "514": {
+      "headdatetime": "1974-06-14T00:00:00",
+      "headmp": 1.97,
+      "headnote": "",
+      "remarks": ""
+    },
+    "515": {
+      "headdatetime": "1974-06-28T00:00:00",
+      "headmp": 2.12,
+      "headnote": "",
+      "remarks": ""
+    },
+    "516": {
+      "headdatetime": "1974-07-15T00:00:00",
+      "headmp": 1.29,
+      "headnote": "",
+      "remarks": ""
+    },
+    "517": {
+      "headdatetime": "1974-08-01T00:00:00",
+      "headmp": 1.79,
+      "headnote": "",
+      "remarks": ""
+    },
+    "518": {
+      "headdatetime": "1974-08-14T00:00:00",
+      "headmp": 1.92,
+      "headnote": "",
+      "remarks": ""
+    },
+    "519": {
+      "headdatetime": "1974-08-28T00:00:00",
+      "headmp": 1.96,
+      "headnote": "",
+      "remarks": ""
+    },
+    "520": {
+      "headdatetime": "1974-09-13T00:00:00",
+      "headmp": 2.02,
+      "headnote": "",
+      "remarks": ""
+    },
+    "521": {
+      "headdatetime": "1974-09-27T00:00:00",
+      "headmp": 2.03,
+      "headnote": "",
+      "remarks": ""
+    },
+    "522": {
+      "headdatetime": "1974-10-14T00:00:00",
+      "headmp": 1.91,
+      "headnote": "",
+      "remarks": ""
+    },
+    "523": {
+      "headdatetime": "1974-11-14T00:00:00",
+      "headmp": 1.07,
+      "headnote": "",
+      "remarks": ""
+    },
+    "524": {
+      "headdatetime": "1974-11-27T00:00:00",
+      "headmp": 0.94,
+      "headnote": "",
+      "remarks": ""
+    },
+    "525": {
+      "headdatetime": "1974-12-12T00:00:00",
+      "headmp": 0.15,
+      "headnote": "",
+      "remarks": ""
+    },
+    "526": {
+      "headdatetime": "1974-12-27T00:00:00",
+      "headmp": 0.2,
+      "headnote": "",
+      "remarks": ""
+    },
+    "527": {
+      "headdatetime": "1975-01-14T00:00:00",
+      "headmp": 0.42,
+      "headnote": "",
+      "remarks": ""
+    },
+    "528": {
+      "headdatetime": "1975-02-14T00:00:00",
+      "headmp": 0.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "529": {
+      "headdatetime": "1975-02-28T00:00:00",
+      "headmp": 0.69,
+      "headnote": "",
+      "remarks": ""
+    },
+    "530": {
+      "headdatetime": "1975-03-13T00:00:00",
+      "headmp": 0.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "531": {
+      "headdatetime": "1975-03-27T00:00:00",
+      "headmp": 0.23,
+      "headnote": "",
+      "remarks": ""
+    },
+    "532": {
+      "headdatetime": "1975-04-14T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "533": {
+      "headdatetime": "1975-04-28T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "534": {
+      "headdatetime": "1975-05-14T00:00:00",
+      "headmp": 0.46,
+      "headnote": "",
+      "remarks": ""
+    },
+    "535": {
+      "headdatetime": "1975-05-28T00:00:00",
+      "headmp": 0.75,
+      "headnote": "",
+      "remarks": ""
+    },
+    "536": {
+      "headdatetime": "1975-06-13T00:00:00",
+      "headmp": 0.98,
+      "headnote": "",
+      "remarks": ""
+    },
+    "537": {
+      "headdatetime": "1975-06-27T00:00:00",
+      "headmp": 1.33,
+      "headnote": "",
+      "remarks": ""
+    },
+    "538": {
+      "headdatetime": "1975-07-14T00:00:00",
+      "headmp": 0.99,
+      "headnote": "",
+      "remarks": ""
+    },
+    "539": {
+      "headdatetime": "1975-07-28T00:00:00",
+      "headmp": 1.11,
+      "headnote": "",
+      "remarks": ""
+    },
+    "540": {
+      "headdatetime": "1975-08-14T00:00:00",
+      "headmp": 1.89,
+      "headnote": "",
+      "remarks": ""
+    },
+    "541": {
+      "headdatetime": "1975-08-28T00:00:00",
+      "headmp": 2.1,
+      "headnote": "",
+      "remarks": ""
+    },
+    "542": {
+      "headdatetime": "1975-09-15T00:00:00",
+      "headmp": 2.09,
+      "headnote": "",
+      "remarks": ""
+    },
+    "543": {
+      "headdatetime": "1975-09-29T00:00:00",
+      "headmp": 1.05,
+      "headnote": "",
+      "remarks": ""
+    },
+    "544": {
+      "headdatetime": "1975-10-14T00:00:00",
+      "headmp": 1.84,
+      "headnote": "",
+      "remarks": ""
+    },
+    "545": {
+      "headdatetime": "1975-10-28T00:00:00",
+      "headmp": 2.03,
+      "headnote": "",
+      "remarks": ""
+    },
+    "546": {
+      "headdatetime": "1975-11-14T00:00:00",
+      "headmp": 2.14,
+      "headnote": "",
+      "remarks": ""
+    },
+    "547": {
+      "headdatetime": "1975-12-15T00:00:00",
+      "headmp": 1.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "548": {
+      "headdatetime": "1975-12-29T00:00:00",
+      "headmp": 1.93,
+      "headnote": "",
+      "remarks": ""
+    },
+    "549": {
+      "headdatetime": "1976-01-14T00:00:00",
+      "headmp": 0.85,
+      "headnote": "",
+      "remarks": ""
+    },
+    "550": {
+      "headdatetime": "1976-01-28T00:00:00",
+      "headmp": 0.75,
+      "headnote": "",
+      "remarks": ""
+    },
+    "551": {
+      "headdatetime": "1976-02-27T00:00:00",
+      "headmp": 0.83,
+      "headnote": "",
+      "remarks": ""
+    },
+    "552": {
+      "headdatetime": "1976-03-15T00:00:00",
+      "headmp": 1.11,
+      "headnote": "",
+      "remarks": ""
+    },
+    "553": {
+      "headdatetime": "1976-03-29T00:00:00",
+      "headmp": 1.23,
+      "headnote": "",
+      "remarks": ""
+    },
+    "554": {
+      "headdatetime": "1976-04-14T00:00:00",
+      "headmp": 1.46,
+      "headnote": "",
+      "remarks": ""
+    },
+    "555": {
+      "headdatetime": "1976-04-28T00:00:00",
+      "headmp": 1.38,
+      "headnote": "",
+      "remarks": ""
+    },
+    "556": {
+      "headdatetime": "1976-05-14T00:00:00",
+      "headmp": 1.72,
+      "headnote": "",
+      "remarks": ""
+    },
+    "557": {
+      "headdatetime": "1976-05-28T00:00:00",
+      "headmp": 1.88,
+      "headnote": "",
+      "remarks": ""
+    },
+    "558": {
+      "headdatetime": "1976-06-28T00:00:00",
+      "headmp": 1.13,
+      "headnote": "",
+      "remarks": ""
+    },
+    "559": {
+      "headdatetime": "1976-07-14T00:00:00",
+      "headmp": 1.89,
+      "headnote": "",
+      "remarks": ""
+    },
+    "560": {
+      "headdatetime": "1976-07-28T00:00:00",
+      "headmp": 1.31,
+      "headnote": "",
+      "remarks": ""
+    },
+    "561": {
+      "headdatetime": "1976-08-13T00:00:00",
+      "headmp": 1.41,
+      "headnote": "",
+      "remarks": ""
+    },
+    "562": {
+      "headdatetime": "1976-08-27T00:00:00",
+      "headmp": 2.05,
+      "headnote": "",
+      "remarks": ""
+    },
+    "563": {
+      "headdatetime": "1976-09-14T00:00:00",
+      "headmp": 1.69,
+      "headnote": "",
+      "remarks": ""
+    },
+    "564": {
+      "headdatetime": "1976-09-28T00:00:00",
+      "headmp": 2.13,
+      "headnote": "",
+      "remarks": ""
+    },
+    "565": {
+      "headdatetime": "1976-10-14T00:00:00",
+      "headmp": 2.21,
+      "headnote": "",
+      "remarks": ""
+    },
+    "566": {
+      "headdatetime": "1976-10-29T00:00:00",
+      "headmp": 2.24,
+      "headnote": "",
+      "remarks": ""
+    },
+    "567": {
+      "headdatetime": "1976-12-13T00:00:00",
+      "headmp": 0.38,
+      "headnote": "",
+      "remarks": ""
+    },
+    "568": {
+      "headdatetime": "1976-12-28T00:00:00",
+      "headmp": 1.37,
+      "headnote": "",
+      "remarks": ""
+    },
+    "569": {
+      "headdatetime": "1977-01-14T00:00:00",
+      "headmp": 1.23,
+      "headnote": "",
+      "remarks": ""
+    },
+    "570": {
+      "headdatetime": "1977-01-28T00:00:00",
+      "headmp": 0.76,
+      "headnote": "",
+      "remarks": ""
+    },
+    "571": {
+      "headdatetime": "1977-02-14T00:00:00",
+      "headmp": 0.62,
+      "headnote": "",
+      "remarks": ""
+    },
+    "572": {
+      "headdatetime": "1977-02-28T00:00:00",
+      "headmp": 1.08,
+      "headnote": "",
+      "remarks": ""
+    },
+    "573": {
+      "headdatetime": "1977-03-14T00:00:00",
+      "headmp": 1.25,
+      "headnote": "",
+      "remarks": ""
+    },
+    "574": {
+      "headdatetime": "1977-03-28T00:00:00",
+      "headmp": 1.39,
+      "headnote": "",
+      "remarks": ""
+    },
+    "575": {
+      "headdatetime": "1977-04-14T00:00:00",
+      "headmp": 1.41,
+      "headnote": "",
+      "remarks": ""
+    },
+    "576": {
+      "headdatetime": "1977-04-28T00:00:00",
+      "headmp": 1.37,
+      "headnote": "",
+      "remarks": ""
+    },
+    "577": {
+      "headdatetime": "1977-05-13T00:00:00",
+      "headmp": 1.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "578": {
+      "headdatetime": "1977-05-27T00:00:00",
+      "headmp": 1.05,
+      "headnote": "",
+      "remarks": ""
+    },
+    "579": {
+      "headdatetime": "1977-06-14T00:00:00",
+      "headmp": 1.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "580": {
+      "headdatetime": "1977-06-28T00:00:00",
+      "headmp": 0.41,
+      "headnote": "",
+      "remarks": ""
+    },
+    "581": {
+      "headdatetime": "1977-07-14T00:00:00",
+      "headmp": 1.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "582": {
+      "headdatetime": "1977-08-15T00:00:00",
+      "headmp": 0.63,
+      "headnote": "",
+      "remarks": ""
+    },
+    "583": {
+      "headdatetime": "1977-09-28T00:00:00",
+      "headmp": 1.81,
+      "headnote": "",
+      "remarks": ""
+    },
+    "584": {
+      "headdatetime": "1977-10-14T00:00:00",
+      "headmp": 1.12,
+      "headnote": "",
+      "remarks": ""
+    },
+    "585": {
+      "headdatetime": "1977-10-28T00:00:00",
+      "headmp": 1.69,
+      "headnote": "",
+      "remarks": ""
+    },
+    "586": {
+      "headdatetime": "1977-11-28T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "587": {
+      "headdatetime": "1977-12-14T00:00:00",
+      "headmp": 1.37,
+      "headnote": "",
+      "remarks": ""
+    },
+    "588": {
+      "headdatetime": "1977-12-28T00:00:00",
+      "headmp": 1.46,
+      "headnote": "",
+      "remarks": ""
+    },
+    "589": {
+      "headdatetime": "1978-01-13T00:00:00",
+      "headmp": 0.19,
+      "headnote": "",
+      "remarks": ""
+    },
+    "590": {
+      "headdatetime": "1978-01-27T00:00:00",
+      "headmp": 0.82,
+      "headnote": "",
+      "remarks": ""
+    },
+    "591": {
+      "headdatetime": "1978-02-14T00:00:00",
+      "headmp": 1.14,
+      "headnote": "",
+      "remarks": ""
+    },
+    "592": {
+      "headdatetime": "1978-02-28T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "593": {
+      "headdatetime": "1978-03-14T00:00:00",
+      "headmp": 0.98,
+      "headnote": "",
+      "remarks": ""
+    },
+    "594": {
+      "headdatetime": "1978-03-28T00:00:00",
+      "headmp": 0.84,
+      "headnote": "",
+      "remarks": ""
+    },
+    "595": {
+      "headdatetime": "1978-04-14T00:00:00",
+      "headmp": 0.95,
+      "headnote": "",
+      "remarks": ""
+    },
+    "596": {
+      "headdatetime": "1978-04-28T00:00:00",
+      "headmp": 1.17,
+      "headnote": "",
+      "remarks": ""
+    },
+    "597": {
+      "headdatetime": "1978-05-16T00:00:00",
+      "headmp": 1.29,
+      "headnote": "",
+      "remarks": ""
+    },
+    "598": {
+      "headdatetime": "1978-05-29T00:00:00",
+      "headmp": 1.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "599": {
+      "headdatetime": "1978-06-14T00:00:00",
+      "headmp": 1.01,
+      "headnote": "",
+      "remarks": ""
+    },
+    "600": {
+      "headdatetime": "1978-06-28T00:00:00",
+      "headmp": 1.36,
+      "headnote": "",
+      "remarks": ""
+    },
+    "601": {
+      "headdatetime": "1978-07-14T00:00:00",
+      "headmp": 1.21,
+      "headnote": "",
+      "remarks": ""
+    },
+    "602": {
+      "headdatetime": "1978-07-28T00:00:00",
+      "headmp": 1.37,
+      "headnote": "",
+      "remarks": ""
+    }
+  }
+}

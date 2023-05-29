@@ -122,7 +122,6 @@ class WaterWeb:
         }
 
 
-
     def __init__(self,fpath=None,data=None,network=None):
 
         self._fpath = fpath
@@ -180,8 +179,9 @@ class WaterWeb:
         WaterWebNetwork object
 
         """
-        #data = cls._readcsv(cls,fpath)
         data = pd.read_csv(fpath,sep=';',decimal=',')
+        if network is None:
+            network = pathlib.Path(fpath).stem
 
         #check for missing columns
         missing_columns = []
@@ -454,13 +454,24 @@ class WaterWeb:
         return gdf
 
     def to_kml(self,filepath):
-        """Save locations to KML file."""
+        """Save locations to KML file.
+        
+        Parameters
+        ----------
+        filepath : str
+            Valid path to output file.
+
+        Returns
+        -------
+        wp : WpKml
+        """
 
         locs = self.locations
         colnames = [col for col in list(locs) if col not in ['geometry']]
         wp = WpKml(locs[colnames],label='label',xcoor='xcr',ycoor='ycr',
             styledict=self.KMLSTYLES,stylecol='mptype')
         wp.writekml(filepath)
+        return wp
 
     def to_gpx(self,filepath):
         """Save locations to GPX waypoints file.
@@ -469,7 +480,11 @@ class WaterWeb:
         ----------
         filepath :str
             Valid filepath for saving GPX file.
-            
+
+        Returns
+        -------
+        GeoDataFrame
+            GPX data that have been saved.
         """
         # source for this solution:
         # https://github.com/geopandas/geopandas/issues/684
@@ -491,3 +506,9 @@ class WaterWeb:
         if not filepath.endswith('.gpx'):
             filepath = f'{filepath}.gpx'
         locs[colnames].to_file(filepath,'GPX')
+        return locs[colnames]
+
+    def itergwseries(self):
+        """Iterate over all series and return gwseries object."""
+        for srname in self.srnames:
+            yield self.get_gwseries(srname)

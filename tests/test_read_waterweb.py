@@ -4,6 +4,7 @@ import pandas as pd
 from geopandas import GeoDataFrame
 from acequia import measurement_types
 from acequia import WaterWeb
+from acequia import GwSeries
 
 fpath = r'.\data\waterweb\grolloer koelanden.csv'
 networkname = 'grolloer koelanden'
@@ -72,6 +73,9 @@ def test_to_kml(wwn):
     outpath = f'.\\output\\kml\\{wwn.networkname}.kml'
     wwn.to_kml(outpath)
 
+def test_iterseries(wwn):
+    for gw in wwn.itergwseries():
+        assert isinstance(gw,GwSeries)
 
 # test custom functions in module waterwebtools
 

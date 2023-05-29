@@ -112,7 +112,8 @@ def test_plot_time(gw1,gw2,gw3):
     axlist = hdf.plot_time()
     assert isinstance(axlist,np.ndarray)
     for ax in axlist.flatten():
-        assert isinstance(ax,mpl.axes._subplots.Axes)
+        #assert isinstance(ax,mpl.axes._subplots.Axes)
+        assert isinstance(ax,mpl.axes.Axes)
 
 def test_plot_head(gw1,gw2,gw3):
 
@@ -120,7 +121,8 @@ def test_plot_head(gw1,gw2,gw3):
     axlist = hdf.plot_head()
     assert isinstance(axlist,np.ndarray)
     for ax in axlist.flatten():
-        assert isinstance(ax,mpl.axes._subplots.Axes)
+        #assert isinstance(ax,mpl.axes._subplots.Axes)
+        assert isinstance(ax,mpl.axes.Axes)
 
 def test_plot_freq(gw1,gw2,gw3):
 
@@ -128,4 +130,5 @@ def test_plot_freq(gw1,gw2,gw3):
     axlist = hdf.plot_freq()
     assert isinstance(axlist,np.ndarray)
     for ax in axlist.flatten():
-        assert isinstance(ax,mpl.axes._subplots.Axes)
+        #assert isinstance(ax,mpl.axes._subplots.Axes)
+        assert isinstance(ax,mpl.axes.Axes)

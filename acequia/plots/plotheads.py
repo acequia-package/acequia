@@ -15,6 +15,7 @@ from pandas import DataFrame, Series
 import pandas as pd
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+from matplotlib.ticker import NullFormatter
 from matplotlib.dates import YearLocator, MonthLocator, DateFormatter
 import matplotlib.dates as mdates
 import numpy as np
@@ -155,6 +156,8 @@ class PlotHeads:
         else:
             self.plotargs = plotargs
 
+        self._create_axes()
+
         if plot==True:
             self.plotheads()
 
@@ -163,9 +166,9 @@ class PlotHeads:
         return "Plot multiple groundwater head time series"
 
     
-    def fig(self):
+    def get_fig(self):
         """Return figure """
-        return self.fig
+        return self._fig
 
     def mindate(self):
         """Return very first date in list of heads series"""
@@ -195,20 +198,20 @@ class PlotHeads:
 
         #self.fig = plt.figure(figsize=(9, 8), dpi= 80, facecolor='#eeefff', 
         #                        edgecolor='k')
-        self.fig = plt.figure(figsize=(8, 5),facecolor='#eeefff')
+        self._fig = plt.figure(figsize=(8, 5),facecolor='#eeefff')
 
         if self.mps is None: ## and len(description)==0:
 
             self._axmp = None
-            self._axgws = self.fig.add_axes([0.1,0.1,0.8,0.9])
+            self._axgws = self._fig.add_axes([0.1,0.1,0.8,0.9])
             self.axeslist = {"axgws":self._axgws}
 
         else:
 
             # add graph with reference and level height 
             #  [left, bottom, width, height] values in 0-1 relative figure coordinates:
-            self._axmp  = self.fig.add_axes([0.1,0.77,0.8,0.15])
-            self._axgws = self.fig.add_axes([0.1,0.1,0.8,0.65])
+            self._axmp  = self._fig.add_axes([0.1,0.77,0.8,0.15])
+            self._axgws = self._fig.add_axes([0.1,0.1,0.8,0.65])
 
             self.axeslist = {"axmp":self._axmp,"axgws":self._axgws}
 
@@ -238,7 +241,7 @@ class PlotHeads:
         if colors is not None:
             self.colors = colors
 
-        self._create_axes()
+        ##
         #ts.reverse()
         #lbs.reverse()
 
@@ -249,9 +252,11 @@ class PlotHeads:
                 self.plotargs[i]['color']=self.clr[i]
             self.plotargs[i]['lw']=0.9
 
-
-            self._axgws = sr.dropna().plot(label=self.lbs[i], 
-                                  **self.plotargs[i])
+            #self._axgws = sr.dropna().plot(label=self.lbs[i], 
+            #                      **self.plotargs[i])
+            x = sr.dropna().index.values
+            y = sr.dropna().values
+            self._axgws.plot(x, y, label=self.lbs[i], **self.plotargs[i])
 
         # adjust plot appearance
         self._set_xax_limits(xlim=self.xlim)
@@ -348,59 +353,47 @@ class PlotHeads:
         for ax in self.axeslist:
             self.axeslist[ax].set_xlim(self.xlim)
 
-            years = mdates.YearLocator()   # every year
-            months = mdates.MonthLocator()  # every month
-            years_fmt = mdates.DateFormatter('%Y')
-
-            self.axeslist[ax].xaxis.set_major_formatter(years_fmt)
-
-            ##print(f'self.xaxyears is {self.xaxyears}')
-
-            ##plt.rcParams['dates.epoch'] = '0000-12-31'
-            ##dt.set_epoch = '0000-12-31'
+            #years = mdates.YearLocator()   # every year
+            #months = mdates.MonthLocator()  # every month
+            #years_fmt = mdates.DateFormatter('%Y')
+            #self.axeslist[ax].xaxis.set_major_formatter(years_fmt)
 
             if self.xaxyears in range(0,3):
+ 
                 self.axeslist[ax].xaxis.set_major_locator(
-                     YearLocator(1, month=1,day=1))
-                self.axeslist[ax].xaxis.set_major_formatter(years_fmt)
-                     #YearLocator(1, month=1,day=1))
-                     #YearLocator(byyear=1))
+                    YearLocator(1, month=1,day=1))
                 self.axeslist[ax].xaxis.set_minor_locator(
-                     MonthLocator(bymonth=[1,4,7,10]))
-                labels = ['jan','apr','jul','okt']*3
-                myfontdic = {'fontsize': 4}
-                self.axeslist[ax].set_xticklabels(labels, 
-                     fontdict=myfontdic, minor=True)
+                    MonthLocator(bymonth=[1,4,7,10]))
+
+                self.axeslist[ax].xaxis.set_major_formatter(
+                    DateFormatter('%Y-%b'))
+                self.axeslist[ax].xaxis.set_minor_formatter(
+                    DateFormatter('%b'))
 
             
             if self.xaxyears in range(3,5):
 
-                #pass
-                #"""
                 self.axeslist[ax].xaxis.set_major_locator(
-                     YearLocator(1, month=1,day=1))
-                self.axeslist[ax].xaxis.set_major_formatter(years_fmt)
-
-                
+                    YearLocator(1, month=1,day=1))
                 self.axeslist[ax].xaxis.set_minor_locator(
                      MonthLocator(bymonth=[4,7,10]))
-                labels = ['apr','jul','okt']*5
-                myfontdic = {'fontsize': 8}
-                self.axeslist[ax].set_xticklabels(labels, 
-                     fontdict=myfontdic, minor=True)
-                #"""
 
-                #self.axeslist[ax].xaxis.set_major_formatter(
-                #    DateFormatter('%y')) #%m-%d'))
-
-
+                self.axeslist[ax].xaxis.set_major_formatter(
+                    DateFormatter('%Y'))
+                self.axeslist[ax].xaxis.set_minor_formatter(
+                    DateFormatter('%b'))
+               
             if self.xaxyears in range(5,11):
+
                 self.axeslist[ax].xaxis.set_major_locator(
                      YearLocator(1, month=1,day=1))
-                self.axeslist[ax].xaxis.set_major_formatter(years_fmt)
                 self.axeslist[ax].xaxis.set_minor_locator(
                      YearLocator(1, month=1,day=1))
 
+                self.axeslist[ax].xaxis.set_major_formatter(
+                    DateFormatter('%Y'))
+                self.axeslist[ax].xaxis.set_minor_formatter(
+                    NullFormatter())
 
             if self.xaxyears in range(11,25):
                 self.axeslist[ax].xaxis.set_major_locator(
@@ -408,13 +401,28 @@ class PlotHeads:
                 self.axeslist[ax].xaxis.set_minor_locator(
                      YearLocator(1, month=1,day=1))
 
+                self.axeslist[ax].xaxis.set_major_formatter(
+                    DateFormatter('%Y'))
+                self.axeslist[ax].xaxis.set_minor_formatter(
+                    NullFormatter())
+
+
             if self.xaxyears in range(25,50):
+
                 self.axeslist[ax].xaxis.set_major_locator(
                      YearLocator(5, month=1,day=1))
 
+                self.axeslist[ax].xaxis.set_major_formatter(
+                    DateFormatter('%Y'))
+
             if self.xaxyears in range(50,1000):
+
                 self.axeslist[ax].xaxis.set_major_locator(
                      YearLocator(10, month=1,day=1))
+                     
+                self.axeslist[ax].xaxis.set_major_formatter(
+                    DateFormatter('%Y'))
+
 
 
     def _set_ticklabels(self):
@@ -491,8 +499,12 @@ class PlotHeads:
         """ Plot timeseries with relative changes """
 
         # plot reference line on top graph
-        self.mps.plot(ax=self._axmp, color=self.clr[1],
-                      lw=1.5)
+        #self.mps.plot(ax=self._axmp, color=self.clr[1],
+        #              lw=1.5)
+
+        x = self.mps.index.values
+        y = self.mps.values
+        self._axmp.plot(x, y, color = self.clr[1], lw=1.5)
 
         # set x-axis equal to grondwwater series
         self._axmp.set_xlim(self.xlim)
@@ -546,11 +558,10 @@ class PlotHeads:
 
         if dpi is None:
             dpi = 200.0 # default dpi is 100.0
-        self.fig.set_dpi(dpi)
-        self.fig.set_size_inches(160*self.mm,80*self.mm)
-        self.fig.savefig(
+        self._fig.set_dpi(dpi)
+        self._fig.set_size_inches(160*self.mm,80*self.mm)
+        self._fig.savefig(
                 filename,dpi=dpi, 
                 facecolor='w', 
                 edgecolor='w', 
                 bbox_inches="tight") #additional_artists=self.addart,
-

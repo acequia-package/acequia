@@ -1,0 +1,8423 @@
+{
+  "locprops": {
+    "locname": "B29A0848",
+    "filname": "1",
+    "alias": "",
+    "xcr": "264683",
+    "ycr": "495814",
+    "height_datum": "mNAP",
+    "grid_reference": "RD"
+  },
+  "tubeprops": {
+    "0": {
+      "startdate": "2015-09-03T00:00:00.000",
+      "mplevel": 19.55,
+      "filtop": 18.06,
+      "filbot": 17.76,
+      "surfacedate": "2015-09-03T00:00:00.000",
+      "surfacelevel": 19.04
+    }
+  },
+  "heads": {
+    "0": {
+      "headdatetime": "2015-10-29T00:00:00",
+      "headmp": 0.83,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1": {
+      "headdatetime": "2015-10-30T00:00:00",
+      "headmp": 0.86,
+      "headnote": "",
+      "remarks": ""
+    },
+    "2": {
+      "headdatetime": "2015-10-31T00:00:00",
+      "headmp": 0.87,
+      "headnote": "",
+      "remarks": ""
+    },
+    "3": {
+      "headdatetime": "2015-11-01T00:00:00",
+      "headmp": 0.89,
+      "headnote": "",
+      "remarks": ""
+    },
+    "4": {
+      "headdatetime": "2015-11-02T00:00:00",
+      "headmp": 0.88,
+      "headnote": "",
+      "remarks": ""
+    },
+    "5": {
+      "headdatetime": "2015-11-03T00:00:00",
+      "headmp": 0.89,
+      "headnote": "",
+      "remarks": ""
+    },
+    "6": {
+      "headdatetime": "2015-11-04T00:00:00",
+      "headmp": 0.9,
+      "headnote": "",
+      "remarks": ""
+    },
+    "7": {
+      "headdatetime": "2015-11-05T00:00:00",
+      "headmp": 0.9,
+      "headnote": "",
+      "remarks": ""
+    },
+    "8": {
+      "headdatetime": "2015-11-06T00:00:00",
+      "headmp": 0.69,
+      "headnote": "",
+      "remarks": ""
+    },
+    "9": {
+      "headdatetime": "2015-11-07T00:00:00",
+      "headmp": 0.68,
+      "headnote": "",
+      "remarks": ""
+    },
+    "10": {
+      "headdatetime": "2015-11-08T00:00:00",
+      "headmp": 0.73,
+      "headnote": "",
+      "remarks": ""
+    },
+    "11": {
+      "headdatetime": "2015-11-09T00:00:00",
+      "headmp": 0.72,
+      "headnote": "",
+      "remarks": ""
+    },
+    "12": {
+      "headdatetime": "2015-11-10T00:00:00",
+      "headmp": 0.7,
+      "headnote": "",
+      "remarks": ""
+    },
+    "13": {
+      "headdatetime": "2015-11-11T00:00:00",
+      "headmp": 0.71,
+      "headnote": "",
+      "remarks": ""
+    },
+    "14": {
+      "headdatetime": "2015-11-12T00:00:00",
+      "headmp": 0.74,
+      "headnote": "",
+      "remarks": ""
+    },
+    "15": {
+      "headdatetime": "2015-11-13T00:00:00",
+      "headmp": 0.76,
+      "headnote": "",
+      "remarks": ""
+    },
+    "16": {
+      "headdatetime": "2015-11-14T00:00:00",
+      "headmp": 0.68,
+      "headnote": "",
+      "remarks": ""
+    },
+    "17": {
+      "headdatetime": "2015-11-15T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "18": {
+      "headdatetime": "2015-11-16T00:00:00",
+      "headmp": 0.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "19": {
+      "headdatetime": "2015-11-17T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "20": {
+      "headdatetime": "2015-11-18T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "21": {
+      "headdatetime": "2015-11-19T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "22": {
+      "headdatetime": "2015-11-20T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "23": {
+      "headdatetime": "2015-11-21T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "24": {
+      "headdatetime": "2015-11-22T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "25": {
+      "headdatetime": "2015-11-23T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "26": {
+      "headdatetime": "2015-11-24T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "27": {
+      "headdatetime": "2015-11-25T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "28": {
+      "headdatetime": "2015-11-26T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "29": {
+      "headdatetime": "2015-11-27T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "30": {
+      "headdatetime": "2015-11-28T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "31": {
+      "headdatetime": "2015-11-29T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "32": {
+      "headdatetime": "2015-11-30T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "33": {
+      "headdatetime": "2015-12-01T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "34": {
+      "headdatetime": "2015-12-02T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "35": {
+      "headdatetime": "2015-12-03T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "36": {
+      "headdatetime": "2015-12-04T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "37": {
+      "headdatetime": "2015-12-05T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "38": {
+      "headdatetime": "2015-12-06T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "39": {
+      "headdatetime": "2015-12-07T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "40": {
+      "headdatetime": "2015-12-08T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "41": {
+      "headdatetime": "2015-12-09T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "42": {
+      "headdatetime": "2015-12-10T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "43": {
+      "headdatetime": "2015-12-11T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "44": {
+      "headdatetime": "2015-12-12T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "45": {
+      "headdatetime": "2015-12-13T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "46": {
+      "headdatetime": "2015-12-14T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "47": {
+      "headdatetime": "2015-12-15T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "48": {
+      "headdatetime": "2015-12-16T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "49": {
+      "headdatetime": "2015-12-17T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "50": {
+      "headdatetime": "2015-12-18T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "51": {
+      "headdatetime": "2015-12-19T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "52": {
+      "headdatetime": "2015-12-20T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "53": {
+      "headdatetime": "2015-12-21T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "54": {
+      "headdatetime": "2015-12-22T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "55": {
+      "headdatetime": "2015-12-23T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "56": {
+      "headdatetime": "2015-12-24T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "57": {
+      "headdatetime": "2015-12-25T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "58": {
+      "headdatetime": "2015-12-26T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "59": {
+      "headdatetime": "2015-12-27T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "60": {
+      "headdatetime": "2015-12-28T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "61": {
+      "headdatetime": "2015-12-29T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "62": {
+      "headdatetime": "2015-12-30T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "63": {
+      "headdatetime": "2015-12-31T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "64": {
+      "headdatetime": "2016-01-01T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "65": {
+      "headdatetime": "2016-01-02T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "66": {
+      "headdatetime": "2016-01-03T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "67": {
+      "headdatetime": "2016-01-04T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "68": {
+      "headdatetime": "2016-01-05T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "69": {
+      "headdatetime": "2016-01-06T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "70": {
+      "headdatetime": "2016-01-07T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "71": {
+      "headdatetime": "2016-01-08T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "72": {
+      "headdatetime": "2016-01-09T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "73": {
+      "headdatetime": "2016-01-10T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "74": {
+      "headdatetime": "2016-01-11T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "75": {
+      "headdatetime": "2016-01-12T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "76": {
+      "headdatetime": "2016-01-13T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "77": {
+      "headdatetime": "2016-01-14T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "78": {
+      "headdatetime": "2016-01-15T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "79": {
+      "headdatetime": "2016-01-16T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "80": {
+      "headdatetime": "2016-01-17T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "81": {
+      "headdatetime": "2016-01-18T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "82": {
+      "headdatetime": "2016-01-19T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "83": {
+      "headdatetime": "2016-01-20T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "84": {
+      "headdatetime": "2016-01-21T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "85": {
+      "headdatetime": "2016-01-22T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "86": {
+      "headdatetime": "2016-01-23T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "87": {
+      "headdatetime": "2016-01-24T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "88": {
+      "headdatetime": "2016-01-25T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "89": {
+      "headdatetime": "2016-01-26T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "90": {
+      "headdatetime": "2016-01-27T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "91": {
+      "headdatetime": "2016-01-28T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "92": {
+      "headdatetime": "2016-01-29T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "93": {
+      "headdatetime": "2016-01-30T00:00:00",
+      "headmp": 0.47,
+      "headnote": "",
+      "remarks": ""
+    },
+    "94": {
+      "headdatetime": "2016-01-31T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "95": {
+      "headdatetime": "2016-02-01T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "96": {
+      "headdatetime": "2016-02-02T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "97": {
+      "headdatetime": "2016-02-03T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "98": {
+      "headdatetime": "2016-02-04T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "99": {
+      "headdatetime": "2016-02-05T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "100": {
+      "headdatetime": "2016-02-06T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "101": {
+      "headdatetime": "2016-02-07T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "102": {
+      "headdatetime": "2016-02-08T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "103": {
+      "headdatetime": "2016-02-09T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "104": {
+      "headdatetime": "2016-02-10T00:00:00",
+      "headmp": 0.46,
+      "headnote": "",
+      "remarks": ""
+    },
+    "105": {
+      "headdatetime": "2016-02-11T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "106": {
+      "headdatetime": "2016-02-12T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "107": {
+      "headdatetime": "2016-02-13T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "108": {
+      "headdatetime": "2016-02-14T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "109": {
+      "headdatetime": "2016-02-15T00:00:00",
+      "headmp": 0.47,
+      "headnote": "",
+      "remarks": ""
+    },
+    "110": {
+      "headdatetime": "2016-02-16T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "111": {
+      "headdatetime": "2016-02-17T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "112": {
+      "headdatetime": "2016-02-18T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "113": {
+      "headdatetime": "2016-02-19T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "114": {
+      "headdatetime": "2016-02-20T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "115": {
+      "headdatetime": "2016-02-21T00:00:00",
+      "headmp": 0.47,
+      "headnote": "",
+      "remarks": ""
+    },
+    "116": {
+      "headdatetime": "2016-02-22T00:00:00",
+      "headmp": 0.46,
+      "headnote": "",
+      "remarks": ""
+    },
+    "117": {
+      "headdatetime": "2016-02-23T00:00:00",
+      "headmp": 0.47,
+      "headnote": "",
+      "remarks": ""
+    },
+    "118": {
+      "headdatetime": "2016-02-24T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "119": {
+      "headdatetime": "2016-02-25T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "120": {
+      "headdatetime": "2016-02-26T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "121": {
+      "headdatetime": "2016-02-27T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "122": {
+      "headdatetime": "2016-02-28T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "123": {
+      "headdatetime": "2016-02-29T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "124": {
+      "headdatetime": "2016-03-01T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "125": {
+      "headdatetime": "2016-03-02T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "126": {
+      "headdatetime": "2016-03-03T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "127": {
+      "headdatetime": "2016-03-04T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "128": {
+      "headdatetime": "2016-03-05T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "129": {
+      "headdatetime": "2016-03-06T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "130": {
+      "headdatetime": "2016-03-07T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "131": {
+      "headdatetime": "2016-03-08T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "132": {
+      "headdatetime": "2016-03-09T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "133": {
+      "headdatetime": "2016-03-10T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "134": {
+      "headdatetime": "2016-03-11T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "135": {
+      "headdatetime": "2016-03-12T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "136": {
+      "headdatetime": "2016-03-13T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "137": {
+      "headdatetime": "2016-03-14T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "138": {
+      "headdatetime": "2016-03-15T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "139": {
+      "headdatetime": "2016-03-16T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "140": {
+      "headdatetime": "2016-03-17T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "141": {
+      "headdatetime": "2016-03-18T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "142": {
+      "headdatetime": "2016-03-19T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "143": {
+      "headdatetime": "2016-03-20T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "144": {
+      "headdatetime": "2016-03-21T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "145": {
+      "headdatetime": "2016-03-22T00:00:00",
+      "headmp": 0.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "146": {
+      "headdatetime": "2016-03-23T00:00:00",
+      "headmp": 0.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "147": {
+      "headdatetime": "2016-03-24T00:00:00",
+      "headmp": 0.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "148": {
+      "headdatetime": "2016-03-25T00:00:00",
+      "headmp": 0.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "149": {
+      "headdatetime": "2016-03-26T00:00:00",
+      "headmp": 0.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "150": {
+      "headdatetime": "2016-03-27T00:00:00",
+      "headmp": 0.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "151": {
+      "headdatetime": "2016-03-28T00:00:00",
+      "headmp": 0.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "152": {
+      "headdatetime": "2016-03-29T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "153": {
+      "headdatetime": "2016-03-30T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "154": {
+      "headdatetime": "2016-03-31T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "155": {
+      "headdatetime": "2016-04-01T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "156": {
+      "headdatetime": "2016-04-02T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "157": {
+      "headdatetime": "2016-04-03T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "158": {
+      "headdatetime": "2016-04-04T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "159": {
+      "headdatetime": "2016-04-05T00:00:00",
+      "headmp": 0.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "160": {
+      "headdatetime": "2016-04-06T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "161": {
+      "headdatetime": "2016-04-07T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "162": {
+      "headdatetime": "2016-04-08T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "163": {
+      "headdatetime": "2016-04-09T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "164": {
+      "headdatetime": "2016-04-10T00:00:00",
+      "headmp": 0.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "165": {
+      "headdatetime": "2016-04-11T00:00:00",
+      "headmp": 0.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "166": {
+      "headdatetime": "2016-04-12T00:00:00",
+      "headmp": 0.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "167": {
+      "headdatetime": "2016-04-13T00:00:00",
+      "headmp": 0.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "168": {
+      "headdatetime": "2016-04-14T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "169": {
+      "headdatetime": "2016-04-15T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "170": {
+      "headdatetime": "2016-04-16T00:00:00",
+      "headmp": 0.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "171": {
+      "headdatetime": "2016-04-17T00:00:00",
+      "headmp": 0.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "172": {
+      "headdatetime": "2016-04-18T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "173": {
+      "headdatetime": "2016-04-19T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "174": {
+      "headdatetime": "2016-04-20T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "175": {
+      "headdatetime": "2016-04-21T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "176": {
+      "headdatetime": "2016-04-22T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "177": {
+      "headdatetime": "2016-04-23T00:00:00",
+      "headmp": 0.61,
+      "headnote": "",
+      "remarks": ""
+    },
+    "178": {
+      "headdatetime": "2016-04-24T00:00:00",
+      "headmp": 0.62,
+      "headnote": "",
+      "remarks": ""
+    },
+    "179": {
+      "headdatetime": "2016-04-25T00:00:00",
+      "headmp": 0.63,
+      "headnote": "",
+      "remarks": ""
+    },
+    "180": {
+      "headdatetime": "2016-04-26T00:00:00",
+      "headmp": 0.61,
+      "headnote": "",
+      "remarks": ""
+    },
+    "181": {
+      "headdatetime": "2016-04-27T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "182": {
+      "headdatetime": "2016-04-28T00:00:00",
+      "headmp": 0.61,
+      "headnote": "",
+      "remarks": ""
+    },
+    "183": {
+      "headdatetime": "2016-04-29T00:00:00",
+      "headmp": 0.61,
+      "headnote": "",
+      "remarks": ""
+    },
+    "184": {
+      "headdatetime": "2016-04-30T00:00:00",
+      "headmp": 0.62,
+      "headnote": "",
+      "remarks": ""
+    },
+    "185": {
+      "headdatetime": "2016-05-01T00:00:00",
+      "headmp": 0.63,
+      "headnote": "",
+      "remarks": ""
+    },
+    "186": {
+      "headdatetime": "2016-05-02T00:00:00",
+      "headmp": 0.64,
+      "headnote": "",
+      "remarks": ""
+    },
+    "187": {
+      "headdatetime": "2016-05-03T00:00:00",
+      "headmp": 0.65,
+      "headnote": "",
+      "remarks": ""
+    },
+    "188": {
+      "headdatetime": "2016-05-04T00:00:00",
+      "headmp": 0.67,
+      "headnote": "",
+      "remarks": ""
+    },
+    "189": {
+      "headdatetime": "2016-05-05T00:00:00",
+      "headmp": 0.71,
+      "headnote": "",
+      "remarks": ""
+    },
+    "190": {
+      "headdatetime": "2016-05-06T00:00:00",
+      "headmp": 0.74,
+      "headnote": "",
+      "remarks": ""
+    },
+    "191": {
+      "headdatetime": "2016-05-07T00:00:00",
+      "headmp": 0.79,
+      "headnote": "",
+      "remarks": ""
+    },
+    "192": {
+      "headdatetime": "2016-05-08T00:00:00",
+      "headmp": 0.85,
+      "headnote": "",
+      "remarks": ""
+    },
+    "193": {
+      "headdatetime": "2016-05-09T00:00:00",
+      "headmp": 0.91,
+      "headnote": "",
+      "remarks": ""
+    },
+    "194": {
+      "headdatetime": "2016-05-10T00:00:00",
+      "headmp": 0.97,
+      "headnote": "",
+      "remarks": ""
+    },
+    "195": {
+      "headdatetime": "2016-05-11T00:00:00",
+      "headmp": 1.01,
+      "headnote": "",
+      "remarks": ""
+    },
+    "196": {
+      "headdatetime": "2016-05-12T00:00:00",
+      "headmp": 1.06,
+      "headnote": "",
+      "remarks": ""
+    },
+    "197": {
+      "headdatetime": "2016-05-13T00:00:00",
+      "headmp": 1.1,
+      "headnote": "",
+      "remarks": ""
+    },
+    "198": {
+      "headdatetime": "2016-05-14T00:00:00",
+      "headmp": 1.07,
+      "headnote": "",
+      "remarks": ""
+    },
+    "199": {
+      "headdatetime": "2016-05-15T00:00:00",
+      "headmp": 1.01,
+      "headnote": "",
+      "remarks": ""
+    },
+    "200": {
+      "headdatetime": "2016-05-16T00:00:00",
+      "headmp": 1.06,
+      "headnote": "",
+      "remarks": ""
+    },
+    "201": {
+      "headdatetime": "2016-05-17T00:00:00",
+      "headmp": 1.07,
+      "headnote": "",
+      "remarks": ""
+    },
+    "202": {
+      "headdatetime": "2016-05-18T00:00:00",
+      "headmp": 1.11,
+      "headnote": "",
+      "remarks": ""
+    },
+    "203": {
+      "headdatetime": "2016-05-19T00:00:00",
+      "headmp": 1.08,
+      "headnote": "",
+      "remarks": ""
+    },
+    "204": {
+      "headdatetime": "2016-05-20T00:00:00",
+      "headmp": 1.04,
+      "headnote": "",
+      "remarks": ""
+    },
+    "205": {
+      "headdatetime": "2016-05-21T00:00:00",
+      "headmp": 1.11,
+      "headnote": "",
+      "remarks": ""
+    },
+    "206": {
+      "headdatetime": "2016-05-22T00:00:00",
+      "headmp": 1.18,
+      "headnote": "",
+      "remarks": ""
+    },
+    "207": {
+      "headdatetime": "2016-05-23T00:00:00",
+      "headmp": 1.03,
+      "headnote": "",
+      "remarks": ""
+    },
+    "208": {
+      "headdatetime": "2016-05-24T00:00:00",
+      "headmp": 0.79,
+      "headnote": "",
+      "remarks": ""
+    },
+    "209": {
+      "headdatetime": "2016-05-25T00:00:00",
+      "headmp": 0.86,
+      "headnote": "",
+      "remarks": ""
+    },
+    "210": {
+      "headdatetime": "2016-05-26T00:00:00",
+      "headmp": 0.94,
+      "headnote": "",
+      "remarks": ""
+    },
+    "211": {
+      "headdatetime": "2016-05-27T00:00:00",
+      "headmp": 1.0,
+      "headnote": "",
+      "remarks": ""
+    },
+    "212": {
+      "headdatetime": "2016-05-28T00:00:00",
+      "headmp": 1.0,
+      "headnote": "",
+      "remarks": ""
+    },
+    "213": {
+      "headdatetime": "2016-05-29T00:00:00",
+      "headmp": 1.07,
+      "headnote": "",
+      "remarks": ""
+    },
+    "214": {
+      "headdatetime": "2016-05-30T00:00:00",
+      "headmp": 1.04,
+      "headnote": "",
+      "remarks": ""
+    },
+    "215": {
+      "headdatetime": "2016-05-31T00:00:00",
+      "headmp": 0.79,
+      "headnote": "",
+      "remarks": ""
+    },
+    "216": {
+      "headdatetime": "2016-06-01T00:00:00",
+      "headmp": 0.92,
+      "headnote": "",
+      "remarks": ""
+    },
+    "217": {
+      "headdatetime": "2016-06-02T00:00:00",
+      "headmp": 1.06,
+      "headnote": "",
+      "remarks": ""
+    },
+    "218": {
+      "headdatetime": "2016-06-03T00:00:00",
+      "headmp": 0.96,
+      "headnote": "",
+      "remarks": ""
+    },
+    "219": {
+      "headdatetime": "2016-06-04T00:00:00",
+      "headmp": 1.02,
+      "headnote": "",
+      "remarks": ""
+    },
+    "220": {
+      "headdatetime": "2016-06-05T00:00:00",
+      "headmp": 1.17,
+      "headnote": "",
+      "remarks": ""
+    },
+    "221": {
+      "headdatetime": "2016-06-06T00:00:00",
+      "headmp": 1.16,
+      "headnote": "",
+      "remarks": ""
+    },
+    "222": {
+      "headdatetime": "2016-06-07T00:00:00",
+      "headmp": 1.2,
+      "headnote": "",
+      "remarks": ""
+    },
+    "223": {
+      "headdatetime": "2016-06-08T00:00:00",
+      "headmp": 1.28,
+      "headnote": "",
+      "remarks": ""
+    },
+    "224": {
+      "headdatetime": "2016-06-09T00:00:00",
+      "headmp": 1.19,
+      "headnote": "",
+      "remarks": ""
+    },
+    "225": {
+      "headdatetime": "2016-06-10T00:00:00",
+      "headmp": 1.32,
+      "headnote": "",
+      "remarks": ""
+    },
+    "226": {
+      "headdatetime": "2016-06-11T00:00:00",
+      "headmp": 1.31,
+      "headnote": "",
+      "remarks": ""
+    },
+    "227": {
+      "headdatetime": "2016-06-12T00:00:00",
+      "headmp": 1.27,
+      "headnote": "",
+      "remarks": ""
+    },
+    "228": {
+      "headdatetime": "2016-06-13T00:00:00",
+      "headmp": 1.08,
+      "headnote": "",
+      "remarks": ""
+    },
+    "229": {
+      "headdatetime": "2016-06-14T00:00:00",
+      "headmp": 0.93,
+      "headnote": "",
+      "remarks": ""
+    },
+    "230": {
+      "headdatetime": "2016-06-15T00:00:00",
+      "headmp": 0.71,
+      "headnote": "",
+      "remarks": ""
+    },
+    "231": {
+      "headdatetime": "2016-06-16T00:00:00",
+      "headmp": 0.93,
+      "headnote": "",
+      "remarks": ""
+    },
+    "232": {
+      "headdatetime": "2016-06-17T00:00:00",
+      "headmp": 0.97,
+      "headnote": "",
+      "remarks": ""
+    },
+    "233": {
+      "headdatetime": "2016-06-18T00:00:00",
+      "headmp": 1.05,
+      "headnote": "",
+      "remarks": ""
+    },
+    "234": {
+      "headdatetime": "2016-06-19T00:00:00",
+      "headmp": 1.0,
+      "headnote": "",
+      "remarks": ""
+    },
+    "235": {
+      "headdatetime": "2016-06-20T00:00:00",
+      "headmp": 1.08,
+      "headnote": "",
+      "remarks": ""
+    },
+    "236": {
+      "headdatetime": "2016-06-21T00:00:00",
+      "headmp": 0.79,
+      "headnote": "",
+      "remarks": ""
+    },
+    "237": {
+      "headdatetime": "2016-06-22T00:00:00",
+      "headmp": 0.9,
+      "headnote": "",
+      "remarks": ""
+    },
+    "238": {
+      "headdatetime": "2016-06-23T00:00:00",
+      "headmp": 1.07,
+      "headnote": "",
+      "remarks": ""
+    },
+    "239": {
+      "headdatetime": "2016-06-24T00:00:00",
+      "headmp": 0.77,
+      "headnote": "",
+      "remarks": ""
+    },
+    "240": {
+      "headdatetime": "2016-06-25T00:00:00",
+      "headmp": 0.63,
+      "headnote": "",
+      "remarks": ""
+    },
+    "241": {
+      "headdatetime": "2016-06-26T00:00:00",
+      "headmp": 0.7,
+      "headnote": "",
+      "remarks": ""
+    },
+    "242": {
+      "headdatetime": "2016-06-27T00:00:00",
+      "headmp": 0.74,
+      "headnote": "",
+      "remarks": ""
+    },
+    "243": {
+      "headdatetime": "2016-06-28T00:00:00",
+      "headmp": 0.76,
+      "headnote": "",
+      "remarks": ""
+    },
+    "244": {
+      "headdatetime": "2016-06-29T00:00:00",
+      "headmp": 0.8,
+      "headnote": "",
+      "remarks": ""
+    },
+    "245": {
+      "headdatetime": "2016-06-30T00:00:00",
+      "headmp": 0.85,
+      "headnote": "",
+      "remarks": ""
+    },
+    "246": {
+      "headdatetime": "2016-07-01T00:00:00",
+      "headmp": 0.89,
+      "headnote": "",
+      "remarks": ""
+    },
+    "247": {
+      "headdatetime": "2016-07-02T00:00:00",
+      "headmp": 0.7,
+      "headnote": "",
+      "remarks": ""
+    },
+    "248": {
+      "headdatetime": "2016-07-03T00:00:00",
+      "headmp": 0.79,
+      "headnote": "",
+      "remarks": ""
+    },
+    "249": {
+      "headdatetime": "2016-07-04T00:00:00",
+      "headmp": 0.92,
+      "headnote": "",
+      "remarks": ""
+    },
+    "250": {
+      "headdatetime": "2016-07-05T00:00:00",
+      "headmp": 0.97,
+      "headnote": "",
+      "remarks": ""
+    },
+    "251": {
+      "headdatetime": "2016-07-06T00:00:00",
+      "headmp": 1.01,
+      "headnote": "",
+      "remarks": ""
+    },
+    "252": {
+      "headdatetime": "2016-07-07T00:00:00",
+      "headmp": 1.11,
+      "headnote": "",
+      "remarks": ""
+    },
+    "253": {
+      "headdatetime": "2016-07-08T00:00:00",
+      "headmp": 1.08,
+      "headnote": "",
+      "remarks": ""
+    },
+    "254": {
+      "headdatetime": "2016-07-09T00:00:00",
+      "headmp": 1.14,
+      "headnote": "",
+      "remarks": ""
+    },
+    "255": {
+      "headdatetime": "2016-07-10T00:00:00",
+      "headmp": 1.2,
+      "headnote": "",
+      "remarks": ""
+    },
+    "256": {
+      "headdatetime": "2016-07-11T00:00:00",
+      "headmp": 1.24,
+      "headnote": "",
+      "remarks": ""
+    },
+    "257": {
+      "headdatetime": "2016-07-12T00:00:00",
+      "headmp": 1.27,
+      "headnote": "",
+      "remarks": ""
+    },
+    "258": {
+      "headdatetime": "2016-07-13T00:00:00",
+      "headmp": 1.21,
+      "headnote": "",
+      "remarks": ""
+    },
+    "259": {
+      "headdatetime": "2016-07-14T00:00:00",
+      "headmp": 1.28,
+      "headnote": "",
+      "remarks": ""
+    },
+    "260": {
+      "headdatetime": "2016-07-15T00:00:00",
+      "headmp": 1.3,
+      "headnote": "",
+      "remarks": ""
+    },
+    "261": {
+      "headdatetime": "2016-07-16T00:00:00",
+      "headmp": 1.28,
+      "headnote": "",
+      "remarks": ""
+    },
+    "262": {
+      "headdatetime": "2016-07-17T00:00:00",
+      "headmp": 1.21,
+      "headnote": "",
+      "remarks": ""
+    },
+    "263": {
+      "headdatetime": "2016-07-18T00:00:00",
+      "headmp": 1.36,
+      "headnote": "",
+      "remarks": ""
+    },
+    "264": {
+      "headdatetime": "2016-07-19T00:00:00",
+      "headmp": 1.4,
+      "headnote": "",
+      "remarks": ""
+    },
+    "265": {
+      "headdatetime": "2016-07-20T00:00:00",
+      "headmp": 1.44,
+      "headnote": "",
+      "remarks": ""
+    },
+    "266": {
+      "headdatetime": "2016-07-21T00:00:00",
+      "headmp": 1.42,
+      "headnote": "",
+      "remarks": ""
+    },
+    "267": {
+      "headdatetime": "2016-07-22T00:00:00",
+      "headmp": 1.21,
+      "headnote": "",
+      "remarks": ""
+    },
+    "268": {
+      "headdatetime": "2016-07-23T00:00:00",
+      "headmp": 1.23,
+      "headnote": "",
+      "remarks": ""
+    },
+    "269": {
+      "headdatetime": "2016-07-24T00:00:00",
+      "headmp": 1.27,
+      "headnote": "",
+      "remarks": ""
+    },
+    "270": {
+      "headdatetime": "2016-07-25T00:00:00",
+      "headmp": 1.37,
+      "headnote": "",
+      "remarks": ""
+    },
+    "271": {
+      "headdatetime": "2016-07-26T00:00:00",
+      "headmp": 1.41,
+      "headnote": "",
+      "remarks": ""
+    },
+    "272": {
+      "headdatetime": "2016-07-27T00:00:00",
+      "headmp": 1.42,
+      "headnote": "",
+      "remarks": ""
+    },
+    "273": {
+      "headdatetime": "2016-07-28T00:00:00",
+      "headmp": 1.35,
+      "headnote": "",
+      "remarks": ""
+    },
+    "274": {
+      "headdatetime": "2016-07-29T00:00:00",
+      "headmp": 1.27,
+      "headnote": "",
+      "remarks": ""
+    },
+    "275": {
+      "headdatetime": "2016-07-30T00:00:00",
+      "headmp": 1.33,
+      "headnote": "",
+      "remarks": ""
+    },
+    "276": {
+      "headdatetime": "2016-07-31T00:00:00",
+      "headmp": 1.32,
+      "headnote": "",
+      "remarks": ""
+    },
+    "277": {
+      "headdatetime": "2016-08-01T00:00:00",
+      "headmp": 1.24,
+      "headnote": "",
+      "remarks": ""
+    },
+    "278": {
+      "headdatetime": "2016-08-02T00:00:00",
+      "headmp": 1.31,
+      "headnote": "",
+      "remarks": ""
+    },
+    "279": {
+      "headdatetime": "2016-08-03T00:00:00",
+      "headmp": 1.22,
+      "headnote": "",
+      "remarks": ""
+    },
+    "280": {
+      "headdatetime": "2016-08-04T00:00:00",
+      "headmp": 1.23,
+      "headnote": "",
+      "remarks": ""
+    },
+    "281": {
+      "headdatetime": "2016-08-05T00:00:00",
+      "headmp": 1.32,
+      "headnote": "",
+      "remarks": ""
+    },
+    "282": {
+      "headdatetime": "2016-08-06T00:00:00",
+      "headmp": 1.34,
+      "headnote": "",
+      "remarks": ""
+    },
+    "283": {
+      "headdatetime": "2016-08-07T00:00:00",
+      "headmp": 1.42,
+      "headnote": "",
+      "remarks": ""
+    },
+    "284": {
+      "headdatetime": "2016-08-08T00:00:00",
+      "headmp": 1.41,
+      "headnote": "",
+      "remarks": ""
+    },
+    "285": {
+      "headdatetime": "2016-08-09T00:00:00",
+      "headmp": 1.37,
+      "headnote": "",
+      "remarks": ""
+    },
+    "286": {
+      "headdatetime": "2016-08-10T00:00:00",
+      "headmp": 1.29,
+      "headnote": "",
+      "remarks": ""
+    },
+    "287": {
+      "headdatetime": "2016-08-11T00:00:00",
+      "headmp": 1.35,
+      "headnote": "",
+      "remarks": ""
+    },
+    "288": {
+      "headdatetime": "2016-08-12T00:00:00",
+      "headmp": 1.07,
+      "headnote": "",
+      "remarks": ""
+    },
+    "289": {
+      "headdatetime": "2016-08-13T00:00:00",
+      "headmp": 1.19,
+      "headnote": "",
+      "remarks": ""
+    },
+    "290": {
+      "headdatetime": "2016-08-14T00:00:00",
+      "headmp": 1.27,
+      "headnote": "",
+      "remarks": ""
+    },
+    "291": {
+      "headdatetime": "2016-08-15T00:00:00",
+      "headmp": 1.33,
+      "headnote": "",
+      "remarks": ""
+    },
+    "292": {
+      "headdatetime": "2016-08-16T00:00:00",
+      "headmp": 1.38,
+      "headnote": "",
+      "remarks": ""
+    },
+    "293": {
+      "headdatetime": "2016-08-17T00:00:00",
+      "headmp": 1.42,
+      "headnote": "",
+      "remarks": ""
+    },
+    "294": {
+      "headdatetime": "2016-08-18T00:00:00",
+      "headmp": 1.44,
+      "headnote": "",
+      "remarks": ""
+    },
+    "295": {
+      "headdatetime": "2016-08-19T00:00:00",
+      "headmp": 1.44,
+      "headnote": "",
+      "remarks": ""
+    },
+    "296": {
+      "headdatetime": "2016-08-20T00:00:00",
+      "headmp": 1.3,
+      "headnote": "",
+      "remarks": ""
+    },
+    "297": {
+      "headdatetime": "2016-08-21T00:00:00",
+      "headmp": 1.29,
+      "headnote": "",
+      "remarks": ""
+    },
+    "298": {
+      "headdatetime": "2016-08-22T00:00:00",
+      "headmp": 1.26,
+      "headnote": "",
+      "remarks": ""
+    },
+    "299": {
+      "headdatetime": "2016-08-23T00:00:00",
+      "headmp": 1.27,
+      "headnote": "",
+      "remarks": ""
+    },
+    "300": {
+      "headdatetime": "2016-08-24T00:00:00",
+      "headmp": 1.39,
+      "headnote": "",
+      "remarks": ""
+    },
+    "301": {
+      "headdatetime": "2016-08-25T00:00:00",
+      "headmp": 1.45,
+      "headnote": "",
+      "remarks": ""
+    },
+    "302": {
+      "headdatetime": "2016-08-26T00:00:00",
+      "headmp": 1.47,
+      "headnote": "",
+      "remarks": ""
+    },
+    "303": {
+      "headdatetime": "2016-08-27T00:00:00",
+      "headmp": 1.47,
+      "headnote": "",
+      "remarks": ""
+    },
+    "304": {
+      "headdatetime": "2016-08-28T00:00:00",
+      "headmp": 1.47,
+      "headnote": "",
+      "remarks": ""
+    },
+    "305": {
+      "headdatetime": "2016-08-29T00:00:00",
+      "headmp": 1.46,
+      "headnote": "",
+      "remarks": ""
+    },
+    "306": {
+      "headdatetime": "2016-08-30T00:00:00",
+      "headmp": 1.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "307": {
+      "headdatetime": "2016-08-31T00:00:00",
+      "headmp": 1.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "308": {
+      "headdatetime": "2016-09-01T00:00:00",
+      "headmp": 1.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "309": {
+      "headdatetime": "2016-09-02T00:00:00",
+      "headmp": 1.34,
+      "headnote": "",
+      "remarks": ""
+    },
+    "310": {
+      "headdatetime": "2016-09-03T00:00:00",
+      "headmp": 1.37,
+      "headnote": "",
+      "remarks": ""
+    },
+    "311": {
+      "headdatetime": "2016-09-04T00:00:00",
+      "headmp": 1.31,
+      "headnote": "",
+      "remarks": ""
+    },
+    "312": {
+      "headdatetime": "2016-09-05T00:00:00",
+      "headmp": 1.32,
+      "headnote": "",
+      "remarks": ""
+    },
+    "313": {
+      "headdatetime": "2016-09-06T00:00:00",
+      "headmp": 1.39,
+      "headnote": "",
+      "remarks": ""
+    },
+    "314": {
+      "headdatetime": "2016-09-07T00:00:00",
+      "headmp": 1.44,
+      "headnote": "",
+      "remarks": ""
+    },
+    "315": {
+      "headdatetime": "2016-09-08T00:00:00",
+      "headmp": 1.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "316": {
+      "headdatetime": "2016-09-09T00:00:00",
+      "headmp": 1.46,
+      "headnote": "",
+      "remarks": ""
+    },
+    "317": {
+      "headdatetime": "2016-09-10T00:00:00",
+      "headmp": 1.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "318": {
+      "headdatetime": "2016-09-11T00:00:00",
+      "headmp": 1.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "319": {
+      "headdatetime": "2016-09-12T00:00:00",
+      "headmp": 1.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "320": {
+      "headdatetime": "2016-09-13T00:00:00",
+      "headmp": 1.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "321": {
+      "headdatetime": "2016-09-14T00:00:00",
+      "headmp": 1.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "322": {
+      "headdatetime": "2016-09-15T00:00:00",
+      "headmp": 1.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "323": {
+      "headdatetime": "2016-09-16T00:00:00",
+      "headmp": 1.42,
+      "headnote": "",
+      "remarks": ""
+    },
+    "324": {
+      "headdatetime": "2016-09-17T00:00:00",
+      "headmp": 1.45,
+      "headnote": "",
+      "remarks": ""
+    },
+    "325": {
+      "headdatetime": "2016-09-18T00:00:00",
+      "headmp": 1.46,
+      "headnote": "",
+      "remarks": ""
+    },
+    "326": {
+      "headdatetime": "2016-09-19T00:00:00",
+      "headmp": 1.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "327": {
+      "headdatetime": "2016-09-20T00:00:00",
+      "headmp": 1.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "328": {
+      "headdatetime": "2016-09-21T00:00:00",
+      "headmp": 1.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "329": {
+      "headdatetime": "2016-09-22T00:00:00",
+      "headmp": 1.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "330": {
+      "headdatetime": "2016-09-23T00:00:00",
+      "headmp": 1.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "331": {
+      "headdatetime": "2016-09-24T00:00:00",
+      "headmp": 1.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "332": {
+      "headdatetime": "2016-09-25T00:00:00",
+      "headmp": 1.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "333": {
+      "headdatetime": "2016-09-26T00:00:00",
+      "headmp": 1.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "334": {
+      "headdatetime": "2016-09-27T00:00:00",
+      "headmp": 1.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "335": {
+      "headdatetime": "2016-09-28T00:00:00",
+      "headmp": 1.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "336": {
+      "headdatetime": "2016-09-29T00:00:00",
+      "headmp": 1.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "337": {
+      "headdatetime": "2016-09-30T00:00:00",
+      "headmp": 1.39,
+      "headnote": "",
+      "remarks": ""
+    },
+    "338": {
+      "headdatetime": "2016-10-01T00:00:00",
+      "headmp": 1.36,
+      "headnote": "",
+      "remarks": ""
+    },
+    "339": {
+      "headdatetime": "2016-10-02T00:00:00",
+      "headmp": 1.38,
+      "headnote": "",
+      "remarks": ""
+    },
+    "340": {
+      "headdatetime": "2016-10-03T00:00:00",
+      "headmp": 1.38,
+      "headnote": "",
+      "remarks": ""
+    },
+    "341": {
+      "headdatetime": "2016-10-04T00:00:00",
+      "headmp": 1.41,
+      "headnote": "",
+      "remarks": ""
+    },
+    "342": {
+      "headdatetime": "2016-10-05T00:00:00",
+      "headmp": 1.44,
+      "headnote": "",
+      "remarks": ""
+    },
+    "343": {
+      "headdatetime": "2016-10-06T00:00:00",
+      "headmp": 1.45,
+      "headnote": "",
+      "remarks": ""
+    },
+    "344": {
+      "headdatetime": "2016-10-07T00:00:00",
+      "headmp": 1.46,
+      "headnote": "",
+      "remarks": ""
+    },
+    "345": {
+      "headdatetime": "2016-10-08T00:00:00",
+      "headmp": 1.46,
+      "headnote": "",
+      "remarks": ""
+    },
+    "346": {
+      "headdatetime": "2016-10-09T00:00:00",
+      "headmp": 1.47,
+      "headnote": "",
+      "remarks": ""
+    },
+    "347": {
+      "headdatetime": "2016-10-10T00:00:00",
+      "headmp": 1.46,
+      "headnote": "",
+      "remarks": ""
+    },
+    "348": {
+      "headdatetime": "2016-10-11T00:00:00",
+      "headmp": 1.43,
+      "headnote": "",
+      "remarks": ""
+    },
+    "349": {
+      "headdatetime": "2016-10-12T00:00:00",
+      "headmp": 1.42,
+      "headnote": "",
+      "remarks": ""
+    },
+    "350": {
+      "headdatetime": "2016-10-13T00:00:00",
+      "headmp": 1.44,
+      "headnote": "",
+      "remarks": ""
+    },
+    "351": {
+      "headdatetime": "2016-10-14T00:00:00",
+      "headmp": 1.44,
+      "headnote": "",
+      "remarks": ""
+    },
+    "352": {
+      "headdatetime": "2016-10-15T00:00:00",
+      "headmp": 1.45,
+      "headnote": "",
+      "remarks": ""
+    },
+    "353": {
+      "headdatetime": "2016-10-16T00:00:00",
+      "headmp": 1.44,
+      "headnote": "",
+      "remarks": ""
+    },
+    "354": {
+      "headdatetime": "2016-10-17T00:00:00",
+      "headmp": 1.45,
+      "headnote": "",
+      "remarks": ""
+    },
+    "355": {
+      "headdatetime": "2016-10-18T00:00:00",
+      "headmp": 1.45,
+      "headnote": "",
+      "remarks": ""
+    },
+    "356": {
+      "headdatetime": "2016-10-19T00:00:00",
+      "headmp": 1.13,
+      "headnote": "",
+      "remarks": ""
+    },
+    "357": {
+      "headdatetime": "2016-10-20T00:00:00",
+      "headmp": 1.04,
+      "headnote": "",
+      "remarks": ""
+    },
+    "358": {
+      "headdatetime": "2016-10-21T00:00:00",
+      "headmp": 1.17,
+      "headnote": "",
+      "remarks": ""
+    },
+    "359": {
+      "headdatetime": "2016-10-22T00:00:00",
+      "headmp": 1.01,
+      "headnote": "",
+      "remarks": ""
+    },
+    "360": {
+      "headdatetime": "2016-10-23T00:00:00",
+      "headmp": 1.13,
+      "headnote": "",
+      "remarks": ""
+    },
+    "361": {
+      "headdatetime": "2016-10-24T00:00:00",
+      "headmp": 1.17,
+      "headnote": "",
+      "remarks": ""
+    },
+    "362": {
+      "headdatetime": "2016-10-25T00:00:00",
+      "headmp": 1.19,
+      "headnote": "",
+      "remarks": ""
+    },
+    "363": {
+      "headdatetime": "2016-10-26T00:00:00",
+      "headmp": 1.2,
+      "headnote": "",
+      "remarks": ""
+    },
+    "364": {
+      "headdatetime": "2016-10-27T00:00:00",
+      "headmp": 1.21,
+      "headnote": "",
+      "remarks": ""
+    },
+    "365": {
+      "headdatetime": "2016-10-28T00:00:00",
+      "headmp": 1.22,
+      "headnote": "",
+      "remarks": ""
+    },
+    "366": {
+      "headdatetime": "2016-10-29T00:00:00",
+      "headmp": 1.22,
+      "headnote": "",
+      "remarks": ""
+    },
+    "367": {
+      "headdatetime": "2016-10-30T00:00:00",
+      "headmp": 1.23,
+      "headnote": "",
+      "remarks": ""
+    },
+    "368": {
+      "headdatetime": "2016-10-31T00:00:00",
+      "headmp": 1.23,
+      "headnote": "",
+      "remarks": ""
+    },
+    "369": {
+      "headdatetime": "2016-11-01T00:00:00",
+      "headmp": 1.23,
+      "headnote": "",
+      "remarks": ""
+    },
+    "370": {
+      "headdatetime": "2016-11-02T00:00:00",
+      "headmp": 1.23,
+      "headnote": "",
+      "remarks": ""
+    },
+    "371": {
+      "headdatetime": "2016-11-03T00:00:00",
+      "headmp": 1.22,
+      "headnote": "",
+      "remarks": ""
+    },
+    "372": {
+      "headdatetime": "2016-11-04T00:00:00",
+      "headmp": 1.22,
+      "headnote": "",
+      "remarks": ""
+    },
+    "373": {
+      "headdatetime": "2016-11-05T00:00:00",
+      "headmp": 1.18,
+      "headnote": "",
+      "remarks": ""
+    },
+    "374": {
+      "headdatetime": "2016-11-06T00:00:00",
+      "headmp": 1.19,
+      "headnote": "",
+      "remarks": ""
+    },
+    "375": {
+      "headdatetime": "2016-11-07T00:00:00",
+      "headmp": 1.11,
+      "headnote": "",
+      "remarks": ""
+    },
+    "376": {
+      "headdatetime": "2016-11-08T00:00:00",
+      "headmp": 1.02,
+      "headnote": "",
+      "remarks": ""
+    },
+    "377": {
+      "headdatetime": "2016-11-09T00:00:00",
+      "headmp": 1.04,
+      "headnote": "",
+      "remarks": ""
+    },
+    "378": {
+      "headdatetime": "2016-11-10T00:00:00",
+      "headmp": 1.08,
+      "headnote": "",
+      "remarks": ""
+    },
+    "379": {
+      "headdatetime": "2016-11-11T00:00:00",
+      "headmp": 1.13,
+      "headnote": "",
+      "remarks": ""
+    },
+    "380": {
+      "headdatetime": "2016-11-12T00:00:00",
+      "headmp": 1.15,
+      "headnote": "",
+      "remarks": ""
+    },
+    "381": {
+      "headdatetime": "2016-11-13T00:00:00",
+      "headmp": 1.16,
+      "headnote": "",
+      "remarks": ""
+    },
+    "382": {
+      "headdatetime": "2016-11-14T00:00:00",
+      "headmp": 1.17,
+      "headnote": "",
+      "remarks": ""
+    },
+    "383": {
+      "headdatetime": "2016-11-15T00:00:00",
+      "headmp": 1.03,
+      "headnote": "",
+      "remarks": ""
+    },
+    "384": {
+      "headdatetime": "2016-11-16T00:00:00",
+      "headmp": 0.96,
+      "headnote": "",
+      "remarks": ""
+    },
+    "385": {
+      "headdatetime": "2016-11-17T00:00:00",
+      "headmp": 0.91,
+      "headnote": "",
+      "remarks": ""
+    },
+    "386": {
+      "headdatetime": "2016-11-18T00:00:00",
+      "headmp": 0.64,
+      "headnote": "",
+      "remarks": ""
+    },
+    "387": {
+      "headdatetime": "2016-11-19T00:00:00",
+      "headmp": 0.72,
+      "headnote": "",
+      "remarks": ""
+    },
+    "388": {
+      "headdatetime": "2016-11-20T00:00:00",
+      "headmp": 0.7,
+      "headnote": "",
+      "remarks": ""
+    },
+    "389": {
+      "headdatetime": "2016-11-21T00:00:00",
+      "headmp": 0.79,
+      "headnote": "",
+      "remarks": ""
+    },
+    "390": {
+      "headdatetime": "2016-11-22T00:00:00",
+      "headmp": 0.84,
+      "headnote": "",
+      "remarks": ""
+    },
+    "391": {
+      "headdatetime": "2016-11-23T00:00:00",
+      "headmp": 0.89,
+      "headnote": "",
+      "remarks": ""
+    },
+    "392": {
+      "headdatetime": "2016-11-24T00:00:00",
+      "headmp": 0.94,
+      "headnote": "",
+      "remarks": ""
+    },
+    "393": {
+      "headdatetime": "2016-11-25T00:00:00",
+      "headmp": 0.97,
+      "headnote": "",
+      "remarks": ""
+    },
+    "394": {
+      "headdatetime": "2016-11-26T00:00:00",
+      "headmp": 0.98,
+      "headnote": "",
+      "remarks": ""
+    },
+    "395": {
+      "headdatetime": "2016-11-27T00:00:00",
+      "headmp": 0.99,
+      "headnote": "",
+      "remarks": ""
+    },
+    "396": {
+      "headdatetime": "2016-11-28T00:00:00",
+      "headmp": 1.02,
+      "headnote": "",
+      "remarks": ""
+    },
+    "397": {
+      "headdatetime": "2016-11-29T00:00:00",
+      "headmp": 1.03,
+      "headnote": "",
+      "remarks": ""
+    },
+    "398": {
+      "headdatetime": "2016-11-30T00:00:00",
+      "headmp": 1.03,
+      "headnote": "",
+      "remarks": ""
+    },
+    "399": {
+      "headdatetime": "2016-12-01T00:00:00",
+      "headmp": 0.99,
+      "headnote": "",
+      "remarks": ""
+    },
+    "400": {
+      "headdatetime": "2016-12-02T00:00:00",
+      "headmp": 0.98,
+      "headnote": "",
+      "remarks": ""
+    },
+    "401": {
+      "headdatetime": "2016-12-03T00:00:00",
+      "headmp": 1.01,
+      "headnote": "",
+      "remarks": ""
+    },
+    "402": {
+      "headdatetime": "2016-12-04T00:00:00",
+      "headmp": 1.04,
+      "headnote": "",
+      "remarks": ""
+    },
+    "403": {
+      "headdatetime": "2016-12-05T00:00:00",
+      "headmp": 1.06,
+      "headnote": "",
+      "remarks": ""
+    },
+    "404": {
+      "headdatetime": "2016-12-06T00:00:00",
+      "headmp": 1.07,
+      "headnote": "",
+      "remarks": ""
+    },
+    "405": {
+      "headdatetime": "2016-12-07T00:00:00",
+      "headmp": 1.03,
+      "headnote": "",
+      "remarks": ""
+    },
+    "406": {
+      "headdatetime": "2016-12-08T00:00:00",
+      "headmp": 1.01,
+      "headnote": "",
+      "remarks": ""
+    },
+    "407": {
+      "headdatetime": "2016-12-09T00:00:00",
+      "headmp": 0.99,
+      "headnote": "",
+      "remarks": ""
+    },
+    "408": {
+      "headdatetime": "2016-12-10T00:00:00",
+      "headmp": 1.01,
+      "headnote": "",
+      "remarks": ""
+    },
+    "409": {
+      "headdatetime": "2016-12-11T00:00:00",
+      "headmp": 0.68,
+      "headnote": "",
+      "remarks": ""
+    },
+    "410": {
+      "headdatetime": "2016-12-12T00:00:00",
+      "headmp": 0.77,
+      "headnote": "",
+      "remarks": ""
+    },
+    "411": {
+      "headdatetime": "2016-12-13T00:00:00",
+      "headmp": 0.83,
+      "headnote": "",
+      "remarks": ""
+    },
+    "412": {
+      "headdatetime": "2016-12-14T00:00:00",
+      "headmp": 0.83,
+      "headnote": "",
+      "remarks": ""
+    },
+    "413": {
+      "headdatetime": "2016-12-15T00:00:00",
+      "headmp": 0.88,
+      "headnote": "",
+      "remarks": ""
+    },
+    "414": {
+      "headdatetime": "2016-12-16T00:00:00",
+      "headmp": 0.92,
+      "headnote": "",
+      "remarks": ""
+    },
+    "415": {
+      "headdatetime": "2016-12-17T00:00:00",
+      "headmp": 0.94,
+      "headnote": "",
+      "remarks": ""
+    },
+    "416": {
+      "headdatetime": "2016-12-18T00:00:00",
+      "headmp": 0.94,
+      "headnote": "",
+      "remarks": ""
+    },
+    "417": {
+      "headdatetime": "2016-12-19T00:00:00",
+      "headmp": 0.95,
+      "headnote": "",
+      "remarks": ""
+    },
+    "418": {
+      "headdatetime": "2016-12-20T00:00:00",
+      "headmp": 0.96,
+      "headnote": "",
+      "remarks": ""
+    },
+    "419": {
+      "headdatetime": "2016-12-21T00:00:00",
+      "headmp": 0.97,
+      "headnote": "",
+      "remarks": ""
+    },
+    "420": {
+      "headdatetime": "2016-12-22T00:00:00",
+      "headmp": 0.73,
+      "headnote": "",
+      "remarks": ""
+    },
+    "421": {
+      "headdatetime": "2016-12-23T00:00:00",
+      "headmp": 0.83,
+      "headnote": "",
+      "remarks": ""
+    },
+    "422": {
+      "headdatetime": "2016-12-24T00:00:00",
+      "headmp": 0.83,
+      "headnote": "",
+      "remarks": ""
+    },
+    "423": {
+      "headdatetime": "2016-12-25T00:00:00",
+      "headmp": 0.83,
+      "headnote": "",
+      "remarks": ""
+    },
+    "424": {
+      "headdatetime": "2016-12-26T00:00:00",
+      "headmp": 0.78,
+      "headnote": "",
+      "remarks": ""
+    },
+    "425": {
+      "headdatetime": "2016-12-27T00:00:00",
+      "headmp": 0.87,
+      "headnote": "",
+      "remarks": ""
+    },
+    "426": {
+      "headdatetime": "2016-12-28T00:00:00",
+      "headmp": 0.9,
+      "headnote": "",
+      "remarks": ""
+    },
+    "427": {
+      "headdatetime": "2016-12-29T00:00:00",
+      "headmp": 0.92,
+      "headnote": "",
+      "remarks": ""
+    },
+    "428": {
+      "headdatetime": "2016-12-30T00:00:00",
+      "headmp": 0.94,
+      "headnote": "",
+      "remarks": ""
+    },
+    "429": {
+      "headdatetime": "2016-12-31T00:00:00",
+      "headmp": 0.91,
+      "headnote": "",
+      "remarks": ""
+    },
+    "430": {
+      "headdatetime": "2017-01-01T00:00:00",
+      "headmp": 0.91,
+      "headnote": "",
+      "remarks": ""
+    },
+    "431": {
+      "headdatetime": "2017-01-02T00:00:00",
+      "headmp": 0.9,
+      "headnote": "",
+      "remarks": ""
+    },
+    "432": {
+      "headdatetime": "2017-01-03T00:00:00",
+      "headmp": 0.88,
+      "headnote": "",
+      "remarks": ""
+    },
+    "433": {
+      "headdatetime": "2017-01-04T00:00:00",
+      "headmp": 0.68,
+      "headnote": "",
+      "remarks": ""
+    },
+    "434": {
+      "headdatetime": "2017-01-05T00:00:00",
+      "headmp": 0.77,
+      "headnote": "",
+      "remarks": ""
+    },
+    "435": {
+      "headdatetime": "2017-01-06T00:00:00",
+      "headmp": 0.86,
+      "headnote": "",
+      "remarks": ""
+    },
+    "436": {
+      "headdatetime": "2017-01-07T00:00:00",
+      "headmp": 0.86,
+      "headnote": "",
+      "remarks": ""
+    },
+    "437": {
+      "headdatetime": "2017-01-08T00:00:00",
+      "headmp": 0.85,
+      "headnote": "",
+      "remarks": ""
+    },
+    "438": {
+      "headdatetime": "2017-01-09T00:00:00",
+      "headmp": 0.77,
+      "headnote": "",
+      "remarks": ""
+    },
+    "439": {
+      "headdatetime": "2017-01-10T00:00:00",
+      "headmp": 0.67,
+      "headnote": "",
+      "remarks": ""
+    },
+    "440": {
+      "headdatetime": "2017-01-11T00:00:00",
+      "headmp": 0.63,
+      "headnote": "",
+      "remarks": ""
+    },
+    "441": {
+      "headdatetime": "2017-01-12T00:00:00",
+      "headmp": 0.68,
+      "headnote": "",
+      "remarks": ""
+    },
+    "442": {
+      "headdatetime": "2017-01-13T00:00:00",
+      "headmp": 0.61,
+      "headnote": "",
+      "remarks": ""
+    },
+    "443": {
+      "headdatetime": "2017-01-14T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "444": {
+      "headdatetime": "2017-01-15T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "445": {
+      "headdatetime": "2017-01-16T00:00:00",
+      "headmp": 0.61,
+      "headnote": "",
+      "remarks": ""
+    },
+    "446": {
+      "headdatetime": "2017-01-17T00:00:00",
+      "headmp": 0.62,
+      "headnote": "",
+      "remarks": ""
+    },
+    "447": {
+      "headdatetime": "2017-01-18T00:00:00",
+      "headmp": 0.62,
+      "headnote": "",
+      "remarks": ""
+    },
+    "448": {
+      "headdatetime": "2017-01-19T00:00:00",
+      "headmp": 0.63,
+      "headnote": "",
+      "remarks": ""
+    },
+    "449": {
+      "headdatetime": "2017-01-20T00:00:00",
+      "headmp": 0.65,
+      "headnote": "",
+      "remarks": ""
+    },
+    "450": {
+      "headdatetime": "2017-01-21T00:00:00",
+      "headmp": 0.67,
+      "headnote": "",
+      "remarks": ""
+    },
+    "451": {
+      "headdatetime": "2017-01-22T00:00:00",
+      "headmp": 0.69,
+      "headnote": "",
+      "remarks": ""
+    },
+    "452": {
+      "headdatetime": "2017-01-23T00:00:00",
+      "headmp": 0.73,
+      "headnote": "",
+      "remarks": ""
+    },
+    "453": {
+      "headdatetime": "2017-01-24T00:00:00",
+      "headmp": 0.74,
+      "headnote": "",
+      "remarks": ""
+    },
+    "454": {
+      "headdatetime": "2017-01-25T00:00:00",
+      "headmp": 0.75,
+      "headnote": "",
+      "remarks": ""
+    },
+    "455": {
+      "headdatetime": "2017-01-26T00:00:00",
+      "headmp": 0.78,
+      "headnote": "",
+      "remarks": ""
+    },
+    "456": {
+      "headdatetime": "2017-01-27T00:00:00",
+      "headmp": 0.81,
+      "headnote": "",
+      "remarks": ""
+    },
+    "457": {
+      "headdatetime": "2017-01-28T00:00:00",
+      "headmp": 0.81,
+      "headnote": "",
+      "remarks": ""
+    },
+    "458": {
+      "headdatetime": "2017-01-29T00:00:00",
+      "headmp": 0.66,
+      "headnote": "",
+      "remarks": ""
+    },
+    "459": {
+      "headdatetime": "2017-01-30T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "460": {
+      "headdatetime": "2017-01-31T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "461": {
+      "headdatetime": "2017-02-01T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "462": {
+      "headdatetime": "2017-02-02T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "463": {
+      "headdatetime": "2017-02-03T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "464": {
+      "headdatetime": "2017-02-04T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "465": {
+      "headdatetime": "2017-02-05T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "466": {
+      "headdatetime": "2017-02-06T00:00:00",
+      "headmp": 0.61,
+      "headnote": "",
+      "remarks": ""
+    },
+    "467": {
+      "headdatetime": "2017-02-07T00:00:00",
+      "headmp": 0.62,
+      "headnote": "",
+      "remarks": ""
+    },
+    "468": {
+      "headdatetime": "2017-02-08T00:00:00",
+      "headmp": 0.62,
+      "headnote": "",
+      "remarks": ""
+    },
+    "469": {
+      "headdatetime": "2017-02-09T00:00:00",
+      "headmp": 0.63,
+      "headnote": "",
+      "remarks": ""
+    },
+    "470": {
+      "headdatetime": "2017-02-10T00:00:00",
+      "headmp": 0.64,
+      "headnote": "",
+      "remarks": ""
+    },
+    "471": {
+      "headdatetime": "2017-02-11T00:00:00",
+      "headmp": 0.65,
+      "headnote": "",
+      "remarks": ""
+    },
+    "472": {
+      "headdatetime": "2017-02-12T00:00:00",
+      "headmp": 0.67,
+      "headnote": "",
+      "remarks": ""
+    },
+    "473": {
+      "headdatetime": "2017-02-13T00:00:00",
+      "headmp": 0.67,
+      "headnote": "",
+      "remarks": ""
+    },
+    "474": {
+      "headdatetime": "2017-02-14T00:00:00",
+      "headmp": 0.68,
+      "headnote": "",
+      "remarks": ""
+    },
+    "475": {
+      "headdatetime": "2017-02-15T00:00:00",
+      "headmp": 0.68,
+      "headnote": "",
+      "remarks": ""
+    },
+    "476": {
+      "headdatetime": "2017-02-16T00:00:00",
+      "headmp": 0.69,
+      "headnote": "",
+      "remarks": ""
+    },
+    "477": {
+      "headdatetime": "2017-02-17T00:00:00",
+      "headmp": 0.65,
+      "headnote": "",
+      "remarks": ""
+    },
+    "478": {
+      "headdatetime": "2017-02-18T00:00:00",
+      "headmp": 0.67,
+      "headnote": "",
+      "remarks": ""
+    },
+    "479": {
+      "headdatetime": "2017-02-19T00:00:00",
+      "headmp": 0.67,
+      "headnote": "",
+      "remarks": ""
+    },
+    "480": {
+      "headdatetime": "2017-02-20T00:00:00",
+      "headmp": 0.68,
+      "headnote": "",
+      "remarks": ""
+    },
+    "481": {
+      "headdatetime": "2017-02-21T00:00:00",
+      "headmp": 0.63,
+      "headnote": "",
+      "remarks": ""
+    },
+    "482": {
+      "headdatetime": "2017-02-22T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "483": {
+      "headdatetime": "2017-02-23T00:00:00",
+      "headmp": 0.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "484": {
+      "headdatetime": "2017-02-24T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "485": {
+      "headdatetime": "2017-02-25T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "486": {
+      "headdatetime": "2017-02-26T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "487": {
+      "headdatetime": "2017-02-27T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "488": {
+      "headdatetime": "2017-02-28T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "489": {
+      "headdatetime": "2017-03-01T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "490": {
+      "headdatetime": "2017-03-02T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "491": {
+      "headdatetime": "2017-03-03T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "492": {
+      "headdatetime": "2017-03-04T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "493": {
+      "headdatetime": "2017-03-05T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "494": {
+      "headdatetime": "2017-03-06T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "495": {
+      "headdatetime": "2017-03-07T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "496": {
+      "headdatetime": "2017-03-08T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "497": {
+      "headdatetime": "2017-03-09T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "498": {
+      "headdatetime": "2017-03-10T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "499": {
+      "headdatetime": "2017-03-11T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "500": {
+      "headdatetime": "2017-03-12T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "501": {
+      "headdatetime": "2017-03-13T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "502": {
+      "headdatetime": "2017-03-14T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "503": {
+      "headdatetime": "2017-03-15T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "504": {
+      "headdatetime": "2017-03-16T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "505": {
+      "headdatetime": "2017-03-17T00:00:00",
+      "headmp": 0.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "506": {
+      "headdatetime": "2017-03-18T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "507": {
+      "headdatetime": "2017-03-19T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "508": {
+      "headdatetime": "2017-03-20T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "509": {
+      "headdatetime": "2017-03-21T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "510": {
+      "headdatetime": "2017-03-22T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "511": {
+      "headdatetime": "2017-03-23T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "512": {
+      "headdatetime": "2017-03-24T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "513": {
+      "headdatetime": "2017-03-25T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "514": {
+      "headdatetime": "2017-03-26T00:00:00",
+      "headmp": 0.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "515": {
+      "headdatetime": "2017-03-27T00:00:00",
+      "headmp": 0.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "516": {
+      "headdatetime": "2017-03-28T00:00:00",
+      "headmp": 0.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "517": {
+      "headdatetime": "2017-03-29T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "518": {
+      "headdatetime": "2017-03-30T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "519": {
+      "headdatetime": "2017-03-31T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "520": {
+      "headdatetime": "2017-04-01T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "521": {
+      "headdatetime": "2017-04-02T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "522": {
+      "headdatetime": "2017-04-03T00:00:00",
+      "headmp": 0.61,
+      "headnote": "",
+      "remarks": ""
+    },
+    "523": {
+      "headdatetime": "2017-04-04T00:00:00",
+      "headmp": 0.62,
+      "headnote": "",
+      "remarks": ""
+    },
+    "524": {
+      "headdatetime": "2017-04-05T00:00:00",
+      "headmp": 0.63,
+      "headnote": "",
+      "remarks": ""
+    },
+    "525": {
+      "headdatetime": "2017-04-06T00:00:00",
+      "headmp": 0.65,
+      "headnote": "",
+      "remarks": ""
+    },
+    "526": {
+      "headdatetime": "2017-04-07T00:00:00",
+      "headmp": 0.67,
+      "headnote": "",
+      "remarks": ""
+    },
+    "527": {
+      "headdatetime": "2017-04-08T00:00:00",
+      "headmp": 0.69,
+      "headnote": "",
+      "remarks": ""
+    },
+    "528": {
+      "headdatetime": "2017-04-09T00:00:00",
+      "headmp": 0.72,
+      "headnote": "",
+      "remarks": ""
+    },
+    "529": {
+      "headdatetime": "2017-04-10T00:00:00",
+      "headmp": 0.75,
+      "headnote": "",
+      "remarks": ""
+    },
+    "530": {
+      "headdatetime": "2017-04-11T00:00:00",
+      "headmp": 0.78,
+      "headnote": "",
+      "remarks": ""
+    },
+    "531": {
+      "headdatetime": "2017-04-12T00:00:00",
+      "headmp": 0.8,
+      "headnote": "",
+      "remarks": ""
+    },
+    "532": {
+      "headdatetime": "2017-04-13T00:00:00",
+      "headmp": 0.71,
+      "headnote": "",
+      "remarks": ""
+    },
+    "533": {
+      "headdatetime": "2017-04-14T00:00:00",
+      "headmp": 0.77,
+      "headnote": "",
+      "remarks": ""
+    },
+    "534": {
+      "headdatetime": "2017-04-15T00:00:00",
+      "headmp": 0.77,
+      "headnote": "",
+      "remarks": ""
+    },
+    "535": {
+      "headdatetime": "2017-04-16T00:00:00",
+      "headmp": 0.81,
+      "headnote": "",
+      "remarks": ""
+    },
+    "536": {
+      "headdatetime": "2017-04-17T00:00:00",
+      "headmp": 0.83,
+      "headnote": "",
+      "remarks": ""
+    },
+    "537": {
+      "headdatetime": "2017-04-18T00:00:00",
+      "headmp": 0.78,
+      "headnote": "",
+      "remarks": ""
+    },
+    "538": {
+      "headdatetime": "2017-04-19T00:00:00",
+      "headmp": 0.82,
+      "headnote": "",
+      "remarks": ""
+    },
+    "539": {
+      "headdatetime": "2017-04-20T00:00:00",
+      "headmp": 0.86,
+      "headnote": "",
+      "remarks": ""
+    },
+    "540": {
+      "headdatetime": "2017-04-21T00:00:00",
+      "headmp": 0.88,
+      "headnote": "",
+      "remarks": ""
+    },
+    "541": {
+      "headdatetime": "2017-04-22T00:00:00",
+      "headmp": 0.87,
+      "headnote": "",
+      "remarks": ""
+    },
+    "542": {
+      "headdatetime": "2017-04-23T00:00:00",
+      "headmp": 0.88,
+      "headnote": "",
+      "remarks": ""
+    },
+    "543": {
+      "headdatetime": "2017-04-24T00:00:00",
+      "headmp": 0.9,
+      "headnote": "",
+      "remarks": ""
+    },
+    "544": {
+      "headdatetime": "2017-04-25T00:00:00",
+      "headmp": 0.75,
+      "headnote": "",
+      "remarks": ""
+    },
+    "545": {
+      "headdatetime": "2017-04-26T00:00:00",
+      "headmp": 0.83,
+      "headnote": "",
+      "remarks": ""
+    },
+    "546": {
+      "headdatetime": "2017-04-27T00:00:00",
+      "headmp": 0.88,
+      "headnote": "",
+      "remarks": ""
+    },
+    "547": {
+      "headdatetime": "2017-04-28T00:00:00",
+      "headmp": 0.87,
+      "headnote": "",
+      "remarks": ""
+    },
+    "548": {
+      "headdatetime": "2017-04-29T00:00:00",
+      "headmp": 0.9,
+      "headnote": "",
+      "remarks": ""
+    },
+    "549": {
+      "headdatetime": "2017-04-30T00:00:00",
+      "headmp": 0.93,
+      "headnote": "",
+      "remarks": ""
+    },
+    "550": {
+      "headdatetime": "2017-05-01T00:00:00",
+      "headmp": 0.96,
+      "headnote": "",
+      "remarks": ""
+    },
+    "551": {
+      "headdatetime": "2017-05-02T00:00:00",
+      "headmp": 0.9,
+      "headnote": "",
+      "remarks": ""
+    },
+    "552": {
+      "headdatetime": "2017-05-03T00:00:00",
+      "headmp": 0.79,
+      "headnote": "",
+      "remarks": ""
+    },
+    "553": {
+      "headdatetime": "2017-05-04T00:00:00",
+      "headmp": 0.89,
+      "headnote": "",
+      "remarks": ""
+    },
+    "554": {
+      "headdatetime": "2017-05-05T00:00:00",
+      "headmp": 0.88,
+      "headnote": "",
+      "remarks": ""
+    },
+    "555": {
+      "headdatetime": "2017-05-06T00:00:00",
+      "headmp": 0.91,
+      "headnote": "",
+      "remarks": ""
+    },
+    "556": {
+      "headdatetime": "2017-05-07T00:00:00",
+      "headmp": 0.96,
+      "headnote": "",
+      "remarks": ""
+    },
+    "557": {
+      "headdatetime": "2017-05-08T00:00:00",
+      "headmp": 0.97,
+      "headnote": "",
+      "remarks": ""
+    },
+    "558": {
+      "headdatetime": "2017-05-09T00:00:00",
+      "headmp": 1.0,
+      "headnote": "",
+      "remarks": ""
+    },
+    "559": {
+      "headdatetime": "2017-05-10T00:00:00",
+      "headmp": 0.99,
+      "headnote": "",
+      "remarks": ""
+    },
+    "560": {
+      "headdatetime": "2017-05-11T00:00:00",
+      "headmp": 1.03,
+      "headnote": "",
+      "remarks": ""
+    },
+    "561": {
+      "headdatetime": "2017-05-12T00:00:00",
+      "headmp": 0.93,
+      "headnote": "",
+      "remarks": ""
+    },
+    "562": {
+      "headdatetime": "2017-05-13T00:00:00",
+      "headmp": 0.95,
+      "headnote": "",
+      "remarks": ""
+    },
+    "563": {
+      "headdatetime": "2017-05-14T00:00:00",
+      "headmp": 1.05,
+      "headnote": "",
+      "remarks": ""
+    },
+    "564": {
+      "headdatetime": "2017-05-15T00:00:00",
+      "headmp": 1.09,
+      "headnote": "",
+      "remarks": ""
+    },
+    "565": {
+      "headdatetime": "2017-05-16T00:00:00",
+      "headmp": 1.12,
+      "headnote": "",
+      "remarks": ""
+    },
+    "566": {
+      "headdatetime": "2017-05-17T00:00:00",
+      "headmp": 1.16,
+      "headnote": "",
+      "remarks": ""
+    },
+    "567": {
+      "headdatetime": "2017-05-18T00:00:00",
+      "headmp": 1.1,
+      "headnote": "",
+      "remarks": ""
+    },
+    "568": {
+      "headdatetime": "2017-05-19T00:00:00",
+      "headmp": 1.08,
+      "headnote": "",
+      "remarks": ""
+    },
+    "569": {
+      "headdatetime": "2017-05-20T00:00:00",
+      "headmp": 1.05,
+      "headnote": "",
+      "remarks": ""
+    },
+    "570": {
+      "headdatetime": "2017-05-21T00:00:00",
+      "headmp": 1.13,
+      "headnote": "",
+      "remarks": ""
+    },
+    "571": {
+      "headdatetime": "2017-05-22T00:00:00",
+      "headmp": 1.2,
+      "headnote": "",
+      "remarks": ""
+    },
+    "572": {
+      "headdatetime": "2017-05-23T00:00:00",
+      "headmp": 1.24,
+      "headnote": "",
+      "remarks": ""
+    },
+    "573": {
+      "headdatetime": "2017-05-24T00:00:00",
+      "headmp": 1.22,
+      "headnote": "",
+      "remarks": ""
+    },
+    "574": {
+      "headdatetime": "2017-05-25T00:00:00",
+      "headmp": 1.25,
+      "headnote": "",
+      "remarks": ""
+    },
+    "575": {
+      "headdatetime": "2017-05-26T00:00:00",
+      "headmp": 1.28,
+      "headnote": "",
+      "remarks": ""
+    },
+    "576": {
+      "headdatetime": "2017-05-27T00:00:00",
+      "headmp": 1.32,
+      "headnote": "",
+      "remarks": ""
+    },
+    "577": {
+      "headdatetime": "2017-05-28T00:00:00",
+      "headmp": 1.13,
+      "headnote": "",
+      "remarks": ""
+    },
+    "578": {
+      "headdatetime": "2017-05-29T00:00:00",
+      "headmp": 1.26,
+      "headnote": "",
+      "remarks": ""
+    },
+    "579": {
+      "headdatetime": "2017-05-30T00:00:00",
+      "headmp": 1.29,
+      "headnote": "",
+      "remarks": ""
+    },
+    "580": {
+      "headdatetime": "2017-05-31T00:00:00",
+      "headmp": 1.33,
+      "headnote": "",
+      "remarks": ""
+    },
+    "581": {
+      "headdatetime": "2017-06-01T00:00:00",
+      "headmp": 1.37,
+      "headnote": "",
+      "remarks": ""
+    },
+    "582": {
+      "headdatetime": "2017-06-02T00:00:00",
+      "headmp": 1.39,
+      "headnote": "",
+      "remarks": ""
+    },
+    "583": {
+      "headdatetime": "2017-06-03T00:00:00",
+      "headmp": 1.37,
+      "headnote": "",
+      "remarks": ""
+    },
+    "584": {
+      "headdatetime": "2017-06-04T00:00:00",
+      "headmp": 1.35,
+      "headnote": "",
+      "remarks": ""
+    },
+    "585": {
+      "headdatetime": "2017-06-05T00:00:00",
+      "headmp": 1.4,
+      "headnote": "",
+      "remarks": ""
+    },
+    "586": {
+      "headdatetime": "2017-06-06T00:00:00",
+      "headmp": 1.37,
+      "headnote": "",
+      "remarks": ""
+    },
+    "587": {
+      "headdatetime": "2017-06-07T00:00:00",
+      "headmp": 1.23,
+      "headnote": "",
+      "remarks": ""
+    },
+    "588": {
+      "headdatetime": "2017-06-08T00:00:00",
+      "headmp": 1.28,
+      "headnote": "",
+      "remarks": ""
+    },
+    "589": {
+      "headdatetime": "2017-06-09T00:00:00",
+      "headmp": 1.14,
+      "headnote": "",
+      "remarks": ""
+    },
+    "590": {
+      "headdatetime": "2017-06-10T00:00:00",
+      "headmp": 1.21,
+      "headnote": "",
+      "remarks": ""
+    },
+    "591": {
+      "headdatetime": "2017-06-11T00:00:00",
+      "headmp": 1.31,
+      "headnote": "",
+      "remarks": ""
+    },
+    "592": {
+      "headdatetime": "2017-06-12T00:00:00",
+      "headmp": 1.34,
+      "headnote": "",
+      "remarks": ""
+    },
+    "593": {
+      "headdatetime": "2017-06-13T00:00:00",
+      "headmp": 1.36,
+      "headnote": "",
+      "remarks": ""
+    },
+    "594": {
+      "headdatetime": "2017-06-14T00:00:00",
+      "headmp": 1.4,
+      "headnote": "",
+      "remarks": ""
+    },
+    "595": {
+      "headdatetime": "2017-06-15T00:00:00",
+      "headmp": 1.44,
+      "headnote": "",
+      "remarks": ""
+    },
+    "596": {
+      "headdatetime": "2017-06-16T00:00:00",
+      "headmp": 1.43,
+      "headnote": "",
+      "remarks": ""
+    },
+    "597": {
+      "headdatetime": "2017-06-17T00:00:00",
+      "headmp": 1.41,
+      "headnote": "",
+      "remarks": ""
+    },
+    "598": {
+      "headdatetime": "2017-06-18T00:00:00",
+      "headmp": 1.46,
+      "headnote": "",
+      "remarks": ""
+    },
+    "599": {
+      "headdatetime": "2017-06-19T00:00:00",
+      "headmp": 1.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "600": {
+      "headdatetime": "2017-06-20T00:00:00",
+      "headmp": 1.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "601": {
+      "headdatetime": "2017-06-21T00:00:00",
+      "headmp": 1.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "602": {
+      "headdatetime": "2017-06-22T00:00:00",
+      "headmp": 1.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "603": {
+      "headdatetime": "2017-06-23T00:00:00",
+      "headmp": 1.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "604": {
+      "headdatetime": "2017-06-24T00:00:00",
+      "headmp": 1.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "605": {
+      "headdatetime": "2017-06-25T00:00:00",
+      "headmp": 1.35,
+      "headnote": "",
+      "remarks": ""
+    },
+    "606": {
+      "headdatetime": "2017-06-26T00:00:00",
+      "headmp": 1.32,
+      "headnote": "",
+      "remarks": ""
+    },
+    "607": {
+      "headdatetime": "2017-06-27T00:00:00",
+      "headmp": 1.43,
+      "headnote": "",
+      "remarks": ""
+    },
+    "608": {
+      "headdatetime": "2017-06-28T00:00:00",
+      "headmp": 1.31,
+      "headnote": "",
+      "remarks": ""
+    },
+    "609": {
+      "headdatetime": "2017-06-29T00:00:00",
+      "headmp": 1.29,
+      "headnote": "",
+      "remarks": ""
+    },
+    "610": {
+      "headdatetime": "2017-06-30T00:00:00",
+      "headmp": 1.17,
+      "headnote": "",
+      "remarks": ""
+    },
+    "611": {
+      "headdatetime": "2017-07-01T00:00:00",
+      "headmp": 1.1,
+      "headnote": "",
+      "remarks": ""
+    },
+    "612": {
+      "headdatetime": "2017-07-02T00:00:00",
+      "headmp": 1.18,
+      "headnote": "",
+      "remarks": ""
+    },
+    "613": {
+      "headdatetime": "2017-07-03T00:00:00",
+      "headmp": 1.29,
+      "headnote": "",
+      "remarks": ""
+    },
+    "614": {
+      "headdatetime": "2017-07-04T00:00:00",
+      "headmp": 1.33,
+      "headnote": "",
+      "remarks": ""
+    },
+    "615": {
+      "headdatetime": "2017-07-05T00:00:00",
+      "headmp": 1.37,
+      "headnote": "",
+      "remarks": ""
+    },
+    "616": {
+      "headdatetime": "2017-07-06T00:00:00",
+      "headmp": 1.41,
+      "headnote": "",
+      "remarks": ""
+    },
+    "617": {
+      "headdatetime": "2017-07-07T00:00:00",
+      "headmp": 1.4,
+      "headnote": "",
+      "remarks": ""
+    },
+    "618": {
+      "headdatetime": "2017-07-08T00:00:00",
+      "headmp": 1.44,
+      "headnote": "",
+      "remarks": ""
+    },
+    "619": {
+      "headdatetime": "2017-07-09T00:00:00",
+      "headmp": 1.46,
+      "headnote": "",
+      "remarks": ""
+    },
+    "620": {
+      "headdatetime": "2017-07-10T00:00:00",
+      "headmp": 1.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "621": {
+      "headdatetime": "2017-07-11T00:00:00",
+      "headmp": 1.34,
+      "headnote": "",
+      "remarks": ""
+    },
+    "622": {
+      "headdatetime": "2017-07-12T00:00:00",
+      "headmp": 0.84,
+      "headnote": "",
+      "remarks": ""
+    },
+    "623": {
+      "headdatetime": "2017-07-13T00:00:00",
+      "headmp": 1.16,
+      "headnote": "",
+      "remarks": ""
+    },
+    "624": {
+      "headdatetime": "2017-07-14T00:00:00",
+      "headmp": 1.26,
+      "headnote": "",
+      "remarks": ""
+    },
+    "625": {
+      "headdatetime": "2017-07-15T00:00:00",
+      "headmp": 1.24,
+      "headnote": "",
+      "remarks": ""
+    },
+    "626": {
+      "headdatetime": "2017-07-16T00:00:00",
+      "headmp": 1.28,
+      "headnote": "",
+      "remarks": ""
+    },
+    "627": {
+      "headdatetime": "2017-07-17T00:00:00",
+      "headmp": 1.31,
+      "headnote": "",
+      "remarks": ""
+    },
+    "628": {
+      "headdatetime": "2017-07-18T00:00:00",
+      "headmp": 1.37,
+      "headnote": "",
+      "remarks": ""
+    },
+    "629": {
+      "headdatetime": "2017-07-19T00:00:00",
+      "headmp": 1.41,
+      "headnote": "",
+      "remarks": ""
+    },
+    "630": {
+      "headdatetime": "2017-07-20T00:00:00",
+      "headmp": 1.18,
+      "headnote": "",
+      "remarks": ""
+    },
+    "631": {
+      "headdatetime": "2017-07-21T00:00:00",
+      "headmp": 1.3,
+      "headnote": "",
+      "remarks": ""
+    },
+    "632": {
+      "headdatetime": "2017-07-22T00:00:00",
+      "headmp": 1.27,
+      "headnote": "",
+      "remarks": ""
+    },
+    "633": {
+      "headdatetime": "2017-07-23T00:00:00",
+      "headmp": 1.13,
+      "headnote": "",
+      "remarks": ""
+    },
+    "634": {
+      "headdatetime": "2017-07-24T00:00:00",
+      "headmp": 0.75,
+      "headnote": "",
+      "remarks": ""
+    },
+    "635": {
+      "headdatetime": "2017-07-25T00:00:00",
+      "headmp": 0.88,
+      "headnote": "",
+      "remarks": ""
+    },
+    "636": {
+      "headdatetime": "2017-07-26T00:00:00",
+      "headmp": 1.03,
+      "headnote": "",
+      "remarks": ""
+    },
+    "637": {
+      "headdatetime": "2017-07-27T00:00:00",
+      "headmp": 1.13,
+      "headnote": "",
+      "remarks": ""
+    },
+    "638": {
+      "headdatetime": "2017-07-28T00:00:00",
+      "headmp": 1.21,
+      "headnote": "",
+      "remarks": ""
+    },
+    "639": {
+      "headdatetime": "2017-07-29T00:00:00",
+      "headmp": 1.2,
+      "headnote": "",
+      "remarks": ""
+    },
+    "640": {
+      "headdatetime": "2017-07-30T00:00:00",
+      "headmp": 1.25,
+      "headnote": "",
+      "remarks": ""
+    },
+    "641": {
+      "headdatetime": "2017-07-31T00:00:00",
+      "headmp": 1.16,
+      "headnote": "",
+      "remarks": ""
+    },
+    "642": {
+      "headdatetime": "2017-08-01T00:00:00",
+      "headmp": 1.24,
+      "headnote": "",
+      "remarks": ""
+    },
+    "643": {
+      "headdatetime": "2017-08-02T00:00:00",
+      "headmp": 1.27,
+      "headnote": "",
+      "remarks": ""
+    },
+    "644": {
+      "headdatetime": "2017-08-03T00:00:00",
+      "headmp": 1.24,
+      "headnote": "",
+      "remarks": ""
+    },
+    "645": {
+      "headdatetime": "2017-08-04T00:00:00",
+      "headmp": 1.31,
+      "headnote": "",
+      "remarks": ""
+    },
+    "646": {
+      "headdatetime": "2017-08-05T00:00:00",
+      "headmp": 1.32,
+      "headnote": "",
+      "remarks": ""
+    },
+    "647": {
+      "headdatetime": "2017-08-06T00:00:00",
+      "headmp": 1.25,
+      "headnote": "",
+      "remarks": ""
+    },
+    "648": {
+      "headdatetime": "2017-08-07T00:00:00",
+      "headmp": 1.33,
+      "headnote": "",
+      "remarks": ""
+    },
+    "649": {
+      "headdatetime": "2017-08-08T00:00:00",
+      "headmp": 1.37,
+      "headnote": "",
+      "remarks": ""
+    },
+    "650": {
+      "headdatetime": "2017-08-09T00:00:00",
+      "headmp": 1.34,
+      "headnote": "",
+      "remarks": ""
+    },
+    "651": {
+      "headdatetime": "2017-08-10T00:00:00",
+      "headmp": 1.39,
+      "headnote": "",
+      "remarks": ""
+    },
+    "652": {
+      "headdatetime": "2017-08-11T00:00:00",
+      "headmp": 1.18,
+      "headnote": "",
+      "remarks": ""
+    },
+    "653": {
+      "headdatetime": "2017-08-12T00:00:00",
+      "headmp": 1.07,
+      "headnote": "",
+      "remarks": ""
+    },
+    "654": {
+      "headdatetime": "2017-08-13T00:00:00",
+      "headmp": 1.2,
+      "headnote": "",
+      "remarks": ""
+    },
+    "655": {
+      "headdatetime": "2017-08-14T00:00:00",
+      "headmp": 1.29,
+      "headnote": "",
+      "remarks": ""
+    },
+    "656": {
+      "headdatetime": "2017-08-15T00:00:00",
+      "headmp": 1.33,
+      "headnote": "",
+      "remarks": ""
+    },
+    "657": {
+      "headdatetime": "2017-08-16T00:00:00",
+      "headmp": 1.02,
+      "headnote": "",
+      "remarks": ""
+    },
+    "658": {
+      "headdatetime": "2017-08-17T00:00:00",
+      "headmp": 1.15,
+      "headnote": "",
+      "remarks": ""
+    },
+    "659": {
+      "headdatetime": "2017-08-18T00:00:00",
+      "headmp": 1.11,
+      "headnote": "",
+      "remarks": ""
+    },
+    "660": {
+      "headdatetime": "2017-08-19T00:00:00",
+      "headmp": 0.9,
+      "headnote": "",
+      "remarks": ""
+    },
+    "661": {
+      "headdatetime": "2017-08-20T00:00:00",
+      "headmp": 0.9,
+      "headnote": "",
+      "remarks": ""
+    },
+    "662": {
+      "headdatetime": "2017-08-21T00:00:00",
+      "headmp": 1.04,
+      "headnote": "",
+      "remarks": ""
+    },
+    "663": {
+      "headdatetime": "2017-08-22T00:00:00",
+      "headmp": 1.12,
+      "headnote": "",
+      "remarks": ""
+    },
+    "664": {
+      "headdatetime": "2017-08-23T00:00:00",
+      "headmp": 1.18,
+      "headnote": "",
+      "remarks": ""
+    },
+    "665": {
+      "headdatetime": "2017-08-24T00:00:00",
+      "headmp": 1.21,
+      "headnote": "",
+      "remarks": ""
+    },
+    "666": {
+      "headdatetime": "2017-08-25T00:00:00",
+      "headmp": 1.23,
+      "headnote": "",
+      "remarks": ""
+    },
+    "667": {
+      "headdatetime": "2017-08-26T00:00:00",
+      "headmp": 1.25,
+      "headnote": "",
+      "remarks": ""
+    },
+    "668": {
+      "headdatetime": "2017-08-27T00:00:00",
+      "headmp": 1.29,
+      "headnote": "",
+      "remarks": ""
+    },
+    "669": {
+      "headdatetime": "2017-08-28T00:00:00",
+      "headmp": 1.31,
+      "headnote": "",
+      "remarks": ""
+    },
+    "670": {
+      "headdatetime": "2017-08-29T00:00:00",
+      "headmp": 1.33,
+      "headnote": "",
+      "remarks": ""
+    },
+    "671": {
+      "headdatetime": "2017-08-30T00:00:00",
+      "headmp": 1.21,
+      "headnote": "",
+      "remarks": ""
+    },
+    "672": {
+      "headdatetime": "2017-08-31T00:00:00",
+      "headmp": 0.97,
+      "headnote": "",
+      "remarks": ""
+    },
+    "673": {
+      "headdatetime": "2017-09-01T00:00:00",
+      "headmp": 1.12,
+      "headnote": "",
+      "remarks": ""
+    },
+    "674": {
+      "headdatetime": "2017-09-02T00:00:00",
+      "headmp": 1.19,
+      "headnote": "",
+      "remarks": ""
+    },
+    "675": {
+      "headdatetime": "2017-09-03T00:00:00",
+      "headmp": 1.23,
+      "headnote": "",
+      "remarks": ""
+    },
+    "676": {
+      "headdatetime": "2017-09-04T00:00:00",
+      "headmp": 1.26,
+      "headnote": "",
+      "remarks": ""
+    },
+    "677": {
+      "headdatetime": "2017-09-05T00:00:00",
+      "headmp": 1.26,
+      "headnote": "",
+      "remarks": ""
+    },
+    "678": {
+      "headdatetime": "2017-09-06T00:00:00",
+      "headmp": 0.97,
+      "headnote": "",
+      "remarks": ""
+    },
+    "679": {
+      "headdatetime": "2017-09-07T00:00:00",
+      "headmp": 1.08,
+      "headnote": "",
+      "remarks": ""
+    },
+    "680": {
+      "headdatetime": "2017-09-08T00:00:00",
+      "headmp": 0.8,
+      "headnote": "",
+      "remarks": ""
+    },
+    "681": {
+      "headdatetime": "2017-09-09T00:00:00",
+      "headmp": 0.71,
+      "headnote": "",
+      "remarks": ""
+    },
+    "682": {
+      "headdatetime": "2017-09-10T00:00:00",
+      "headmp": 0.82,
+      "headnote": "",
+      "remarks": ""
+    },
+    "683": {
+      "headdatetime": "2017-09-11T00:00:00",
+      "headmp": 0.95,
+      "headnote": "",
+      "remarks": ""
+    },
+    "684": {
+      "headdatetime": "2017-09-12T00:00:00",
+      "headmp": 0.96,
+      "headnote": "",
+      "remarks": ""
+    },
+    "685": {
+      "headdatetime": "2017-09-13T00:00:00",
+      "headmp": 0.7,
+      "headnote": "",
+      "remarks": ""
+    },
+    "686": {
+      "headdatetime": "2017-09-14T00:00:00",
+      "headmp": 0.87,
+      "headnote": "",
+      "remarks": ""
+    },
+    "687": {
+      "headdatetime": "2017-09-15T00:00:00",
+      "headmp": 0.78,
+      "headnote": "",
+      "remarks": ""
+    },
+    "688": {
+      "headdatetime": "2017-09-16T00:00:00",
+      "headmp": 0.84,
+      "headnote": "",
+      "remarks": ""
+    },
+    "689": {
+      "headdatetime": "2017-09-17T00:00:00",
+      "headmp": 0.91,
+      "headnote": "",
+      "remarks": ""
+    },
+    "690": {
+      "headdatetime": "2017-09-18T00:00:00",
+      "headmp": 0.83,
+      "headnote": "",
+      "remarks": ""
+    },
+    "691": {
+      "headdatetime": "2017-09-19T00:00:00",
+      "headmp": 0.89,
+      "headnote": "",
+      "remarks": ""
+    },
+    "692": {
+      "headdatetime": "2017-09-20T00:00:00",
+      "headmp": 0.93,
+      "headnote": "",
+      "remarks": ""
+    },
+    "693": {
+      "headdatetime": "2017-09-21T00:00:00",
+      "headmp": 0.98,
+      "headnote": "",
+      "remarks": ""
+    },
+    "694": {
+      "headdatetime": "2017-09-22T00:00:00",
+      "headmp": 1.01,
+      "headnote": "",
+      "remarks": ""
+    },
+    "695": {
+      "headdatetime": "2017-09-23T00:00:00",
+      "headmp": 0.98,
+      "headnote": "",
+      "remarks": ""
+    },
+    "696": {
+      "headdatetime": "2017-09-24T00:00:00",
+      "headmp": 1.02,
+      "headnote": "",
+      "remarks": ""
+    },
+    "697": {
+      "headdatetime": "2017-09-25T00:00:00",
+      "headmp": 1.02,
+      "headnote": "",
+      "remarks": ""
+    },
+    "698": {
+      "headdatetime": "2017-09-26T00:00:00",
+      "headmp": 1.04,
+      "headnote": "",
+      "remarks": ""
+    },
+    "699": {
+      "headdatetime": "2017-09-27T00:00:00",
+      "headmp": 1.05,
+      "headnote": "",
+      "remarks": ""
+    },
+    "700": {
+      "headdatetime": "2017-09-28T00:00:00",
+      "headmp": 1.04,
+      "headnote": "",
+      "remarks": ""
+    },
+    "701": {
+      "headdatetime": "2017-09-29T00:00:00",
+      "headmp": 1.0,
+      "headnote": "",
+      "remarks": ""
+    },
+    "702": {
+      "headdatetime": "2017-09-30T00:00:00",
+      "headmp": 0.69,
+      "headnote": "",
+      "remarks": ""
+    },
+    "703": {
+      "headdatetime": "2017-10-01T00:00:00",
+      "headmp": 0.63,
+      "headnote": "",
+      "remarks": ""
+    },
+    "704": {
+      "headdatetime": "2017-10-02T00:00:00",
+      "headmp": 0.64,
+      "headnote": "",
+      "remarks": ""
+    },
+    "705": {
+      "headdatetime": "2017-10-03T00:00:00",
+      "headmp": 0.65,
+      "headnote": "",
+      "remarks": ""
+    },
+    "706": {
+      "headdatetime": "2017-10-04T00:00:00",
+      "headmp": 0.68,
+      "headnote": "",
+      "remarks": ""
+    },
+    "707": {
+      "headdatetime": "2017-10-05T00:00:00",
+      "headmp": 0.61,
+      "headnote": "",
+      "remarks": ""
+    },
+    "708": {
+      "headdatetime": "2017-10-06T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "709": {
+      "headdatetime": "2017-10-07T00:00:00",
+      "headmp": 0.61,
+      "headnote": "",
+      "remarks": ""
+    },
+    "710": {
+      "headdatetime": "2017-10-08T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "711": {
+      "headdatetime": "2017-10-09T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "712": {
+      "headdatetime": "2017-10-10T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "713": {
+      "headdatetime": "2017-10-11T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "714": {
+      "headdatetime": "2017-10-12T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "715": {
+      "headdatetime": "2017-10-13T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "716": {
+      "headdatetime": "2017-10-14T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "717": {
+      "headdatetime": "2017-10-15T00:00:00",
+      "headmp": 0.61,
+      "headnote": "",
+      "remarks": ""
+    },
+    "718": {
+      "headdatetime": "2017-10-16T00:00:00",
+      "headmp": 0.62,
+      "headnote": "",
+      "remarks": ""
+    },
+    "719": {
+      "headdatetime": "2017-10-17T00:00:00",
+      "headmp": 0.63,
+      "headnote": "",
+      "remarks": ""
+    },
+    "720": {
+      "headdatetime": "2017-10-18T00:00:00",
+      "headmp": 0.64,
+      "headnote": "",
+      "remarks": ""
+    },
+    "721": {
+      "headdatetime": "2017-10-19T00:00:00",
+      "headmp": 0.66,
+      "headnote": "",
+      "remarks": ""
+    },
+    "722": {
+      "headdatetime": "2017-10-20T00:00:00",
+      "headmp": 0.64,
+      "headnote": "",
+      "remarks": ""
+    },
+    "723": {
+      "headdatetime": "2017-10-21T00:00:00",
+      "headmp": 0.64,
+      "headnote": "",
+      "remarks": ""
+    },
+    "724": {
+      "headdatetime": "2017-10-22T00:00:00",
+      "headmp": 0.63,
+      "headnote": "",
+      "remarks": ""
+    },
+    "725": {
+      "headdatetime": "2017-10-23T00:00:00",
+      "headmp": 0.64,
+      "headnote": "",
+      "remarks": ""
+    },
+    "726": {
+      "headdatetime": "2017-10-24T00:00:00",
+      "headmp": 0.65,
+      "headnote": "",
+      "remarks": ""
+    },
+    "727": {
+      "headdatetime": "2017-10-25T00:00:00",
+      "headmp": 0.67,
+      "headnote": "",
+      "remarks": ""
+    },
+    "728": {
+      "headdatetime": "2017-10-26T00:00:00",
+      "headmp": 0.69,
+      "headnote": "",
+      "remarks": ""
+    },
+    "729": {
+      "headdatetime": "2017-10-27T00:00:00",
+      "headmp": 0.72,
+      "headnote": "",
+      "remarks": ""
+    },
+    "730": {
+      "headdatetime": "2017-10-28T00:00:00",
+      "headmp": 0.75,
+      "headnote": "",
+      "remarks": ""
+    },
+    "731": {
+      "headdatetime": "2017-10-29T00:00:00",
+      "headmp": 0.66,
+      "headnote": "",
+      "remarks": ""
+    },
+    "732": {
+      "headdatetime": "2017-10-30T00:00:00",
+      "headmp": 0.69,
+      "headnote": "",
+      "remarks": ""
+    },
+    "733": {
+      "headdatetime": "2017-10-31T00:00:00",
+      "headmp": 0.72,
+      "headnote": "",
+      "remarks": ""
+    },
+    "734": {
+      "headdatetime": "2017-11-01T00:00:00",
+      "headmp": 0.72,
+      "headnote": "",
+      "remarks": ""
+    },
+    "735": {
+      "headdatetime": "2017-11-02T00:00:00",
+      "headmp": 0.75,
+      "headnote": "",
+      "remarks": ""
+    },
+    "736": {
+      "headdatetime": "2017-11-03T00:00:00",
+      "headmp": 0.77,
+      "headnote": "",
+      "remarks": ""
+    },
+    "737": {
+      "headdatetime": "2017-11-04T00:00:00",
+      "headmp": 0.78,
+      "headnote": "",
+      "remarks": ""
+    },
+    "738": {
+      "headdatetime": "2017-11-05T00:00:00",
+      "headmp": 0.77,
+      "headnote": "",
+      "remarks": ""
+    },
+    "739": {
+      "headdatetime": "2017-11-06T00:00:00",
+      "headmp": 0.82,
+      "headnote": "",
+      "remarks": ""
+    },
+    "740": {
+      "headdatetime": "2017-11-07T00:00:00",
+      "headmp": 0.83,
+      "headnote": "",
+      "remarks": ""
+    },
+    "741": {
+      "headdatetime": "2017-11-08T00:00:00",
+      "headmp": 0.85,
+      "headnote": "",
+      "remarks": ""
+    },
+    "742": {
+      "headdatetime": "2017-11-09T00:00:00",
+      "headmp": 0.86,
+      "headnote": "",
+      "remarks": ""
+    },
+    "743": {
+      "headdatetime": "2017-11-10T00:00:00",
+      "headmp": 0.76,
+      "headnote": "",
+      "remarks": ""
+    },
+    "744": {
+      "headdatetime": "2017-11-11T00:00:00",
+      "headmp": 0.68,
+      "headnote": "",
+      "remarks": ""
+    },
+    "745": {
+      "headdatetime": "2017-11-12T00:00:00",
+      "headmp": 0.62,
+      "headnote": "",
+      "remarks": ""
+    },
+    "746": {
+      "headdatetime": "2017-11-13T00:00:00",
+      "headmp": 0.66,
+      "headnote": "",
+      "remarks": ""
+    },
+    "747": {
+      "headdatetime": "2017-11-14T00:00:00",
+      "headmp": 0.68,
+      "headnote": "",
+      "remarks": ""
+    },
+    "748": {
+      "headdatetime": "2017-11-15T00:00:00",
+      "headmp": 0.67,
+      "headnote": "",
+      "remarks": ""
+    },
+    "749": {
+      "headdatetime": "2017-11-16T00:00:00",
+      "headmp": 0.68,
+      "headnote": "",
+      "remarks": ""
+    },
+    "750": {
+      "headdatetime": "2017-11-17T00:00:00",
+      "headmp": 0.7,
+      "headnote": "",
+      "remarks": ""
+    },
+    "751": {
+      "headdatetime": "2017-11-18T00:00:00",
+      "headmp": 0.7,
+      "headnote": "",
+      "remarks": ""
+    },
+    "752": {
+      "headdatetime": "2017-11-19T00:00:00",
+      "headmp": 0.68,
+      "headnote": "",
+      "remarks": ""
+    },
+    "753": {
+      "headdatetime": "2017-11-20T00:00:00",
+      "headmp": 0.65,
+      "headnote": "",
+      "remarks": ""
+    },
+    "754": {
+      "headdatetime": "2017-11-21T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "755": {
+      "headdatetime": "2017-11-22T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "756": {
+      "headdatetime": "2017-11-23T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "757": {
+      "headdatetime": "2017-11-24T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "758": {
+      "headdatetime": "2017-11-25T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "759": {
+      "headdatetime": "2017-11-26T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "760": {
+      "headdatetime": "2017-11-27T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "761": {
+      "headdatetime": "2017-11-28T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "762": {
+      "headdatetime": "2017-11-29T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "763": {
+      "headdatetime": "2017-11-30T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "764": {
+      "headdatetime": "2017-12-01T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "765": {
+      "headdatetime": "2017-12-02T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "766": {
+      "headdatetime": "2017-12-03T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "767": {
+      "headdatetime": "2017-12-04T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "768": {
+      "headdatetime": "2017-12-05T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "769": {
+      "headdatetime": "2017-12-06T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "770": {
+      "headdatetime": "2017-12-07T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "771": {
+      "headdatetime": "2017-12-08T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "772": {
+      "headdatetime": "2017-12-09T00:00:00",
+      "headmp": 0.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "773": {
+      "headdatetime": "2017-12-10T00:00:00",
+      "headmp": 0.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "774": {
+      "headdatetime": "2017-12-11T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "775": {
+      "headdatetime": "2017-12-12T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "776": {
+      "headdatetime": "2017-12-13T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "777": {
+      "headdatetime": "2017-12-14T00:00:00",
+      "headmp": 0.47,
+      "headnote": "",
+      "remarks": ""
+    },
+    "778": {
+      "headdatetime": "2017-12-15T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "779": {
+      "headdatetime": "2017-12-16T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "780": {
+      "headdatetime": "2017-12-17T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "781": {
+      "headdatetime": "2017-12-18T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "782": {
+      "headdatetime": "2017-12-19T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "783": {
+      "headdatetime": "2017-12-20T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "784": {
+      "headdatetime": "2017-12-21T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "785": {
+      "headdatetime": "2017-12-22T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "786": {
+      "headdatetime": "2017-12-23T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "787": {
+      "headdatetime": "2017-12-24T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "788": {
+      "headdatetime": "2017-12-25T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "789": {
+      "headdatetime": "2017-12-26T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "790": {
+      "headdatetime": "2017-12-27T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "791": {
+      "headdatetime": "2017-12-28T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "792": {
+      "headdatetime": "2017-12-29T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "793": {
+      "headdatetime": "2017-12-30T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "794": {
+      "headdatetime": "2017-12-31T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "795": {
+      "headdatetime": "2018-01-01T00:00:00",
+      "headmp": 0.47,
+      "headnote": "",
+      "remarks": ""
+    },
+    "796": {
+      "headdatetime": "2018-01-02T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "797": {
+      "headdatetime": "2018-01-03T00:00:00",
+      "headmp": 0.47,
+      "headnote": "",
+      "remarks": ""
+    },
+    "798": {
+      "headdatetime": "2018-01-04T00:00:00",
+      "headmp": 0.46,
+      "headnote": "",
+      "remarks": ""
+    },
+    "799": {
+      "headdatetime": "2018-01-05T00:00:00",
+      "headmp": 0.47,
+      "headnote": "",
+      "remarks": ""
+    },
+    "800": {
+      "headdatetime": "2018-01-06T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "801": {
+      "headdatetime": "2018-01-07T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "802": {
+      "headdatetime": "2018-01-08T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "803": {
+      "headdatetime": "2018-01-09T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "804": {
+      "headdatetime": "2018-01-10T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "805": {
+      "headdatetime": "2018-01-11T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "806": {
+      "headdatetime": "2018-01-12T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "807": {
+      "headdatetime": "2018-01-13T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "808": {
+      "headdatetime": "2018-01-14T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "809": {
+      "headdatetime": "2018-01-15T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "810": {
+      "headdatetime": "2018-01-16T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "811": {
+      "headdatetime": "2018-01-17T00:00:00",
+      "headmp": 0.47,
+      "headnote": "",
+      "remarks": ""
+    },
+    "812": {
+      "headdatetime": "2018-01-18T00:00:00",
+      "headmp": 0.45,
+      "headnote": "",
+      "remarks": ""
+    },
+    "813": {
+      "headdatetime": "2018-01-19T00:00:00",
+      "headmp": 0.47,
+      "headnote": "",
+      "remarks": ""
+    },
+    "814": {
+      "headdatetime": "2018-01-20T00:00:00",
+      "headmp": 0.47,
+      "headnote": "",
+      "remarks": ""
+    },
+    "815": {
+      "headdatetime": "2018-01-21T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "816": {
+      "headdatetime": "2018-01-22T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "817": {
+      "headdatetime": "2018-01-23T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "818": {
+      "headdatetime": "2018-01-24T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "819": {
+      "headdatetime": "2018-01-25T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "820": {
+      "headdatetime": "2018-01-26T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "821": {
+      "headdatetime": "2018-01-27T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "822": {
+      "headdatetime": "2018-01-28T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "823": {
+      "headdatetime": "2018-01-29T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "824": {
+      "headdatetime": "2018-01-30T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "825": {
+      "headdatetime": "2018-01-31T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "826": {
+      "headdatetime": "2018-02-01T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "827": {
+      "headdatetime": "2018-02-02T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "828": {
+      "headdatetime": "2018-02-03T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "829": {
+      "headdatetime": "2018-02-04T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "830": {
+      "headdatetime": "2018-02-05T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "831": {
+      "headdatetime": "2018-02-06T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "832": {
+      "headdatetime": "2018-02-07T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "833": {
+      "headdatetime": "2018-02-08T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "834": {
+      "headdatetime": "2018-02-09T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "835": {
+      "headdatetime": "2018-02-10T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "836": {
+      "headdatetime": "2018-02-11T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "837": {
+      "headdatetime": "2018-02-12T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "838": {
+      "headdatetime": "2018-02-13T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "839": {
+      "headdatetime": "2018-02-14T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "840": {
+      "headdatetime": "2018-02-15T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "841": {
+      "headdatetime": "2018-02-16T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "842": {
+      "headdatetime": "2018-02-17T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "843": {
+      "headdatetime": "2018-02-18T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "844": {
+      "headdatetime": "2018-02-19T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "845": {
+      "headdatetime": "2018-02-20T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "846": {
+      "headdatetime": "2018-02-21T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "847": {
+      "headdatetime": "2018-02-22T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "848": {
+      "headdatetime": "2018-02-23T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "849": {
+      "headdatetime": "2018-02-24T00:00:00",
+      "headmp": 0.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "850": {
+      "headdatetime": "2018-02-25T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "851": {
+      "headdatetime": "2018-02-26T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "852": {
+      "headdatetime": "2018-02-27T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "853": {
+      "headdatetime": "2018-02-28T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "854": {
+      "headdatetime": "2018-03-01T00:00:00",
+      "headmp": 0.62,
+      "headnote": "",
+      "remarks": ""
+    },
+    "855": {
+      "headdatetime": "2018-03-02T00:00:00",
+      "headmp": 0.64,
+      "headnote": "",
+      "remarks": ""
+    },
+    "856": {
+      "headdatetime": "2018-03-03T00:00:00",
+      "headmp": 0.68,
+      "headnote": "",
+      "remarks": ""
+    },
+    "857": {
+      "headdatetime": "2018-03-04T00:00:00",
+      "headmp": 0.68,
+      "headnote": "",
+      "remarks": ""
+    },
+    "858": {
+      "headdatetime": "2018-03-05T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "859": {
+      "headdatetime": "2018-03-06T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "860": {
+      "headdatetime": "2018-03-07T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "861": {
+      "headdatetime": "2018-03-08T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "862": {
+      "headdatetime": "2018-03-09T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "863": {
+      "headdatetime": "2018-03-10T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "864": {
+      "headdatetime": "2018-03-11T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "865": {
+      "headdatetime": "2018-03-12T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "866": {
+      "headdatetime": "2018-03-13T00:00:00",
+      "headmp": 0.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "867": {
+      "headdatetime": "2018-03-14T00:00:00",
+      "headmp": 0.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "868": {
+      "headdatetime": "2018-03-15T00:00:00",
+      "headmp": 0.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "869": {
+      "headdatetime": "2018-03-16T00:00:00",
+      "headmp": 0.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "870": {
+      "headdatetime": "2018-03-17T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "871": {
+      "headdatetime": "2018-03-18T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "872": {
+      "headdatetime": "2018-03-19T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "873": {
+      "headdatetime": "2018-03-20T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "874": {
+      "headdatetime": "2018-03-21T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "875": {
+      "headdatetime": "2018-03-22T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "876": {
+      "headdatetime": "2018-03-23T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "877": {
+      "headdatetime": "2018-03-24T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "878": {
+      "headdatetime": "2018-03-25T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "879": {
+      "headdatetime": "2018-03-26T00:00:00",
+      "headmp": 0.61,
+      "headnote": "",
+      "remarks": ""
+    },
+    "880": {
+      "headdatetime": "2018-03-27T00:00:00",
+      "headmp": 0.61,
+      "headnote": "",
+      "remarks": ""
+    },
+    "881": {
+      "headdatetime": "2018-03-28T00:00:00",
+      "headmp": 0.61,
+      "headnote": "",
+      "remarks": ""
+    },
+    "882": {
+      "headdatetime": "2018-03-29T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "883": {
+      "headdatetime": "2018-03-30T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "884": {
+      "headdatetime": "2018-03-31T00:00:00",
+      "headmp": 0.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "885": {
+      "headdatetime": "2018-04-01T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "886": {
+      "headdatetime": "2018-04-02T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "887": {
+      "headdatetime": "2018-04-03T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "888": {
+      "headdatetime": "2018-04-04T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "889": {
+      "headdatetime": "2018-04-05T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "890": {
+      "headdatetime": "2018-04-06T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "891": {
+      "headdatetime": "2018-04-07T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "892": {
+      "headdatetime": "2018-04-08T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "893": {
+      "headdatetime": "2018-04-09T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "894": {
+      "headdatetime": "2018-04-10T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "895": {
+      "headdatetime": "2018-04-11T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "896": {
+      "headdatetime": "2018-04-12T00:00:00",
+      "headmp": 0.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "897": {
+      "headdatetime": "2018-04-13T00:00:00",
+      "headmp": 0.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "898": {
+      "headdatetime": "2018-04-14T00:00:00",
+      "headmp": 0.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "899": {
+      "headdatetime": "2018-04-15T00:00:00",
+      "headmp": 0.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "900": {
+      "headdatetime": "2018-04-16T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "901": {
+      "headdatetime": "2018-04-17T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "902": {
+      "headdatetime": "2018-04-18T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "903": {
+      "headdatetime": "2018-04-19T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "904": {
+      "headdatetime": "2018-04-20T00:00:00",
+      "headmp": 0.62,
+      "headnote": "",
+      "remarks": ""
+    },
+    "905": {
+      "headdatetime": "2018-04-21T00:00:00",
+      "headmp": 0.64,
+      "headnote": "",
+      "remarks": ""
+    },
+    "906": {
+      "headdatetime": "2018-04-22T00:00:00",
+      "headmp": 0.66,
+      "headnote": "",
+      "remarks": ""
+    },
+    "907": {
+      "headdatetime": "2018-04-23T00:00:00",
+      "headmp": 0.68,
+      "headnote": "",
+      "remarks": ""
+    },
+    "908": {
+      "headdatetime": "2018-04-24T00:00:00",
+      "headmp": 0.71,
+      "headnote": "",
+      "remarks": ""
+    },
+    "909": {
+      "headdatetime": "2018-04-25T00:00:00",
+      "headmp": 0.72,
+      "headnote": "",
+      "remarks": ""
+    },
+    "910": {
+      "headdatetime": "2018-04-26T00:00:00",
+      "headmp": 0.66,
+      "headnote": "",
+      "remarks": ""
+    },
+    "911": {
+      "headdatetime": "2018-04-27T00:00:00",
+      "headmp": 0.73,
+      "headnote": "",
+      "remarks": ""
+    },
+    "912": {
+      "headdatetime": "2018-04-28T00:00:00",
+      "headmp": 0.78,
+      "headnote": "",
+      "remarks": ""
+    },
+    "913": {
+      "headdatetime": "2018-04-29T00:00:00",
+      "headmp": 0.79,
+      "headnote": "",
+      "remarks": ""
+    },
+    "914": {
+      "headdatetime": "2018-04-30T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "915": {
+      "headdatetime": "2018-05-01T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "916": {
+      "headdatetime": "2018-05-02T00:00:00",
+      "headmp": 0.61,
+      "headnote": "",
+      "remarks": ""
+    },
+    "917": {
+      "headdatetime": "2018-05-03T00:00:00",
+      "headmp": 0.63,
+      "headnote": "",
+      "remarks": ""
+    },
+    "918": {
+      "headdatetime": "2018-05-04T00:00:00",
+      "headmp": 0.65,
+      "headnote": "",
+      "remarks": ""
+    },
+    "919": {
+      "headdatetime": "2018-05-05T00:00:00",
+      "headmp": 0.69,
+      "headnote": "",
+      "remarks": ""
+    },
+    "920": {
+      "headdatetime": "2018-05-06T00:00:00",
+      "headmp": 0.76,
+      "headnote": "",
+      "remarks": ""
+    },
+    "921": {
+      "headdatetime": "2018-05-07T00:00:00",
+      "headmp": 0.83,
+      "headnote": "",
+      "remarks": ""
+    },
+    "922": {
+      "headdatetime": "2018-05-08T00:00:00",
+      "headmp": 0.9,
+      "headnote": "",
+      "remarks": ""
+    },
+    "923": {
+      "headdatetime": "2018-05-09T00:00:00",
+      "headmp": 0.97,
+      "headnote": "",
+      "remarks": ""
+    },
+    "924": {
+      "headdatetime": "2018-05-10T00:00:00",
+      "headmp": 0.91,
+      "headnote": "",
+      "remarks": ""
+    },
+    "925": {
+      "headdatetime": "2018-05-11T00:00:00",
+      "headmp": 0.95,
+      "headnote": "",
+      "remarks": ""
+    },
+    "926": {
+      "headdatetime": "2018-05-12T00:00:00",
+      "headmp": 1.03,
+      "headnote": "",
+      "remarks": ""
+    },
+    "927": {
+      "headdatetime": "2018-05-13T00:00:00",
+      "headmp": 0.88,
+      "headnote": "",
+      "remarks": ""
+    },
+    "928": {
+      "headdatetime": "2018-05-14T00:00:00",
+      "headmp": 0.67,
+      "headnote": "",
+      "remarks": ""
+    },
+    "929": {
+      "headdatetime": "2018-05-15T00:00:00",
+      "headmp": 0.78,
+      "headnote": "",
+      "remarks": ""
+    },
+    "930": {
+      "headdatetime": "2018-05-16T00:00:00",
+      "headmp": 0.76,
+      "headnote": "",
+      "remarks": ""
+    },
+    "931": {
+      "headdatetime": "2018-05-17T00:00:00",
+      "headmp": 0.89,
+      "headnote": "",
+      "remarks": ""
+    },
+    "932": {
+      "headdatetime": "2018-05-18T00:00:00",
+      "headmp": 0.96,
+      "headnote": "",
+      "remarks": ""
+    },
+    "933": {
+      "headdatetime": "2018-05-19T00:00:00",
+      "headmp": 1.0,
+      "headnote": "",
+      "remarks": ""
+    },
+    "934": {
+      "headdatetime": "2018-05-20T00:00:00",
+      "headmp": 1.07,
+      "headnote": "",
+      "remarks": ""
+    },
+    "935": {
+      "headdatetime": "2018-05-21T00:00:00",
+      "headmp": 1.13,
+      "headnote": "",
+      "remarks": ""
+    },
+    "936": {
+      "headdatetime": "2018-05-22T00:00:00",
+      "headmp": 1.17,
+      "headnote": "",
+      "remarks": ""
+    },
+    "937": {
+      "headdatetime": "2018-05-23T00:00:00",
+      "headmp": 1.03,
+      "headnote": "",
+      "remarks": ""
+    },
+    "938": {
+      "headdatetime": "2018-05-24T00:00:00",
+      "headmp": 1.19,
+      "headnote": "",
+      "remarks": ""
+    },
+    "939": {
+      "headdatetime": "2018-05-25T00:00:00",
+      "headmp": 1.12,
+      "headnote": "",
+      "remarks": ""
+    },
+    "940": {
+      "headdatetime": "2018-05-26T00:00:00",
+      "headmp": 1.23,
+      "headnote": "",
+      "remarks": ""
+    },
+    "941": {
+      "headdatetime": "2018-05-27T00:00:00",
+      "headmp": 1.28,
+      "headnote": "",
+      "remarks": ""
+    },
+    "942": {
+      "headdatetime": "2018-05-28T00:00:00",
+      "headmp": 1.26,
+      "headnote": "",
+      "remarks": ""
+    },
+    "943": {
+      "headdatetime": "2018-05-29T00:00:00",
+      "headmp": 1.31,
+      "headnote": "",
+      "remarks": ""
+    },
+    "944": {
+      "headdatetime": "2018-05-30T00:00:00",
+      "headmp": 0.7,
+      "headnote": "",
+      "remarks": ""
+    },
+    "945": {
+      "headdatetime": "2018-05-31T00:00:00",
+      "headmp": 0.87,
+      "headnote": "",
+      "remarks": ""
+    },
+    "946": {
+      "headdatetime": "2018-06-01T00:00:00",
+      "headmp": 0.85,
+      "headnote": "",
+      "remarks": ""
+    },
+    "947": {
+      "headdatetime": "2018-06-02T00:00:00",
+      "headmp": 0.76,
+      "headnote": "",
+      "remarks": ""
+    },
+    "948": {
+      "headdatetime": "2018-06-03T00:00:00",
+      "headmp": 0.87,
+      "headnote": "",
+      "remarks": ""
+    },
+    "949": {
+      "headdatetime": "2018-06-04T00:00:00",
+      "headmp": 0.94,
+      "headnote": "",
+      "remarks": ""
+    },
+    "950": {
+      "headdatetime": "2018-06-05T00:00:00",
+      "headmp": 1.01,
+      "headnote": "",
+      "remarks": ""
+    },
+    "951": {
+      "headdatetime": "2018-06-06T00:00:00",
+      "headmp": 1.12,
+      "headnote": "",
+      "remarks": ""
+    },
+    "952": {
+      "headdatetime": "2018-06-07T00:00:00",
+      "headmp": 1.21,
+      "headnote": "",
+      "remarks": ""
+    },
+    "953": {
+      "headdatetime": "2018-06-08T00:00:00",
+      "headmp": 1.15,
+      "headnote": "",
+      "remarks": ""
+    },
+    "954": {
+      "headdatetime": "2018-06-09T00:00:00",
+      "headmp": 1.14,
+      "headnote": "",
+      "remarks": ""
+    },
+    "955": {
+      "headdatetime": "2018-06-10T00:00:00",
+      "headmp": 1.07,
+      "headnote": "",
+      "remarks": ""
+    },
+    "956": {
+      "headdatetime": "2018-06-11T00:00:00",
+      "headmp": 1.22,
+      "headnote": "",
+      "remarks": ""
+    },
+    "957": {
+      "headdatetime": "2018-06-12T00:00:00",
+      "headmp": 1.23,
+      "headnote": "",
+      "remarks": ""
+    },
+    "958": {
+      "headdatetime": "2018-06-13T00:00:00",
+      "headmp": 1.24,
+      "headnote": "",
+      "remarks": ""
+    },
+    "959": {
+      "headdatetime": "2018-06-14T00:00:00",
+      "headmp": 1.31,
+      "headnote": "",
+      "remarks": ""
+    },
+    "960": {
+      "headdatetime": "2018-06-15T00:00:00",
+      "headmp": 1.24,
+      "headnote": "",
+      "remarks": ""
+    },
+    "961": {
+      "headdatetime": "2018-06-16T00:00:00",
+      "headmp": 1.31,
+      "headnote": "",
+      "remarks": ""
+    },
+    "962": {
+      "headdatetime": "2018-06-17T00:00:00",
+      "headmp": 1.33,
+      "headnote": "",
+      "remarks": ""
+    },
+    "963": {
+      "headdatetime": "2018-06-18T00:00:00",
+      "headmp": 1.25,
+      "headnote": "",
+      "remarks": ""
+    },
+    "964": {
+      "headdatetime": "2018-06-19T00:00:00",
+      "headmp": 1.25,
+      "headnote": "",
+      "remarks": ""
+    },
+    "965": {
+      "headdatetime": "2018-06-20T00:00:00",
+      "headmp": 1.32,
+      "headnote": "",
+      "remarks": ""
+    },
+    "966": {
+      "headdatetime": "2018-06-21T00:00:00",
+      "headmp": 1.28,
+      "headnote": "",
+      "remarks": ""
+    },
+    "967": {
+      "headdatetime": "2018-06-22T00:00:00",
+      "headmp": 1.21,
+      "headnote": "",
+      "remarks": ""
+    },
+    "968": {
+      "headdatetime": "2018-06-23T00:00:00",
+      "headmp": 1.32,
+      "headnote": "",
+      "remarks": ""
+    },
+    "969": {
+      "headdatetime": "2018-06-24T00:00:00",
+      "headmp": 1.31,
+      "headnote": "",
+      "remarks": ""
+    },
+    "970": {
+      "headdatetime": "2018-06-25T00:00:00",
+      "headmp": 1.29,
+      "headnote": "",
+      "remarks": ""
+    },
+    "971": {
+      "headdatetime": "2018-06-26T00:00:00",
+      "headmp": 1.36,
+      "headnote": "",
+      "remarks": ""
+    },
+    "972": {
+      "headdatetime": "2018-06-27T00:00:00",
+      "headmp": 1.4,
+      "headnote": "",
+      "remarks": ""
+    },
+    "973": {
+      "headdatetime": "2018-06-28T00:00:00",
+      "headmp": 1.43,
+      "headnote": "",
+      "remarks": ""
+    },
+    "974": {
+      "headdatetime": "2018-06-29T00:00:00",
+      "headmp": 1.45,
+      "headnote": "",
+      "remarks": ""
+    },
+    "975": {
+      "headdatetime": "2018-06-30T00:00:00",
+      "headmp": 1.47,
+      "headnote": "",
+      "remarks": ""
+    },
+    "976": {
+      "headdatetime": "2018-07-01T00:00:00",
+      "headmp": 1.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "977": {
+      "headdatetime": "2018-07-02T00:00:00",
+      "headmp": 1.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "978": {
+      "headdatetime": "2018-07-03T00:00:00",
+      "headmp": 1.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "979": {
+      "headdatetime": "2018-07-04T00:00:00",
+      "headmp": 1.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "980": {
+      "headdatetime": "2018-07-05T00:00:00",
+      "headmp": 1.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "981": {
+      "headdatetime": "2018-07-06T00:00:00",
+      "headmp": 1.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "982": {
+      "headdatetime": "2018-07-07T00:00:00",
+      "headmp": 1.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "983": {
+      "headdatetime": "2018-07-08T00:00:00",
+      "headmp": 1.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "984": {
+      "headdatetime": "2018-07-09T00:00:00",
+      "headmp": 1.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "985": {
+      "headdatetime": "2018-07-10T00:00:00",
+      "headmp": 1.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "986": {
+      "headdatetime": "2018-07-11T00:00:00",
+      "headmp": 1.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "987": {
+      "headdatetime": "2018-07-12T00:00:00",
+      "headmp": 1.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "988": {
+      "headdatetime": "2018-07-13T00:00:00",
+      "headmp": 1.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "989": {
+      "headdatetime": "2018-07-14T00:00:00",
+      "headmp": 1.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "990": {
+      "headdatetime": "2018-07-15T00:00:00",
+      "headmp": 1.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "991": {
+      "headdatetime": "2018-07-16T00:00:00",
+      "headmp": 1.61,
+      "headnote": "",
+      "remarks": ""
+    },
+    "992": {
+      "headdatetime": "2018-07-17T00:00:00",
+      "headmp": 1.62,
+      "headnote": "",
+      "remarks": ""
+    },
+    "993": {
+      "headdatetime": "2018-07-18T00:00:00",
+      "headmp": 1.63,
+      "headnote": "",
+      "remarks": ""
+    },
+    "994": {
+      "headdatetime": "2018-07-19T00:00:00",
+      "headmp": 1.63,
+      "headnote": "",
+      "remarks": ""
+    },
+    "995": {
+      "headdatetime": "2018-07-20T00:00:00",
+      "headmp": 1.64,
+      "headnote": "",
+      "remarks": ""
+    },
+    "996": {
+      "headdatetime": "2018-07-21T00:00:00",
+      "headmp": 1.63,
+      "headnote": "",
+      "remarks": ""
+    },
+    "997": {
+      "headdatetime": "2018-07-22T00:00:00",
+      "headmp": 1.65,
+      "headnote": "",
+      "remarks": ""
+    },
+    "998": {
+      "headdatetime": "2018-07-23T00:00:00",
+      "headmp": 1.66,
+      "headnote": "",
+      "remarks": ""
+    },
+    "999": {
+      "headdatetime": "2018-07-24T00:00:00",
+      "headmp": 1.67,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1000": {
+      "headdatetime": "2018-07-25T00:00:00",
+      "headmp": 1.68,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1001": {
+      "headdatetime": "2018-07-26T00:00:00",
+      "headmp": 1.68,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1002": {
+      "headdatetime": "2018-07-27T00:00:00",
+      "headmp": 1.69,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1003": {
+      "headdatetime": "2018-07-28T00:00:00",
+      "headmp": 1.7,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1004": {
+      "headdatetime": "2018-07-29T00:00:00",
+      "headmp": 1.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1005": {
+      "headdatetime": "2018-07-30T00:00:00",
+      "headmp": 1.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1006": {
+      "headdatetime": "2018-07-31T00:00:00",
+      "headmp": 1.62,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1007": {
+      "headdatetime": "2018-08-01T00:00:00",
+      "headmp": 1.66,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1008": {
+      "headdatetime": "2018-08-02T00:00:00",
+      "headmp": 1.69,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1009": {
+      "headdatetime": "2018-08-03T00:00:00",
+      "headmp": 1.7,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1010": {
+      "headdatetime": "2018-08-04T00:00:00",
+      "headmp": 1.71,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1011": {
+      "headdatetime": "2018-08-05T00:00:00",
+      "headmp": 1.71,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1012": {
+      "headdatetime": "2018-08-06T00:00:00",
+      "headmp": 1.72,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1013": {
+      "headdatetime": "2018-08-07T00:00:00",
+      "headmp": 1.73,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1014": {
+      "headdatetime": "2018-08-08T00:00:00",
+      "headmp": 1.72,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1015": {
+      "headdatetime": "2018-08-09T00:00:00",
+      "headmp": 1.72,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1016": {
+      "headdatetime": "2018-08-10T00:00:00",
+      "headmp": 1.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1017": {
+      "headdatetime": "2018-08-11T00:00:00",
+      "headmp": 1.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1018": {
+      "headdatetime": "2018-08-12T00:00:00",
+      "headmp": 1.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1019": {
+      "headdatetime": "2018-08-13T00:00:00",
+      "headmp": 1.63,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1020": {
+      "headdatetime": "2018-08-14T00:00:00",
+      "headmp": 1.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1021": {
+      "headdatetime": "2018-08-15T00:00:00",
+      "headmp": 1.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1022": {
+      "headdatetime": "2018-08-16T00:00:00",
+      "headmp": 1.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1023": {
+      "headdatetime": "2018-08-17T00:00:00",
+      "headmp": 1.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1024": {
+      "headdatetime": "2018-08-18T00:00:00",
+      "headmp": 1.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1025": {
+      "headdatetime": "2018-08-19T00:00:00",
+      "headmp": 1.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1026": {
+      "headdatetime": "2018-08-20T00:00:00",
+      "headmp": 1.61,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1027": {
+      "headdatetime": "2018-08-21T00:00:00",
+      "headmp": 1.62,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1028": {
+      "headdatetime": "2018-08-22T00:00:00",
+      "headmp": 1.64,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1029": {
+      "headdatetime": "2018-08-23T00:00:00",
+      "headmp": 1.66,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1030": {
+      "headdatetime": "2018-08-24T00:00:00",
+      "headmp": 1.61,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1031": {
+      "headdatetime": "2018-08-25T00:00:00",
+      "headmp": 1.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1032": {
+      "headdatetime": "2018-08-26T00:00:00",
+      "headmp": 1.44,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1033": {
+      "headdatetime": "2018-08-27T00:00:00",
+      "headmp": 1.46,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1034": {
+      "headdatetime": "2018-08-28T00:00:00",
+      "headmp": 1.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1035": {
+      "headdatetime": "2018-08-29T00:00:00",
+      "headmp": 1.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1036": {
+      "headdatetime": "2018-08-30T00:00:00",
+      "headmp": 1.41,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1037": {
+      "headdatetime": "2018-08-31T00:00:00",
+      "headmp": 1.42,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1038": {
+      "headdatetime": "2018-09-01T00:00:00",
+      "headmp": 1.46,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1039": {
+      "headdatetime": "2018-09-02T00:00:00",
+      "headmp": 1.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1040": {
+      "headdatetime": "2018-09-03T00:00:00",
+      "headmp": 1.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1041": {
+      "headdatetime": "2018-09-04T00:00:00",
+      "headmp": 1.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1042": {
+      "headdatetime": "2018-09-05T00:00:00",
+      "headmp": 1.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1043": {
+      "headdatetime": "2018-09-06T00:00:00",
+      "headmp": 1.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1044": {
+      "headdatetime": "2018-09-07T00:00:00",
+      "headmp": 1.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1045": {
+      "headdatetime": "2018-09-08T00:00:00",
+      "headmp": 1.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1046": {
+      "headdatetime": "2018-09-09T00:00:00",
+      "headmp": 1.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1047": {
+      "headdatetime": "2018-09-10T00:00:00",
+      "headmp": 1.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1048": {
+      "headdatetime": "2018-09-11T00:00:00",
+      "headmp": 1.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1049": {
+      "headdatetime": "2018-09-12T00:00:00",
+      "headmp": 1.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1050": {
+      "headdatetime": "2018-09-13T00:00:00",
+      "headmp": 1.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1051": {
+      "headdatetime": "2018-09-14T00:00:00",
+      "headmp": 1.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1052": {
+      "headdatetime": "2018-09-15T00:00:00",
+      "headmp": 1.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1053": {
+      "headdatetime": "2018-09-16T00:00:00",
+      "headmp": 1.61,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1054": {
+      "headdatetime": "2018-09-17T00:00:00",
+      "headmp": 1.62,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1055": {
+      "headdatetime": "2018-09-18T00:00:00",
+      "headmp": 1.64,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1056": {
+      "headdatetime": "2018-09-19T00:00:00",
+      "headmp": 1.65,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1057": {
+      "headdatetime": "2018-09-20T00:00:00",
+      "headmp": 1.66,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1058": {
+      "headdatetime": "2018-09-21T00:00:00",
+      "headmp": 1.64,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1059": {
+      "headdatetime": "2018-09-22T00:00:00",
+      "headmp": 1.44,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1060": {
+      "headdatetime": "2018-09-23T00:00:00",
+      "headmp": 1.38,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1061": {
+      "headdatetime": "2018-09-24T00:00:00",
+      "headmp": 1.34,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1062": {
+      "headdatetime": "2018-09-25T00:00:00",
+      "headmp": 1.36,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1063": {
+      "headdatetime": "2018-09-26T00:00:00",
+      "headmp": 1.39,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1064": {
+      "headdatetime": "2018-09-27T00:00:00",
+      "headmp": 1.41,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1065": {
+      "headdatetime": "2018-09-28T00:00:00",
+      "headmp": 1.43,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1066": {
+      "headdatetime": "2018-09-29T00:00:00",
+      "headmp": 1.45,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1067": {
+      "headdatetime": "2018-09-30T00:00:00",
+      "headmp": 1.45,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1068": {
+      "headdatetime": "2018-10-01T00:00:00",
+      "headmp": 1.46,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1069": {
+      "headdatetime": "2018-10-02T00:00:00",
+      "headmp": 1.42,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1070": {
+      "headdatetime": "2018-10-03T00:00:00",
+      "headmp": 1.41,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1071": {
+      "headdatetime": "2018-10-04T00:00:00",
+      "headmp": 1.43,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1072": {
+      "headdatetime": "2018-10-05T00:00:00",
+      "headmp": 1.44,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1073": {
+      "headdatetime": "2018-10-06T00:00:00",
+      "headmp": 1.45,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1074": {
+      "headdatetime": "2018-10-07T00:00:00",
+      "headmp": 1.44,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1075": {
+      "headdatetime": "2018-10-08T00:00:00",
+      "headmp": 1.45,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1076": {
+      "headdatetime": "2018-10-09T00:00:00",
+      "headmp": 1.46,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1077": {
+      "headdatetime": "2018-10-10T00:00:00",
+      "headmp": 1.46,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1078": {
+      "headdatetime": "2018-10-11T00:00:00",
+      "headmp": 1.47,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1079": {
+      "headdatetime": "2018-10-12T00:00:00",
+      "headmp": 1.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1080": {
+      "headdatetime": "2018-10-13T00:00:00",
+      "headmp": 1.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1081": {
+      "headdatetime": "2018-10-14T00:00:00",
+      "headmp": 1.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1082": {
+      "headdatetime": "2018-10-15T00:00:00",
+      "headmp": 1.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1083": {
+      "headdatetime": "2018-10-16T00:00:00",
+      "headmp": 1.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1084": {
+      "headdatetime": "2018-10-17T00:00:00",
+      "headmp": 1.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1085": {
+      "headdatetime": "2018-10-18T00:00:00",
+      "headmp": 1.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1086": {
+      "headdatetime": "2018-10-19T00:00:00",
+      "headmp": 1.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1087": {
+      "headdatetime": "2018-10-20T00:00:00",
+      "headmp": 1.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1088": {
+      "headdatetime": "2018-10-21T00:00:00",
+      "headmp": 1.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1089": {
+      "headdatetime": "2018-10-22T00:00:00",
+      "headmp": 1.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1090": {
+      "headdatetime": "2018-10-23T00:00:00",
+      "headmp": 1.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1091": {
+      "headdatetime": "2018-10-24T00:00:00",
+      "headmp": 1.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1092": {
+      "headdatetime": "2018-10-25T00:00:00",
+      "headmp": 1.47,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1093": {
+      "headdatetime": "2018-10-26T00:00:00",
+      "headmp": 1.44,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1094": {
+      "headdatetime": "2018-10-27T00:00:00",
+      "headmp": 1.41,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1095": {
+      "headdatetime": "2018-10-28T00:00:00",
+      "headmp": 1.44,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1096": {
+      "headdatetime": "2018-10-29T00:00:00",
+      "headmp": 1.44,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1097": {
+      "headdatetime": "2018-10-30T00:00:00",
+      "headmp": 1.28,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1098": {
+      "headdatetime": "2018-10-31T00:00:00",
+      "headmp": 1.3,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1099": {
+      "headdatetime": "2018-11-01T00:00:00",
+      "headmp": 1.33,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1100": {
+      "headdatetime": "2018-11-02T00:00:00",
+      "headmp": 1.29,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1101": {
+      "headdatetime": "2018-11-03T00:00:00",
+      "headmp": 1.33,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1102": {
+      "headdatetime": "2018-11-04T00:00:00",
+      "headmp": 1.34,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1103": {
+      "headdatetime": "2018-11-05T00:00:00",
+      "headmp": 1.34,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1104": {
+      "headdatetime": "2018-11-06T00:00:00",
+      "headmp": 1.34,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1105": {
+      "headdatetime": "2018-11-07T00:00:00",
+      "headmp": 1.35,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1106": {
+      "headdatetime": "2018-11-08T00:00:00",
+      "headmp": 1.36,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1107": {
+      "headdatetime": "2018-11-09T00:00:00",
+      "headmp": 1.35,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1108": {
+      "headdatetime": "2018-11-10T00:00:00",
+      "headmp": 1.35,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1109": {
+      "headdatetime": "2018-11-11T00:00:00",
+      "headmp": 1.25,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1110": {
+      "headdatetime": "2018-11-12T00:00:00",
+      "headmp": 1.21,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1111": {
+      "headdatetime": "2018-11-13T00:00:00",
+      "headmp": 1.23,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1112": {
+      "headdatetime": "2018-11-14T00:00:00",
+      "headmp": 1.27,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1113": {
+      "headdatetime": "2018-11-15T00:00:00",
+      "headmp": 1.28,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1114": {
+      "headdatetime": "2018-11-16T00:00:00",
+      "headmp": 1.29,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1115": {
+      "headdatetime": "2018-11-17T00:00:00",
+      "headmp": 1.29,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1116": {
+      "headdatetime": "2018-11-18T00:00:00",
+      "headmp": 1.3,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1117": {
+      "headdatetime": "2018-11-19T00:00:00",
+      "headmp": 1.28,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1118": {
+      "headdatetime": "2018-11-20T00:00:00",
+      "headmp": 1.29,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1119": {
+      "headdatetime": "2018-11-21T00:00:00",
+      "headmp": 1.29,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1120": {
+      "headdatetime": "2018-11-22T00:00:00",
+      "headmp": 1.29,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1121": {
+      "headdatetime": "2018-11-23T00:00:00",
+      "headmp": 1.29,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1122": {
+      "headdatetime": "2018-11-24T00:00:00",
+      "headmp": 1.29,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1123": {
+      "headdatetime": "2018-11-25T00:00:00",
+      "headmp": 1.27,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1124": {
+      "headdatetime": "2018-11-26T00:00:00",
+      "headmp": 1.27,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1125": {
+      "headdatetime": "2018-11-27T00:00:00",
+      "headmp": 1.28,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1126": {
+      "headdatetime": "2018-11-28T00:00:00",
+      "headmp": 1.29,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1127": {
+      "headdatetime": "2018-11-29T00:00:00",
+      "headmp": 1.21,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1128": {
+      "headdatetime": "2018-11-30T00:00:00",
+      "headmp": 1.22,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1129": {
+      "headdatetime": "2018-12-01T00:00:00",
+      "headmp": 1.24,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1130": {
+      "headdatetime": "2018-12-02T00:00:00",
+      "headmp": 1.17,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1131": {
+      "headdatetime": "2018-12-03T00:00:00",
+      "headmp": 1.15,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1132": {
+      "headdatetime": "2018-12-04T00:00:00",
+      "headmp": 1.16,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1133": {
+      "headdatetime": "2018-12-05T00:00:00",
+      "headmp": 1.19,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1134": {
+      "headdatetime": "2018-12-06T00:00:00",
+      "headmp": 1.16,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1135": {
+      "headdatetime": "2018-12-07T00:00:00",
+      "headmp": 0.95,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1136": {
+      "headdatetime": "2018-12-08T00:00:00",
+      "headmp": 0.8,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1137": {
+      "headdatetime": "2018-12-09T00:00:00",
+      "headmp": 0.75,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1138": {
+      "headdatetime": "2018-12-10T00:00:00",
+      "headmp": 0.87,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1139": {
+      "headdatetime": "2018-12-11T00:00:00",
+      "headmp": 0.95,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1140": {
+      "headdatetime": "2018-12-12T00:00:00",
+      "headmp": 1.0,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1141": {
+      "headdatetime": "2018-12-13T00:00:00",
+      "headmp": 1.02,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1142": {
+      "headdatetime": "2018-12-14T00:00:00",
+      "headmp": 1.04,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1143": {
+      "headdatetime": "2018-12-15T00:00:00",
+      "headmp": 1.05,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1144": {
+      "headdatetime": "2018-12-16T00:00:00",
+      "headmp": 1.06,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1145": {
+      "headdatetime": "2018-12-17T00:00:00",
+      "headmp": 1.03,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1146": {
+      "headdatetime": "2018-12-18T00:00:00",
+      "headmp": 1.01,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1147": {
+      "headdatetime": "2018-12-19T00:00:00",
+      "headmp": 1.02,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1148": {
+      "headdatetime": "2018-12-20T00:00:00",
+      "headmp": 1.03,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1149": {
+      "headdatetime": "2018-12-21T00:00:00",
+      "headmp": 0.63,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1150": {
+      "headdatetime": "2018-12-22T00:00:00",
+      "headmp": 0.61,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1151": {
+      "headdatetime": "2018-12-23T00:00:00",
+      "headmp": 0.63,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1152": {
+      "headdatetime": "2018-12-24T00:00:00",
+      "headmp": 0.62,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1153": {
+      "headdatetime": "2018-12-25T00:00:00",
+      "headmp": 0.64,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1154": {
+      "headdatetime": "2018-12-26T00:00:00",
+      "headmp": 0.66,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1155": {
+      "headdatetime": "2018-12-27T00:00:00",
+      "headmp": 0.69,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1156": {
+      "headdatetime": "2018-12-28T00:00:00",
+      "headmp": 0.72,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1157": {
+      "headdatetime": "2018-12-29T00:00:00",
+      "headmp": 0.75,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1158": {
+      "headdatetime": "2018-12-30T00:00:00",
+      "headmp": 0.74,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1159": {
+      "headdatetime": "2018-12-31T00:00:00",
+      "headmp": 0.76,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1160": {
+      "headdatetime": "2019-01-01T00:00:00",
+      "headmp": 0.73,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1161": {
+      "headdatetime": "2019-01-02T00:00:00",
+      "headmp": 0.8,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1162": {
+      "headdatetime": "2019-01-03T00:00:00",
+      "headmp": 0.82,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1163": {
+      "headdatetime": "2019-01-04T00:00:00",
+      "headmp": 0.83,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1164": {
+      "headdatetime": "2019-01-05T00:00:00",
+      "headmp": 0.8,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1165": {
+      "headdatetime": "2019-01-06T00:00:00",
+      "headmp": 0.72,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1166": {
+      "headdatetime": "2019-01-07T00:00:00",
+      "headmp": 0.73,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1167": {
+      "headdatetime": "2019-01-08T00:00:00",
+      "headmp": 0.63,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1168": {
+      "headdatetime": "2019-01-09T00:00:00",
+      "headmp": 0.63,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1169": {
+      "headdatetime": "2019-01-10T00:00:00",
+      "headmp": 0.66,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1170": {
+      "headdatetime": "2019-01-11T00:00:00",
+      "headmp": 0.65,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1171": {
+      "headdatetime": "2019-01-12T00:00:00",
+      "headmp": 0.63,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1172": {
+      "headdatetime": "2019-01-13T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1173": {
+      "headdatetime": "2019-01-14T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1174": {
+      "headdatetime": "2019-01-15T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1175": {
+      "headdatetime": "2019-01-16T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1176": {
+      "headdatetime": "2019-01-17T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1177": {
+      "headdatetime": "2019-01-18T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1178": {
+      "headdatetime": "2019-01-19T00:00:00",
+      "headmp": 0.61,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1179": {
+      "headdatetime": "2019-01-20T00:00:00",
+      "headmp": 0.63,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1180": {
+      "headdatetime": "2019-01-21T00:00:00",
+      "headmp": 0.65,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1181": {
+      "headdatetime": "2019-01-22T00:00:00",
+      "headmp": 0.66,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1182": {
+      "headdatetime": "2019-01-23T00:00:00",
+      "headmp": 0.67,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1183": {
+      "headdatetime": "2019-01-24T00:00:00",
+      "headmp": 0.69,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1184": {
+      "headdatetime": "2019-01-25T00:00:00",
+      "headmp": 0.71,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1185": {
+      "headdatetime": "2019-01-26T00:00:00",
+      "headmp": 0.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1186": {
+      "headdatetime": "2019-01-27T00:00:00",
+      "headmp": 0.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1187": {
+      "headdatetime": "2019-01-28T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1188": {
+      "headdatetime": "2019-01-29T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1189": {
+      "headdatetime": "2019-01-30T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1190": {
+      "headdatetime": "2019-01-31T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1191": {
+      "headdatetime": "2019-02-01T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1192": {
+      "headdatetime": "2019-02-02T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1193": {
+      "headdatetime": "2019-02-03T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1194": {
+      "headdatetime": "2019-02-04T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1195": {
+      "headdatetime": "2019-02-05T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1196": {
+      "headdatetime": "2019-02-06T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1197": {
+      "headdatetime": "2019-02-07T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1198": {
+      "headdatetime": "2019-02-08T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1199": {
+      "headdatetime": "2019-02-09T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1200": {
+      "headdatetime": "2019-02-10T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1201": {
+      "headdatetime": "2019-02-11T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1202": {
+      "headdatetime": "2019-02-12T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1203": {
+      "headdatetime": "2019-02-13T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1204": {
+      "headdatetime": "2019-02-14T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1205": {
+      "headdatetime": "2019-02-15T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1206": {
+      "headdatetime": "2019-02-16T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1207": {
+      "headdatetime": "2019-02-17T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1208": {
+      "headdatetime": "2019-02-18T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1209": {
+      "headdatetime": "2019-02-19T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1210": {
+      "headdatetime": "2019-02-20T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1211": {
+      "headdatetime": "2019-02-21T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1212": {
+      "headdatetime": "2019-02-22T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1213": {
+      "headdatetime": "2019-02-23T00:00:00",
+      "headmp": 0.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1214": {
+      "headdatetime": "2019-02-24T00:00:00",
+      "headmp": 0.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1215": {
+      "headdatetime": "2019-02-25T00:00:00",
+      "headmp": 0.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1216": {
+      "headdatetime": "2019-02-26T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1217": {
+      "headdatetime": "2019-02-27T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1218": {
+      "headdatetime": "2019-02-28T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1219": {
+      "headdatetime": "2019-03-01T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1220": {
+      "headdatetime": "2019-03-02T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1221": {
+      "headdatetime": "2019-03-03T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1222": {
+      "headdatetime": "2019-03-04T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1223": {
+      "headdatetime": "2019-03-05T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1224": {
+      "headdatetime": "2019-03-06T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1225": {
+      "headdatetime": "2019-03-07T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1226": {
+      "headdatetime": "2019-03-08T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1227": {
+      "headdatetime": "2019-03-09T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1228": {
+      "headdatetime": "2019-03-10T00:00:00",
+      "headmp": 0.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1229": {
+      "headdatetime": "2019-03-11T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1230": {
+      "headdatetime": "2019-03-12T00:00:00",
+      "headmp": 0.47,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1231": {
+      "headdatetime": "2019-03-13T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1232": {
+      "headdatetime": "2019-03-14T00:00:00",
+      "headmp": 0.47,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1233": {
+      "headdatetime": "2019-03-15T00:00:00",
+      "headmp": 0.47,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1234": {
+      "headdatetime": "2019-03-16T00:00:00",
+      "headmp": 0.47,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1235": {
+      "headdatetime": "2019-03-17T00:00:00",
+      "headmp": 0.47,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1236": {
+      "headdatetime": "2019-03-18T00:00:00",
+      "headmp": 0.47,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1237": {
+      "headdatetime": "2019-03-19T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1238": {
+      "headdatetime": "2019-03-20T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1239": {
+      "headdatetime": "2019-03-21T00:00:00",
+      "headmp": 0.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1240": {
+      "headdatetime": "2019-03-22T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1241": {
+      "headdatetime": "2019-03-23T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1242": {
+      "headdatetime": "2019-03-24T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1243": {
+      "headdatetime": "2019-03-25T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1244": {
+      "headdatetime": "2019-03-26T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1245": {
+      "headdatetime": "2019-03-27T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1246": {
+      "headdatetime": "2019-03-28T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1247": {
+      "headdatetime": "2019-03-29T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1248": {
+      "headdatetime": "2019-03-30T00:00:00",
+      "headmp": 0.54,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1249": {
+      "headdatetime": "2019-03-31T00:00:00",
+      "headmp": 0.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1250": {
+      "headdatetime": "2019-04-01T00:00:00",
+      "headmp": 0.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1251": {
+      "headdatetime": "2019-04-02T00:00:00",
+      "headmp": 0.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1252": {
+      "headdatetime": "2019-04-03T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1253": {
+      "headdatetime": "2019-04-04T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1254": {
+      "headdatetime": "2019-04-05T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1255": {
+      "headdatetime": "2019-04-06T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1256": {
+      "headdatetime": "2019-04-07T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1257": {
+      "headdatetime": "2019-04-08T00:00:00",
+      "headmp": 0.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1258": {
+      "headdatetime": "2019-04-09T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1259": {
+      "headdatetime": "2019-04-10T00:00:00",
+      "headmp": 0.61,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1260": {
+      "headdatetime": "2019-04-11T00:00:00",
+      "headmp": 0.62,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1261": {
+      "headdatetime": "2019-04-12T00:00:00",
+      "headmp": 0.64,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1262": {
+      "headdatetime": "2019-04-13T00:00:00",
+      "headmp": 0.65,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1263": {
+      "headdatetime": "2019-04-14T00:00:00",
+      "headmp": 0.66,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1264": {
+      "headdatetime": "2019-04-15T00:00:00",
+      "headmp": 0.68,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1265": {
+      "headdatetime": "2019-04-16T00:00:00",
+      "headmp": 0.71,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1266": {
+      "headdatetime": "2019-04-17T00:00:00",
+      "headmp": 0.75,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1267": {
+      "headdatetime": "2019-04-18T00:00:00",
+      "headmp": 0.8,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1268": {
+      "headdatetime": "2019-04-19T00:00:00",
+      "headmp": 0.84,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1269": {
+      "headdatetime": "2019-04-20T00:00:00",
+      "headmp": 0.88,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1270": {
+      "headdatetime": "2019-04-21T00:00:00",
+      "headmp": 0.91,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1271": {
+      "headdatetime": "2019-04-22T00:00:00",
+      "headmp": 0.94,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1272": {
+      "headdatetime": "2019-04-23T00:00:00",
+      "headmp": 0.98,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1273": {
+      "headdatetime": "2019-04-24T00:00:00",
+      "headmp": 0.99,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1274": {
+      "headdatetime": "2019-04-25T00:00:00",
+      "headmp": 0.92,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1275": {
+      "headdatetime": "2019-04-26T00:00:00",
+      "headmp": 0.94,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1276": {
+      "headdatetime": "2019-04-27T00:00:00",
+      "headmp": 0.81,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1277": {
+      "headdatetime": "2019-04-28T00:00:00",
+      "headmp": 0.82,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1278": {
+      "headdatetime": "2019-04-29T00:00:00",
+      "headmp": 0.88,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1279": {
+      "headdatetime": "2019-04-30T00:00:00",
+      "headmp": 0.91,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1280": {
+      "headdatetime": "2019-05-01T00:00:00",
+      "headmp": 0.95,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1281": {
+      "headdatetime": "2019-05-02T00:00:00",
+      "headmp": 0.98,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1282": {
+      "headdatetime": "2019-05-03T00:00:00",
+      "headmp": 0.99,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1283": {
+      "headdatetime": "2019-05-04T00:00:00",
+      "headmp": 0.99,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1284": {
+      "headdatetime": "2019-05-05T00:00:00",
+      "headmp": 0.98,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1285": {
+      "headdatetime": "2019-05-06T00:00:00",
+      "headmp": 1.03,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1286": {
+      "headdatetime": "2019-05-07T00:00:00",
+      "headmp": 1.01,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1287": {
+      "headdatetime": "2019-05-08T00:00:00",
+      "headmp": 1.03,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1288": {
+      "headdatetime": "2019-05-09T00:00:00",
+      "headmp": 1.0,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1289": {
+      "headdatetime": "2019-05-10T00:00:00",
+      "headmp": 0.96,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1290": {
+      "headdatetime": "2019-05-11T00:00:00",
+      "headmp": 1.06,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1291": {
+      "headdatetime": "2019-05-12T00:00:00",
+      "headmp": 1.1,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1292": {
+      "headdatetime": "2019-05-13T00:00:00",
+      "headmp": 1.12,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1293": {
+      "headdatetime": "2019-05-14T00:00:00",
+      "headmp": 1.13,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1294": {
+      "headdatetime": "2019-05-15T00:00:00",
+      "headmp": 1.17,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1295": {
+      "headdatetime": "2019-05-16T00:00:00",
+      "headmp": 1.17,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1296": {
+      "headdatetime": "2019-05-17T00:00:00",
+      "headmp": 1.12,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1297": {
+      "headdatetime": "2019-05-18T00:00:00",
+      "headmp": 1.18,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1298": {
+      "headdatetime": "2019-05-19T00:00:00",
+      "headmp": 1.21,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1299": {
+      "headdatetime": "2019-05-20T00:00:00",
+      "headmp": 1.1,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1300": {
+      "headdatetime": "2019-05-21T00:00:00",
+      "headmp": 1.12,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1301": {
+      "headdatetime": "2019-05-22T00:00:00",
+      "headmp": 1.16,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1302": {
+      "headdatetime": "2019-05-23T00:00:00",
+      "headmp": 1.25,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1303": {
+      "headdatetime": "2019-05-24T00:00:00",
+      "headmp": 1.27,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1304": {
+      "headdatetime": "2019-05-25T00:00:00",
+      "headmp": 1.24,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1305": {
+      "headdatetime": "2019-05-26T00:00:00",
+      "headmp": 1.26,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1306": {
+      "headdatetime": "2019-05-27T00:00:00",
+      "headmp": 1.2,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1307": {
+      "headdatetime": "2019-05-28T00:00:00",
+      "headmp": 0.96,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1308": {
+      "headdatetime": "2019-05-29T00:00:00",
+      "headmp": 1.16,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1309": {
+      "headdatetime": "2019-05-30T00:00:00",
+      "headmp": 1.19,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1310": {
+      "headdatetime": "2019-05-31T00:00:00",
+      "headmp": 1.24,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1311": {
+      "headdatetime": "2019-06-01T00:00:00",
+      "headmp": 1.31,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1312": {
+      "headdatetime": "2019-06-02T00:00:00",
+      "headmp": 1.34,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1313": {
+      "headdatetime": "2019-06-03T00:00:00",
+      "headmp": 1.22,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1314": {
+      "headdatetime": "2019-06-04T00:00:00",
+      "headmp": 1.29,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1315": {
+      "headdatetime": "2019-06-05T00:00:00",
+      "headmp": 1.36,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1316": {
+      "headdatetime": "2019-06-06T00:00:00",
+      "headmp": 1.1,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1317": {
+      "headdatetime": "2019-06-07T00:00:00",
+      "headmp": 1.25,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1318": {
+      "headdatetime": "2019-06-08T00:00:00",
+      "headmp": 1.27,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1319": {
+      "headdatetime": "2019-06-09T00:00:00",
+      "headmp": 1.32,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1320": {
+      "headdatetime": "2019-06-10T00:00:00",
+      "headmp": 1.36,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1321": {
+      "headdatetime": "2019-06-11T00:00:00",
+      "headmp": 1.06,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1322": {
+      "headdatetime": "2019-06-12T00:00:00",
+      "headmp": 1.12,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1323": {
+      "headdatetime": "2019-06-13T00:00:00",
+      "headmp": 1.12,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1324": {
+      "headdatetime": "2019-06-14T00:00:00",
+      "headmp": 1.21,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1325": {
+      "headdatetime": "2019-06-15T00:00:00",
+      "headmp": 1.08,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1326": {
+      "headdatetime": "2019-06-16T00:00:00",
+      "headmp": 1.24,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1327": {
+      "headdatetime": "2019-06-17T00:00:00",
+      "headmp": 1.31,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1328": {
+      "headdatetime": "2019-06-18T00:00:00",
+      "headmp": 1.37,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1329": {
+      "headdatetime": "2019-06-19T00:00:00",
+      "headmp": 1.4,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1330": {
+      "headdatetime": "2019-06-20T00:00:00",
+      "headmp": 1.2,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1331": {
+      "headdatetime": "2019-06-21T00:00:00",
+      "headmp": 1.31,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1332": {
+      "headdatetime": "2019-06-22T00:00:00",
+      "headmp": 1.37,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1333": {
+      "headdatetime": "2019-06-23T00:00:00",
+      "headmp": 1.42,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1334": {
+      "headdatetime": "2019-06-24T00:00:00",
+      "headmp": 1.45,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1335": {
+      "headdatetime": "2019-06-25T00:00:00",
+      "headmp": 1.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1336": {
+      "headdatetime": "2019-06-26T00:00:00",
+      "headmp": 1.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1337": {
+      "headdatetime": "2019-06-27T00:00:00",
+      "headmp": 1.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1338": {
+      "headdatetime": "2019-06-28T00:00:00",
+      "headmp": 1.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1339": {
+      "headdatetime": "2019-06-29T00:00:00",
+      "headmp": 1.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1340": {
+      "headdatetime": "2019-06-30T00:00:00",
+      "headmp": 1.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1341": {
+      "headdatetime": "2019-07-01T00:00:00",
+      "headmp": 1.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1342": {
+      "headdatetime": "2019-07-02T00:00:00",
+      "headmp": 1.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1343": {
+      "headdatetime": "2019-07-03T00:00:00",
+      "headmp": 1.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1344": {
+      "headdatetime": "2019-07-04T00:00:00",
+      "headmp": 1.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1345": {
+      "headdatetime": "2019-07-05T00:00:00",
+      "headmp": 1.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1346": {
+      "headdatetime": "2019-07-06T00:00:00",
+      "headmp": 1.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1347": {
+      "headdatetime": "2019-07-07T00:00:00",
+      "headmp": 1.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1348": {
+      "headdatetime": "2019-07-08T00:00:00",
+      "headmp": 1.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1349": {
+      "headdatetime": "2019-07-09T00:00:00",
+      "headmp": 1.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1350": {
+      "headdatetime": "2019-07-10T00:00:00",
+      "headmp": 1.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1351": {
+      "headdatetime": "2019-07-11T00:00:00",
+      "headmp": 1.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1352": {
+      "headdatetime": "2019-07-12T00:00:00",
+      "headmp": 1.41,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1353": {
+      "headdatetime": "2019-07-13T00:00:00",
+      "headmp": 1.34,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1354": {
+      "headdatetime": "2019-07-14T00:00:00",
+      "headmp": 1.39,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1355": {
+      "headdatetime": "2019-07-15T00:00:00",
+      "headmp": 1.42,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1356": {
+      "headdatetime": "2019-07-16T00:00:00",
+      "headmp": 1.44,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1357": {
+      "headdatetime": "2019-07-17T00:00:00",
+      "headmp": 1.46,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1358": {
+      "headdatetime": "2019-07-18T00:00:00",
+      "headmp": 1.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1359": {
+      "headdatetime": "2019-07-19T00:00:00",
+      "headmp": 1.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1360": {
+      "headdatetime": "2019-07-20T00:00:00",
+      "headmp": 1.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1361": {
+      "headdatetime": "2019-07-21T00:00:00",
+      "headmp": 1.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1362": {
+      "headdatetime": "2019-07-22T00:00:00",
+      "headmp": 1.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1363": {
+      "headdatetime": "2019-07-23T00:00:00",
+      "headmp": 1.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1364": {
+      "headdatetime": "2019-07-24T00:00:00",
+      "headmp": 1.62,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1365": {
+      "headdatetime": "2019-07-25T00:00:00",
+      "headmp": 1.64,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1366": {
+      "headdatetime": "2019-07-26T00:00:00",
+      "headmp": 1.65,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1367": {
+      "headdatetime": "2019-07-27T00:00:00",
+      "headmp": 1.67,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1368": {
+      "headdatetime": "2019-07-28T00:00:00",
+      "headmp": 1.68,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1369": {
+      "headdatetime": "2019-07-29T00:00:00",
+      "headmp": 1.69,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1370": {
+      "headdatetime": "2019-07-30T00:00:00",
+      "headmp": 1.7,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1371": {
+      "headdatetime": "2019-07-31T00:00:00",
+      "headmp": 1.7,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1372": {
+      "headdatetime": "2019-08-01T00:00:00",
+      "headmp": 1.65,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1373": {
+      "headdatetime": "2019-08-02T00:00:00",
+      "headmp": 1.67,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1374": {
+      "headdatetime": "2019-08-03T00:00:00",
+      "headmp": 1.66,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1375": {
+      "headdatetime": "2019-08-04T00:00:00",
+      "headmp": 1.67,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1376": {
+      "headdatetime": "2019-08-05T00:00:00",
+      "headmp": 1.68,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1377": {
+      "headdatetime": "2019-08-06T00:00:00",
+      "headmp": 1.7,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1378": {
+      "headdatetime": "2019-08-07T00:00:00",
+      "headmp": 1.71,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1379": {
+      "headdatetime": "2019-08-08T00:00:00",
+      "headmp": 1.69,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1380": {
+      "headdatetime": "2019-08-09T00:00:00",
+      "headmp": 1.69,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1381": {
+      "headdatetime": "2019-08-10T00:00:00",
+      "headmp": 1.62,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1382": {
+      "headdatetime": "2019-08-11T00:00:00",
+      "headmp": 1.66,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1383": {
+      "headdatetime": "2019-08-12T00:00:00",
+      "headmp": 1.7,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1384": {
+      "headdatetime": "2019-08-13T00:00:00",
+      "headmp": 1.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1385": {
+      "headdatetime": "2019-08-14T00:00:00",
+      "headmp": 1.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1386": {
+      "headdatetime": "2019-08-15T00:00:00",
+      "headmp": 1.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1387": {
+      "headdatetime": "2019-08-16T00:00:00",
+      "headmp": 1.49,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1388": {
+      "headdatetime": "2019-08-17T00:00:00",
+      "headmp": 1.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1389": {
+      "headdatetime": "2019-08-18T00:00:00",
+      "headmp": 1.45,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1390": {
+      "headdatetime": "2019-08-19T00:00:00",
+      "headmp": 1.46,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1391": {
+      "headdatetime": "2019-08-20T00:00:00",
+      "headmp": 1.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1392": {
+      "headdatetime": "2019-08-21T00:00:00",
+      "headmp": 1.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1393": {
+      "headdatetime": "2019-08-22T00:00:00",
+      "headmp": 1.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1394": {
+      "headdatetime": "2019-08-23T00:00:00",
+      "headmp": 1.59,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1395": {
+      "headdatetime": "2019-08-24T00:00:00",
+      "headmp": 1.62,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1396": {
+      "headdatetime": "2019-08-25T00:00:00",
+      "headmp": 1.65,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1397": {
+      "headdatetime": "2019-08-26T00:00:00",
+      "headmp": 1.67,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1398": {
+      "headdatetime": "2019-08-27T00:00:00",
+      "headmp": 1.69,
+      "headnote": "",
+      "remarks": ""
+    },
+    "1399": {
+      "headdatetime": "2019-08-28T00:00:00",
+      "headmp": 1.71,
+      "headnote": "",
+      "remarks": ""
+    }
+  }
+}

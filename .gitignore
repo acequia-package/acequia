@@ -1,4 +1,3 @@
-*.xml
 
 *.iml
 
@@ -9,8 +8,6 @@
 acequia.egg-info
 
 dist
-
-/tests/output/
 
 *.log
 

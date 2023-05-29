@@ -7,6 +7,7 @@ from .gwseries import GwSeries
 from .gwlist import GwList
 from .gwlist import headsfiles as headsfiles
 from .gwlocs import GwLocs
+from .read.gwfiles import GwFiles
 from .headsdif import HeadsDif
 from .swseries import SwSeries
 from .data.knmidata import KnmiData
@@ -27,6 +28,7 @@ from .read.knmi_rain import KnmiRain
 from .read.knmi_download import KnmiDownload
 from .read.filedirtools import listdir, cleardir
 from .read.brogldxml import BroGldXml
+from .read import brorest
 from .stats.utils import hydroyear, season, index1428, ts1428
 from .stats.utils import measfrq, maxfrq
 from .stats.gwtimestats import GwTimeStats, gwtimestats

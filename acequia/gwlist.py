@@ -49,10 +49,8 @@ def headsfiles(srcdir=None,srctype=None,loclist=None):
 
 
 class GwList():
-    """Holds a list of GwSeries objects
-
-
-
+    """Container for a sequence of GwSeries objects
+    
     Examples  
     --------  
     Create GwList object and load multiple sourcefiles:
@@ -78,24 +76,17 @@ class GwList():
 
     When loclist is given, names in this list will be used for 
     selecting files in srcdir. All series that belong to a location
-    will be selected as seperate series. For managing series that
-    belong to one location, us the GwLocs object.
-    
-    
+    will be selected as seperate series.
+       
     """
 
 
     _valid_srctype = ['dinocsv','json','hymon','waterweb']
 
-    def __repr__(self):
-        mylen = len(self)
-        return (f'{self.__class__.__name__}({mylen})')
-
 
     def __init__(self,srcdir=None,srctype='dinocsv',loclist=None,
         srcfile=None):
-        """Return GwList object
-
+        """
         Parameters
         ----------
         srcdir : str
@@ -160,6 +151,9 @@ class GwList():
         if (self._srcfile is not None) and (self._srctype=='waterweb'):
             self._wwn = WaterWeb.from_csv(srcfile,network=None)
 
+    def __repr__(self):
+        mylen = len(self)
+        return (f'{self.__class__.__name__}({mylen})')
 
     def filetable(self):
         """ Return list of sourcefile names """
@@ -185,15 +179,14 @@ class GwList():
             return flist
 
         if (self._srcfile is not None) and (self._srctype=='hymon'):
-            msg = ' '.join([
-                f'function filelist() not supported for sourcetype',
-                f'\'hymon\' ',])
-            warnings.warn(msg)
+            warnings.warn((
+                f'function filelist() not supported for sourcetype'
+                f' "hymon" '))
             ##logger.warning(msg)
             return None
 
-        warnings.warn((f'Unexpected combination of given parameters. ')
-            (f'No list of GwSeries objects is returned.'))
+        warnings.warn((f'Unexpected combination of given parameters. '
+            f'No list of GwSeries objects is returned.'))
         ##logger.warning(msg)
         return None
 
@@ -207,7 +200,7 @@ class GwList():
         """ return next gwseries object in list """
         
         if self._itercount >= self.__len__():
-            self._itercount = 0
+            self._itercount = 0 # reset iterator
             raise StopIteration
 
         if self._srctype == 'dinocsv':

@@ -1,6 +1,7 @@
 
 import numpy as np
 from pandas import Series, DataFrame
+from pandas.api.types import is_int64_dtype
 import pandas as pd
 
 
@@ -48,7 +49,7 @@ def index1428(minyear=None,maxyear=None,days=[14,28]):
     return pd.DatetimeIndex(dates)
 
 
-def ts1428(sr,maxlag=0,remove_nans=True):
+def ts1428(sr,maxlag=0,remove_nans=True, days=[14,28]):
     """ Return timeseries of measurements on 14th and 28th of each 
     month
 
@@ -61,6 +62,8 @@ def ts1428(sr,maxlag=0,remove_nans=True):
         from the 14th or 28th
     remove_nans : boolean, default True
         remove values with nans before first valid value
+    days : list, default [14,28]
+        days in DatetimeIndex
 
     Returns
     -------
@@ -78,7 +81,7 @@ def ts1428(sr,maxlag=0,remove_nans=True):
     # create empty timeseries with 1428 index
     minyear = sr.index.min().year
     maxyear = sr.index.max().year
-    idx1428 = index1428(minyear=minyear,maxyear=maxyear,days=[14,28])
+    idx1428 = index1428(minyear=minyear,maxyear=maxyear,days=days)
     ts1428 = pd.Series(data=np.nan, index=idx1428)
 
     # add values to timeseries ts1428
@@ -137,7 +140,8 @@ def maxfrq(sr):
         if isinstance(sr.index,pd.DatetimeIndex):
             sr = measfrq(sr)
 
-        if isinstance(sr.index,pd.Int64Index):
+        #if isinstance(sr.index,pd.Int64Index):
+        if is_int64_dtype(sr.index.dtype):
 
             if pd.to_numeric(sr, errors='coerce').notnull().all():
                 sr = sr.apply(measfrqclass).values

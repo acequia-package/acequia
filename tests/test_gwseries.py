@@ -5,8 +5,8 @@ import pandas as pd
 import acequia as aq
 
 dinodir = '.\\data\\dinogws\\'
-jsondir = '.\\data\\json\\'
-csvdir = '.\\data\\csv\\'
+jsondir = '.\\output\\json\\'
+csvdir = '.\\output\\csv\\'
 figdir = '.\\output\\fig\\'
 dnpath = f'{dinodir}B29A0850002_1.csv'
 
@@ -33,7 +33,7 @@ def test_GwSeries_from_dinogws(name):
 
 def test_GwSeries_to_json(gws):
     gws.to_json(f'{jsondir}{gws.name()}.json')
-
+    gws.to_json(jsondir)
 
 def test_GwSeries_from_json(gws,name):
     gwj = aq.GwSeries.from_json(f'{jsondir}{gws.name()}.json')

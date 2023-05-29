@@ -34,28 +34,28 @@ def test_quantiles(gw):
     cum = Quantiles(gw)
 
     # unit is days, step is valid
-    quantiles = cum.quantiles(unit='days',step=30)
+    quantiles = cum.get_quantiles(unit='days',step=30)
     assert isinstance(quantiles,DataFrame)
     assert not quantiles.empty
 
     # unit is days, step is invalid, default is used
-    quantiles = cum.quantiles(unit='days',step=400)
+    quantiles = cum.get_quantiles(unit='days',step=400)
     assert isinstance(quantiles,DataFrame)
     assert not quantiles.empty
     
     # unit is quantiles, step is valid
-    quantiles = cum.quantiles(unit='quantiles',step=0.3)
+    quantiles = cum.get_quantiles(unit='quantiles',step=0.3)
     assert isinstance(quantiles,DataFrame)
     assert not quantiles.empty
 
     # unit is quantiles, step is invalid, default is used
-    quantiles = cum.quantiles(unit='quantiles',step=3.0)
+    quantiles = cum.get_quantiles(unit='quantiles',step=3.0)
     assert isinstance(quantiles,DataFrame)
     assert not quantiles.empty
 
     # unit is invalid, exception is raised
     with pytest.raises(Exception):
-        quantiles = cum.quantiles(unit='invalid_input')
+        quantiles = cum.get_quantiles(unit='invalid_input')
 
 def test_plot(gw):
 

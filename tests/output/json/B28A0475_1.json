@@ -1,0 +1,2093 @@
+{
+  "locprops": {
+    "locname": "B28A0475",
+    "filname": "1",
+    "alias": "28AP7039",
+    "xcr": "220340",
+    "ycr": "494130",
+    "height_datum": "mNAP",
+    "grid_reference": "RD"
+  },
+  "tubeprops": {
+    "0": {
+      "startdate": "1981-01-01T00:00:00.000",
+      "mplevel": null,
+      "filtop": null,
+      "filbot": null,
+      "surfacedate": "1981-01-01T00:00:00.000",
+      "surfacelevel": 5.43
+    }
+  },
+  "heads": {
+    "0": {
+      "headdatetime": "1981-06-20T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "1": {
+      "headdatetime": "1981-07-03T00:00:00",
+      "headmp": 0.29,
+      "headnote": "",
+      "remarks": ""
+    },
+    "2": {
+      "headdatetime": "1981-07-17T00:00:00",
+      "headmp": 0.17,
+      "headnote": "",
+      "remarks": ""
+    },
+    "3": {
+      "headdatetime": "1981-07-31T00:00:00",
+      "headmp": 0.47,
+      "headnote": "",
+      "remarks": ""
+    },
+    "4": {
+      "headdatetime": "1981-08-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "5": {
+      "headdatetime": "1981-08-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "6": {
+      "headdatetime": "1981-09-11T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "7": {
+      "headdatetime": "1981-09-25T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "8": {
+      "headdatetime": "1981-10-12T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "9": {
+      "headdatetime": "1981-10-26T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "10": {
+      "headdatetime": "1981-11-09T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "11": {
+      "headdatetime": "1981-11-23T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "12": {
+      "headdatetime": "1981-12-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "13": {
+      "headdatetime": "1981-12-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "14": {
+      "headdatetime": "1982-01-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "15": {
+      "headdatetime": "1982-01-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "16": {
+      "headdatetime": "1982-02-08T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "17": {
+      "headdatetime": "1982-02-22T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "18": {
+      "headdatetime": "1982-03-08T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "19": {
+      "headdatetime": "1982-04-05T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "20": {
+      "headdatetime": "1982-04-19T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "21": {
+      "headdatetime": "1982-05-03T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "22": {
+      "headdatetime": "1982-05-17T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "23": {
+      "headdatetime": "1982-05-31T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "24": {
+      "headdatetime": "1982-06-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "25": {
+      "headdatetime": "1982-06-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "26": {
+      "headdatetime": "1982-07-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "27": {
+      "headdatetime": "1982-07-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "28": {
+      "headdatetime": "1982-08-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "29": {
+      "headdatetime": "1982-08-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "30": {
+      "headdatetime": "1982-09-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "31": {
+      "headdatetime": "1982-09-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "32": {
+      "headdatetime": "1982-10-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "33": {
+      "headdatetime": "1982-10-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "34": {
+      "headdatetime": "1982-11-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "35": {
+      "headdatetime": "1982-11-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "36": {
+      "headdatetime": "1982-12-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "37": {
+      "headdatetime": "1982-12-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "38": {
+      "headdatetime": "1983-01-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "39": {
+      "headdatetime": "1983-01-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "40": {
+      "headdatetime": "1983-02-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "41": {
+      "headdatetime": "1983-02-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "42": {
+      "headdatetime": "1983-03-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "43": {
+      "headdatetime": "1983-03-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "44": {
+      "headdatetime": "1983-04-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "45": {
+      "headdatetime": "1983-04-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "46": {
+      "headdatetime": "1983-05-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "47": {
+      "headdatetime": "1983-05-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "48": {
+      "headdatetime": "1983-06-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "49": {
+      "headdatetime": "1983-06-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "50": {
+      "headdatetime": "1983-07-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "51": {
+      "headdatetime": "1983-07-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "52": {
+      "headdatetime": "1983-08-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "53": {
+      "headdatetime": "1983-08-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "54": {
+      "headdatetime": "1983-09-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "55": {
+      "headdatetime": "1983-10-03T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "56": {
+      "headdatetime": "1983-10-17T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "57": {
+      "headdatetime": "1983-10-31T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "58": {
+      "headdatetime": "1983-11-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "59": {
+      "headdatetime": "1983-11-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "60": {
+      "headdatetime": "1983-12-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "61": {
+      "headdatetime": "1983-12-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "62": {
+      "headdatetime": "1984-01-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "63": {
+      "headdatetime": "1984-01-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "64": {
+      "headdatetime": "1984-02-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "65": {
+      "headdatetime": "1984-02-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "66": {
+      "headdatetime": "1984-03-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "67": {
+      "headdatetime": "1984-03-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "68": {
+      "headdatetime": "1984-04-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "69": {
+      "headdatetime": "1984-04-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "70": {
+      "headdatetime": "1984-05-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "71": {
+      "headdatetime": "1984-05-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "72": {
+      "headdatetime": "1984-06-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "73": {
+      "headdatetime": "1984-06-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "74": {
+      "headdatetime": "1984-07-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "75": {
+      "headdatetime": "1984-07-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "76": {
+      "headdatetime": "1984-08-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "77": {
+      "headdatetime": "1984-08-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "78": {
+      "headdatetime": "1984-09-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "79": {
+      "headdatetime": "1984-09-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "80": {
+      "headdatetime": "1984-10-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "81": {
+      "headdatetime": "1984-10-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "82": {
+      "headdatetime": "1984-11-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "83": {
+      "headdatetime": "1984-11-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "84": {
+      "headdatetime": "1984-12-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "85": {
+      "headdatetime": "1984-12-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "86": {
+      "headdatetime": "1985-01-14T00:00:00",
+      "headmp": null,
+      "headnote": "Y",
+      "remarks": ""
+    },
+    "87": {
+      "headdatetime": "1985-01-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "88": {
+      "headdatetime": "1985-02-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "89": {
+      "headdatetime": "1985-02-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "90": {
+      "headdatetime": "1985-03-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "91": {
+      "headdatetime": "1985-03-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "92": {
+      "headdatetime": "1985-04-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "93": {
+      "headdatetime": "1985-04-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "94": {
+      "headdatetime": "1985-05-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "95": {
+      "headdatetime": "1985-05-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "96": {
+      "headdatetime": "1985-06-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "97": {
+      "headdatetime": "1985-06-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "98": {
+      "headdatetime": "1985-07-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "99": {
+      "headdatetime": "1985-07-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "100": {
+      "headdatetime": "1985-08-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "101": {
+      "headdatetime": "1985-08-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "102": {
+      "headdatetime": "1985-09-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "103": {
+      "headdatetime": "1985-09-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "104": {
+      "headdatetime": "1985-10-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "105": {
+      "headdatetime": "1985-10-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "106": {
+      "headdatetime": "1985-11-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "107": {
+      "headdatetime": "1985-11-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "108": {
+      "headdatetime": "1985-12-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "109": {
+      "headdatetime": "1985-12-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "110": {
+      "headdatetime": "1986-01-14T00:00:00",
+      "headmp": null,
+      "headnote": "Y",
+      "remarks": ""
+    },
+    "111": {
+      "headdatetime": "1986-01-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "112": {
+      "headdatetime": "1986-02-14T00:00:00",
+      "headmp": null,
+      "headnote": "Y",
+      "remarks": ""
+    },
+    "113": {
+      "headdatetime": "1986-03-03T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "114": {
+      "headdatetime": "1986-03-17T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "115": {
+      "headdatetime": "1986-03-31T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "116": {
+      "headdatetime": "1986-04-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "117": {
+      "headdatetime": "1986-04-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "118": {
+      "headdatetime": "1986-05-12T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "119": {
+      "headdatetime": "1986-05-26T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "120": {
+      "headdatetime": "1986-06-09T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "121": {
+      "headdatetime": "1986-06-23T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "122": {
+      "headdatetime": "1986-07-07T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "123": {
+      "headdatetime": "1986-08-04T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "124": {
+      "headdatetime": "1986-08-18T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "125": {
+      "headdatetime": "1986-09-01T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "126": {
+      "headdatetime": "1986-09-15T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "127": {
+      "headdatetime": "1986-09-29T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "128": {
+      "headdatetime": "1986-10-13T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "129": {
+      "headdatetime": "1986-10-27T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "130": {
+      "headdatetime": "1986-11-10T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "131": {
+      "headdatetime": "1986-11-24T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "132": {
+      "headdatetime": "1986-12-08T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "133": {
+      "headdatetime": "1986-12-22T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "134": {
+      "headdatetime": "1987-01-07T00:00:00",
+      "headmp": -0.04,
+      "headnote": "",
+      "remarks": ""
+    },
+    "135": {
+      "headdatetime": "1987-01-26T00:00:00",
+      "headmp": 0.08,
+      "headnote": "",
+      "remarks": ""
+    },
+    "136": {
+      "headdatetime": "1987-02-09T00:00:00",
+      "headmp": 0.03,
+      "headnote": "",
+      "remarks": ""
+    },
+    "137": {
+      "headdatetime": "1987-02-23T00:00:00",
+      "headmp": 0.18,
+      "headnote": "",
+      "remarks": ""
+    },
+    "138": {
+      "headdatetime": "1987-03-09T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "139": {
+      "headdatetime": "1987-04-06T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "140": {
+      "headdatetime": "1987-04-20T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "141": {
+      "headdatetime": "1987-05-04T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "142": {
+      "headdatetime": "1987-05-18T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "143": {
+      "headdatetime": "1987-06-01T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "144": {
+      "headdatetime": "1987-06-20T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "145": {
+      "headdatetime": "1987-07-06T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "146": {
+      "headdatetime": "1987-07-20T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "147": {
+      "headdatetime": "1987-08-03T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "148": {
+      "headdatetime": "1987-08-17T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "149": {
+      "headdatetime": "1987-08-31T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "150": {
+      "headdatetime": "1987-09-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "151": {
+      "headdatetime": "1987-09-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "152": {
+      "headdatetime": "1987-10-12T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "153": {
+      "headdatetime": "1987-10-26T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "154": {
+      "headdatetime": "1987-11-09T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "155": {
+      "headdatetime": "1987-11-23T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "156": {
+      "headdatetime": "1987-12-07T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "157": {
+      "headdatetime": "1988-01-04T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "158": {
+      "headdatetime": "1988-01-18T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "159": {
+      "headdatetime": "1988-02-01T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "160": {
+      "headdatetime": "1988-02-15T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "161": {
+      "headdatetime": "1988-02-29T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "162": {
+      "headdatetime": "1988-03-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "163": {
+      "headdatetime": "1988-03-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "164": {
+      "headdatetime": "1988-04-11T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "165": {
+      "headdatetime": "1988-04-25T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "166": {
+      "headdatetime": "1988-05-09T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "167": {
+      "headdatetime": "1988-05-24T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "168": {
+      "headdatetime": "1988-06-06T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "169": {
+      "headdatetime": "1988-06-20T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "170": {
+      "headdatetime": "1988-07-11T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "171": {
+      "headdatetime": "1988-07-25T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "172": {
+      "headdatetime": "1988-08-08T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "173": {
+      "headdatetime": "1988-09-05T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "174": {
+      "headdatetime": "1988-09-19T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "175": {
+      "headdatetime": "1988-10-03T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "176": {
+      "headdatetime": "1988-10-17T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "177": {
+      "headdatetime": "1988-10-31T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "178": {
+      "headdatetime": "1988-11-20T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "179": {
+      "headdatetime": "1988-12-05T00:00:00",
+      "headmp": 0.05,
+      "headnote": "",
+      "remarks": ""
+    },
+    "180": {
+      "headdatetime": "1988-12-19T00:00:00",
+      "headmp": 0.04,
+      "headnote": "",
+      "remarks": ""
+    },
+    "181": {
+      "headdatetime": "1989-01-02T00:00:00",
+      "headmp": 0.14,
+      "headnote": "",
+      "remarks": ""
+    },
+    "182": {
+      "headdatetime": "1989-01-15T00:00:00",
+      "headmp": 0.15,
+      "headnote": "",
+      "remarks": ""
+    },
+    "183": {
+      "headdatetime": "1989-01-30T00:00:00",
+      "headmp": 0.32,
+      "headnote": "",
+      "remarks": ""
+    },
+    "184": {
+      "headdatetime": "1989-02-13T00:00:00",
+      "headmp": 0.38,
+      "headnote": "",
+      "remarks": ""
+    },
+    "185": {
+      "headdatetime": "1989-02-27T00:00:00",
+      "headmp": 0.22,
+      "headnote": "",
+      "remarks": ""
+    },
+    "186": {
+      "headdatetime": "1989-03-13T00:00:00",
+      "headmp": 0.2,
+      "headnote": "",
+      "remarks": ""
+    },
+    "187": {
+      "headdatetime": "1989-03-27T00:00:00",
+      "headmp": 0.05,
+      "headnote": "",
+      "remarks": ""
+    },
+    "188": {
+      "headdatetime": "1989-04-10T00:00:00",
+      "headmp": 0.28,
+      "headnote": "",
+      "remarks": ""
+    },
+    "189": {
+      "headdatetime": "1989-04-24T00:00:00",
+      "headmp": 0.23,
+      "headnote": "",
+      "remarks": ""
+    },
+    "190": {
+      "headdatetime": "1989-05-08T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "191": {
+      "headdatetime": "1989-06-05T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "192": {
+      "headdatetime": "1989-06-19T00:00:00",
+      "headmp": 0.78,
+      "headnote": "",
+      "remarks": ""
+    },
+    "193": {
+      "headdatetime": "1989-07-03T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "194": {
+      "headdatetime": "1989-07-17T00:00:00",
+      "headmp": 0.85,
+      "headnote": "",
+      "remarks": ""
+    },
+    "195": {
+      "headdatetime": "1989-07-31T00:00:00",
+      "headmp": 0.83,
+      "headnote": "",
+      "remarks": ""
+    },
+    "196": {
+      "headdatetime": "1989-08-14T00:00:00",
+      "headmp": 0.63,
+      "headnote": "",
+      "remarks": ""
+    },
+    "197": {
+      "headdatetime": "1989-08-28T00:00:00",
+      "headmp": 0.68,
+      "headnote": "",
+      "remarks": ""
+    },
+    "198": {
+      "headdatetime": "1989-09-11T00:00:00",
+      "headmp": 0.77,
+      "headnote": "",
+      "remarks": ""
+    },
+    "199": {
+      "headdatetime": "1989-09-25T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "200": {
+      "headdatetime": "1989-10-10T00:00:00",
+      "headmp": 0.65,
+      "headnote": "",
+      "remarks": ""
+    },
+    "201": {
+      "headdatetime": "1989-11-06T00:00:00",
+      "headmp": 0.52,
+      "headnote": "",
+      "remarks": ""
+    },
+    "202": {
+      "headdatetime": "1989-11-20T00:00:00",
+      "headmp": 0.56,
+      "headnote": "",
+      "remarks": ""
+    },
+    "203": {
+      "headdatetime": "1989-12-04T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "204": {
+      "headdatetime": "1989-12-18T00:00:00",
+      "headmp": 0.2,
+      "headnote": "",
+      "remarks": ""
+    },
+    "205": {
+      "headdatetime": "1990-01-02T00:00:00",
+      "headmp": 0.38,
+      "headnote": "",
+      "remarks": ""
+    },
+    "206": {
+      "headdatetime": "1990-01-15T00:00:00",
+      "headmp": 0.43,
+      "headnote": "",
+      "remarks": ""
+    },
+    "207": {
+      "headdatetime": "1990-01-29T00:00:00",
+      "headmp": 0.3,
+      "headnote": "",
+      "remarks": ""
+    },
+    "208": {
+      "headdatetime": "1990-02-12T00:00:00",
+      "headmp": 0.15,
+      "headnote": "",
+      "remarks": ""
+    },
+    "209": {
+      "headdatetime": "1990-02-26T00:00:00",
+      "headmp": 0.05,
+      "headnote": "",
+      "remarks": ""
+    },
+    "210": {
+      "headdatetime": "1990-03-12T00:00:00",
+      "headmp": 0.14,
+      "headnote": "",
+      "remarks": ""
+    },
+    "211": {
+      "headdatetime": "1990-03-26T00:00:00",
+      "headmp": 0.3,
+      "headnote": "",
+      "remarks": ""
+    },
+    "212": {
+      "headdatetime": "1990-04-09T00:00:00",
+      "headmp": 0.43,
+      "headnote": "",
+      "remarks": ""
+    },
+    "213": {
+      "headdatetime": "1990-04-23T00:00:00",
+      "headmp": 0.35,
+      "headnote": "",
+      "remarks": ""
+    },
+    "214": {
+      "headdatetime": "1990-05-07T00:00:00",
+      "headmp": 0.55,
+      "headnote": "",
+      "remarks": ""
+    },
+    "215": {
+      "headdatetime": "1990-06-05T00:00:00",
+      "headmp": 0.65,
+      "headnote": "",
+      "remarks": ""
+    },
+    "216": {
+      "headdatetime": "1990-06-18T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "217": {
+      "headdatetime": "1990-07-02T00:00:00",
+      "headmp": 0.45,
+      "headnote": "",
+      "remarks": ""
+    },
+    "218": {
+      "headdatetime": "1990-07-16T00:00:00",
+      "headmp": 0.64,
+      "headnote": "",
+      "remarks": ""
+    },
+    "219": {
+      "headdatetime": "1990-07-30T00:00:00",
+      "headmp": 0.84,
+      "headnote": "",
+      "remarks": ""
+    },
+    "220": {
+      "headdatetime": "1990-08-13T00:00:00",
+      "headmp": 0.9,
+      "headnote": "",
+      "remarks": ""
+    },
+    "221": {
+      "headdatetime": "1990-08-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "222": {
+      "headdatetime": "1990-09-10T00:00:00",
+      "headmp": 0.45,
+      "headnote": "",
+      "remarks": ""
+    },
+    "223": {
+      "headdatetime": "1990-09-24T00:00:00",
+      "headmp": 0.37,
+      "headnote": "",
+      "remarks": ""
+    },
+    "224": {
+      "headdatetime": "1990-10-08T00:00:00",
+      "headmp": 0.34,
+      "headnote": "",
+      "remarks": ""
+    },
+    "225": {
+      "headdatetime": "1990-11-05T00:00:00",
+      "headmp": 0.3,
+      "headnote": "",
+      "remarks": ""
+    },
+    "226": {
+      "headdatetime": "1990-11-19T00:00:00",
+      "headmp": 0.05,
+      "headnote": "",
+      "remarks": ""
+    },
+    "227": {
+      "headdatetime": "1990-12-03T00:00:00",
+      "headmp": 0.07,
+      "headnote": "",
+      "remarks": ""
+    },
+    "228": {
+      "headdatetime": "1990-12-17T00:00:00",
+      "headmp": 0.0,
+      "headnote": "",
+      "remarks": ""
+    },
+    "229": {
+      "headdatetime": "1991-01-02T00:00:00",
+      "headmp": -0.05,
+      "headnote": "",
+      "remarks": ""
+    },
+    "230": {
+      "headdatetime": "1991-01-13T00:00:00",
+      "headmp": 0.0,
+      "headnote": "",
+      "remarks": ""
+    },
+    "231": {
+      "headdatetime": "1991-01-28T00:00:00",
+      "headmp": 0.25,
+      "headnote": "",
+      "remarks": ""
+    },
+    "232": {
+      "headdatetime": "1991-02-11T00:00:00",
+      "headmp": null,
+      "headnote": "Y",
+      "remarks": ""
+    },
+    "233": {
+      "headdatetime": "1991-02-25T00:00:00",
+      "headmp": 0.12,
+      "headnote": "",
+      "remarks": ""
+    },
+    "234": {
+      "headdatetime": "1991-03-11T00:00:00",
+      "headmp": 0.33,
+      "headnote": "",
+      "remarks": ""
+    },
+    "235": {
+      "headdatetime": "1991-03-25T00:00:00",
+      "headmp": 0.4,
+      "headnote": "",
+      "remarks": ""
+    },
+    "236": {
+      "headdatetime": "1991-04-08T00:00:00",
+      "headmp": 0.45,
+      "headnote": "",
+      "remarks": ""
+    },
+    "237": {
+      "headdatetime": "1991-05-06T00:00:00",
+      "headmp": 0.33,
+      "headnote": "",
+      "remarks": ""
+    },
+    "238": {
+      "headdatetime": "1991-05-20T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "239": {
+      "headdatetime": "1991-06-03T00:00:00",
+      "headmp": 0.57,
+      "headnote": "",
+      "remarks": ""
+    },
+    "240": {
+      "headdatetime": "1991-06-17T00:00:00",
+      "headmp": 0.33,
+      "headnote": "",
+      "remarks": ""
+    },
+    "241": {
+      "headdatetime": "1991-07-01T00:00:00",
+      "headmp": 0.1,
+      "headnote": "",
+      "remarks": ""
+    },
+    "242": {
+      "headdatetime": "1991-07-15T00:00:00",
+      "headmp": 0.53,
+      "headnote": "",
+      "remarks": ""
+    },
+    "243": {
+      "headdatetime": "1991-07-29T00:00:00",
+      "headmp": 0.62,
+      "headnote": "",
+      "remarks": ""
+    },
+    "244": {
+      "headdatetime": "1991-08-12T00:00:00",
+      "headmp": 0.98,
+      "headnote": "",
+      "remarks": ""
+    },
+    "245": {
+      "headdatetime": "1991-09-02T00:00:00",
+      "headmp": 1.0,
+      "headnote": "",
+      "remarks": ""
+    },
+    "246": {
+      "headdatetime": "1991-09-16T00:00:00",
+      "headmp": 0.85,
+      "headnote": "",
+      "remarks": ""
+    },
+    "247": {
+      "headdatetime": "1991-09-30T00:00:00",
+      "headmp": 0.45,
+      "headnote": "",
+      "remarks": ""
+    },
+    "248": {
+      "headdatetime": "1991-10-14T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "249": {
+      "headdatetime": "1991-10-28T00:00:00",
+      "headmp": 0.5,
+      "headnote": "",
+      "remarks": ""
+    },
+    "250": {
+      "headdatetime": "1991-11-11T00:00:00",
+      "headmp": 0.1,
+      "headnote": "",
+      "remarks": ""
+    },
+    "251": {
+      "headdatetime": "1991-11-25T00:00:00",
+      "headmp": 0.18,
+      "headnote": "",
+      "remarks": ""
+    },
+    "252": {
+      "headdatetime": "1991-12-09T00:00:00",
+      "headmp": 0.4,
+      "headnote": "",
+      "remarks": ""
+    },
+    "253": {
+      "headdatetime": "1992-01-06T00:00:00",
+      "headmp": 0.0,
+      "headnote": "",
+      "remarks": ""
+    },
+    "254": {
+      "headdatetime": "1992-01-19T00:00:00",
+      "headmp": 0.15,
+      "headnote": "",
+      "remarks": ""
+    },
+    "255": {
+      "headdatetime": "1992-02-03T00:00:00",
+      "headmp": 0.24,
+      "headnote": "",
+      "remarks": ""
+    },
+    "256": {
+      "headdatetime": "1992-02-17T00:00:00",
+      "headmp": 0.2,
+      "headnote": "",
+      "remarks": ""
+    },
+    "257": {
+      "headdatetime": "1992-03-02T00:00:00",
+      "headmp": 0.3,
+      "headnote": "",
+      "remarks": ""
+    },
+    "258": {
+      "headdatetime": "1992-03-14T00:00:00",
+      "headmp": 0.0,
+      "headnote": "",
+      "remarks": ""
+    },
+    "259": {
+      "headdatetime": "1992-03-30T00:00:00",
+      "headmp": 0.18,
+      "headnote": "",
+      "remarks": ""
+    },
+    "260": {
+      "headdatetime": "1992-04-13T00:00:00",
+      "headmp": 0.36,
+      "headnote": "",
+      "remarks": ""
+    },
+    "261": {
+      "headdatetime": "1992-04-27T00:00:00",
+      "headmp": 0.34,
+      "headnote": "",
+      "remarks": ""
+    },
+    "262": {
+      "headdatetime": "1992-05-11T00:00:00",
+      "headmp": 0.32,
+      "headnote": "",
+      "remarks": ""
+    },
+    "263": {
+      "headdatetime": "1992-05-25T00:00:00",
+      "headmp": 0.67,
+      "headnote": "",
+      "remarks": ""
+    },
+    "264": {
+      "headdatetime": "1992-06-09T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "265": {
+      "headdatetime": "1992-06-22T00:00:00",
+      "headmp": 0.72,
+      "headnote": "",
+      "remarks": ""
+    },
+    "266": {
+      "headdatetime": "1992-07-06T00:00:00",
+      "headmp": 0.94,
+      "headnote": "",
+      "remarks": ""
+    },
+    "267": {
+      "headdatetime": "1992-07-20T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "268": {
+      "headdatetime": "1992-08-03T00:00:00",
+      "headmp": 0.48,
+      "headnote": "",
+      "remarks": ""
+    },
+    "269": {
+      "headdatetime": "1992-08-17T00:00:00",
+      "headmp": 0.4,
+      "headnote": "",
+      "remarks": ""
+    },
+    "270": {
+      "headdatetime": "1992-08-31T00:00:00",
+      "headmp": 0.35,
+      "headnote": "",
+      "remarks": ""
+    },
+    "271": {
+      "headdatetime": "1992-09-14T00:00:00",
+      "headmp": 0.3,
+      "headnote": "",
+      "remarks": ""
+    },
+    "272": {
+      "headdatetime": "1992-09-28T00:00:00",
+      "headmp": 0.58,
+      "headnote": "",
+      "remarks": ""
+    },
+    "273": {
+      "headdatetime": "1992-10-14T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "274": {
+      "headdatetime": "1992-10-28T00:00:00",
+      "headmp": 0.17,
+      "headnote": "",
+      "remarks": ""
+    },
+    "275": {
+      "headdatetime": "1992-11-14T00:00:00",
+      "headmp": 0.03,
+      "headnote": "",
+      "remarks": ""
+    },
+    "276": {
+      "headdatetime": "1992-11-28T00:00:00",
+      "headmp": 0.02,
+      "headnote": "",
+      "remarks": ""
+    },
+    "277": {
+      "headdatetime": "1992-12-14T00:00:00",
+      "headmp": -0.05,
+      "headnote": "",
+      "remarks": ""
+    },
+    "278": {
+      "headdatetime": "1992-12-28T00:00:00",
+      "headmp": null,
+      "headnote": "Y",
+      "remarks": ""
+    },
+    "279": {
+      "headdatetime": "1993-01-14T00:00:00",
+      "headmp": 0.0,
+      "headnote": "",
+      "remarks": ""
+    },
+    "280": {
+      "headdatetime": "1993-01-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "281": {
+      "headdatetime": "1993-02-15T00:00:00",
+      "headmp": 0.15,
+      "headnote": "",
+      "remarks": ""
+    },
+    "282": {
+      "headdatetime": "1993-02-28T00:00:00",
+      "headmp": 0.1,
+      "headnote": "",
+      "remarks": ""
+    },
+    "283": {
+      "headdatetime": "1993-03-15T00:00:00",
+      "headmp": 0.35,
+      "headnote": "",
+      "remarks": ""
+    },
+    "284": {
+      "headdatetime": "1993-03-28T00:00:00",
+      "headmp": 0.4,
+      "headnote": "",
+      "remarks": ""
+    },
+    "285": {
+      "headdatetime": "1993-04-14T00:00:00",
+      "headmp": 0.41,
+      "headnote": "",
+      "remarks": ""
+    },
+    "286": {
+      "headdatetime": "1993-04-28T00:00:00",
+      "headmp": 0.4,
+      "headnote": "",
+      "remarks": ""
+    },
+    "287": {
+      "headdatetime": "1993-05-14T00:00:00",
+      "headmp": 0.46,
+      "headnote": "",
+      "remarks": ""
+    },
+    "288": {
+      "headdatetime": "1993-05-28T00:00:00",
+      "headmp": 0.41,
+      "headnote": "",
+      "remarks": ""
+    },
+    "289": {
+      "headdatetime": "1993-06-14T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "290": {
+      "headdatetime": "1993-06-28T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "291": {
+      "headdatetime": "1993-07-14T00:00:00",
+      "headmp": 0.38,
+      "headnote": "",
+      "remarks": ""
+    },
+    "292": {
+      "headdatetime": "1993-07-28T00:00:00",
+      "headmp": 0.02,
+      "headnote": "",
+      "remarks": ""
+    },
+    "293": {
+      "headdatetime": "1993-08-14T00:00:00",
+      "headmp": 0.14,
+      "headnote": "",
+      "remarks": ""
+    },
+    "294": {
+      "headdatetime": "1993-08-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "295": {
+      "headdatetime": "1993-09-14T00:00:00",
+      "headmp": 0.0,
+      "headnote": "",
+      "remarks": ""
+    },
+    "296": {
+      "headdatetime": "1993-09-28T00:00:00",
+      "headmp": 0.1,
+      "headnote": "",
+      "remarks": ""
+    },
+    "297": {
+      "headdatetime": "1993-10-14T00:00:00",
+      "headmp": 0.0,
+      "headnote": "",
+      "remarks": ""
+    },
+    "298": {
+      "headdatetime": "1993-10-28T00:00:00",
+      "headmp": 0.13,
+      "headnote": "",
+      "remarks": ""
+    },
+    "299": {
+      "headdatetime": "1993-11-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "300": {
+      "headdatetime": "1993-11-28T00:00:00",
+      "headmp": 0.25,
+      "headnote": "",
+      "remarks": ""
+    },
+    "301": {
+      "headdatetime": "1993-12-14T00:00:00",
+      "headmp": 0.12,
+      "headnote": "",
+      "remarks": ""
+    },
+    "302": {
+      "headdatetime": "1993-12-28T00:00:00",
+      "headmp": 0.12,
+      "headnote": "",
+      "remarks": ""
+    },
+    "303": {
+      "headdatetime": "1994-01-14T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    },
+    "304": {
+      "headdatetime": "1994-01-28T00:00:00",
+      "headmp": null,
+      "headnote": "O",
+      "remarks": ""
+    },
+    "305": {
+      "headdatetime": "1994-02-14T00:00:00",
+      "headmp": 0.3,
+      "headnote": "",
+      "remarks": ""
+    },
+    "306": {
+      "headdatetime": "1994-02-28T00:00:00",
+      "headmp": 0.03,
+      "headnote": "",
+      "remarks": ""
+    },
+    "307": {
+      "headdatetime": "1994-03-14T00:00:00",
+      "headmp": 0.31,
+      "headnote": "",
+      "remarks": ""
+    },
+    "308": {
+      "headdatetime": "1994-03-28T00:00:00",
+      "headmp": 0.06,
+      "headnote": "",
+      "remarks": ""
+    },
+    "309": {
+      "headdatetime": "1994-04-14T00:00:00",
+      "headmp": 0.15,
+      "headnote": "",
+      "remarks": ""
+    },
+    "310": {
+      "headdatetime": "1994-04-28T00:00:00",
+      "headmp": 0.3,
+      "headnote": "",
+      "remarks": ""
+    },
+    "311": {
+      "headdatetime": "1994-05-16T00:00:00",
+      "headmp": 0.33,
+      "headnote": "",
+      "remarks": ""
+    },
+    "312": {
+      "headdatetime": "1994-05-31T00:00:00",
+      "headmp": 0.35,
+      "headnote": "",
+      "remarks": ""
+    },
+    "313": {
+      "headdatetime": "1994-06-14T00:00:00",
+      "headmp": 0.31,
+      "headnote": "",
+      "remarks": ""
+    },
+    "314": {
+      "headdatetime": "1994-06-28T00:00:00",
+      "headmp": 0.44,
+      "headnote": "",
+      "remarks": ""
+    },
+    "315": {
+      "headdatetime": "1994-07-14T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "316": {
+      "headdatetime": "1994-08-01T00:00:00",
+      "headmp": 0.7,
+      "headnote": "",
+      "remarks": ""
+    },
+    "317": {
+      "headdatetime": "1994-08-14T00:00:00",
+      "headmp": 0.76,
+      "headnote": "",
+      "remarks": ""
+    },
+    "318": {
+      "headdatetime": "1994-08-28T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "319": {
+      "headdatetime": "1994-09-15T00:00:00",
+      "headmp": null,
+      "headnote": "O",
+      "remarks": ""
+    },
+    "320": {
+      "headdatetime": "1994-09-28T00:00:00",
+      "headmp": 0.24,
+      "headnote": "",
+      "remarks": ""
+    },
+    "321": {
+      "headdatetime": "1994-10-14T00:00:00",
+      "headmp": 0.3,
+      "headnote": "",
+      "remarks": ""
+    },
+    "322": {
+      "headdatetime": "1994-10-28T00:00:00",
+      "headmp": 0.27,
+      "headnote": "",
+      "remarks": ""
+    },
+    "323": {
+      "headdatetime": "1994-11-15T00:00:00",
+      "headmp": 0.03,
+      "headnote": "",
+      "remarks": ""
+    },
+    "324": {
+      "headdatetime": "1994-11-28T00:00:00",
+      "headmp": 0.1,
+      "headnote": "",
+      "remarks": ""
+    },
+    "325": {
+      "headdatetime": "1994-12-14T00:00:00",
+      "headmp": 0.02,
+      "headnote": "",
+      "remarks": ""
+    },
+    "326": {
+      "headdatetime": "1994-12-28T00:00:00",
+      "headmp": null,
+      "headnote": "O",
+      "remarks": ""
+    },
+    "327": {
+      "headdatetime": "1995-01-13T00:00:00",
+      "headmp": 0.07,
+      "headnote": "",
+      "remarks": ""
+    },
+    "328": {
+      "headdatetime": "1995-01-27T00:00:00",
+      "headmp": 0.0,
+      "headnote": "",
+      "remarks": ""
+    },
+    "329": {
+      "headdatetime": "1995-02-14T00:00:00",
+      "headmp": 0.06,
+      "headnote": "",
+      "remarks": ""
+    },
+    "330": {
+      "headdatetime": "1995-02-27T00:00:00",
+      "headmp": 0.1,
+      "headnote": "",
+      "remarks": ""
+    },
+    "331": {
+      "headdatetime": "1995-03-14T00:00:00",
+      "headmp": 0.17,
+      "headnote": "",
+      "remarks": ""
+    },
+    "332": {
+      "headdatetime": "1995-03-28T00:00:00",
+      "headmp": 0.03,
+      "headnote": "",
+      "remarks": ""
+    },
+    "333": {
+      "headdatetime": "1995-04-14T00:00:00",
+      "headmp": 0.31,
+      "headnote": "",
+      "remarks": ""
+    },
+    "334": {
+      "headdatetime": "1995-04-28T00:00:00",
+      "headmp": 0.38,
+      "headnote": "",
+      "remarks": ""
+    },
+    "335": {
+      "headdatetime": "1995-05-15T00:00:00",
+      "headmp": 0.51,
+      "headnote": "",
+      "remarks": ""
+    },
+    "336": {
+      "headdatetime": "1995-05-29T00:00:00",
+      "headmp": null,
+      "headnote": "W",
+      "remarks": ""
+    },
+    "337": {
+      "headdatetime": "1995-06-14T00:00:00",
+      "headmp": 0.02,
+      "headnote": "",
+      "remarks": ""
+    },
+    "338": {
+      "headdatetime": "1995-06-28T00:00:00",
+      "headmp": 0.43,
+      "headnote": "",
+      "remarks": ""
+    },
+    "339": {
+      "headdatetime": "1995-07-14T00:00:00",
+      "headmp": 0.6,
+      "headnote": "",
+      "remarks": ""
+    },
+    "340": {
+      "headdatetime": "1995-07-28T00:00:00",
+      "headmp": 0.44,
+      "headnote": "",
+      "remarks": ""
+    },
+    "341": {
+      "headdatetime": "1995-08-14T00:00:00",
+      "headmp": 0.93,
+      "headnote": "",
+      "remarks": ""
+    },
+    "342": {
+      "headdatetime": "1995-08-28T00:00:00",
+      "headmp": 0.73,
+      "headnote": "",
+      "remarks": ""
+    },
+    "343": {
+      "headdatetime": "1995-09-14T00:00:00",
+      "headmp": 0.66,
+      "headnote": "",
+      "remarks": ""
+    },
+    "344": {
+      "headdatetime": "1995-09-28T00:00:00",
+      "headmp": null,
+      "headnote": "N",
+      "remarks": ""
+    }
+  }
+}
