@@ -271,6 +271,8 @@ class PlotHeads:
         if self.mps is not None:
             self._reference_graph()
 
+        return self._axgws
+
 
     def _set_yax_limits(self):
         """ Set yax limits for groundwater level """

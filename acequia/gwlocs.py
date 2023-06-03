@@ -61,6 +61,11 @@ class GwLocs:
         groups : list, optional
             list of location names, sublists are allowed (see examples)
         """
+
+        message = ('Class GwList will be deprecated in a future version.'
+            'Use GwCollection class instead.')
+        warnings.warn(message, DeprecationWarning, stacklevel=2)
+
         self._filedir = filedir
         self._pathlist = pathlist
         self._filetype = filetype

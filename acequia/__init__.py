@@ -4,6 +4,7 @@
 import logging
 
 from .gwseries import GwSeries
+from .gwcollection import GwCollection
 from .gwlist import GwList
 from .gwlist import headsfiles as headsfiles
 from .gwlocs import GwLocs

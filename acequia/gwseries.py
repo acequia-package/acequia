@@ -703,6 +703,8 @@ class GwSeries:
         if filename is not None:
             self.headsplot.save(filename)
 
+        return self.headsplot
+
 
     def gxg(self,ref='datum',minimal=True,name=True):
         """

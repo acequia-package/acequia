@@ -1,8 +1,6 @@
 """ This module contains a class Quantiles that calculates quantiles
 of measured heads for hydrological years.
 
-Author: Thomas de Meij
-
 """
 
 from datetime import datetime
@@ -17,9 +15,9 @@ from ..gwseries import GwSeries
 from .utils import hydroyear
 
 class Quantiles:
-    """Calculate cumulative frequencies and plot duurlijnen."""
+    """Calculate cumulative frequencies of groundwater head series."""
 
-    n14 = 18
+    N14 = 18
 
     def __init__(self, heads, srname=None, headsref='surface'):
         """
@@ -52,9 +50,6 @@ class Quantiles:
             ts = heads.iloc[:,0].squeeze()
             if srname is None: 
                 srname = list(heads)[0]
-
-        if srname is None: 
-            srname = 'head series'
 
         self._heads = heads
         self.headsref = headsref
@@ -116,7 +111,7 @@ class Quantiles:
 
         # create empty table with hydroyears and percentiles
         hydroyears = hydroyear(self.ts)
-        unique_years = np.unique(allyears)
+        unique_years = np.unique(hydroyears)
         quantiles = pd.DataFrame(index=unique_years,columns=self.qtlabels)
 
         # calculate quantiles
@@ -125,8 +120,97 @@ class Quantiles:
             quantiles[name] = grp.quantile(quantile).round(2)
         return quantiles
 
+    def get_summary(self,unit='days',step=None, decimals=2):
+        """Return table with summary of quantile statistics.
+        
+        Parameters
+        ----------
+        unit : {'days','quantiles'}, default 'days'
+            Unit of quantile boundary classes.
+        step : float or int
+            Quantile class division steps. For unit days an integer 
+            between 0 and 366, for unit quantiles a fraction between 
+            0 and 1.
+        decimals : int, default 2
+            Round results to specified number of decimals.
 
-    def plot(self,unit='days',step=30,coloryears=None,boundyears=None,
+        Returns
+        -------
+        DataFrame
+        """
+        tbl = self.get_quantiles(unit=unit,step=step)
+
+        decimals = 2
+        q05 = tbl.quantile(q=0.05, axis=0, numeric_only=True).round(decimals)
+        q95 = tbl.quantile(q=0.95, axis=0, numeric_only=True).round(decimals)
+        mean = tbl.mean().round(decimals)
+        std = tbl.std().round(decimals)
+        count = tbl.count()
+
+        result = pd.concat({'q05':q05,'q95':q95,'mean':mean,'std':std,'count':count},axis=1).T
+        return result
+
+    def get_inundation(self, unit='days',step=5):
+        """Return number of days with inundation as mean, min, max.
+        
+        Parameters
+        ----------
+        unit : {'days','quantiles'}, default 'days'
+            Unit of quantile boundary classes.
+        step : float or int, default 5
+            Quantile class division steps. For unit days an integer 
+            between 0 and 366, for unit quantiles a fraction between 
+            0 and 1.
+
+        Returns
+        -------
+        pandas.Series
+        ...
+        """
+
+        def get_negative_days(sr):
+            if sr[sr<0].empty:
+                return 0
+            return float(sr[sr<0].index[-1])
+
+        summary = self.get_summary(unit=unit,step=step)
+        sr = Series(data=[
+            get_negative_days(summary.loc['mean',:]),
+            get_negative_days(summary.loc['q95',:]),
+            get_negative_days(summary.loc['q05',:]),
+            ],index = ['mean','min','max'],name='inundationtime')
+        return sr
+
+    def get_lowest(self, unit='days',step=5):
+        """Return lowest measured heads.
+        
+        Parameters
+        ----------
+        unit : {'days','quantiles'}, default 'days'
+            Unit of quantile boundary classes.
+        step : float or int, default 5
+            Quantile class division steps. For unit days an integer 
+            between 0 and 366, for unit quantiles a fraction between 
+            0 and 1.
+
+        Returns
+        -------
+        pandas.Series
+        """
+
+        summary = self.get_summary(unit=unit,step=step)
+        lastcol = summary.columns[-1]
+        sr = Series([
+            summary.at['mean',lastcol],
+            summary.at['q05',lastcol],
+            summary.at['q95',lastcol],
+            ], index = ['mean','min','max'],
+            name='lowest')
+        return sr
+
+
+
+    def plot(self,unit='days',step=30,median=False,coloryears=None,boundyears=None,
         figpath=None,figtitle=None,ylim=None, ax=None):
         """Plot quantiles
 
@@ -151,6 +235,10 @@ class Quantiles:
             [yaxmin, yaxmax]
         ax : matplotlib.axes.Subplot, optional
             Ax to plot on.
+
+        Returns
+        -------
+        matplotlib.pyplot.ax
         """
 
         quantiles = self.get_quantiles(unit=unit,step=step)
@@ -169,6 +257,7 @@ class Quantiles:
         csurf = '#8ec7ff'
         clines = '#2f90f1' #'#979797' #
         cyears = '#b21564'
+        cmedian = '#8b0000'
 
         if ax is None:
             fig,ax = plt.subplots(1,1)
@@ -212,6 +301,11 @@ class Quantiles:
                 xvals = self.qt
                 ax.plot(xvals,yvals,color=cyears)
 
+        if median:
+            yvals = quantiles.median().values * 100
+            xvals = self.qt
+            ax.plot(xvals,yvals,color=cmedian)
+
         # xax set ticks
         qtlen = len(self.qt)
         step = int(np.ceil((qtlen-2)/6))
@@ -242,8 +336,6 @@ class Quantiles:
         yticklabels = [str(int(x)) for x in ax.get_yticks()]
         ax.set_yticklabels(yticklabels,fontsize=10.) 
         
-
-        #ax.set_ylabel('grondwaterstand (cm -mv)') #, fontsize=15)
         ax.set_ylabel('')
 
         ax.text(0.99, 0.97, figtitle, horizontalalignment='right',
@@ -253,5 +345,4 @@ class Quantiles:
         if figpath is not None:
             plt.savefig(figpath,bbox_inches='tight')
 
-        ##plt.show()
         return ax

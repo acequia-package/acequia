@@ -100,6 +100,9 @@ class GwList():
             (if srcfile is given, srcdir is ignored)
 
         """
+        message = ('Class GwList will be deprecated in a future version.'
+            'Use GwCollection class instead.')
+        warnings.warn(message, DeprecationWarning, stacklevel=2)
 
         self._srcdir = srcdir
         self._srctype = srctype
@@ -110,7 +113,7 @@ class GwList():
 
         if (self._srcdir is None) and (self._srcfile is None):
             raise ValueError((
-                'missing parameter value'
+                'Missing parameter value. '
                 f'At least one of parameters srcdir or '
                 f'srclist must be given.'))
 

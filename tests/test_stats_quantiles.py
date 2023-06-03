@@ -1,7 +1,7 @@
 
 
 import pytest
-from pandas import DataFrame
+from pandas import Series, DataFrame
 import pandas as pd
 import matplotlib
 from acequia import Quantiles
@@ -16,63 +16,98 @@ def gw():
 def test_init(gw):
 
     # input gwseries object
-    cum = Quantiles(gw)
-    assert cum.__class__.__name__=='Quantiles'
+    qt = Quantiles(gw)
+    assert qt.__class__.__name__=='Quantiles'
 
     # input pandas Series object
     sr = gw.heads(ref='datum')
-    cum = Quantiles(sr)
-    assert cum.__class__.__name__=='Quantiles'
+    qt = Quantiles(sr)
+    assert qt.__class__.__name__=='Quantiles'
 
     # input pandas DataFrame object
     df = DataFrame(gw.heads(ref='datum'))
-    cum = Quantiles(sr)
-    assert cum.__class__.__name__=='Quantiles'
+    qt = Quantiles(sr)
+    assert qt.__class__.__name__=='Quantiles'
+    
 
-def test_quantiles(gw):
+@pytest.fixture
+def qt():
+    fpath = r'.\data\dinogws\B21A0138001_1.csv'
+    gw = GwSeries.from_dinogws(fpath)
+    return Quantiles(gw)
 
-    cum = Quantiles(gw)
+@pytest.fixture
+def qt2():
+    fpath = r'.\data\dinogws\B01D0143001_1.csv'
+    gw = GwSeries.from_dinogws(fpath)
+    return Quantiles(gw)
+
+
+def test_quantiles(qt):
 
     # unit is days, step is valid
-    quantiles = cum.get_quantiles(unit='days',step=30)
+    quantiles = qt.get_quantiles(unit='days',step=30)
     assert isinstance(quantiles,DataFrame)
     assert not quantiles.empty
 
     # unit is days, step is invalid, default is used
-    quantiles = cum.get_quantiles(unit='days',step=400)
+    quantiles = qt.get_quantiles(unit='days',step=400)
     assert isinstance(quantiles,DataFrame)
     assert not quantiles.empty
     
     # unit is quantiles, step is valid
-    quantiles = cum.get_quantiles(unit='quantiles',step=0.3)
+    quantiles = qt.get_quantiles(unit='quantiles',step=0.3)
     assert isinstance(quantiles,DataFrame)
     assert not quantiles.empty
 
     # unit is quantiles, step is invalid, default is used
-    quantiles = cum.get_quantiles(unit='quantiles',step=3.0)
+    quantiles = qt.get_quantiles(unit='quantiles',step=3.0)
     assert isinstance(quantiles,DataFrame)
     assert not quantiles.empty
 
     # unit is invalid, exception is raised
     with pytest.raises(Exception):
-        quantiles = cum.get_quantiles(unit='invalid_input')
+        quantiles = qt.get_quantiles(unit='invalid_input')
 
-def test_plot(gw):
+def test_headsref(qt):
+    assert isinstance(qt.headsref,str)
 
-    cum = Quantiles(gw)
-    
+def test_summary(qt):
+
+    summary = qt.get_summary()
+    assert isinstance(summary,DataFrame)
+    assert not summary.empty
+
+def test_get_inundation(qt2):
+
+    sr = qt2.get_inundation()
+    assert isinstance(sr,Series)
+    assert not sr.empty
+
+def test_get_lowest(qt2):
+
+    sr = qt2.get_lowest()
+    assert isinstance(sr,Series)
+    assert not sr.empty
+
+def test_repr(qt):
+    assert isinstance(str(qt),str)
+
+def test_plot(qt):
+
     # plot with defaults
-    myplot = cum.plot()
+    myplot = qt.plot()
     assert isinstance(myplot,matplotlib.axes.Subplot)
     
     # test parameter coloryears
-    myplot = cum.plot(coloryears=[2002,2007])
+    myplot = qt.plot(coloryears=[2002,2007])
     assert isinstance(myplot,matplotlib.axes.Subplot)
 
     # test boundyears
-    myplot = cum.plot(boundyears=[2004,2005])
+    myplot = qt.plot(boundyears=[2004,2005])
     assert isinstance(myplot,matplotlib.axes.Subplot)
     
     # test figpath
-    myplot = cum.plot(figpath=r'.\output\fig\duurlijnen.jpg')
+    myplot = qt.plot(figpath=r'.\output\fig\duurlijnen.jpg')
     assert isinstance(myplot,matplotlib.axes.Subplot)
+
