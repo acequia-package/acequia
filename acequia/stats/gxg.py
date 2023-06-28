@@ -21,25 +21,27 @@ from .. import gwseries
 from .utils import ts1428, hydroyear, season
 
 
-def stats_gxg(ts,reflev='datum'):
+def stats_gxg(ts, reference='datum', minimal=False, surface=None):
     """Return table with GxG statistics
 
     Parameters
     ----------
     ts : aq.GwSeries, pd.Series
         Groundwater head time series
-
-    reflev : {'datum','surface'}, optional
+    reference : {'datum','surface'}, optional
         Reference level for groundwater heads
+    minimal : bool, default False
+        Return minimal number of gxg statistics.
+    surface : float, default None
+        Surface level.
 
     Returns
     -------
     pd.DataFrame
 
     """
-
-    gxg = GxgStats(ts)
-    return gxg.gxg(reflev=reflev)
+    gxg = GxgStats(ts, surface=surface)
+    return gxg.gxg(reference=reference, minimal=minimal)
 
 
 class GxgStats:
@@ -93,14 +95,17 @@ class GxgStats:
             if surface is None:
                 self._surface = gw.surface()
             else:
-                self._surface = surflevel
+                self._surface = surface
             self._gw = gw
 
         elif isinstance(gw,pd.Series):
 
             self._ts = gw
             self.srname = self._ts.name
-            self._surface = surface
+            if surface is not None:
+                self._surface = surface
+            else:
+                self._surface = np.nan
             self._gw = None
 
         else:
@@ -286,57 +291,65 @@ class GxgStats:
         return xg
 
 
-    def xg(self,reference='datum',name=True):
+    def xg(self, reference='datum', name=True):
         """Return table of GxG groundwater statistics for each 
         hydrological year
 
         Parameters
         ----------
         reference : {'datum','surface'}, default 'datum'
-            reference level for gxg statistics
-
+            Reference level for gxg statistics.
         name : bool, default True
-            include series name in index
+            Include series name in index.
 
-        Return
-        ------
-        pd.DataFrame"""
+        Returns
+        -------
+        pd.DataFrame
+
+        Notes
+        -----
+        Results are given in meter for reference level 'datum' and in 
+        centimeter for reeference level 'surface'.
+        ..."""
 
         if reference not in ['datum','surface']:
-            warnings.warn((f'Reference level \'{reference}\' is not allowed. '
-                f'Reference level \'datum\' is assumed.'))
+            warnings.warn((f'Unknown reference level "{reference}". '
+                f'Reference level "datum" is assumed.'))
             reference = 'datum'
+
+        if reference == 'datum':
+            multiplier = 1
+        elif reference == 'surface':
+            multiplier = 100
 
         xg = self._xgnap.copy()
         if name==True:
             xg = pd.concat({self.srname: xg}, names=['series'])
 
-        if reference=='datum':
-            return xg
+        if reference=='surface':
+            # convert unit meter to centimeter
+            for col in xg.columns:
 
-        for col in xg.columns:
+                if col in ['n1428']:
+                    continue
 
-            if col in ['n1428']:
-                continue
+                xg[col] = (self._surface - xg[col])*multiplier
+                xg[col] = xg[col].apply(lambda x:math.floor(x) if 
+                    not np.isnan(x) else x)
 
-            xg[col] = (self._surface - xg[col])*100
-            xg[col] = xg[col].apply(lambda x:math.floor(x) if 
-                not np.isnan(x) else x)
-
-            ##if not np.isnan(xg[col]):
-            ##    xg[col] = math.floor(xg[col])
+                ##if not np.isnan(xg[col]):
+                ##    xg[col] = math.floor(xg[col])
 
         return xg
 
 
-    def gxg(self,reference='datum',minimal=False):
+    def gxg(self, reference='datum', minimal=False):
         """Return table with GxG for one head series
 
         Parameters
         ----------
         minimal : bool, default True
             return minimal selection of stats
-
         reference : {'datum','surface'}, default 'datum'
             reference level for gxg statistics
 

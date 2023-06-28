@@ -20,11 +20,28 @@ class GwCollection:
         self.stats = None
         self.xg = None
         self._ref = None
+
+
+    def __len__(self):    
+        return len(self.collection)
+
+    def __repr__(self):
+        return f'{self.__class__.__name__} (n={len(self)})'
     
     @classmethod
-    def from_dinocsv(cls,filedir):
+    def from_dinocsv(cls,filedir,loclist=None):
+        """Create GwCollection object from folder with DinoLoket sourcefiles.
+        
+        Parameters
+        ----------
+        srcdir : str
+            Path to directory with Dinoloket csv sourcefiles.
+        loclist : list, optional
+            List of strings with valid location names to restrict
+            number of files read from srcdir.
+        """
 
-        gwcol = GwFiles.from_dinocsv(filedir)
+        gwcol = GwFiles.from_dinocsv(filedir,loclist=loclist)
         return cls(gwcol)
 
     def iteritems(self):
@@ -79,8 +96,6 @@ class GwCollection:
         return points
 
 
-
-
     def get_xg(self,ref='datum'):
     
         # recalculate stats if nessesary
@@ -88,6 +103,30 @@ class GwCollection:
             self._calculate_series_stats(ref=ref)
         
         return self.xg
+
+    def get_ecostats(self,ref='surface', units='days', step=5):
+        """Return ecological most relevant statistics.
+
+        Parameters
+        ----------
+        ref : {'datum','surface'}, default 'surface'
+            Reference level for measurements.
+        units : {'days','quantiles'}, default 'days'
+            Unit of quantile boundary classes.
+        step : float or int, default 5
+            Quantile class division steps. For unit days an integer 
+            between 0 and 366, for unit quantiles a fraction between 
+            0 and 1.
+
+        Returns
+        -------
+        pd.DataFrame
+        ..."""
+
+        ecostats = []
+        for gw in self.iteritems():
+            ecostats.append(gw.get_ecostats())
+        return DataFrame(ecostats)
 
     @property
     def ref():

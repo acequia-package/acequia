@@ -132,6 +132,7 @@ class GwFiles:
             csvlist.append(gw.to_csv(dirpath))
         return csvlist
 
+
     # Classmethods below are defined here to make sure input files have 
     # allready been created by code above.
 

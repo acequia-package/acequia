@@ -21,11 +21,11 @@ from pandas import Series, DataFrame
 import pandas as pd
 import numpy as np
 
-
 from .read import dinogws
 from .plots import plotheads as plotheadsmodule
 from .stats.gxg import GxgStats
 from .stats.gwtimestats import GwTimeStats
+
 
 class GwSeries:
     """ 
@@ -724,6 +724,8 @@ class GwSeries:
         gxg : pd.Series
             gxg descriptive statistics
         """
+        # Calculating gxg can take considerable time. Therefore,
+        # results are stored.
         if not hasattr(self,'_gxg'):
             self._gxg = GxgStats(self)            
 
@@ -753,3 +755,65 @@ class GwSeries:
         xg = self._gxg.xg(reference=ref,name=name)
 
         return xg
+
+    def get_quantiles(self, ref='surface', unit='days', step=None):
+        """Calculate quantiles of measured heads.
+
+        Parameters
+        ----------
+        headsref : {'datum','surface'}, default 'surface'
+            Reference level for measurements.
+        unit : {'days','quantiles'}, default 'days'
+            Unit of quantile boundary classes.
+        step : float or int
+            Quantile class division steps. For unit days an integer 
+            between 0 and 366, for unit quantiles a fraction between 
+            0 and 1.
+
+        Returns
+        -------
+        pandas.DataFrame
+        """
+        # bypass circular import
+        from .stats.quantiles import Quantiles
+
+        qt = Quantiles(self.heads(ref=ref))
+        return qt.get_quantiles()
+
+    def get_ecostats(self, ref='surface', units='days', step=5):
+        """Return ecological most relevant statistics.
+
+        Parameters
+        ----------
+        ref : {'datum','surface'}, default 'surface'
+            Reference level for measurements.
+        units : {'days','quantiles'}, default 'days'
+            Unit of quantile boundary classes.
+        step : float or int, default 5
+            Quantile class division steps. For unit days an integer 
+            between 0 and 366, for unit quantiles a fraction between 
+            0 and 1.
+
+        Returns
+        -------
+        pandas.Series      
+        """
+
+        # bypass circular import
+        from .stats.quantiles import Quantiles
+        
+        qt = Quantiles(self.heads(ref=ref))
+        inundation = qt.get_inundation()
+        lowest = qt.get_lowest()
+
+        ecostats = self.gxg(ref='surface',minimal=True)
+       
+        ecostats['lowest_mean'] = lowest['mean']
+        ecostats['lowest_min'] = lowest['min']
+        ecostats['lowest_max'] = lowest['max']
+
+        ecostats['inundation_mean'] = inundation['mean']
+        ecostats['inundation_min'] = inundation['min']            
+        ecostats['inundation_max'] = inundation['max']
+
+        return ecostats

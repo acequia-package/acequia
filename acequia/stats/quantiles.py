@@ -5,6 +5,7 @@ of measured heads for hydrological years.
 
 from datetime import datetime
 import datetime as dt
+import math
 import warnings
 import numpy as np
 from pandas import Series, DataFrame
@@ -117,7 +118,13 @@ class Quantiles:
         # calculate quantiles
         grp = self.ts.groupby(hydroyears)
         for i,(name,quantile) in enumerate(zip(self.qtlabels,self.qt)):
-            quantiles[name] = grp.quantile(quantile).round(2)
+            if self.headsref=='datum':
+                quantiles[name] = grp.quantile(quantile).round(2)
+            elif self.headsref=='surface':
+                quantiles[name] = grp.quantile(quantile)*100
+                quantiles[name] = quantiles[name].apply(
+                    lambda x:math.floor(x) if not np.isnan(x) else x)
+                ##).round(0).astype(int)
         return quantiles
 
     def get_summary(self,unit='days',step=None, decimals=2):
@@ -138,17 +145,24 @@ class Quantiles:
         -------
         DataFrame
         """
-        tbl = self.get_quantiles(unit=unit,step=step)
+        qt = self.get_quantiles(unit=unit,step=step)
 
         decimals = 2
-        q05 = tbl.quantile(q=0.05, axis=0, numeric_only=True).round(decimals)
-        q95 = tbl.quantile(q=0.95, axis=0, numeric_only=True).round(decimals)
-        mean = tbl.mean().round(decimals)
-        std = tbl.std().round(decimals)
-        count = tbl.count()
+        q05 = qt.quantile(q=0.05, axis=0, numeric_only=True).round(decimals)
+        q95 = qt.quantile(q=0.95, axis=0, numeric_only=True).round(decimals)
+        mean = qt.mean().round(decimals)
+        std = qt.std().round(decimals)
+        count = qt.count()
 
-        result = pd.concat({'q05':q05,'q95':q95,'mean':mean,'std':std,'count':count},axis=1).T
-        return result
+        summary = pd.concat({'q05':q05,'q95':q95,'mean':mean,'std':std,'count':count},axis=1).T
+        if self.headsref == 'surface': # round all values to zero decimals
+            rows = []
+            for rowlabel in summary.index:
+                rows.append(summary.loc[rowlabel,:].apply(
+                    lambda x:math.floor(x) if not np.isnan(x) else x))
+            summary = DataFrame(rows)
+            
+        return summary
 
     def get_inundation(self, unit='days',step=5):
         """Return number of days with inundation as mean, min, max.
@@ -179,6 +193,10 @@ class Quantiles:
             get_negative_days(summary.loc['q95',:]),
             get_negative_days(summary.loc['q05',:]),
             ],index = ['mean','min','max'],name='inundationtime')
+
+        if self.headsref == 'surface': # round all values to zero decimals
+            sr = sr.apply(lambda x:math.floor(x) if not np.isnan(x) else x)
+
         return sr
 
     def get_lowest(self, unit='days',step=5):

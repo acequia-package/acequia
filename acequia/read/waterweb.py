@@ -508,7 +508,7 @@ class WaterWeb:
         locs[colnames].to_file(filepath,'GPX')
         return locs[colnames]
 
-    def itergwseries(self):
+    def iteritems(self):
         """Iterate over all series and return gwseries object."""
         for srname in self.srnames:
             yield self.get_gwseries(srname)
