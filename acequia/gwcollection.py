@@ -14,19 +14,22 @@ from .read.gwfiles import GwFiles
 class GwCollection:
     """Collection of groundwater head series."""
 
-    def __init__(self,gwcol):
 
-        self.collection = gwcol
-        self.stats = None
-        self.xg = None
+    def __init__(self, gwcol):
+
+        self._collection = gwcol
+        self._stats = None
+        self._xg = None
         self._ref = None
 
 
     def __len__(self):    
-        return len(self.collection)
+        return len(self._collection)
+
 
     def __repr__(self):
         return f'{self.__class__.__name__} (n={len(self)})'
+
     
     @classmethod
     def from_dinocsv(cls,filedir,loclist=None):
@@ -40,18 +43,18 @@ class GwCollection:
             List of strings with valid location names to restrict
             number of files read from srcdir.
         """
-
         gwcol = GwFiles.from_dinocsv(filedir,loclist=loclist)
         return cls(gwcol)
+
 
     def iteritems(self):
         """Iterate over all series in collecion and return gwseries 
         object."""
-        for gw in self.collection.iteritems():
+        for gw in self._collection.iteritems():
             yield gw
 
 
-    def _calculate_series_stats(self,ref='datum'):
+    def _calculate_series_stats(self,ref=None):
         """Return table with series statistics.
 
         Parameters
@@ -71,38 +74,40 @@ class GwCollection:
                 warnings.warn((f'{gw.name()} has no tubeproperties ' 
                     f' and will be ignored.'))
 
-        self.stats = pd.concat(srstats_list,axis=1).T
-        self.stats.index.name = 'series'
-        self.xg = pd.concat(xg_list,axis=0)
+        self._stats = pd.concat(srstats_list,axis=1).T
+        self._stats.index.name = 'series'
+        self._xg = pd.concat(xg_list,axis=0)
         self._ref = ref
 
-    def get_wellfilterstats(self,ref='datum'):
+
+    def get_headstats(self,ref='datum'):
         """Return statistics of measured heads for each well filter."""
     
         # recalculate stats if nessesary
-        if (self.stats is None) | (self._ref!=ref):
+        if (self._stats is None) | (self._ref!=ref):
             self._calculate_series_stats(ref=ref)
 
 
-        xcr = self.stats['xcr'].astype('float').values
-        ycr = self.stats['ycr'].astype('float').values
+        xcr = self._stats['xcr'].astype('float').values
+        ycr = self._stats['ycr'].astype('float').values
         geometry = [Point(crd) for crd in zip(xcr,ycr)]
-        points = gpd.GeoDataFrame(self.stats, geometry=geometry)
+        points = gpd.GeoDataFrame(self._stats, geometry=geometry)
         points = points.set_crs('EPSG:28992')
 
         for colname in ['firstdate','lastdate',]:
             points[colname] = points[colname].apply(lambda x:x.strftime('%d-%m-%Y'))
- 
+
         return points
 
 
     def get_xg(self,ref='datum'):
     
         # recalculate stats if nessesary
-        if (self.stats is None) | (self._ref!=ref):
+        if (self._stats is None) | (self._ref!=ref):
             self._calculate_series_stats(ref=ref)
         
-        return self.xg
+        return self._xg
+
 
     def get_ecostats(self,ref='surface', units='days', step=5):
         """Return ecological most relevant statistics.
@@ -127,7 +132,3 @@ class GwCollection:
         for gw in self.iteritems():
             ecostats.append(gw.get_ecostats())
         return DataFrame(ecostats)
-
-    @property
-    def ref():
-        return self._ref
