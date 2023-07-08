@@ -403,30 +403,16 @@ class GwSeries:
 
     def locname(self):
         """Return series location name"""
-        srname = self.locprops().index[0]
-        locname = self.locprops().loc[srname,'locname']
-        return locname
+        ##srname = self.locprops().index[0]
+        ##locname = self.locprops().loc[srname,'locname']
+        return self._locprops['locname']
 
 
-    def locprops(self,minimal=False):
-        """
-        Return location properties as pd.DataFrame.
-
-        Parameters
-        ---------=
-        minimal : bool, default=False
-            return only minimal selection of columns
-
-        Returns
-        -------
-        pd.DataFrame
-        """
-
-        sr = self._locprops
-        sr.name = self.name()
-        locprops = DataFrame(sr).T
-        if minimal:
-            locprops = locprops[self._locprops_minimal]
+    def locprops(self):
+        """Return location properties as pd.DataFrame."""
+        locprops = self._locprops
+        locprops = locprops.drop('filname')
+        locprops = DataFrame(locprops).T.set_index('locname')
         return locprops
 
 

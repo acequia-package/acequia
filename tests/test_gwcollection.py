@@ -4,6 +4,9 @@ import pytest
 ##import numpy as np
 from pandas import DataFrame
 import pandas as pd
+from geopandas import GeoDataFrame
+
+
 from acequia import GwCollection, GwFiles, GwSeries
 import acequia as aq
 
@@ -44,3 +47,9 @@ def test_get_xg(gwc):
 def test_iteritems(gwc):
     for gw in gwc.iteritems():
         assert isinstance(gw, GwSeries)
+
+def test_timestats(gwc):
+    gdf = gwc.get_timestats(ref='datum', asgeo=True)
+    assert isinstance(gdf,GeoDataFrame)
+    assert not gdf.empty
+    

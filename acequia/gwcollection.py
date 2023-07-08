@@ -132,3 +132,33 @@ class GwCollection:
         for gw in self.iteritems():
             ecostats.append(gw.get_ecostats())
         return DataFrame(ecostats)
+
+    def get_timestats(self, ref='datum', asgeo=True):
+
+        statslist = []
+        for gw in self.iteritems():
+
+            # timestats table
+            stats = gw.timestats(ref=ref)
+            stats.name = gw.locname()
+            stats = pd.DataFrame(stats).T
+            locprops = gw.locprops()
+            stats = pd.merge(stats,locprops,left_index=True,right_index=True, how='left')
+            
+            # order columns
+            #firstcols = ['locname','filname']
+            #colnames = firstcols + [col for col in stats.columns if col not in firstcols]
+
+            statslist.append(stats.copy())
+        stats = pd.concat(statslist)
+
+        # create geodataframe
+        if asgeo:
+            xcr = stats['xcr'].astype('float').values
+            ycr = stats['ycr'].astype('float').values
+            geometry = [Point(crd) for crd in zip(xcr,ycr)]
+            stats = gpd.GeoDataFrame(stats, geometry=geometry)
+            stats = stats.set_crs('EPSG:28992')
+
+        return stats
+
