@@ -29,9 +29,9 @@ class GwFiles:
     ...
     """
 
-    FILETBL_COLS = ['series', 'loc', 'fil', 'fname', 'fpath',]
+    FILETABLE_COLS = ['series', 'loc', 'fil', 'fname', 'fpath',]
 
-    def __init__(self,filetbl):
+    def __init__(self, filetable=None, source=None):
         """Create a GwFiles object with class methods from_dinocsv, 
         from_json or from_csv.
         
@@ -43,22 +43,23 @@ class GwFiles:
         """
 
         # test validity of filetbl
-        if not isinstance(filetbl,DataFrame):
-            raise ValueError((f'Argument filetbl must be {type(DataFrame())} '
-                f'not {type(filetbl)}'))
+        if not isinstance(filetable, DataFrame):
+            raise ValueError((f'Argument filetable must be {type(DataFrame())} '
+                f'not {type(filetable)}'))
 
-        missing_cols = [col for col in self.FILETBL_COLS if col not in filetbl.columns]
+        missing_cols = [col for col in self.FILETABLE_COLS if col not in filetable.columns]
         if missing_cols:
-            raise ValueError(('Filetbl is missing required columns: '
+            raise ValueError(('Filetable is missing required columns: '
                 f'{missing_cols}.'))
 
-        self.filetbl = filetbl
+        self._ftb = filetable
+        self._source = source
 
     def __len__(self):    
-        return len(self.filetbl)
+        return len(self._ftb)
 
     def __repr__(self):
-        return (f'{self.__class__.__name__} (n={len(self.filetbl)})')
+        return (f'{self.__class__.__name__} (n={len(self._ftb)})')
 
     @classmethod
     def from_dinocsv(cls,srcdir,loclist=None):
@@ -90,12 +91,22 @@ class GwFiles:
             mask = filetbl['loc'].isin(loclist)
             filetbl = filetbl[mask].reset_index(drop=True)
 
-        return cls(filetbl)
+        return cls(filetable=filetbl, source='dinocsv')
+
+    @property
+    def filetable(self):
+        return self._ftb
 
     def iteritems(self):
         """Iterate over all series and return gwseries object."""
-        for idx,row in self.filetbl.iterrows():
-            gw = GwSeries.from_dinogws(row['fpath'])
+        for idx,row in self._ftb.iterrows():
+
+            if self._source == 'dinocsv':
+                gw = GwSeries.from_dinogws(row['fpath'])
+
+            if self._source == 'json':
+                gw = GwSeries.from_json(row['fpath'])
+
             yield gw
 
     def to_json(self,dirpath):
@@ -166,41 +177,5 @@ class GwFiles:
             mask = filetbl['loc'].isin(loclist)
             filetbl = filetbl[mask].reset_index(drop=True)
 
-        return cls(filetbl)
-
-    @classmethod
-    def from_csv(cls,srcdir,loclist=None):
-        """Create GwFiles object from folder with json sourcefiles.
-        
-        Parameters
-        ----------
-        srcdir : str
-            Path to directory with GwSeries csv sourcefiles.
-        loclist : list, optional
-            List of strings with valid location names to restrict
-            number of files read from srcdir.
-        """
-
-        if not os.path.isdir(srcdir):
-            raise ValueError(f'Directory {srcdir} does not exist')
-
-        # table of filenames
-        filenames = [fname for fname in os.listdir(srcdir) if fname.endswith('.csv')]
-        filetbl = pd.DataFrame({"fname":filenames})
-
-        # add columns to filetbl
-        filetbl["fpath"]= filetbl["fname"].apply(lambda x:srcdir+x)
-        filetbl.insert(0,"loc",filetbl["fname"].apply(lambda x:x.split('_')[0]))
-        filetbl.insert(1,"fil",filetbl["fname"].apply(lambda x:x.split("_")[-1].lstrip("0")))
-        filetbl.insert(0,"series",filetbl["loc"]+"_"+filetbl['fil'])
-
-        if loclist is not None:
-            mask = filetbl['loc'].isin(loclist)
-            filetbl = filetbl[mask].reset_index(drop=True)
-
-        return cls(filetbl)
-
-
-
-
+        return cls(filetable=filetbl, source='json')
 

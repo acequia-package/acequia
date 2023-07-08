@@ -15,39 +15,41 @@ csvdir = '.\\output\\csv\\'
 def gwf():
     return GwFiles.from_dinocsv(dinodir)
 
-def test_from_dinocsv_with_only_filedir():
+@pytest.fixture
+def gwf_json():
+    return GwFiles.from_json(jsondir)
 
+def test_from_dinocsv_with_only_filedir():
     gwf = GwFiles.from_dinocsv(dinodir)
-    assert isinstance(gwf.filetbl,DataFrame)
-    assert not gwf.filetbl.empty
+    assert isinstance(gwf.filetable,DataFrame)
+    assert not gwf.filetable.empty
 
 def test_from_dinocsv_with_loclist(gwf):
-
-    loclist = gwf.filetbl['loc'].values
+    loclist = gwf.filetable['loc'].values
 
     gwf2 = GwFiles.from_dinocsv(dinodir,loclist=loclist)
-    assert isinstance(gwf2.filetbl,DataFrame)
-    assert len(gwf2.filetbl)!=0
+    assert isinstance(gwf2.filetable,DataFrame)
+    assert len(gwf2.filetable)!=0
 
 def test_from_json_with_only_filedir():
 
     gwf = GwFiles.from_json(jsondir)
-    assert isinstance(gwf.filetbl,DataFrame)
-    assert not gwf.filetbl.empty
+    assert isinstance(gwf.filetable,DataFrame)
+    assert not gwf.filetable.empty
 
 def test_from_json_with_loclist(gwf):
 
-    loclist = gwf.filetbl['loc'].values ##[:listlen]
+    loclist = gwf.filetable['loc'].values ##[:listlen]
 
     gwf2 = GwFiles.from_json(jsondir,loclist=loclist)
-    assert isinstance(gwf2.filetbl,DataFrame)
-    assert len(gwf2.filetbl)!=0
+    assert isinstance(gwf2.filetable,DataFrame)
+    assert len(gwf2.filetable)!=0
 
 def test_from_csv_with_only_filedir():
 
     gwf = GwFiles.from_csv(csvdir)
-    assert isinstance(gwf.filetbl,DataFrame)
-    assert not gwf.filetbl.empty
+    assert isinstance(gwf.filetable,DataFrame)
+    assert not gwf.filetable.empty
 
 
 def test_init_with_invalid_input():
@@ -63,10 +65,14 @@ def test_repr(gwf):
 
     assert isinstance(repr(gwf),str)
 
-def test_iteritems(gwf):
+def test_iteritems(gwf, gwf_json):
 
     for gw in gwf.iteritems():
         assert isinstance(gw,GwSeries)
+
+    for gw in gwf_json.iteritems():
+        assert isinstance(gw,GwSeries)
+
 
 def test_to_json(gwf):
 

@@ -177,9 +177,13 @@ class WaterWeb:
         Returns
         -------
         WaterWebNetwork object
-
+        ...
         """
-        data = pd.read_csv(fpath,sep=';',decimal=',')
+        try:
+            data = pd.read_csv(fpath,sep=';',decimal=',')
+        except FileNotFoundError as err:
+            raise FileNotFoundError(f'Invalid filepath for WaterWeb csv file: "{fpath}"')
+
         if network is None:
             network = pathlib.Path(fpath).stem
 

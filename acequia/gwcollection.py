@@ -10,6 +10,7 @@ from shapely.geometry import Point
 import geopandas as gpd
 
 from .read.gwfiles import GwFiles
+from .read.waterweb import WaterWeb
 
 class GwCollection:
     """Collection of groundwater head series."""
@@ -46,6 +47,37 @@ class GwCollection:
         gwcol = GwFiles.from_dinocsv(filedir,loclist=loclist)
         return cls(gwcol)
 
+    @classmethod
+    def from_json(cls,filedir,loclist=None):
+        """Create GwCollection object from folder with json sourcefiles.
+        
+        Parameters
+        ----------
+        srcdir : str
+            Path to directory with Dinoloket csv sourcefiles.
+        loclist : list, optional
+            List of strings with valid location names to restrict
+            number of files read from srcdir.
+        """
+        gwcol = GwFiles.from_json(filedir,loclist=loclist)
+        return cls(gwcol)
+
+    @classmethod
+    def from_waterweb(cls, filepath):
+        """Create GwCollection object from WaterWeb csv export file.
+        
+        Parameters
+        ----------
+        srcdir : str
+            Path to directory with Dinoloket csv sourcefiles.
+
+        Returns
+        -------
+        GwCollection object
+        ...
+        """
+        wwn = WaterWeb.from_csv(fpath=filepath)
+        return cls(wwn)
 
     def iteritems(self):
         """Iterate over all series in collecion and return gwseries 

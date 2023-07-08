@@ -7,12 +7,13 @@ import pandas as pd
 from geopandas import GeoDataFrame
 
 
-from acequia import GwCollection, GwFiles, GwSeries
+from acequia import GwCollection, GwFiles, WaterWeb, GwSeries
 import acequia as aq
 
 dinodir = '.\\data\\dinogws_small\\'
 jsondir = '.\\output\\json\\'
 csvdir = '.\\output\\csv\\'
+wwfile = '.\\data\waterweb\\grolloer koelanden.csv'
 
 @pytest.fixture
 def gwc():
@@ -20,7 +21,22 @@ def gwc():
     gwc = GwCollection.from_dinocsv(dinodir)
     assert isinstance(gwc, GwCollection)
     assert isinstance(gwc._collection, GwFiles)
+    return gwc
 
+@pytest.fixture
+def gwc_json():
+    # test_from_dinocsv()
+    gwc = GwCollection.from_json(jsondir)
+    assert isinstance(gwc, GwCollection)
+    assert isinstance(gwc._collection, GwFiles)
+    return gwc
+
+@pytest.fixture
+def gwc_ww():
+    # test_from_waterweb()
+    gwc = GwCollection.from_waterweb(wwfile)
+    assert isinstance(gwc, GwCollection)
+    assert isinstance(gwc._collection, WaterWeb)
     return gwc
 
 def test_len(gwc):
@@ -44,12 +60,18 @@ def test_get_xg(gwc):
     assert isinstance(df, DataFrame)
     assert not df.empty
 
-def test_iteritems(gwc):
-    for gw in gwc.iteritems():
-        assert isinstance(gw, GwSeries)
-
 def test_timestats(gwc):
     gdf = gwc.get_timestats(ref='datum', asgeo=True)
     assert isinstance(gdf,GeoDataFrame)
     assert not gdf.empty
-    
+
+def test_iteritems(gwc, gwc_json, gwc_ww):
+    for gw in gwc.iteritems():
+        assert isinstance(gw, GwSeries)
+
+    for gw in gwc_json.iteritems():
+        assert isinstance(gw, GwSeries)
+
+    for gw in gwc_ww.iteritems():
+        assert isinstance(gw, GwSeries)
+
