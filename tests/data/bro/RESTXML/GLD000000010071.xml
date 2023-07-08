@@ -1,0 +1,2749 @@
+<ns11:dispatchDataResponse xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:swe="http://www.opengis.net/swe/2.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gldcommon="http://www.broservices.nl/xsd/gldcommon/1.0" xmlns:brocom="http://www.broservices.nl/xsd/brocommon/3.0" xmlns="http://www.broservices.nl/xsd/isgld/1.0" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:om="http://www.opengis.net/om/2.0" xmlns:waterml="http://www.opengis.net/waterml/2.0" xmlns:ns11="http://www.broservices.nl/xsd/dsgld/1.0">
+  <brocom:responseType>dispatch</brocom:responseType>
+  <brocom:requestReference>dit is een bro gld aanvraag</brocom:requestReference>
+  <brocom:dispatchTime>2023-02-04T10:37:51+01:00</brocom:dispatchTime>
+  <ns11:dispatchDocument>
+    <ns11:GLD_O xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns11:GLD_O_DPType" gml:id="BRO_0006">
+      <brocom:broId>GLD000000010071</brocom:broId>
+      <brocom:deliveryAccountableParty>51048329</brocom:deliveryAccountableParty>
+      <brocom:qualityRegime>IMBRO/A</brocom:qualityRegime>
+      <ns11:registrationHistory>
+        <brocom:objectRegistrationTime>2021-12-08T10:27:46+01:00</brocom:objectRegistrationTime>
+        <brocom:registrationStatus codeSpace="urn:bro:RegistrationStatus">aangevuld</brocom:registrationStatus>
+        <brocom:latestAdditionTime>2022-05-20T12:48:15+02:00</brocom:latestAdditionTime>
+        <brocom:corrected>nee</brocom:corrected>
+        <brocom:underReview>nee</brocom:underReview>
+        <brocom:deregistered>nee</brocom:deregistered>
+        <brocom:reregistered>nee</brocom:reregistered>
+      </ns11:registrationHistory>
+      <ns11:researchFirstDate>1990-01-14</ns11:researchFirstDate>
+      <ns11:researchLastDate>2004-11-28</ns11:researchLastDate>
+      <ns11:monitoringPoint>
+        <gldcommon:GroundwaterMonitoringTube gml:id="BRO_0001">
+          <gldcommon:broId>GMW000000041126</gldcommon:broId>
+          <gldcommon:tubeNumber>1</gldcommon:tubeNumber>
+        </gldcommon:GroundwaterMonitoringTube>
+      </ns11:monitoringPoint>
+      <ns11:observation>
+        <om:OM_Observation gml:id="observation_180557">
+          <om:type xlink:href="http://www.opengis.net/def/observationType/waterml/2.0/MeasurementTimeseriesTVPObservation"/>
+          <om:metadata>
+            <waterml:ObservationMetadata>
+              <gmd:contact>
+                <gmd:CI_ResponsibleParty>
+                  <gmd:organisationName>
+                    <gco:CharacterString/>
+                  </gmd:organisationName>
+                  <gmd:role>
+                    <gmd:CI_RoleCode codeList="urn:ISO:19115:CI_RoleCode" codeListValue="principalInvestigator">principalInvestigator</gmd:CI_RoleCode>
+                  </gmd:role>
+                </gmd:CI_ResponsibleParty>
+              </gmd:contact>
+              <gmd:dateStamp>
+                <gco:Date>2003-05-28</gco:Date>
+              </gmd:dateStamp>
+              <gmd:identificationInfo gco:nilReason="unknown"/>
+              <waterml:status xlink:href="urn:bro:gld:StatusCode:voorlopig"/>
+              <waterml:parameter>
+                <om:NamedValue>
+                  <om:name xlink:href="urn:bro:gld:ObservationMetadata:observationType"/>
+                  <om:value xsi:type="gml:CodeWithAuthorityType" codeSpace="urn:bro:gld:ObservationType">reguliereMeting</om:value>
+                </om:NamedValue>
+              </waterml:parameter>
+            </waterml:ObservationMetadata>
+          </om:metadata>
+          <om:phenomenonTime>
+            <gml:TimePeriod gml:id="BRO_0002">
+              <gml:beginPosition>1990-01-14</gml:beginPosition>
+              <gml:endPosition>2003-05-28</gml:endPosition>
+            </gml:TimePeriod>
+          </om:phenomenonTime>
+          <om:resultTime xlink:type="simple">
+            <gml:TimeInstant gml:id="BRO_0003">
+              <gml:timePosition>2003-05-28</gml:timePosition>
+            </gml:TimeInstant>
+          </om:resultTime>
+          <om:procedure>
+            <waterml:ObservationProcess gml:id="process_180557">
+              <waterml:processType xlink:href="http://www.opengis.net/def/waterml/2.0/processType/Algorithm"/>
+              <waterml:processReference xlink:href="urn:bro:gld:ProcessReference:onbekend"/>
+              <waterml:parameter>
+                <om:NamedValue>
+                  <om:name xlink:href="urn:bro:gld:ObservationProcess:evaluationProcedure"/>
+                  <om:value xsi:type="gml:CodeWithAuthorityType" codeSpace="urn:bro:gld:EvaluationProcedure">oordeelDeskundige</om:value>
+                </om:NamedValue>
+              </waterml:parameter>
+              <waterml:parameter>
+                <om:NamedValue>
+                  <om:name xlink:href="urn:bro:gld:ObservationProcess:measurementInstrumentType"/>
+                  <om:value xsi:type="gml:CodeWithAuthorityType" codeSpace="urn:bro:gld:MeasurementInstrumentType">onbekendPeilklokje</om:value>
+                </om:NamedValue>
+              </waterml:parameter>
+            </waterml:ObservationProcess>
+          </om:procedure>
+          <om:observedProperty/>
+          <om:featureOfInterest/>
+          <om:result>
+            <waterml:MeasurementTimeseries gml:id="timeseries_180557">
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1990-01-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.510</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1990-01-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.580</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1990-02-18T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.630</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1990-02-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.660</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1990-03-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.700</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1990-03-28T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.650</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1990-04-12T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.550</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1990-04-27T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.510</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1990-05-14T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.560</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1990-11-27T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.600</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1990-12-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.590</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1990-12-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.610</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1991-01-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.700</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1991-01-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.680</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1991-02-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.590</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1991-03-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.550</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1991-03-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.340</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1991-06-28T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.410</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1991-12-27T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.520</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1992-01-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.610</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1992-01-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.560</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1992-02-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.540</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1992-02-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.520</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1992-03-13T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.670</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1992-03-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.650</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1992-04-14T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.620</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1992-04-28T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.610</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1992-05-14T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.510</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1992-11-27T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.580</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1992-12-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.600</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1992-12-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.640</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1993-01-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.710</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1993-01-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.720</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1993-02-15T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.710</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1993-03-15T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.620</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1993-03-29T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.590</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1993-04-14T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.520</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1993-04-28T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.550</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1993-05-28T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.340</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1993-07-28T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.600</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1993-08-13T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.660</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1993-08-30T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.580</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1993-09-14T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.510</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1993-09-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.650</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1993-10-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.740</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1993-10-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.730</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1993-11-15T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.770</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1993-12-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.790</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1993-12-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.830</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1994-01-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.810</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1994-01-27T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.840</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1994-02-04T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.730</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1994-03-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.710</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1994-03-28T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.770</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1994-04-14T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.760</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1994-04-28T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.710</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1994-05-16T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.630</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1994-05-30T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.540</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1994-06-14T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.530</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1994-09-27T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.490</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1994-10-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.370</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1994-10-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.370</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1994-11-16T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.600</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1994-11-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.680</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1994-12-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.720</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1994-12-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.770</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1995-01-27T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.810</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1995-02-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.790</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1995-02-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.770</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1995-03-15T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.720</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1995-03-28T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.750</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1995-04-13T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.710</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1995-04-27T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.700</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1995-05-12T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.590</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1995-05-29T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.580</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1995-06-14T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.520</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1996-12-13T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.470</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1996-12-27T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.340</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1997-02-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.560</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1997-02-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.630</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1997-03-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.550</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1997-03-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.540</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1998-01-13T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.530</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1998-01-27T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.450</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1998-03-16T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.640</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1998-03-30T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.570</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1998-04-14T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.640</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1998-04-28T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.630</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1998-05-14T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.300</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1998-06-16T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.480</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1998-06-29T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.310</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1998-10-14T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.610</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1998-10-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.610</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1998-11-16T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.630</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1998-11-30T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.700</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1998-12-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.730</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1998-12-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.740</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1999-02-02T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.750</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1999-03-02T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.770</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1999-03-15T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.740</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1999-03-29T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.710</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1999-04-06T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.700</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1999-04-27T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.700</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1999-05-14T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.490</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>1999-12-27T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.580</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2000-01-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.430</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2000-01-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.310</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2000-02-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.630</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2000-02-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.710</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2000-03-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.730</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2000-03-28T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.730</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2000-04-14T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.670</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2000-04-28T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.590</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2001-01-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.380</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2001-01-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.550</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2001-02-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.650</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2001-02-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.640</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2002-01-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.620</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2002-01-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.720</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2002-02-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.750</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2002-02-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.790</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2002-03-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.730</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2002-03-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.720</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2002-04-14T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.590</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2002-04-28T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.630</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2002-05-14T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.610</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2002-05-28T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.510</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2002-06-14T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.350</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2002-08-14T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.400</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2002-11-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.620</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2002-11-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.620</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2002-12-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.370</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2002-12-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.670</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2003-01-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.720</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2003-01-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.720</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2003-02-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.730</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2003-02-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.710</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2003-03-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.700</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2003-03-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.600</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2003-04-28T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.580</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2003-05-14T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.620</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2003-05-28T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.450</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+            </waterml:MeasurementTimeseries>
+          </om:result>
+        </om:OM_Observation>
+      </ns11:observation>
+      <ns11:observation>
+        <om:OM_Observation gml:id="observation_182329">
+          <om:type xlink:href="http://www.opengis.net/def/observationType/waterml/2.0/MeasurementTimeseriesTVPObservation"/>
+          <om:metadata>
+            <waterml:ObservationMetadata>
+              <gmd:contact>
+                <gmd:CI_ResponsibleParty>
+                  <gmd:organisationName>
+                    <gco:CharacterString/>
+                  </gmd:organisationName>
+                  <gmd:role>
+                    <gmd:CI_RoleCode codeList="urn:ISO:19115:CI_RoleCode" codeListValue="principalInvestigator">principalInvestigator</gmd:CI_RoleCode>
+                  </gmd:role>
+                </gmd:CI_ResponsibleParty>
+              </gmd:contact>
+              <gmd:dateStamp>
+                <gco:Date>2004-11-28</gco:Date>
+              </gmd:dateStamp>
+              <gmd:identificationInfo gco:nilReason="unknown"/>
+              <waterml:status xlink:href="urn:bro:gld:StatusCode:voorlopig"/>
+              <waterml:parameter>
+                <om:NamedValue>
+                  <om:name xlink:href="urn:bro:gld:ObservationMetadata:observationType"/>
+                  <om:value xsi:type="gml:CodeWithAuthorityType" codeSpace="urn:bro:gld:ObservationType">reguliereMeting</om:value>
+                </om:NamedValue>
+              </waterml:parameter>
+            </waterml:ObservationMetadata>
+          </om:metadata>
+          <om:phenomenonTime>
+            <gml:TimePeriod gml:id="BRO_0004">
+              <gml:beginPosition>2003-06-14</gml:beginPosition>
+              <gml:endPosition>2004-11-28</gml:endPosition>
+            </gml:TimePeriod>
+          </om:phenomenonTime>
+          <om:resultTime xlink:type="simple">
+            <gml:TimeInstant gml:id="BRO_0005">
+              <gml:timePosition>2004-11-28</gml:timePosition>
+            </gml:TimeInstant>
+          </om:resultTime>
+          <om:procedure>
+            <waterml:ObservationProcess gml:id="process_182329">
+              <waterml:processType xlink:href="http://www.opengis.net/def/waterml/2.0/processType/Algorithm"/>
+              <waterml:processReference xlink:href="urn:bro:gld:ProcessReference:onbekend"/>
+              <waterml:parameter>
+                <om:NamedValue>
+                  <om:name xlink:href="urn:bro:gld:ObservationProcess:airPressureCompensationType"/>
+                  <om:value xsi:type="gml:CodeWithAuthorityType" codeSpace="urn:bro:gld:AirPressureCompensationType">putlocatiemeting</om:value>
+                </om:NamedValue>
+              </waterml:parameter>
+              <waterml:parameter>
+                <om:NamedValue>
+                  <om:name xlink:href="urn:bro:gld:ObservationProcess:evaluationProcedure"/>
+                  <om:value xsi:type="gml:CodeWithAuthorityType" codeSpace="urn:bro:gld:EvaluationProcedure">oordeelDeskundige</om:value>
+                </om:NamedValue>
+              </waterml:parameter>
+              <waterml:parameter>
+                <om:NamedValue>
+                  <om:name xlink:href="urn:bro:gld:ObservationProcess:measurementInstrumentType"/>
+                  <om:value xsi:type="gml:CodeWithAuthorityType" codeSpace="urn:bro:gld:MeasurementInstrumentType">druksensor</om:value>
+                </om:NamedValue>
+              </waterml:parameter>
+            </waterml:ObservationProcess>
+          </om:procedure>
+          <om:observedProperty/>
+          <om:featureOfInterest/>
+          <om:result>
+            <waterml:MeasurementTimeseries gml:id="timeseries_182329">
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2003-06-14T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.370</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2004-01-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.500</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2004-01-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.610</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2004-02-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.730</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2004-03-14T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.630</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2004-03-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.700</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2004-04-14T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.680</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2004-04-28T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.550</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2004-05-14T00:00:00+02:00</waterml:time>
+                  <waterml:value uom="m">28.540</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+              <waterml:point>
+                <waterml:MeasurementTVP>
+                  <waterml:time>2004-11-28T00:00:00+01:00</waterml:time>
+                  <waterml:value uom="m">28.460</waterml:value>
+                  <waterml:metadata>
+                    <waterml:TVPMeasurementMetadata>
+                      <waterml:qualifier>
+                        <swe:Category>
+                          <swe:codeSpace xlink:href="urn:bro:gld:StatusQualityControl"/>
+                          <swe:value>goedgekeurd</swe:value>
+                        </swe:Category>
+                      </waterml:qualifier>
+                      <waterml:interpolationType xlink:href="http://www.opengis.net/def/waterml/2.0/interpolationType/Discontinuous"/>
+                    </waterml:TVPMeasurementMetadata>
+                  </waterml:metadata>
+                </waterml:MeasurementTVP>
+              </waterml:point>
+            </waterml:MeasurementTimeseries>
+          </om:result>
+        </om:OM_Observation>
+      </ns11:observation>
+    </ns11:GLD_O>
+  </ns11:dispatchDocument>
+</ns11:dispatchDataResponse>

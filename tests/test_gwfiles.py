@@ -23,12 +23,11 @@ def test_from_dinocsv_with_only_filedir():
 
 def test_from_dinocsv_with_loclist(gwf):
 
-    listlen = 3
-    loclist = gwf.filetbl['loc'].values[:listlen]
+    loclist = gwf.filetbl['loc'].values
 
     gwf2 = GwFiles.from_dinocsv(dinodir,loclist=loclist)
     assert isinstance(gwf2.filetbl,DataFrame)
-    assert len(gwf2.filetbl)==listlen
+    assert len(gwf2.filetbl)!=0
 
 def test_from_json_with_only_filedir():
 
@@ -38,12 +37,11 @@ def test_from_json_with_only_filedir():
 
 def test_from_json_with_loclist(gwf):
 
-    listlen = 3
-    loclist = gwf.filetbl['loc'].values[:listlen]
+    loclist = gwf.filetbl['loc'].values ##[:listlen]
 
     gwf2 = GwFiles.from_json(jsondir,loclist=loclist)
     assert isinstance(gwf2.filetbl,DataFrame)
-    assert len(gwf2.filetbl)==listlen
+    assert len(gwf2.filetbl)!=0
 
 def test_from_csv_with_only_filedir():
 

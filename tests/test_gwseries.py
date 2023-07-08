@@ -52,8 +52,8 @@ def test_GwSeries_locname(gws):
     assert isinstance(gws.locname(),str)
 
 
-def test_GwSeries_locprops(gws,name):
-    assert gws.locprops().index[0]==name
+def test_GwSeries_locprops(gws):
+    assert gws.locprops().index[0]==gws.locname()
 
 
 def test_GwSeries_tubeprops(gws,name):

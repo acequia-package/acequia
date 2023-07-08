@@ -73,8 +73,8 @@ def test_to_kml(wwn):
     outpath = f'.\\output\\kml\\{wwn.networkname}.kml'
     wwn.to_kml(outpath)
 
-def test_iterseries(wwn):
-    for gw in wwn.itergwseries():
+def test_iteritems(wwn):
+    for gw in wwn.iteritems():
         assert isinstance(gw,GwSeries)
 
 # test custom functions in module waterwebtools
