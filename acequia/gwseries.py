@@ -21,7 +21,7 @@ from pandas import Series, DataFrame
 import pandas as pd
 import numpy as np
 
-from .read import dinogws
+##from .read import dinogws
 from .plots import plotheads as plotheadsmodule
 from .stats.gxg import GxgStats
 from .stats.gwtimestats import GwTimeStats
@@ -123,30 +123,6 @@ class GwSeries:
         'datum','surface','mp',
         ]
 
-    _mapping_dinoheadprops = OrderedDict([
-        ("headdatetime","peildatum"),("headmp","standcmmp"),
-        ("headnote","bijzonderheid"),("remarks","opmerking"),
-        ])
-
-    _mapping_dinolocprops = OrderedDict([
-        ('locname','nitgcode'),
-        ('filname','filter'),
-        ('alias','tnocode'),
-        ('xcr','xcoor'),
-        ('ycr','ycoor'),
-        ('height_datum','NAP'),
-        ('grid_reference','RD'),
-        ])
-
-    _mapping_dinotubeprops = OrderedDict([
-        ('startdate','startdatum'),
-        ('mplevel','mpcmnap'),
-        ('filtop','filtopcmnap'),
-        ('filbot','filbotcmnap'),
-        ('surfacedate','mvdatum'),
-        ('surfacelevel','mvcmnap'),
-        ])
-
 
     def __init__(self,heads=None,locprops=None,tubeprops=None):
         """
@@ -207,69 +183,6 @@ class GwSeries:
             return self._reflevels[0]
 
         return ref
-
-
-    @classmethod
-    def from_dinogws(cls,filepath):
-        """ 
-        Read tno dinoloket csvfile with groundwater measurements and return data as gwseries object
-
-        Parameters
-        ----------
-        filepath : str
-            path to dinocsv file with measured groundwater heads
-
-        Returns
-        -------
-        result : GwSeries object
-
-        Example
-        -------
-        gw = GwSeries.from_dinogws(<filepath>)
-        jsondict = gw.to_json(<filepath>)
-        gw.from_json(<filepath>)
-        
-        """
-
-        # read dinofile to DinoGws object
-        ##dn = GwSeries.read.dinogws.DinoGws(filepath=filepath)
-        dn = dinogws.DinoGws(filepath=filepath)
-
-        dinoprops = list(dn.header().columns)
-
-        # get location metadata
-        locprops = Series(index=cls._locprops_names,dtype='object')
-
-        for propname in cls._locprops_names:
-            dinoprop = cls._mapping_dinolocprops[propname]
-            if dinoprop in dinoprops:
-                locprops[propname] = dn.header().at[0,dinoprop]
-
-        locprops['grid_reference'] = 'RD'
-        locprops['height_datum'] = 'mNAP'
-        locprops = Series(locprops)
-
-        # get piezometer metadata
-        tubeprops = DataFrame(columns=cls._tubeprops_names)
-        for prop in cls._tubeprops_names:
-            dinoprop = cls._mapping_dinotubeprops[prop]
-            if dinoprop in dinoprops:
-                tubeprops[prop] = dn.header()[dinoprop]
-
-        for col in cls._tubeprops_numcols:
-                tubeprops[col] = pd.to_numeric(tubeprops[col],
-                                 errors='coerce')/100.
-
-        # get head measurements
-        dinoprops = list(dn.headdata().columns)
-        heads = DataFrame(columns=cls._headprops_names)
-        for prop in cls._headprops_names:
-            dinoprop = cls._mapping_dinoheadprops[prop]
-            if dinoprop in dinoprops:
-                heads[prop] = dn.headdata()[dinoprop]
-        heads['headmp'] = heads['headmp']/100.
-
-        return cls(heads=heads,locprops=locprops,tubeprops=tubeprops)
 
     @classmethod
     def from_json(cls,filepath=None):

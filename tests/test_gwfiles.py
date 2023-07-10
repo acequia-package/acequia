@@ -45,13 +45,6 @@ def test_from_json_with_loclist(gwf):
     assert isinstance(gwf2.filetable,DataFrame)
     assert len(gwf2.filetable)!=0
 
-def test_from_csv_with_only_filedir():
-
-    gwf = GwFiles.from_csv(csvdir)
-    assert isinstance(gwf.filetable,DataFrame)
-    assert not gwf.filetable.empty
-
-
 def test_init_with_invalid_input():
 
     with pytest.raises(ValueError):
