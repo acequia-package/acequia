@@ -20,6 +20,7 @@ from .plots.tsmodelstatsplot import TsModelStatsPlot,plot_tsmodel_statistics
 from .plots.plotfun import plot_tubechanges
 from .read.dinogws import DinoGws
 from .read.dinosurfacelevel import DinoSurfaceLevel
+from .read.dawaco import Dawaco
 from .read.gpxtree import GpxTree
 from .read.hydromonitor import HydroMonitor
 from .read.waterweb import WaterWeb

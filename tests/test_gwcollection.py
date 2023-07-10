@@ -7,13 +7,14 @@ import pandas as pd
 from geopandas import GeoDataFrame
 
 
-from acequia import GwCollection, GwFiles, WaterWeb, GwSeries
+from acequia import GwCollection, GwFiles, WaterWeb, GwSeries, HydroMonitor
 import acequia as aq
 
 dinodir = '.\\data\\dinogws_small\\'
 jsondir = '.\\output\\json\\'
 csvdir = '.\\output\\csv\\'
 wwfile = '.\\data\waterweb\\grolloer koelanden.csv'
+hmfile = r'.\\data\\hymon\\hydromonitor_testdata.csv'
 
 @pytest.fixture
 def gwc():
@@ -38,6 +39,15 @@ def gwc_ww():
     assert isinstance(gwc, GwCollection)
     assert isinstance(gwc._collection, WaterWeb)
     return gwc
+
+@pytest.fixture
+def gwc_hm():
+    # test_from_hydromonitor()
+    gwc = GwCollection.from_hydromonitor(hmfile)
+    assert isinstance(gwc, GwCollection)
+    assert isinstance(gwc._collection, HydroMonitor)
+    return gwc
+
 
 def test_len(gwc):
     assert len(gwc)!=0
@@ -65,7 +75,7 @@ def test_timestats(gwc):
     assert isinstance(gdf,GeoDataFrame)
     assert not gdf.empty
 
-def test_iteritems(gwc, gwc_json, gwc_ww):
+def test_iteritems(gwc, gwc_json, gwc_ww, gwc_hm):
     for gw in gwc.iteritems():
         assert isinstance(gw, GwSeries)
 
@@ -75,3 +85,5 @@ def test_iteritems(gwc, gwc_json, gwc_ww):
     for gw in gwc_ww.iteritems():
         assert isinstance(gw, GwSeries)
 
+    for gw in gwc_hm.iteritems():
+        assert isinstance(gw, GwSeries)

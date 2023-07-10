@@ -148,10 +148,6 @@ class GwSeries:
         ])
 
 
-    def __repr__(self):
-        return (f'{self.name()} (n={len(self._heads)})')
-
-
     def __init__(self,heads=None,locprops=None,tubeprops=None):
         """
         Parameters
@@ -193,6 +189,11 @@ class GwSeries:
         else:
             raise TypeError(f'heads is not a pandas DataFrame but {type(heads)}')
 
+    def __repr__(self):
+        return (f'{self.name()} (n={len(self)})')
+
+    def __len__(self):
+        return len(self._heads)
 
     def _validate_reference(self,ref):
 

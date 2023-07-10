@@ -36,13 +36,15 @@ def test_locations(hm):
     assert len(hm.locations)!=0
 
 def test_to_list(hm):
-    res = hm.to_list()
-    assert isinstance(res,list)
-    assert isinstance(res[0],GwSeries)
+    gwlist = hm.to_list()
+    assert isinstance(gwlist,list)
+    for i,gw in enumerate(gwlist):
+        assert isinstance(gw,GwSeries)
 
 def test_to_json(hm):
     hm.to_json(r'.\output\json\\')
 
+"""
 def test_iterdata(hm):
     rownr = 0
     for idx,row in hm.iterdata():
@@ -50,6 +52,12 @@ def test_iterdata(hm):
         assert len(row)!=0
         rownr+=1
     assert(rownr>0)
+"""
+
+def test_iteritems(hm):
+    for gw in hm.iteritems():
+        assert isinstance(gw, GwSeries)
+
 
 # test private methods
 # --------------------

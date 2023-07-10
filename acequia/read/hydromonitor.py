@@ -477,17 +477,20 @@ class HydroMonitor:
             objects """
 
         srlist = []
-
+        """
         heads = self._delete_duplicate_data()
         filgrp = heads.groupby(self.idkeys)
         for (location,filnr),data in filgrp:
-
             gws = self.get_series(loc=location,fil=filnr)
-            srlist.append(gws)
+        """
+        for gw in self.iteritems():
+            srlist.append(gw)
 
         return srlist
 
-
+    """
+    # code below is superseded by iteritems method
+    
     def __iter__(self):
         return self
 
@@ -504,9 +507,10 @@ class HydroMonitor:
         return gw
 
     def iterdata(self):
-        """Return generator for iterating over heads data"""
+        #Return generator for iterating over heads data
         heads = self._delete_duplicate_data()
         return heads.groupby(self.idkeys).__iter__()
+    """
 
     def __len__(self):
         heads = self._delete_duplicate_data()
@@ -517,6 +521,19 @@ class HydroMonitor:
 
     def to_json(self,filedir=None):
 
-        for (loc,fil),data in self.iterdata():
-            gws = self.get_series(loc=loc,fil=fil)
-            gws.to_json(filedir)
+        for gw in self.iteritems():
+            gw.to_json(filedir)
+
+
+    def iteritems(self):
+        """Iterate over all series and return gwseries object.
+        
+        Examples
+        --------
+        for gw in hm.iteritems():
+            print(gw)
+        """
+        locs = self.metadata.loc[:,self.idkeys[0]].values
+        fils = self.metadata.loc[:,self.idkeys[1]].values
+        for loc, fil in zip(locs,fils):
+            yield self.get_series(loc,fil)

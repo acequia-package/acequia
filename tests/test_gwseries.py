@@ -25,6 +25,11 @@ def test_GwSeries_init():
     gw = aq.GwSeries()
     assert isinstance(gw,aq.gwseries.GwSeries)
 
+def test_len(gws):
+    assert len(gws)!=0
+
+def test_repr(gws):
+    assert isinstance(repr(gws),str)
 
 def test_GwSeries_from_dinogws(name):
     gwd = aq.GwSeries.from_dinogws(dnpath)

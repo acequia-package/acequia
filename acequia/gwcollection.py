@@ -11,6 +11,7 @@ import geopandas as gpd
 
 from .read.gwfiles import GwFiles
 from .read.waterweb import WaterWeb
+from .read.hydromonitor import HydroMonitor
 
 class GwCollection:
     """Collection of groundwater head series."""
@@ -78,6 +79,24 @@ class GwCollection:
         """
         wwn = WaterWeb.from_csv(fpath=filepath)
         return cls(wwn)
+
+    @classmethod
+    def from_hydromonitor(cls, filepath):
+        """Create GwCollection object from Menyanthes hydromonitor csv export file.
+        
+        Parameters
+        ----------
+        srcdir : str
+            Path to directory with Dinoloket csv sourcefiles.
+
+        Returns
+        -------
+        GwCollection object
+        ...
+        """
+        hm = HydroMonitor(fpath=filepath)
+        return cls(hm)
+
 
     def iteritems(self):
         """Iterate over all series in collecion and return gwseries 
