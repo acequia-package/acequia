@@ -16,7 +16,6 @@ from .read.hydromonitor import HydroMonitor
 class GwCollection:
     """Collection of groundwater head series."""
 
-
     def __init__(self, gwcol):
 
         self._collection = gwcol
@@ -24,14 +23,11 @@ class GwCollection:
         self._xg = None
         self._ref = None
 
-
     def __len__(self):    
         return len(self._collection)
 
-
     def __repr__(self):
         return f'{self.__class__.__name__} (n={len(self)})'
-
     
     @classmethod
     def from_dinocsv(cls,filedir,loclist=None):

@@ -213,7 +213,6 @@ class BroGldXml:
                 
         return DataFrame(propslist)
 
-        
     @property
     def obs(self):
         """Get all observation data."""
@@ -241,7 +240,6 @@ class BroGldXml:
 
         return pd.concat(tslist).sort_values(by='time').reset_index(drop=True)
 
-
     @property
     def obsprops(self):
         """Return observations metadata."""
@@ -263,7 +261,6 @@ class BroGldXml:
 
         return DataFrame(propslist)
 
- 
     @property
     def heads(self):
         """Return time series with groundwater levels."""

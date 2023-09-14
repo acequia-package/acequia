@@ -30,6 +30,7 @@ from .read.knmi_rain import KnmiRain
 from .read.knmi_download import KnmiDownload
 from .read.filedirtools import listdir, cleardir
 from .read.brogldxml import BroGldXml
+from .read.brogmwxml import BroGmwXml
 from .read import brorest
 from .stats.utils import hydroyear, season, index1428, ts1428
 from .stats.utils import measfrq, maxfrq
