@@ -1,57 +1,57 @@
 
 import pytest
-#import numpy as np
 from pandas import DataFrame, Series
-#import pandas as pd
-#import acequia as aq
-from acequia import KnmiWeather
+from acequia import KnmiRain
 
-fpath = r'.\data\knmi_weather\etmgeg_251.txt' 
+fpath = r'.\data\knmi_prc\550_debilt.txt'
 
 @pytest.fixture
-def wtr():
-    return KnmiWeather(filepath=fpath)
+def prec():
+    return KnmiRain(filepath=fpath)
 
-def test_repr(wtr):
-    print(wtr)
+def test_repr(prec):
+    assert isinstance(repr(prec),str)
 
-def test_rawdata(wtr):
-    assert isinstance(wtr.rawdata,DataFrame)
-    assert not wtr.rawdata.empty
+def test_rawdata(prec):
+    assert isinstance(prec.rawdata,DataFrame)
+    assert not prec.rawdata.empty
 
-def test_data(wtr):
-    assert isinstance(wtr.data,DataFrame)
-    assert not wtr.data.empty
+def test_data(prec):
+    assert isinstance(prec.data,DataFrame)
+    assert not prec.data.empty
 
-def test_meta(wtr):
-    assert isinstance(wtr.meta,DataFrame)
-    assert not wtr.meta.empty
+def test_units(prec):
+    assert isinstance(prec.units,DataFrame)
+    assert not prec.units.empty
 
-def test_stn(wtr):
-    assert isinstance(wtr.stn,int)
+def test_get_timeseries(prec):
+    assert isinstance(prec.get_timeseries(),Series)
+    assert not prec.get_timeseries().empty
+    assert isinstance(prec.get_timeseries(var='prec'),Series)
+    assert not prec.get_timeseries(var='prec').empty
+    assert isinstance(prec.get_timeseries(var='snow'),Series)
+    assert not prec.get_timeseries(var='snow').empty
 
-def test_units(wtr):
-    assert isinstance(wtr.units,DataFrame)
-    assert not wtr.units.empty
+def test_header(prec):
+    assert len(prec.header)!=0
 
-def test_timeseries(wtr):
-    assert isinstance(wtr.timeseries(),Series)
-    assert not wtr.timeseries().empty
-    assert isinstance(wtr.timeseries(var='prc'),Series)
-    assert not wtr.timeseries(var='prc').empty
-    assert isinstance(wtr.timeseries(var='evp'),Series)
-    assert not wtr.timeseries(var='evp').empty
-    assert isinstance(wtr.timeseries(var='rch'),Series)
-    assert not wtr.timeseries(var='rch').empty
+def test_prc(prec):
+    assert isinstance(prec.prec,Series)
+    assert not prec.prec.empty
 
-def test_prc(wtr):
-    assert isinstance(wtr.prc,Series)
-    assert not wtr.prc.empty
+def test_snow(prec):
+    assert isinstance(prec.snow,Series)
+    assert not prec.snow.empty
 
-def test_evp(wtr):
-    assert isinstance(wtr.evp,Series)
-    assert not wtr.evp.empty
+def test_station(prec):
+    assert isinstance(prec.station,str)
 
-def test_recharge(wtr):
-    assert isinstance(wtr.recharge,Series)
-    assert not wtr.recharge.empty
+def test_location(prec):
+    assert isinstance(prec.location,str)
+
+def test_filepath(prec):
+    assert isinstance(prec.filepath, str)
+
+def test_period(prec):
+    assert isinstance(prec.period, str)
+
