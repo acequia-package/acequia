@@ -17,19 +17,12 @@ class KnmiWeather:
     Examples
     --------
     wtr = KnmiWeather.from_file(<filepath>)
-    evp = wtr.timeseries('evp')
+    evap = wtr.timeseries('evap')
     name = wtr.name()
     """
-    NAMESTR = ''.join([
-        'STN,YYYYMMDD,DDVEC,FHVEC,   FG,  FHX, FHXH,  FHN, FHNH,',
-        '  FXX, FXXH,   TG,   TN,  TNH,   TX,  TXH, T10N,T10NH,   SQ,',
-        '   SP,    Q,   DR,   RH,  RHX, RHXH,   PG,   PX,  PXH,   PN,',
-        '  PNH,  VVN, VVNH,  VVX, VVXH,   NG,   UG,   UX,  UXH,   UN,',
-        '  UNH, EV24'])
-    COLNAMES = NAMESTR.replace(' ','').split(',')
-    KEEPCOLS = 'YYYYMMDD,RH,EV24'.split(',')
-    VARNAMES = ['prc','evp','rch']
-    SKIPROWS = 52
+    KEEPCOLS = ['YYYYMMDD','RH','EV24']
+    VARIABLES = ['prec','evap','rch']
+    SKIPROWS = 47
 
     def __init__(self,filepath=None):
         """Read Knmi Weather csv file.
@@ -39,48 +32,42 @@ class KnmiWeather:
         filepath : str
             Valid filepath to csv file with weather data.
         """
-        self.fpath = filepath
+        self.filepath = filepath
+        self.header = self._read_header(filepath)
         self.rawdata = self._read_data(filepath)
-        self.meta = self._read_meta(filepath)
         self.data = self._clean_rawdata(self.rawdata)
-        self.stn = int(self.rawdata.loc[0,'STN'])
+        ##self.stn = int(self.rawdata.loc[0,'STN'])
 
     def __repr__(self):
         return (f'{self.__class__.__name__} (n={len(self.data)})')
 
+    def _read_header(self, fpath):
+        """Read headerlines from source file."""
+        header = []
+        with open(fpath) as f:
+            while True:
+                line = f.readline()
+                if line.startswith('#'):
+                    header.append(line[:-1]) # -1 : drop '\n'
+                else:
+                    break
+        return header
+
     def _read_data(self,filepath):
+
+        # extract column names from file header
+        colnames = [x.strip() for x in self.header[-1][2:].split(',')]
 
         # read data with pandas
         rawdata = pd.read_csv(filepath,sep=',',
             skiprows=self.SKIPROWS,
-            names=self.COLNAMES,dtype='str')
+            names=colnames,dtype='str')
 
         # replace empty strings with NaN
         rawdata = rawdata.apply(
             lambda x: x.str.strip()).replace('', np.nan)
 
         return rawdata
-
-    def _read_meta(self,filepath):
-
-        # read metadata from header
-        with open(filepath, 'r') as fp:
-            line_numbers = list(range(10,50))
-            lines = []
-            for i, line in enumerate(fp):
-                if i in line_numbers:
-                    line = line.strip()
-                    desc = line[11:].strip()
-                    rec = {
-                        'variabele':line[0:10].strip(),
-                        'omschrijving':desc.split('/')[0].strip(),
-                        'description':desc.split('/')[1].strip(),
-                        }
-                    lines.append(rec)
-                elif i > 49:
-                    break
-        desc = DataFrame(lines)
-        return desc
 
     def _clean_rawdata(self,rawdata):
 
@@ -118,33 +105,30 @@ class KnmiWeather:
 
         return data
 
-    def timeseries(self,var='prc'):
+    def get_timeseries(self,var='prec'):
         """Return timeseries with data
 
         Parameters
         ----------
-        var : {'prc','evp','rch'), default 'prc'
+        var : {'prec','evap','rch'), default 'prec'
             variable to return
             
         Returns
         -------
         pd.Series
         """
-        if var not in self.VARNAMES:
-            msg = [f'{var} is not a valid variable name.',
-                f'parameter varname must be in {self.VARNAMES}',
-                f'by default rain data are returned']
-            warnings.warn((f'{var} is not a valid variable name. ',
-                f'parameter varname must be in {self.VARNAMES}'
+        if var not in self.VARIABLES:
+            warnings.warn((f'{var} is not a valid variable name. '
+                f'parameter varname must be in {self.VARIABLES}'
                 f'by default rain data are returned.'))
-            var = 'prc'
+            var = 'prec'
 
-        if var == 'prc':
+        if var == 'prec':
             sr = self.data['RH']
-            sr.name = 'prc'
-        if var == 'evp':
+            sr.name = 'prec'
+        if var == 'evap':
             sr = self.data['EV24']
-            sr.name = 'evp'
+            sr.name = 'evap'
         if var == 'rch':
             sr = self.data['RH']-self.data['EV24']
             sr.name = 'rch'
@@ -154,28 +138,63 @@ class KnmiWeather:
         return sr[first:last]
 
     @property
+    def variables(self):
+        records = []
+        for line in self.header[7:46]:
+            records.append({
+                'variabele' : line[1:].split(':')[0].strip(),
+                'description' : line[14:].strip(),
+                })
+        return DataFrame(records).set_index('variabele')
+
+    @property
     def units(self):
         """Return table with definitions and units of variables"""
         tbl = pd.DataFrame({
-            'variable' : ['prc','evp','rch'],
-            'datacol' : ['RH','EV24','calculated'],
+            'variable' : ['prec','evap','rch'],
+            'datacol' : ['RH','EV24','RH-EV24'],
             'unit' : ['mm/day','mm/day','mm/day'], 
             })
         tbl = tbl.set_index('variable')
         return tbl
 
     @property
-    def prc(self):
+    def prec(self):
         """Return precipitation time series."""
-        return self.timeseries(var='prc')
+        return self.get_timeseries(var='prec')
 
     @property
-    def evp(self):
+    def evap(self):
         """Return evaporation time series."""
-        return self.timeseries(var='evp')
+        return self.get_timeseries(var='evap')
 
     @property
     def recharge(self):
         """Return recharge time series."""
-        return self.timeseries(var='rch')
+        return self.get_timeseries(var='rch')
+
+    @property
+    def station(self):
+        """Return station identification code."""
+        return self.header[6][2:5]
+
+    @property
+    def location(self):
+        """Return station location name."""
+        return self.header[6][49:].strip()
+
+    @property
+    def lon(self):
+        """Return station location longitude."""
+        return self.header[6][14:26].strip()
+
+    @property
+    def lat(self):
+        """Return station location latitude."""
+        return self.header[6][26:38].strip()
+
+    @property
+    def altitude(self):
+        """Return station location altitude."""
+        return self.header[6][38:50].strip()
 
