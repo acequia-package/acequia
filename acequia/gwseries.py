@@ -21,7 +21,7 @@ from pandas import Series, DataFrame
 import pandas as pd
 import numpy as np
 
-##from .read import dinogws
+from .read.dinogws import DinoGws
 from .plots import plotheads as plotheadsmodule
 from .stats.gxg import GxgStats
 from .stats.gwtimestats import GwTimeStats
@@ -185,6 +185,47 @@ class GwSeries:
         return ref
 
     @classmethod
+    def from_dinogws(cls,filepath):
+        """Read measured groundwater heads from dinoloket csv file."""
+
+        # create DinoGws object with groundwater level data
+        dn = DinoGws(filepath=filepath,readall=True)
+
+        # get location metadata
+        locprops = Series(index=cls._locprops_names,dtype='object')
+
+        for propname in cls._locprops_names:
+            dinoprop = DinoGws.MAPPING_DINOLOCPROPS[propname]
+            if dinoprop in DinoGws.FILTERCOLS:
+                locprops[propname] = dn.header.at[0,dinoprop]
+
+        locprops['grid_reference'] = 'RD'
+        locprops['height_datum'] = 'mNAP'
+        locprops = Series(locprops)
+
+        # get piezometer metadata
+        tubeprops = DataFrame(columns=cls._tubeprops_names)
+        for prop in cls._tubeprops_names:
+            dinoprop = DinoGws.MAPPING_DINOTUBEPROPS[prop]
+            if dinoprop in DinoGws.FILTERCOLS:
+                tubeprops[prop] = dn.header[dinoprop]
+
+        for col in cls._tubeprops_numcols:
+                tubeprops[col] = pd.to_numeric(tubeprops[col],
+                                 errors='coerce')/100.
+
+        # get head measurements
+        heads = DataFrame(columns=cls._headprops_names)
+        for prop in cls._headprops_names:
+            dinoprop = DinoGws.MAPPING_DINOHEADPROPS[prop]
+            if dinoprop in DinoGws.HEADCOLS:
+                heads[prop] = dn.headdata[dinoprop]
+        heads['headmp'] = heads['headmp']/100.
+
+        return cls(heads=heads, locprops=locprops, tubeprops=tubeprops)
+
+
+    @classmethod
     def from_json(cls,filepath=None):
         """ Read gwseries object from json file """
 
@@ -203,7 +244,7 @@ class GwSeries:
 
         heads = DataFrame.from_dict(json_dict['heads'],orient='index')
 
-        return cls(heads=heads,locprops=locprops,tubeprops=tubeprops)
+        return cls(heads=heads, locprops=locprops, tubeprops=tubeprops)
 
 
     def to_json(self,filepath=None):

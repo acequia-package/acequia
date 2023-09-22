@@ -41,13 +41,6 @@ def test_data(dn):
     assert isinstance(dn.data,DataFrame)
     assert not dn.data.empty
 
-def test_gwseries(dn):
-    gw = dn.gwseries
-    assert isinstance(gw, GwSeries)
-    assert not gw.heads().empty
-    assert not gw.tubeprops().empty
-    assert not gw.locprops().empty
-
 def test_locname(dn):
     assert isinstance(dn.locname,str)
     assert len(dn.locname)!=0

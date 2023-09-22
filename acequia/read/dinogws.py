@@ -20,7 +20,7 @@ import numpy as np
 from pandas import Series, DataFrame
 import pandas as pd
 
-from ..gwseries import GwSeries
+##from ..gwseries import GwSeries
 
 sep = ","
 
@@ -120,43 +120,6 @@ class DinoGws:
 
     def __repr__(self):
         return (f'{self.srname} (n={len(self._data)})')
-
-    @property
-    def gwseries(self):
-        """Return GwSeries object."""
-
-        # get location metadata
-        locprops = Series(index=GwSeries._locprops_names,dtype='object')
-
-        for propname in GwSeries._locprops_names:
-            dinoprop = self.MAPPING_DINOLOCPROPS[propname]
-            if dinoprop in self.FILTERCOLS:
-                locprops[propname] = self.header.at[0,dinoprop]
-
-        locprops['grid_reference'] = 'RD'
-        locprops['height_datum'] = 'mNAP'
-        locprops = Series(locprops)
-
-        # get piezometer metadata
-        tubeprops = DataFrame(columns=GwSeries._tubeprops_names)
-        for prop in GwSeries._tubeprops_names:
-            dinoprop = self.MAPPING_DINOTUBEPROPS[prop]
-            if dinoprop in self.FILTERCOLS:
-                tubeprops[prop] = self.header[dinoprop]
-
-        for col in GwSeries._tubeprops_numcols:
-                tubeprops[col] = pd.to_numeric(tubeprops[col],
-                                 errors='coerce')/100.
-
-        # get head measurements
-        heads = DataFrame(columns=GwSeries._headprops_names)
-        for prop in GwSeries._headprops_names:
-            dinoprop = self.MAPPING_DINOHEADPROPS[prop]
-            if dinoprop in self.HEADCOLS:
-                heads[prop] = self.headdata[dinoprop]
-        heads['headmp'] = heads['headmp']/100.
-
-        return GwSeries(heads=heads, locprops=locprops, tubeprops=tubeprops)
 
 
     def _readfile(self,filepath=None):
