@@ -1,17 +1,19 @@
 
 
 import pytest
-from pandas import DataFrame
+from pandas import Series, DataFrame
+from geopandas import GeoDataFrame
 from acequia import KnmiDownload
-from acequia.read.knmi_download import knmilocations
+from acequia.read.knmi_download import get_knmiweather, get_knmiprec
+from acequia import get_knmi_weatherstations, get_knmi_precipitationstations
 
-def test__request_weather():
+def test_bad_request_weather():
     """Request weather date from server""" 
     stn = KnmiDownload()
     res = stn._request_weather(par=None)
     assert res.status_code==200
 
-def test__request_precipitation():
+def test_bad_request_precipitation():
     """Request weather date from server""" 
     stn = KnmiDownload()
     res = stn._request_precipitation(par=None)
@@ -26,28 +28,58 @@ def test_download_with_weather():
 
 def test_download_with_prc():
     stn = KnmiDownload()
-    data = stn.download(kind='prc')
+    data = stn.download(kind='prec')
     assert isinstance(data,DataFrame)
-    text = stn.download(kind='prc',result='text')
+    text = stn.download(kind='prec',result='text')
     assert isinstance(text,str)
 
 def test_wtr_stns():
-    stn = KnmiDownload()
-    wtr = stn.wtr_stns
-    assert isinstance(wtr,DataFrame)
-    assert not wtr.empty
+    knmi = KnmiDownload()
+    data = knmi.weather_stations
+    assert isinstance(data,DataFrame)
+    assert not data.empty
 
 def test_prc_stns():
-    stn = KnmiDownload()
-    prc = stn.prc_stns
-    assert isinstance(prc,DataFrame)
-    assert not prc.empty
+    knmi = KnmiDownload()
+    data = knmi.precipitation_stations
+    assert isinstance(data,DataFrame)
+    assert not data.empty
 
-def test_function_knmi_locations():
-    prc = knmilocations(stntype='prc')
-    assert isinstance(prc,DataFrame)
-    assert not prc.empty
+def test_get_precipitation():
+    knmi = KnmiDownload()
+    data = knmi.get_precipitation(station='327', location=None, start=None, end=None)
+    assert isinstance(data,Series)
+    assert not data.empty
 
-    wtr = knmilocations(stntype='wtr')
-    assert isinstance(wtr,DataFrame)
-    assert not wtr.empty
+def test_get_weather():
+    knmi = KnmiDownload()
+    data = knmi.get_weather(station='260', location=None, start=None, end=None)
+    assert isinstance(data,DataFrame)
+    assert not data.empty
+
+def test_functions():
+
+    data = get_knmiprec()
+    assert isinstance(data,Series)
+    assert not data.empty
+
+    data = get_knmiweather()
+    assert isinstance(data,DataFrame)
+    assert not data.empty
+
+    data = get_knmi_weatherstations(geodataframe=True)
+    assert isinstance(data,GeoDataFrame)
+    assert not data.empty
+
+    data = get_knmi_weatherstations(geodataframe=False)
+    assert isinstance(data,DataFrame)
+    assert not data.empty
+
+    data = get_knmi_precipitationstations(geodataframe=True)
+    assert isinstance(data,GeoDataFrame)
+    assert not data.empty
+
+    data = get_knmi_precipitationstations(geodataframe=False)
+    assert isinstance(data,DataFrame)
+    assert not data.empty
+

@@ -11,7 +11,6 @@ from .gwlocs import GwLocs
 from .read.gwfiles import GwFiles
 from .headsdif import HeadsDif
 from .swseries import SwSeries
-from .data.knmidata import KnmiData
 from .geo.coordinate_conversion import CrdCon
 from .geo.waypoint_kml import WpKml
 from .geo.pointshapewriter import PointShapeWriter, pointshape_write
@@ -28,6 +27,8 @@ from .read.waterwebtools import measurement_types
 from .read.knmi_weather import KnmiWeather
 from .read.knmi_rain import KnmiRain
 from .read.knmi_download import KnmiDownload
+from .read.knmi_download import get_knmiprec, get_knmiweather
+from .read.knmi_download import get_knmi_weatherstations,  get_knmi_precipitationstations
 from .read.filedirtools import listdir, cleardir
 from .read.brogldxml import BroGldXml
 from .read.brogmwxml import BroGmwXml
