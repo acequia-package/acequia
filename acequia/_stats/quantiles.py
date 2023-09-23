@@ -12,7 +12,7 @@ from pandas import Series, DataFrame
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from ..gwseries import GwSeries
+from .._core.gwseries import GwSeries
 from .utils import hydroyear
 
 class Quantiles:

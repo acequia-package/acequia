@@ -7,7 +7,7 @@ from pandas import Series, DataFrame
 import pandas as pd
 import numpy as np
 
-from ..gwlist import GwList
+from .._core.gwlist import GwList
 
 def gwliststats(srcdir=None,ref=None,gxg=False):
     """Return table of decriptive statistics for multiple heads series

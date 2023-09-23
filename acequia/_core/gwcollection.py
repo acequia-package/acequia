@@ -9,9 +9,9 @@ import pandas as pd
 from shapely.geometry import Point
 import geopandas as gpd
 
-from .read.gwfiles import GwFiles
-from .read.waterweb import WaterWeb
-from .read.hydromonitor import HydroMonitor
+from .._read.gwfiles import GwFiles
+from .._read.waterweb import WaterWeb
+from .._read.hydromonitor import HydroMonitor
 
 class GwCollection:
     """Collection of groundwater head series."""

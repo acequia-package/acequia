@@ -2,7 +2,7 @@
 import pytest
 import collections
 from pandas import DataFrame
-from acequia.read.gpxtree import GpxTree
+from acequia import GpxTree
 
 fpath = r'.\data\gpx\BrittanyJura\Ouistreham_Caen.gpx'
 

@@ -14,7 +14,7 @@ from pandas import Series, DataFrame
 import pandas as pd
 import numpy as np
 
-from ..gwseries import GwSeries
+from .._core.gwseries import GwSeries
 
 
 class HydroMonitor:

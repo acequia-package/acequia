@@ -21,10 +21,10 @@ from pandas import Series, DataFrame
 import pandas as pd
 import numpy as np
 
-from .read.dinogws import DinoGws
-from .plots import plotheads as plotheadsmodule
-from .stats.gxg import GxgStats
-from .stats.gwtimestats import GwTimeStats
+from .._read.dinogws import DinoGws
+from .._plots import plotheads as plotheadsmodule
+from .._stats.gxg import GxgStats
+from .._stats.gwtimestats import GwTimeStats
 
 
 class GwSeries:
@@ -741,7 +741,7 @@ class GwSeries:
         """
 
         # bypass circular import
-        from .stats.quantiles import Quantiles
+        from .._stats.quantiles import Quantiles
         
         qt = Quantiles(self.heads(ref=ref))
         inundation = qt.get_inundation()

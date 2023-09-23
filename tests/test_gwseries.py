@@ -21,7 +21,7 @@ def name(gws):
 
 def test_GwSeries_init():
     gw = aq.GwSeries()
-    assert isinstance(gw,aq.gwseries.GwSeries)
+    assert isinstance(gw,aq.GwSeries)
 
 def test_len(gws):
     assert len(gws)!=0

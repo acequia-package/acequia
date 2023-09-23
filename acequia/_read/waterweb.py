@@ -6,8 +6,8 @@ from pandas import Series,DataFrame
 import pandas as pd
 import geopandas as gpd
 ##from shapely.geometry import Point
-from ..gwseries import GwSeries
-from ..geo.waypoint_kml import WpKml
+from .._core.gwseries import GwSeries
+from .._geo.waypoint_kml import WpKml
 
 
 class WaterWeb:

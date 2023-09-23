@@ -4,7 +4,7 @@ import pytest
 from pandas import Series, DataFrame
 from geopandas import GeoDataFrame
 from acequia import KnmiDownload
-from acequia.read.knmi_download import get_knmiweather, get_knmiprec
+from acequia import get_knmiweather, get_knmiprec
 from acequia import get_knmi_weatherstations, get_knmi_precipitationstations
 
 def test_bad_request_weather():

@@ -4,7 +4,8 @@ from pandas import DataFrame, Series
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
-from acequia import GwSeries
+
+from .._core.gwseries import GwSeries
 
 def plot_tubechanges(gw=None,ax=None):
     """Time series plot of heads and tube changes.

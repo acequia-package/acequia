@@ -5,7 +5,7 @@ import numpy as np
 from pandas import DataFrame, Series
 import pandas as pd
 
-from .. import gwseries
+from .._core import gwseries
 from .utils import maxfrq, ts1428
 
 def gwtimestats(ts,ref=None,name=None):

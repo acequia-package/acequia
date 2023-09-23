@@ -20,8 +20,6 @@ import numpy as np
 from pandas import Series, DataFrame
 import pandas as pd
 
-##from ..gwseries import GwSeries
-
 sep = ","
 
 class DinoGws:

@@ -4,7 +4,7 @@ import warnings
 from pandas import Series, DataFrame
 import pandas as pd
 
-from .read.dinosurfacelevel import DinoSurfaceLevel
+from .._read.dinosurfacelevel import DinoSurfaceLevel
 
 
 class SwSeries:

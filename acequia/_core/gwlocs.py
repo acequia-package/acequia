@@ -10,7 +10,7 @@ import pandas as pd
 import numpy as np
 
 from .gwseries import GwSeries
-from .read.filedirtools import listdir
+from .._read.filedirtools import listdir
 
 class GwLocs:
     """Manage multiple groundwater heads series from one well location

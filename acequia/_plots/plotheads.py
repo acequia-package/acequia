@@ -19,7 +19,7 @@ from matplotlib.ticker import NullFormatter
 from matplotlib.dates import YearLocator, MonthLocator, DateFormatter
 import matplotlib.dates as mdates
 import numpy as np
-from .. import gwseries #import GwSeries directly gives circular import
+from .._core import gwseries #import GwSeries directly gives circular import
 #inch = 25.4 mm
 
 

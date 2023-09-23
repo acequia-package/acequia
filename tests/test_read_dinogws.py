@@ -2,7 +2,7 @@ import pytest
 from datetime import datetime
 from pandas import DataFrame, Series
 from acequia import DinoGws, GwSeries
-from acequia.read.dinogws import filesfromdir
+from acequia._read.dinogws import filesfromdir
 
 fpath = r'.\data\dinogws\B28A0475002_1.csv'
 fdir = r'.\data\dinogws\\'

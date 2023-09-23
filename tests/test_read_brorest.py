@@ -2,7 +2,7 @@
 
 import pytest
 from pandas import DataFrame
-from acequia import brorest
+from acequia import _brorest as brorest
 from acequia import BroGldXml
 
 

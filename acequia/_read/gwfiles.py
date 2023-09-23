@@ -9,7 +9,7 @@ import warnings
 from pandas import Series, DataFrame
 import pandas as pd
 
-from ..gwseries import GwSeries
+from .._core.gwseries import GwSeries
 
 class GwFiles:
     """Collection of groundwater head source files.

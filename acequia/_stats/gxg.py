@@ -17,7 +17,7 @@ import numpy as np
 from pandas import Series, DataFrame
 import pandas as pd
 
-from .. import gwseries
+from .._core import gwseries
 from .utils import ts1428, hydroyear, season
 
 

@@ -12,6 +12,7 @@ import os,os.path
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 import warnings
+import logging
 import requests
 import pkgutil
 import pkg_resources
@@ -23,9 +24,9 @@ from pandas import Series, DataFrame
 import pandas as pd
 import geopandas as gpd
 from json import JSONDecodeError
+from .._geo.coordinate_conversion import CrdCon
 
-from ..geo.coordinate_conversion import CrdCon
-
+logger = logging.getLogger(__name__)
 
 def get_knmi_weatherstations(geodataframe=True):
     """ Return table of KNMI weather stations."""
@@ -432,9 +433,15 @@ class KnmiDownload:
             if not station_name.empty:
                 station = str(station_name.index[0])
             else:
-                warnings.warn((f'{station_name} is not a valid KNMI '
-                    f'precipitation station name. Default station {station} '
-                    f'will be used.'))
+                #warnings.warn((f'{station_name} is not a valid KNMI '
+                #    f'precipitation station name. Default station {station} '
+                #    f'will be used.'))
+                logger.warning(
+                    f'{location} is not a valid KNMI precipitation '
+                    f'station name. Default station {station} '
+                    f'will be used.'
+                    )
+
 
         # download raw data
         rawdata = self.download(kind='prec', start=start, end=start, stns=station)
