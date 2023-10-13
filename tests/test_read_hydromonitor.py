@@ -24,16 +24,16 @@ def test_delete_duplicate_data(hm):
     assert not res.empty
 
 def test_get_series(hm):
-    gws = hm.get_series(loc='B29A0072',fil='1')    
+    gws = hm.get_series(f'B29A0072_1')
     assert isinstance(gws,GwSeries)
 
 def test_series(hm):
-    assert isinstance(hm.series,list)
-    assert len(hm.series)!=0
+    assert isinstance(hm.names,list)
+    assert len(hm.names)!=0
 
 def test_locations(hm):
-    assert isinstance(hm.locations,list)
-    assert len(hm.locations)!=0
+    assert isinstance(hm.locnames,list)
+    assert len(hm.locnames)!=0
 
 def test_to_list(hm):
     gwlist = hm.to_list()

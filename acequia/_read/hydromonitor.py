@@ -333,19 +333,24 @@ class HydroMonitor:
         return self.data_no_dups
 
 
-    def get_series(self,loc=None,fil=None):
+    def get_series(self,name): #loc=None,fil=None):
         """Return GwSeries object from HydroMonitor object
+        
         Parameters
         ----------
-        loc : str
-            Well location name
-        fil : str
-            Tube name
+        name : str
+            Valid series name.
+
         Returns
         -------
         GwSeries object
+        
+        Notes
+        -----
+        Property "names" contains a list of valid series names. 
         """
-
+        loc = name.split('_')[0]
+        fil = name.split('_')[1]
         gws = GwSeries()
         
         # create DataFrame with HydroMonitor metadata for one series
@@ -357,7 +362,7 @@ class HydroMonitor:
                 f"not found in HydroMonitor metadata."))
 
         # Metadata can have a new row of metadata for each change.
-        # Therefore, metaqdata can one or mulitple rows. For GwSeries
+        # Therefore, metadata can one or mulitple rows. For GwSeries
         # locprops items
         # all rows have the same value and metadata are simply taken 
         # from the first row.
@@ -369,7 +374,7 @@ class HydroMonitor:
         data = self.data[bool_loc & bool_fil]
 
         # GwSeries tubeprops from HydroMonitor metadata
-        for prop in GwSeries._tubeprops_names: #list(gws._tubeprops):
+        for prop in GwSeries.TUBEPROPS_NAMES:
             metakey = self.MAPPING_TUBEPROPS[prop]
             if metakey is not None:
                 gws._tubeprops[prop] = metadata[metakey].values
@@ -377,7 +382,7 @@ class HydroMonitor:
                 warnings.warn(f"Unknown property {prop} in {type(gws)}")
 
         # GwSeries locprops from HydroMonitor metadata
-        for prop in GwSeries._locprops_names: ##list(gws._locprops.index):
+        for prop in GwSeries.LOCPROPS_NAMES: ##list(gws._locprops.index):
 
             if prop=='locname':
                 gws._locprops[prop] = metadata.at[idx_firstrow,self.idkeys[0]]
@@ -404,7 +409,7 @@ class HydroMonitor:
             if prop=='grid_reference':
                 gws._locprops[prop] = 'rd'
 
-            if prop not in GwSeries._locprops_names:
+            if prop not in GwSeries.LOCPROPS_NAMES:
                 warnings.warn(f"Unknown property {prop} in {type(gws)}")
 
         # set gwseries
@@ -415,7 +420,7 @@ class HydroMonitor:
             data['LoggerHead'].values
             )
         rec = {}
-        for key in GwSeries._headprops_names:
+        for key in GwSeries.HEADPROPS_NAMES:
             if key=='headdatetime':
                 rec[key] = datetimes
             elif key=='headmp':
@@ -448,29 +453,38 @@ class HydroMonitor:
         return gws
 
     @property
-    def series(self):
-        """Return list of tuples wits series name and filter."""
+    def names(self):
+        """Return list series names."""
         tbl = self.metadata[self.idkeys]
         srlist = []
         for idx2,row in tbl.iterrows():
-            srtuple = (row[self.idkeys[0]],row[self.idkeys[1]])
-            srlist.append(srtuple)
+            ##srtuple = (row[self.idkeys[0]],row[self.idkeys[1]])
+            name = f'{row[self.idkeys[0]]}_{row[self.idkeys[1]]}'
+            srlist.append(name)
         return srlist
         
 
     @property
-    def locations(self):
-        """Return list of tuples with series name and filter grouped 
-        by well locations."""
+    def locnames(self):
+        """Return list of location names."""
+        
+        locnames = list(self.metadata[self.idkeys[0]].unique())
+        return locnames
+
+    @property
+    def loclist(self):
+        """Return list of lists with series grouped by well location."""
         locations = []        
         tbl = self.metadata[self.idkeys]
         for _,grp in tbl.groupby(by=self.idkeys[0]):
             srnames = []
             for _,row in grp.iterrows():
-                srtuple = (row[self.idkeys[0]],row[self.idkeys[1]])
-                srnames.append(srtuple)
-            locations.append(srnames)       
+                #srtuple = (row[self.idkeys[0]],row[self.idkeys[1]])
+                name = f'{row[self.idkeys[0]]}_{row[self.idkeys[1]]}'
+                srnames.append(name)
+            locations.append(srnames)
         return locations
+
 
     def to_list(self):
         """ Return data from HydroMonitor as a list of GwSeries() 
@@ -536,4 +550,4 @@ class HydroMonitor:
         locs = self.metadata.loc[:,self.idkeys[0]].values
         fils = self.metadata.loc[:,self.idkeys[1]].values
         for loc, fil in zip(locs,fils):
-            yield self.get_series(loc,fil)
+            yield self.get_series(f'{loc}_{fil}')

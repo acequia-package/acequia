@@ -22,6 +22,17 @@ import pandas as pd
 
 sep = ","
 
+def filesfromdir(dir):
+    """Return list of dino sourcefiles from directory """
+
+    filenames = []
+    seriesnames = []
+    for root, dirs, files in os.walk(dir):
+        seriesnames += [f[0:11] for f in files if f[11:13]=="_1"]
+        filenames += [os.path.join(root, f) for f in files if f[11:13]=="_1"]
+    return filenames, seriesnames
+    
+
 class DinoGws:
     """Read TNO Dinoloket csv file with groundwater measurement data"""
 
@@ -85,7 +96,7 @@ class DinoGws:
             Valid filepath to dinoloket csv file.
         readall : bool, default True
             Read all data (True) or header only (False).
-        ...
+           
         """
         self.filepath = filepath
 
@@ -478,13 +489,3 @@ class DinoGws:
 
         return self
 
-def filesfromdir(dir):
-    """Return list of dino sourcefiles from directory """
-
-    filenames = []
-    seriesnames = []
-    for root, dirs, files in os.walk(dir):
-        seriesnames += [f[0:11] for f in files if f[11:13]=="_1"]
-        filenames += [os.path.join(root, f) for f in files if f[11:13]=="_1"]
-    return filenames, seriesnames
-    

@@ -95,7 +95,26 @@ class GwFiles:
 
     @property
     def filetable(self):
+        """Return table of sourcefilepaths."""
         return self._ftb
+
+    @property
+    def names(self):
+        """Return list of series names."""
+        return list(self.filetable['series'].values)
+
+    @property
+    def locnames(self):
+        """Return list of well location names."""
+        return set([x.split('_')[0] for x in self.names])
+
+    @property
+    def loclist(self):
+    
+        loclist = []
+        for loc,tbl in self.filetable[['loc','series' ]].groupby('loc'):
+            loclist.append(list(tbl['series'].values))
+        return loclist
 
     def iteritems(self):
         """Iterate over all series and return gwseries object."""
@@ -169,8 +188,8 @@ class GwFiles:
 
         # add columns to filetbl
         filetbl["fpath"]= filetbl["fname"].apply(lambda x:srcdir+x)
-        filetbl.insert(0,"loc",filetbl["fname"].apply(lambda x:x.split('_')[0]))
-        filetbl.insert(1,"fil",filetbl["fname"].apply(lambda x:x.split("_")[-1].lstrip("0")))
+        filetbl.insert(0,"loc",filetbl["fname"].apply(lambda x:x.split('.')[0].split('_')[0]))
+        filetbl.insert(1,"fil",filetbl["fname"].apply(lambda x:x.split('.')[0].split("_")[-1].lstrip("0")))
         filetbl.insert(0,"series",filetbl["loc"]+"_"+filetbl['fil'])
 
         if loclist is not None:

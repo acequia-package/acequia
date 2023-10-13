@@ -58,6 +58,9 @@ def test_repr(gwf):
 
     assert isinstance(repr(gwf),str)
 
+def test_names(gwf):
+    assert isinstance(gwf.names,list)
+
 def test_iteritems(gwf, gwf_json):
 
     for gw in gwf.iteritems():

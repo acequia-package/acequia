@@ -12,6 +12,7 @@ import geopandas as gpd
 from .._read.gwfiles import GwFiles
 from .._read.waterweb import WaterWeb
 from .._read.hydromonitor import HydroMonitor
+from .._plots.plotheads import PlotHeads
 
 class GwCollection:
     """Collection of groundwater head series."""
@@ -93,6 +94,10 @@ class GwCollection:
         hm = HydroMonitor(fpath=filepath)
         return cls(hm)
 
+    @property
+    def names(self):
+        """Return list of series names."""
+        return self._collection.names
 
     def iteritems(self):
         """Iterate over all series in collecion and return gwseries 
@@ -209,3 +214,14 @@ class GwCollection:
 
         return stats
 
+    def plot_heads(self):
+
+        for loclist in self._collection.loclist:
+            plotlist = []
+            for series in loclist:
+                gw = self._collection.get_series(series)
+                if not gw.heads().empty:
+                    plotlist.append(gw)
+                    print(gw)
+
+            plot = PlotHeads(plotlist)

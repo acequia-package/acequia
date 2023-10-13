@@ -15,7 +15,7 @@ class Dawaco:
         Read DAWACO hydroseries xlsx export file and return Dawaco object.
     ...
     """
-    _columns_mapping = {
+    COLUMNS_MAPPING = {
         'Meetpuntcode' : 'locname',
         'X-coor.(m)' : 'xcr',
         'Y-coor.(m)' : 'ycr',
@@ -37,7 +37,7 @@ class Dawaco:
         self.title = title
 
         self.rawdata = self.rawdata.rename(
-            columns=self._columns_mapping, errors="raise")
+            columns=self.COLUMNS_MAPPING, errors="raise")
 
     def __len__(self):
         seriescount = len(self.rawdata[['locname','filname']].drop_duplicates())
@@ -77,10 +77,10 @@ class Dawaco:
 
         # tubeprops
         tp = self.rawdata.copy()
-        for col in gw._tubeprops_names:
+        for col in gw.TUBEPROPS_NAMES:
             if col not in tp.columns:
                 tp[col] = np.nan
-        tp = tp[gw._tubeprops_names].drop_duplicates(keep='first',ignore_index=True)
+        tp = tp[gw.TUBEPROPS_NAMES].drop_duplicates(keep='first',ignore_index=True)
         gw._tubeprops = tp.copy()
 
         # heads

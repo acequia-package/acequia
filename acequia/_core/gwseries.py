@@ -92,34 +92,35 @@ class GwSeries:
     stored in class variables locprops_names and tubeprops_names:
     >>> print(acequia.GwSeries.locprops_names)
     >>> print(acequia.GwSeries.tubeprops_names)
+       
     """
-    _headprops_names = [
+    HEADPROPS_NAMES = [
         'headdatetime','headmp','headnote','remarks'
         ]
 
-    _locprops_names = [
+    LOCPROPS_NAMES = [
         'locname','filname','alias','xcr','ycr','height_datum',
         'grid_reference'
         ]
 
-    _locprops_minimal = [
+    LOCPROPS_MINIMAL = [
         'locname','filname','alias','xcr','ycr'
         ]
 
-    _tubeprops_names = [
+    TUBEPROPS_NAMES = [
         'startdate','mplevel','filtop','filbot','surfacedate',
         'surfacelevel'
         ]
 
-    _tubeprops_minimal = [
+    TUBEPROPS_MINIMAL = [
         'mplevel','surfacelevel','filbot',
         ]
 
-    _tubeprops_numcols = [
+    TUBEPROPS_NUMCOLS = [
         'mplevel','surfacelevel','filtop','filbot'
         ]
 
-    _reflevels = [
+    REFLEVELS = [
         'datum','surface','mp',
         ]
 
@@ -138,7 +139,7 @@ class GwSeries:
         """
 
         if locprops is None:
-            self._locprops = Series(index=self._locprops_names,
+            self._locprops = Series(index=self.LOCPROPS_NAMES,
                 dtype='object')
         elif isinstance(locprops,pd.Series):
             self._locprops = locprops
@@ -147,7 +148,7 @@ class GwSeries:
                 f'{type(locprops)}')
 
         if tubeprops is None:
-            self._tubeprops = DataFrame(columns=self._tubeprops_names)
+            self._tubeprops = DataFrame(columns=self.TUBEPROPS_NAMES)
         elif isinstance(tubeprops,pd.DataFrame):
             self._tubeprops = tubeprops
         else:
@@ -155,7 +156,7 @@ class GwSeries:
                 f'but {type(tubeprops)}')
 
         if heads is None: 
-            self._heads = pd.DataFrame(columns=self._headprops_names) #Series()
+            self._heads = pd.DataFrame(columns=self.HEADPROPS_NAMES) #Series()
             self._heads_original = self._heads.copy()
 
         elif isinstance(heads,pd.DataFrame):
@@ -174,13 +175,13 @@ class GwSeries:
     def _validate_reference(self,ref):
 
         if ref is None:
-            return self._reflevels[0]
+            return self.REFLEVELS[0]
 
-        if ref not in self._reflevels:
+        if ref not in self.REFLEVELS:
             warnings.warn((f'Reference level {ref} is not valid.'
-                f'Reference level {self._reflevels[0]} is assumed.'),
+                f'Reference level {self.REFLEVELS[0]} is assumed.'),
                 stacklevel=2)
-            return self._reflevels[0]
+            return self.REFLEVELS[0]
 
         return ref
 
@@ -192,9 +193,9 @@ class GwSeries:
         dn = DinoGws(filepath=filepath,readall=True)
 
         # get location metadata
-        locprops = Series(index=cls._locprops_names,dtype='object')
+        locprops = Series(index=cls.LOCPROPS_NAMES,dtype='object')
 
-        for propname in cls._locprops_names:
+        for propname in cls.LOCPROPS_NAMES:
             dinoprop = DinoGws.MAPPING_DINOLOCPROPS[propname]
             if dinoprop in DinoGws.FILTERCOLS:
                 locprops[propname] = dn.header.at[0,dinoprop]
@@ -204,19 +205,19 @@ class GwSeries:
         locprops = Series(locprops)
 
         # get piezometer metadata
-        tubeprops = DataFrame(columns=cls._tubeprops_names)
-        for prop in cls._tubeprops_names:
+        tubeprops = DataFrame(columns=cls.TUBEPROPS_NAMES)
+        for prop in cls.TUBEPROPS_NAMES:
             dinoprop = DinoGws.MAPPING_DINOTUBEPROPS[prop]
             if dinoprop in DinoGws.FILTERCOLS:
                 tubeprops[prop] = dn.header[dinoprop]
 
-        for col in cls._tubeprops_numcols:
+        for col in cls.TUBEPROPS_NUMCOLS:
                 tubeprops[col] = pd.to_numeric(tubeprops[col],
                                  errors='coerce')/100.
 
         # get head measurements
-        heads = DataFrame(columns=cls._headprops_names)
-        for prop in cls._headprops_names:
+        heads = DataFrame(columns=cls.HEADPROPS_NAMES)
+        for prop in cls.HEADPROPS_NAMES:
             dinoprop = DinoGws.MAPPING_DINOHEADPROPS[prop]
             if dinoprop in DinoGws.HEADCOLS:
                 heads[prop] = dn.headdata[dinoprop]
@@ -232,13 +233,13 @@ class GwSeries:
         with open(filepath) as json_file:
             json_dict = json.load(json_file)
 
-        locprops = DataFrame.from_dict(json_dict['locprops'],
-                                        orient='index')
-        locprops = Series(data=locprops[0],index=locprops.index,
-                                        name='locprops')
+        locprops = DataFrame.from_dict(
+            json_dict['locprops'],orient='index')
+        locprops = Series(data=locprops[0], index=locprops.index,
+            name='locprops')
 
-        tubeprops = DataFrame.from_dict(json_dict['tubeprops'],
-                    orient='index')
+        tubeprops = DataFrame.from_dict(
+            json_dict['tubeprops'], orient='index')
         tubeprops.name = 'tubeprops'
         tubeprops['startdate'] = pd.to_datetime(tubeprops['startdate']) #.dt.date
 
@@ -387,12 +388,12 @@ class GwSeries:
         -------
         pd.DataFrame
         """
-        tps = DataFrame(self._tubeprops[self._tubeprops_names]).copy()
+        tps = DataFrame(self._tubeprops[self.TUBEPROPS_NAMES]).copy()
         #tps['startdate'] = tps['startdate'].dt.date
         tps['startdate'].apply(pd.to_datetime, errors='coerce')
 
         if minimal:
-            tps = tps[self._tubeprops_minimal]
+            tps = tps[self.TUBEPROPS_MINIMAL]
 
         tps.insert(0,'series',self.name())
 
@@ -448,7 +449,7 @@ class GwSeries:
         if not ref:
             ref = 'datum'
 
-        if ref not in self._reflevels:
+        if ref not in self.REFLEVELS:
             msg = f'{ref} is not a valid reference level name'
             raise ValueError(msg)
 
@@ -541,9 +542,9 @@ class GwSeries:
 
         srlist = []
 
-        srlist.append(self._locprops[self._locprops_minimal])
+        srlist.append(self._locprops[self.LOCPROPS_MINIMAL])
 
-        tubeprops = (self._tubeprops[self._tubeprops_minimal].tail(1
+        tubeprops = (self._tubeprops[self.TUBEPROPS_MINIMAL].tail(1
             ).iloc[0,:])
         srlist.append(tubeprops)
 

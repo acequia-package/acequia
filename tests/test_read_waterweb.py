@@ -18,13 +18,13 @@ def wwn():
 
 def test_init():
     wwninit = WaterWeb(fpath=fpath,network=networkname)
-    assert len(wwninit.srnames)==0
+    assert len(wwninit.names)==0
 
 def test_from_csv(wwn):
-    assert len(wwn.srnames)!=0
+    assert len(wwn.names)!=0
 
 def test_get_type(wwn):
-    srtype = wwn.get_type(wwn.srnames[0])
+    srtype = wwn.get_type(wwn.names[0])
     assert isinstance(srtype,str)
     assert srtype in wwn.MEASUREMENT_TYPES
 
@@ -32,10 +32,10 @@ def test_measurement_types(wwn):
     assert isinstance(wwn.measurement_types,pd.Series)
 
 def test_get_locname(wwn):
-    assert isinstance(wwn.get_locname(wwn.srnames[0]),str)
+    assert isinstance(wwn.get_locname(wwn.names[0]),str)
 
 def test_get_filname(wwn):
-    assert isinstance(wwn.get_filname(wwn.srnames[0]),str)
+    assert isinstance(wwn.get_filname(wwn.names[0]),str)
 
 def test_networkname_setter(wwn):
     original_name = wwn.networkname
@@ -44,22 +44,22 @@ def test_networkname_setter(wwn):
     assert wwn.networkname!=original_name
 
 def test_get_locprops(wwn):
-    locprops = wwn.get_locprops(wwn.srnames[0])
+    locprops = wwn.get_locprops(wwn.names[0])
     assert isinstance(locprops,pd.Series)
     assert locprops.empty is False
 
 def test_get_tubeprops(wwn):
-    tubeprops = wwn.get_tubeprops(wwn.srnames[0])
+    tubeprops = wwn.get_tubeprops(wwn.names[0])
     assert isinstance(tubeprops,pd.DataFrame)
     assert tubeprops.empty is False
 
 def test_get_levels(wwn):
-    levels = wwn.get_levels(wwn.srnames[0])
+    levels = wwn.get_levels(wwn.names[0])
     assert isinstance(levels,pd.Series)
     assert levels.empty is False
 
 def test_get_gwseries(wwn):
-    srname = wwn.srnames[0]
+    srname = wwn.names[0]
     gw = wwn.get_gwseries(srname)
     assert isinstance(gw.heads(),pd.Series)
     assert gw.heads().empty is False

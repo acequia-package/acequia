@@ -206,10 +206,10 @@ class WpKml:
         """
         crdcon = CrdCon()
         lon = self.wplist.apply(
-                lambda x: crdcon.RDtoWGS84(float(x[self.xcoor]),
+                lambda x: crdcon.convert_RDtoWGS84(float(x[self.xcoor]),
                 float(x[self.ycoor]))['Lon'],axis=1)
         lat = self.wplist.apply(
-                lambda x: crdcon.RDtoWGS84(float(x[self.xcoor]),
+                lambda x: crdcon.convert_RDtoWGS84(float(x[self.xcoor]),
                 float(x[self.ycoor]))['Lat'],axis=1)
         return lon,lat
 

@@ -4,6 +4,58 @@
 """
 import numpy as np
 
+def convert_RDtoWGS84(x,y):
+    """Convert [x,y] in Dutch RD-grid coordinates to (lon,lat) in WGS84.
+    
+    Parameters
+    ----------
+    x : float
+        Dutch RD-grid xcoordinate.
+    
+    y : float
+        Dutch RD-grid ycoordinate.
+
+    Returns
+    -------
+    tuple
+        (latitude, longitude)
+    
+    Examples
+    --------
+    >> convert_RDtoWGS84(233883.131, 82065.167)
+    >> (48.726255249201174, 6.458551281201178,)
+       
+    """
+    crc = CrdCon()
+    res = crc.convert_RDtoWGS84(x, y)
+    return (res['Lat'], res['Lon'])
+
+def convert_WGS84toRD(lat, lon):
+    """Convert [lat,lon] from WGS84 to (x,y) in Dutch RD-grid coordinates.
+    
+    Parameters
+    ----------
+    lat : float
+        Latitude in WGS84.
+    lon : float
+        Longitude in WGS84.
+
+    Returns
+    -------
+    tuple
+        (x, y)
+
+    Examples
+    --------
+    >> convert_WGS84toRD(4.88352, 52.3745)
+    >> (233883.06517103617, 582067.0401935352)
+       
+    """
+    crc = CrdCon()
+    res = crc.convert_WGS84toRD(lat, lon)
+    return (res['xRD'], res['yRD'])
+
+
 class CrdCon:
     """Convert coordinates from Dutch RD Grid to WGS84 and back
 
@@ -85,7 +137,7 @@ class CrdCon:
     E0zone32 = 252878.65
     N0zone32 = 5784453.44
 
-    def RDtoWGS84(self,X,Y,Zone=False):
+    def convert_RDtoWGS84(self, X, Y, Zone=False):
         """ Convert RD Xcoor,Ycoor to WGS84 latitude,longitude
         
         Parameters
@@ -102,8 +154,8 @@ class CrdCon:
         -------
         dict
 
-        Example
-        -------
+        Examples
+        --------
         >> crc = acequia.CrdCon()
         >> crc.RDtoWGS84(233883.131, 82065.167)
         >> {'Lon': 6.458551281201178,
@@ -114,8 +166,8 @@ class CrdCon:
             'yRD': 82065.167,
             'UMTZONE': 'UMT32'}
 
-        Note
-        ----
+        Notes
+        -----
         Within the WGS84 system, the 6th meridian divides the Netherslands 
         into two a western and an eastern zone. The aerea west of the 6th 
         meridian lies UTM zone 31, the eastern part belong to UTM zone 32. 
@@ -139,7 +191,7 @@ class CrdCon:
                 "xRD" : X, "yRD" : Y, "UMTZONE" : UMTZONE}
 
 
-    def WGS84toRD(self,Lon,Lat):
+    def convert_WGS84toRD(self, Lat, Lon):
         """ Convert WGS84 latitude,longitude to RD Xcoor,Ycoor
         
         Parameters
@@ -156,10 +208,10 @@ class CrdCon:
         -------
         dict
 
-        Example
-        -------
+        Examples
+        --------
         >> crc = acequia.CrdCon()
-        >> crc.WGS84toRD(4.88352,52.3745)
+        >> crc.WGS84toRD(52.3745, 4.88352,)
         >> {'xRD': 233883.06517103617,
             'yRD': 582067.0401935352,
             'Lon': 6.5682,
@@ -228,8 +280,8 @@ class CrdCon:
                     Lon = DDMMMmmm(Lon)
                     Lat = DDMMMmmm(Lat)
 
-            xcoor = self._WGS84toRDx(Lon,Lat)
-            ycoor = self._WGS84toRDy(Lon,Lat)
+            xcoor = self._WGS84toRDx(Lat, Lon)
+            ycoor = self._WGS84toRDy(Lat, Lon)
 
         except Exception as err:
             xcoor = None
@@ -241,12 +293,13 @@ class CrdCon:
             result = {
                 "xRD" : xcoor,
                 "yRD" : ycoor,
+                "Lat"  : Lat,
                 "Lon"  : Lon,
-                "Lat"  : Lat}
+                }
         return result
 
 
-    def _RDtoWGS84Lon(self,X,Y):
+    def _RDtoWGS84Lon(self, X, Y):
         """Calculate WGS84 Longitude from RD X,Y """
 
         coef = [
@@ -274,7 +327,7 @@ class CrdCon:
         return self.Lambda0+Lambda/3600.0
 
 
-    def _RDtoWGS84Lat(self,X,Y):
+    def _RDtoWGS84Lat(self, X, Y):
         """Calculate WGS84 Latitude from RD X,Y """
 
         coef = [
@@ -300,7 +353,7 @@ class CrdCon:
             phi+=K*pow(dX,p)*pow(dY,q)
         return self.Phi0+phi/3600.0
 
-    def _RDtoWGS84forUMT31(self,X,Y):
+    def _RDtoWGS84forUMT31(self, X, Y):
         """Convert RD-system X,Y to WGS84 Easting,Northing 
         using paramters for Zone UMT31 """
 
@@ -355,7 +408,7 @@ class CrdCon:
         return [E,N]
 
 
-    def _WGS84toRDx(self,Lon,Lat):
+    def _WGS84toRDx(self, Lat, Lon):
         """Convert WGS longitude,latitude to RD-system Xcrd """
 
         Lambda = Lon
@@ -383,7 +436,7 @@ class CrdCon:
         return self.X0+X
 
 
-    def _WGS84toRDy(self,Lon,Lat):
+    def _WGS84toRDy(self, Lat, Lon):
         """Convert WGS longitude,latitude to RD-system Ycrd """
 
         Lambda = Lon

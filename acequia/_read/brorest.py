@@ -3,47 +3,51 @@ Module with functions for retrieving data fro BRO REST service.
 """
 import datetime as dt
 import requests
-import lxml.etree as ET
+#import lxml.etree as ET
+import xml.etree.ElementTree as ET
 from pandas import Series, DataFrame
 import pandas as pd
 
 from .brogldxml import BroGldXml
+from .brogmwxml import BroGmwXml
+
+STARTDATE = '1900-01-01'
 
 def _parse_dispatchDocument(tree):
-    """"Helper function for parsing BRO XML tree.
-    
-    Parameters
-    ----------
-    tree : lxml tree
-        XML tree with well properties.
+    pass
+""""Helper function for parsing BRO XML tree.
 
-    Returns
-    -------
-    pd.DataFrame
-    """
+Parameters
+----------
+tree : lxml tree
+    XML tree with well properties.
 
-    nsmap = tree.nsmap
-    root = tree.getroottree()
+Returns
+-------
+pd.DataFrame
+"""
 
-    # dataFrame node properties
-    tag = 'dispatchDocument'
-    nodes = root.findall(f'.//{tag}',nsmap)
-    reclist = []
-    for node in nodes:
-        eldict = {}
-        for el in node.iterdescendants(): # iter all descendants
-            tag = ET.QName(el).localname
-            eldict[tag]=el.text
-        reclist.append(eldict)
+#nsmap = tree.nsmap
+#root = tree.getroottree()
 
-    return DataFrame(reclist)
+# dataFrame node properties
+"""
+tag = 'dispatchDocument'
+nodes = root.findall(f'.//{tag}',nsmap)
+reclist = []
+for node in nodes:
+    eldict = {}
+    for el in node.iterdescendants(): # iter all descendants
+        tag = ET.QName(el).localname
+        eldict[tag]=el.text
+    reclist.append(eldict)
 
+return DataFrame(reclist)
+"""
 
-
-def get_area_wellprops(center=None,radius=None,lowerleft=None,
-    upperright=None,startdate='2001-01-01',enddate=None):
-    """
-    Return properties of wells within an area (rectangle or circle).
+def get_area_wellprops(center=None, radius=None, lowerleft=None, 
+    upperright=None, startdate=STARTDATE, enddate=None):
+    """Return properties of wells within an area (rectangle or circle).
     
     Parameters
     ----------
@@ -75,8 +79,8 @@ def get_area_wellprops(center=None,radius=None,lowerleft=None,
         date = dt.datetime.strptime(startdate, '%Y-%m-%d')
     except ValueError as e:
         warnings.warn((f'Invalid startdate {startdate} was given. '
-            f'Default startdate "2001-01-01" will be used.'))
-        date = '2001-01-01'
+            f'Default startdate "{STARTDATE}" will be used.'))
+        date = STARTDATE
 
     # validate enddate
     today = dt.date.today().strftime("%Y-%m-%d")
@@ -145,16 +149,65 @@ def get_area_wellprops(center=None,radius=None,lowerleft=None,
         params=params, headers=headers, json=json_data)
         
     # get xmltree from response
-    tree = ET.fromstring(response.content)
+    root = ET.fromstring(response.content)
 
-    # parse all well nodes
-    wellprops = _parse_dispatchDocument(tree)
+    # parse XML tree
+    # --------------
 
-    return wellprops.drop_duplicates().reset_index(drop=True) # result contains hundreds of duplicates
+    NS0 = 'http://www.broservices.nl/xsd/dsgmw/1.1'
+    NS1 = 'http://www.broservices.nl/xsd/brocommon/3.0'
+    NS2 = 'http://www.opengis.net/gml/3.2'
+
+    NS = {
+        'NS0' : NS0,
+        'NS1' : NS1,
+        'NS2' : NS2,
+        }
+
+    # data for each well is stored below the tag "GMW_C"
+    # find all wells
+    tag = 'GMW_C'
+    wells = root.findall(f'.//{{{NS0}}}{tag}', NS)
+
+    welltags = {
+        'gmwid' : f'.//{{{NS1}}}broId',
+        'accountable' : f'.//{{{NS1}}}deliveryAccountableParty',
+        'quality' : f'.//{{{NS1}}}qualityRegime',
+        'registrationtime' : f'.//{{{NS1}}}objectRegistrationTime',
+        'correctiontime' : f'.//{{{NS1}}}latestCorrectionTime',
+        'latlon' : f'.//{{{NS1}}}standardizedLocation//{{{NS2}}}pos',
+        'xy' : f'.//{{{NS1}}}deliveredLocation//{{{NS2}}}pos',
+        'reflev' : f'.//{{{NS0}}}verticalDatum',
+        'surfacelevel' : f'.//{{{NS0}}}groundLevelPosition',
+        'owner' : f'.//{{{NS0}}}owner',
+        'constructiondate' : f'.//{{{NS0}}}wellConstructionDate',
+        'removed' : f'.//{{{NS0}}}removed',
+        'tubes' : f'.//{{{NS0}}}numberOfMonitoringTubes',
+        'protection' : f'.//{{{NS0}}}wellHeadProtector',
+        'nitgcode' : f'.//{{{NS0}}}nitgCode',
+        'wellcode' : f'.//{{{NS0}}}wellCode',
+        'wellcode' : f'.//{{{NS0}}}wellCode',
+        'diamin' : f'.//{{{NS0}}}diameterRange//{{{NS0}}}smallestTubeTopDiameter',
+        'diamax' : f'.//{{{NS0}}}diameterRange//{{{NS0}}}largestTubeTopDiameter',
+        'filshallow' : f'.//{{{NS0}}}screenPositionRange//{{{NS0}}}shallowestScreenTopPosition',
+        'fildeep' : f'.//{{{NS0}}}screenPositionRange//{{{NS0}}}deepestScreenBottomPosition',
+        }
+
+    data = []
+    for well in wells:
+        rec = {}
+        for key in welltags.keys():
+            try:
+                rec[key] = well.find(welltags[key], NS).text
+            except AttributeError:
+                rec[key] = pd.NA
+        data.append(rec.copy())
+    data = DataFrame(data)
+    return data
 
 
-def get_wellprops(gmwid=None,description=None):
-    """Get well properties for one well.
+def get_wellprops(gmwid=None, description=None):
+    """Return well properties.
     
     Parameters
     ----------
@@ -163,6 +216,10 @@ def get_wellprops(gmwid=None,description=None):
     description : str, optional
         User defined description.
 
+    Returns
+    -------
+    pd.Series
+        
     """
     if gmwid is None:
         gmwid = 'GMW000000041033' # for testing
@@ -182,9 +239,11 @@ def get_wellprops(gmwid=None,description=None):
     response = requests.get(f'https://publiek.broservices.nl/gm/gmw/v1/objects/{gmwid}',
         params=params, headers=headers)
 
-    tree = ET.fromstring(response.content)
-    tbl = _parse_dispatchDocument(tree)
-    return tbl
+    root = ET.fromstring(response.content)
+    tree = ET.ElementTree(root)    
+
+    wellprops = BroGmwXml(tree)
+    return wellprops ##wellprops.set_index('broId').squeeze()
 
 
 def get_welltubes(gmwid):
@@ -212,15 +271,17 @@ def get_welltubes(gmwid):
     for tube in resdict['monitoringTubeReferences']:
         for gld in tube['gldReferences']:
             tubes.append({
-                'gmwid':resdict['gmwBroId'],
-                'tubenr':tube['tubeNumber'],
-                'gldid':gld['broId'],
-                'instantie':gld['accountableParty'],
+                'gmwid' : resdict['gmwBroId'],
+                'tubenr' : str(tube['tubeNumber']),
+                'gldid' : gld['broId'],
+                'instantie' : gld['accountableParty'],
                 },)
-    return DataFrame(tubes)
+
+    welltubes = DataFrame(tubes).set_index('tubenr').sort_index(ascending=True)
+    return welltubes
 
 
-def get_putcode(gmwid):
+def get_wellcode(gmwid):
     """Return BRO well user name putcode.
 
     Parameters
@@ -237,6 +298,26 @@ def get_putcode(gmwid):
     response = requests.get(url)
     return response.text
 
+def _request_gld(brogld=None,startdate='1900-01-01',enddate=None,reference=None):
+    """Return BRO GLD XML tree from REST service"""
+
+    #brogldid = 'GLD000000009526' #'GLD000000009602'
+    if reference is None:
+        reference = 'no user reference given' #'Mijn-object-aanvraag-000001'
+    if enddate is None:
+        enddate = pd.Timestamp.today().strftime('%Y-%m-%d')
+    filtered = 'NEE'
+
+    url = ((f'https://publiek.broservices.nl/gm/gld/v1/objects/{brogld}?'
+        f'filtered={filtered}&observationPeriodBeginDate={startdate}&'
+        f'observationPeriodEndDate={enddate}&requestReference={reference}'))
+    response = requests.get(url)
+
+    status_code = response.status_code
+    response_string = response.content
+    root = ET.fromstring(response.content)
+
+    return root
 
 def get_levels(brogld=None,startdate='1900-01-01',enddate=None,reference=None):
     """Return Groundwater Level Data (GLD) for GLD.
@@ -256,24 +337,10 @@ def get_levels(brogld=None,startdate='1900-01-01',enddate=None,reference=None):
     -------
     BroGldXml
     """
-    #brogldid = 'GLD000000009526' #'GLD000000009602'
-    if reference is None:
-        reference = 'no user reference given' #'Mijn-object-aanvraag-000001'
-    if enddate is None:
-        enddate = pd.Timestamp.today().strftime('%Y-%m-%d')
-    filtered = 'NEE'
-
-    url = ((f'https://publiek.broservices.nl/gm/gld/v1/objects/{brogld}?'
-        f'filtered={filtered}&observationPeriodBeginDate={startdate}&'
-        f'observationPeriodEndDate={enddate}&requestReference={reference}'))
-    response = requests.get(url)
-
-    status_code = response.status_code
-    response_string = response.content
-    tree = ET.fromstring(response.content)
-
+    root = _request_gld(brogld=brogld,startdate=startdate,enddate=enddate,reference=reference)
     # Parse response with BroGldXml
-    gld = BroGldXml.from_rest(tree.getroottree())
+    #gld = BroGldXml.from_REST(tree.getroottree())
+    gld = BroGldXml(root) ##, xmlsource='REST')
 
     return gld
 

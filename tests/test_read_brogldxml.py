@@ -5,19 +5,22 @@ from pandas import Series, DataFrame
 from pandas import DataFrame
 from geopandas import GeoDataFrame
 from acequia import BroGldXml
-
+from acequia import brorest
 
 @pytest.fixture
 def filegld():
     xmlpath = r'.\data\bro\Grondwaterstandonderzoek BRO\GLD000000009526_IMBRO_A.xml'
-    return BroGldXml.from_file(xmlpath)
+    return BroGldXml.from_xml(xmlpath)
 
 @pytest.fixture
 def restgld():
     # parse xml file that contains an xml from the BRO REST service
-    xmlpath = r'.\data\bro\RESTXML\GLD000000009526.xml'  #GLD000000010071.xml'
-    tree = ET.parse(xmlpath)
-    return BroGldXml.from_rest(tree)
+    ##xmlpath = r'.\data\bro\RESTXML\GLD000000009526.xml'  #GLD000000010071.xml'
+    ##tree = ET.parse(xmlpath)
+    ##return BroGldXml.from_REST(tree)
+    root = brorest._request_gld(brogld='GLD000000012658')
+    return BroGldXml(root)
+
 
 @pytest.mark.parametrize('gld', [filegld, restgld])
 def test_property_gldprops(gld,request):

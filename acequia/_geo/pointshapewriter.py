@@ -9,7 +9,7 @@ from geopandas import GeoDataFrame
 
 
 
-def pointshape_write(tbl=None,xfield=None,yfield=None,
+def write_pointshape(tbl=None,xfield=None,yfield=None,
     filepath='shapefile.shp'):
     """Write pandas dataframe to point shapefile
 

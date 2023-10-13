@@ -21,7 +21,7 @@ from datetime import datetime
 from . import gwseries as gwseriesmod
 from .._read.hydromonitor import HydroMonitor
 from .._read.waterweb import WaterWeb
-from .._read.filedirtools import listdir
+from .._read.filetools import listdir
 
 newline = '\n'
 

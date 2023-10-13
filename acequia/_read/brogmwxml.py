@@ -65,7 +65,7 @@ class BroGmwXml:
         ]
 
 
-    def __init__(self,tree):
+    def __init__(self, root):
         """
         Parameters
         ----------
@@ -77,9 +77,9 @@ class BroGmwXml:
         gld = BroGld(<elementtree>)
             
         """       
-        self._tree = tree
-        self._root = self._tree.getroot()
-        
+        #self._tree = tree
+        self._root = root #self._tree.getroot()
+
     def __repr__(self):
         return self.wellprops['wellCode']
 
@@ -104,7 +104,9 @@ class BroGmwXml:
         if not os.path.isfile(xmlpath):
             raise ValueError(f'Invalid filepath: "{xmlpath}".')
         tree = ET.parse(xmlpath)
+        #root = tree.getroot()
         return cls(tree)
+
 
     @property
     def wellprops(self):

@@ -20,11 +20,13 @@ class WaterWeb:
         Read waterweb csv export file and return WaterWeb object.
 
     """
-    _column_mapping = {
+    NAMECOL = 'sunsr'
+
+    COLUMN_MAPPING = {
         'Lokatie':'sunloc',
         'SUN-kode':'sunsr',
         'NITG-kode':'nitgsr',
-         #'OLGA-kode':'olga', #VERVALLEN
+         #'OLGA-kode':'olga', # DEZE KOLOM IS VERVALLEN
         'BROID':'broid',
         'DERDEN-kode':'derden',
         'X coordinaat':'xcr',
@@ -46,57 +48,29 @@ class WaterWeb:
         'Opmerking bij peiling':'peilopm'
         }
 
-    """
-    _typedict = {
-        'Lokatie':str,
-        'SUN-kode':str,
-        'NITG-kode':str,
-        'BROID':str,
-        ##'OLGA-kode':str,
-        'DERDEN-kode':str,
-        'X coordinaat':'float64',
-        'Y coordinaat':'float64',
-        'NAP hoogte bovenkant peilbuis':'int64',
-        'Hoogte maaiveld tov NAP':'int64',
-        'Hoogte maaiveld tov Nulpunt':'int64',
-        'Hoogte maaiveld tov maaiveld':'int64',
-        'NAP hoogte bovenkant filter':'int64',
-        'NAP hoogte onderkant filter':'int64',
-        'Peilmoment':str,
-        'Peilstand':'int64',
-        'Peilstand in Meters':'float64',
-        'Peilstand tov NAP':'int64',
-        'Peilstand tov NAP in Meters':'float64',
-        'Peilstand tov maaiveld':'int64',
-        'Peilstand tov maaiveld in Meters':'float64',
-        'Peilkode':str,
-        'Opmerking bij peiling':str,
-        }
-    """
-    
-    _locprops_cols = ['sunloc','sunsr','nitgsr','broid','derden',
+    LOCPROPS_COLS = ['sunloc','sunsr','nitgsr','broid','derden',
         'xcr','ycr',]
 
-    _tubeprops_cols = ['mpnap','mvnap','filtopnap','filbotnap']
+    TUBEPROPS_COLS = ['mpnap','mvnap','filtopnap','filbotnap']
 
-    _peilprops_cols = ['datetime','peilcmmp','peilcode','peilopm']
+    PEILPROPS_COLS = ['datetime','peilcmmp','peilcode','peilopm']
 
-    _locprops_mapping = {
+    LOCPROPS_MAPPING = {
         'locname':'sunloc','alias':'nitgsr',
         'xcr':'xcr','ycr':'ycr'
         }
 
-    _tubeprops_mapping = {
+    TUBEPROPS_MAPPING = {
         'startdate':'datetime','mplevel':'mpnap',
         'filtop':'filtopnap','filbot':'filbotnap',
         'surfacelevel':'mvnap'
         }
 
-    _levels_mapping = {
+    LEVELS_MAPPING = {
         'headdatetime':'datetime', 'headmp':'peilcmmp', 
         'headnote':'peilcode','remarks':'peilopm'}
 
-    _reflevels = [
+    REFLEVELS = [
         'datum','surface','mp',
         ]
 
@@ -130,7 +104,7 @@ class WaterWeb:
         self.data = data
 
         if self._network is None:
-            self._network = 'Onbekend Waterweb meetnet'
+            self._network = '<unknown network>'
 
         if self.data is not None:
 
@@ -139,7 +113,7 @@ class WaterWeb:
                     f'DataFrame.'))
 
             # rename columns in data
-            self.data = self.data.rename(columns=self._column_mapping)
+            self.data = self.data.rename(columns=self.COLUMN_MAPPING)
 
             # Remove measurements without reference level.
             # Note:
@@ -158,7 +132,7 @@ class WaterWeb:
 
 
     def __len__(self):
-        return len(self.srnames)
+        return len(self.names)
 
 
     @classmethod
@@ -189,7 +163,7 @@ class WaterWeb:
 
         #check for missing columns
         missing_columns = []
-        for col in WaterWeb._column_mapping.keys():
+        for col in cls.COLUMN_MAPPING.keys():
             if col not in list(data):
                 missing_columns.append(col)
         if missing_columns:
@@ -199,7 +173,7 @@ class WaterWeb:
         # check for unknown columns
         unknown_columns = []
         for col in list(data):
-            if col not in WaterWeb._column_mapping.keys():
+            if col not in cls.COLUMN_MAPPING.keys():
                 unknown_columns.append(col)
         if unknown_columns:
             warnings.warn((f'Unknown columns in WaterWeb csv file: '
@@ -217,12 +191,24 @@ class WaterWeb:
 
 
     @property
-    def srnames(self):
+    def names(self):
         """Return list of series names"""
         if self.data is not None:
-            return list(self.data['sunsr'].unique())
+            return list(self.data[self.NAMECOL].unique())
         else:
             return []
+
+    @property
+    def locnames(self):
+        """Return list of series names"""
+        
+        # series suncodes end with a capital ('A', 'B') when mulitple
+        # filters are present. A filter from a well with one filter
+        # ends with nothing
+        capitals = [chr(x) for x in range(65,91)]
+        locs = [x if x[-1] not in capitals else x[:-1] for x in self.names]
+        return set(locs)
+
 
     def get_type(self,srname=None):
         """Return kind of measurement type series
@@ -236,7 +222,7 @@ class WaterWeb:
         -------
         str, numpy array of str """
 
-        srnames = self.srnames
+        srnames = self.names
         sr = Series(data=srnames,index=srnames,name='seriestype')
         sr = sr.apply(lambda x:x[8])
 
@@ -249,7 +235,7 @@ class WaterWeb:
     def measurement_types(self):
         """Return table of measurement type counts."""
         srtypelist = []
-        for name in self.srnames:
+        for name in self.names:
             srtypelist.append(self.get_type(name))
         tbl = pd.Series(srtypelist).value_counts()
         tbl.name = self.networkname
@@ -312,12 +298,12 @@ class WaterWeb:
         ------
         pd.Series """
 
-        data =self.data[self.data['sunsr']==srname]
+        data =self.data[self.data[self.NAMECOL]==srname]
         lastrow = data.iloc[-1,:]
 
-        sr = Series(index=self._locprops_cols,dtype='object',
+        sr = Series(index=self.LOCPROPS_COLS,dtype='object',
             name=srname)
-        for col in self._locprops_cols:
+        for col in self.LOCPROPS_COLS:
             sr[col] = lastrow[col]
 
         return sr
@@ -335,10 +321,10 @@ class WaterWeb:
         -------
         pd.DataFrame """
 
-        data =self.data[self.data['sunsr']==srname]
-        data = data.drop_duplicates(subset=self._tubeprops_cols,
+        data =self.data[self.data[self.NAMECOL]==srname]
+        data = data.drop_duplicates(subset=self.TUBEPROPS_COLS,
             keep='first')
-        data = data[['datetime']+self._tubeprops_cols]
+        data = data[['datetime']+self.TUBEPROPS_COLS]
         data = data.reset_index(drop=True)
 
         return data
@@ -356,7 +342,7 @@ class WaterWeb:
         -------
         pd.Series """
 
-        if ref not in self._reflevels:
+        if ref not in self.REFLEVELS:
             warnings.warn((f'{ref} not in {self._references}. '),
                 (f'reference is set to "datum".')) 
             ref = 'datum'
@@ -367,7 +353,7 @@ class WaterWeb:
         if ref=='mv':
             col = 'peilcmmv'
 
-        data =self.data[self.data['sunsr']==srname]
+        data =self.data[self.data[self.NAMECOL]==srname]
         data = data[[col,'datetime']]
         data = data.set_index('datetime',drop=True).squeeze()
         data.name = self.get_locname(srname)
@@ -396,9 +382,9 @@ class WaterWeb:
         # locprops
         locprops = self.get_locprops(srname)
         for gwprop in list(gw._locprops.index):
-            if gwprop not in self._locprops_mapping.keys():
+            if gwprop not in self.LOCPROPS_MAPPING.keys():
                 continue
-            wwnprop = self._locprops_mapping[gwprop]
+            wwnprop = self.LOCPROPS_MAPPING[gwprop]
             gw._locprops[gwprop] = locprops[wwnprop]
 
         gw._locprops['filname'] = self.get_filname(srname)
@@ -408,20 +394,20 @@ class WaterWeb:
         # tubeprops
         tubeprops = self.get_tubeprops(srname)
         for gwprop in list(gw._tubeprops):
-            if gwprop not in self._tubeprops_mapping.keys():
+            if gwprop not in self.TUBEPROPS_MAPPING.keys():
                 continue
-            wwnprop = self._tubeprops_mapping[gwprop]
+            wwnprop = self.TUBEPROPS_MAPPING[gwprop]
             gw._tubeprops[gwprop] = tubeprops[wwnprop].values
-            if gwprop in gw._tubeprops_numcols:
+            if gwprop in gw.TUBEPROPS_NUMCOLS:
                 gw._tubeprops[gwprop] = gw._tubeprops[gwprop]/100.
 
         #levels
-        levels =self.data[self.data['sunsr']==srname]
-        levels = levels[self._peilprops_cols]
-        for gwprop in list(gw._headprops_names):
-            if gwprop not in self._levels_mapping.keys():
+        levels =self.data[self.data[self.NAMECOL]==srname]
+        levels = levels[self.PEILPROPS_COLS]
+        for gwprop in list(gw.HEADPROPS_NAMES):
+            if gwprop not in self.LEVELS_MAPPING.keys():
                 continue
-            wwnprop = self._levels_mapping[gwprop]
+            wwnprop = self.LEVELS_MAPPING[gwprop]
             gw._heads[gwprop] = levels[wwnprop].values
         gw._heads['headmp'] = gw._heads['headmp']/100.
 
@@ -432,7 +418,7 @@ class WaterWeb:
         """Return locations as GeoDataFrame."""
 
         propslist = []
-        for srname in self.srnames:
+        for srname in self.names:
             sr = self.get_locprops(srname)
             sr['name'] = sr.name
             sr['mptype'] = self.get_type(srname)
@@ -514,5 +500,5 @@ class WaterWeb:
 
     def iteritems(self):
         """Iterate over all series and return gwseries object."""
-        for srname in self.srnames:
+        for srname in self.names:
             yield self.get_gwseries(srname)

@@ -1,9 +1,9 @@
 
 
 import pytest
-from pandas import DataFrame
-from acequia import _brorest as brorest
-from acequia import BroGldXml
+from pandas import Series, DataFrame
+from acequia import brorest
+from acequia import BroGmwXml, BroGldXml
 
 
 @pytest.fixture
@@ -32,17 +32,18 @@ def test_getareawellprops():
 
 def test_singlewellprops(gmwid):
     props = brorest.get_wellprops(gmwid)
-    assert isinstance(props,DataFrame)
-    assert not props.empty
+    assert isinstance(props, BroGmwXml)
+    assert not props.tubeprops.empty
+    assert not props.wellprops.empty
 
 def test_getwelltubes(gmwid):
     tubes = brorest.get_welltubes(gmwid)
-    assert isinstance(tubes,DataFrame)
+    assert isinstance(tubes, DataFrame)
     assert not tubes.empty
 
-def test_getputcode(gmwid):
-    wellcode = brorest.get_putcode(gmwid)
-    assert isinstance(wellcode,str)
+def test_getwellcode(gmwid):
+    wellcode = brorest.get_wellcode(gmwid)
+    assert isinstance(wellcode, str)
     assert len(wellcode)!=0
 
 def test_getlevels(brogld):

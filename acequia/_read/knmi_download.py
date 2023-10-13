@@ -492,7 +492,7 @@ class KnmiDownload:
                     f'will be used.'))
 
         # download raw data
-        rawdata = self.download(kind='weather',start=start,end=start,stns=station)
+        rawdata = self.download(kind='weather',start=start,end=end,stns=station)
         #return rawdata
 
         # return cleaned data
@@ -502,4 +502,5 @@ class KnmiDownload:
         data = data/10.
         data.index = data.index.tz_localize(None)
         data = data.rename(columns={'RH':'prec','EV24':'evap'})
+        data = data.loc[data.first_valid_index():,:] #drop leading NaNs
         return data
