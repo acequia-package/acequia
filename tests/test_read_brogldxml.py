@@ -5,7 +5,7 @@ from pandas import Series, DataFrame
 from pandas import DataFrame
 from geopandas import GeoDataFrame
 from acequia import BroGldXml
-from acequia import brorest
+from acequia import _brorest
 
 @pytest.fixture
 def filegld():
@@ -18,7 +18,7 @@ def restgld():
     ##xmlpath = r'.\data\bro\RESTXML\GLD000000009526.xml'  #GLD000000010071.xml'
     ##tree = ET.parse(xmlpath)
     ##return BroGldXml.from_REST(tree)
-    root = brorest._request_gld(brogld='GLD000000012658')
+    root = _brorest._request_gld(brogld='GLD000000012658')
     return BroGldXml(root)
 
 

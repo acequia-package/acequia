@@ -1,7 +1,7 @@
 
 import pytest
 
-from acequia import CrdCon, convert_RDtoWGS84, convert_WGS84toRD
+from acequia import CrdCon, geo_convert_RDtoWGS84, geo_convert_WGS84toRD
 
 @pytest.fixture
 def xRD():
@@ -40,10 +40,10 @@ def test_convert_WGS84toRD(xRD, yRD, lat, lon):
 
 def test_functions(xRD, yRD, lat, lon):
 
-    lat2, lon2 = convert_RDtoWGS84(xRD, yRD)
-    xRD2, yRD2 = convert_WGS84toRD(lat2, lon2)
-    assert isinstance(convert_RDtoWGS84(xRD2, yRD2), tuple)
-    assert isinstance(convert_WGS84toRD(lat2, lon2), tuple)
+    lat2, lon2 = geo_convert_RDtoWGS84(xRD, yRD)
+    xRD2, yRD2 = geo_convert_WGS84toRD(lat2, lon2)
+    assert isinstance(geo_convert_RDtoWGS84(xRD2, yRD2), tuple)
+    assert isinstance(geo_convert_WGS84toRD(lat2, lon2), tuple)
     assert round(xRD, 2) == round(xRD2, 2)
     assert round(yRD, 2) == round(yRD2, 2)
     assert round(lat, 2) == round(lat2, 2)
