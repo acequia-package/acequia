@@ -7,7 +7,6 @@ Example
 >>> stations = aq.knmilocations()
 
 """
-
 import os,os.path
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
@@ -22,68 +21,55 @@ import numpy as np
 import pandas as pd
 from pandas import Series, DataFrame
 import pandas as pd
+from shapely.geometry import Point
+from geopandas import GeoSeries
 import geopandas as gpd
 from json import JSONDecodeError
 from .._geo.coordinate_conversion import CrdCon, convert_WGS84toRD
 
-
 logger = logging.getLogger(__name__)
 
-def get_knmiwtr_stn(geodataframe=True):
-    """ Return table of KNMI weather stations."""
 
-    # download table of weather stations
+def get_knmiwtr_stn(geo=False):
+    """ Return KNMI weather stations.
+
+    Parameters
+    ----------
+    geo : bool, default False
+        Return geodataframe (True) or pandas DataFrame (default).
+
+    Returns
+    -------
+    pandas DataFrame, geopandas GeoDataframe
+        
+    """
     knmi = KnmiDownload()
-    stns = knmi.weather_stations
-    stns['label'] = stns.index + '_' + stns['stn_name']
-
-    if geodataframe is True:
-        # return GeoDataFrame
-        stns = gpd.GeoDataFrame(
-            stns, geometry=gpd.points_from_xy(stns.lon, stns.lat))
-        stns = stns.set_crs('epsg:4326')
-        stns = stns.to_crs('epsg:28992')
+    if geo:
+        stns = knmi.get_weather_stations(geo=True)
     else:
-        # return just locations ids and names
-        stns = stns[['stn_name']]
+        stns = knmi.get_weather_stations(geo=False)
 
     return stns
 
-def get_knmiprc_stn(geodataframe=True):
-    """ Return table of KNMI precipitation stations.
+def get_knmiprc_stn(geo=False):
+    """ Return KNMI precipitation stations.
     
     Parameters
     ----------
-    geodataframe : bool, default True
+    geo : bool, default False
         Return GeoDataframe (True) or DataFrame (False)
 
     Returns
     -------
     GeoDataFrame, DataFrame
-    
-    Notes
-    -----
-    Coordinates of precipitation stations are not available from 
-    the KNMI website. Instead, a local file with approximate 
-    coordinates is used. To get a list of current KNMI precipitation 
-    stations from the KNMI website without coordinates, use this 
-    function with parameter geodataframe=False.
        
     """
+    if geo:
+        knmi = KnmiDownload()        
+        stns = knmi.get_precipitation_stations(geo=True)
+    else:
+        stns = knmi.get_precipitation_stations(geo=False)
 
-    if not geodataframe:
-        # download list from KNMI website
-        knmi = KnmiDownload()
-        return knmi.precipitation_stations
-
-    if geodataframe:
-        knmi = KnmiDownload()
-        stns = knmi.precipitation_stations
-        stns['label'] = stns.index + '_' + stns['stn_name']
-        ##stns = stns.set_index('stn_code')
-        stns = gpd.GeoDataFrame(
-            stns, geometry=gpd.points_from_xy(stns.xrd, stns.yrd))
-        stns = stns.set_crs('epsg:28992')
     return stns
 
 
@@ -146,7 +132,6 @@ def get_knmiwtr(station='260', location=None, start=None, end=None,):
     return data
 
 
-
 class KnmiDownload:
     """Retrieve KNMI list of all available station numbers and names
     from KNMI website 
@@ -169,11 +154,13 @@ class KnmiDownload:
     WEATHER_URL=r'https://www.daggegevens.knmi.nl/klimatologie/daggegevens'
     PRECIPITATION_URL=r'https://www.daggegevens.knmi.nl/klimatologie/monv/reeksen'
     BACKSHIFT = 2 #Backshift in months from today for retrieving one day of data
-
+    DEFAULT_PREC = '327'
+    DEFAULT_WTR = '260'
     WEATHER_HEADER_FIRSTLINE = '# STN         LON(east)   LAT(north)  ALT(m)      NAME'
     WEATHER_HEADER_STOPLINE = '# RH        : Etmaalsom van de neerslag (in 0.1 mm)'
     PREC_HEADER_FIRSTLINE = '# STN         NAME'
     PREC_HEADER_STOPLINE = '# RD        : 24-uur som van de neerslag'
+    MINIMAL_REPLACEMENTS = 3
 
     def __init__(self):
 
@@ -322,15 +309,54 @@ class KnmiDownload:
         return end
     """
 
-    @property
-    def weather_stations(self):
-        ##return self._wtrstn_knmidownload
-        return self._wtrstn_hydropandas
+    #@property
+    def get_weather_stations(self, geo=False):
+        """Return table of KNMI Weather stations.
+        
+        Parameters
+        ----------
+        geo : bool, default False
+            Return geodataframe (True) or pandas DataFrame (default).
 
-    @property
-    def precipitation_stations(self):
-        ##return self._prcstn_knmidownload
-        return self._prcstn_hydropandas
+        Returns
+        -------
+        pandas DataFrame, geopandas GeoDataframe
+            
+        """
+        stns = self._wtrstn_hydropandas
+
+        if geo:
+            stns['label'] = stns.index + '_' + stns['stn_name']
+            stns = gpd.GeoDataFrame(
+                stns, geometry=gpd.points_from_xy(stns.xrd, stns.yrd))
+            #stns = stns.set_crs('epsg:4326')
+            #stns = stns.to_crs('epsg:28992')
+            stns = stns.set_crs('epsg:28992')
+        return stns
+
+    #@property
+    def get_precipitation_stations(self, geo=False):
+        """Return table of KNMI precipitation stations.
+        
+        Parameters
+        ----------
+        geo : bool, default False
+            Return geodataframe (True) or pandas DataFrame (default).
+
+        Returns
+        -------
+        pandas DataFrame, geopandas GeoDataframe
+            
+        """
+        stns = self._prcstn_hydropandas
+        if geo:
+            stns['label'] = stns.index + '_' + stns['stn_name']
+            stns = gpd.GeoDataFrame(stns, 
+                geometry=gpd.points_from_xy(stns.xrd, stns.yrd))
+            stns = stns.set_crs('epsg:28992')
+        else:
+            pass
+        return stns
 
 
     def get_precipitation(self, station=327, location=None, start=None, end=None):
@@ -358,16 +384,15 @@ class KnmiDownload:
         by location name (i.e. "Dwingelo").
            
         """
-        
 
         # try to get station id from given station name
         if isinstance(location,str):
-            prec_stns = self.precipitation_stations
+            prec_stns = self.get_precipitation_stations()
             mask = prec_stns['stn_name'].str.lower().str.contains(location.lower())
             if not prec_stns[mask].empty:
                 station = prec_stns[mask].index[0]
             else:
-                warnings.warn((f'{station_name} is not a valid KNMI '
+                warnings.warn((f'{location} is not a valid KNMI '
                     f'precipitation station name. Default station {station} '
                     f'will be used.'))
                 logger.warning(
@@ -380,14 +405,34 @@ class KnmiDownload:
         rawdata = self.get_rawdata(kind='prec', stns=station, start=start, end=end)
 
         # return time series
-
-        data = rawdata.drop_duplicates(subset='date')
-        dates = pd.to_datetime(data['date'])
-        prec = data['RD'].values/10
-        sr = Series(data=prec, index=dates, name=station)
-        sr.index = sr.index.tz_localize(None)
+        if not rawdata[~rawdata['RD'].isnull()].empty:
+            data = rawdata.drop_duplicates(subset='date')
+            dates = pd.to_datetime(data['date'])
+            prec = data['RD'].values/10
+            sr = Series(data=prec, index=dates, name=station)
+            sr.index = sr.index.tz_localize(None)
+        else:
+            sr = Series(name=station)
 
         return sr
+
+    def _get_station_stn(self, kind=None, location=None):
+
+        if kind=='prec':
+            stns = self.get_precipitation_stations(geo=False)
+            kindname = 'precipitation'
+        elif kind=='wtr':
+            stns = self.get_weather_stations(geo=False)
+            kindname = 'weather'
+
+        station = stns[stns['stn_name']==location]
+        if not station.empty:
+            stn = station.index[0]
+        else:
+            raise ValueError((f'{location} is not a valid KNMI '
+                f'{kindname} station name.'))
+
+        return stn
 
     def get_weather(self, station='260', location=None, start=None, end=None,):
         """Return precipitation and evaporation from weather station.
@@ -415,16 +460,9 @@ class KnmiDownload:
            
         """
 
-        # try to get station id from given station name
         if isinstance(location, str):
-            weather_stations = self.weather_stations
-            station_name = weather_stations[weather_stations['stn_name']==location]
-            if not station_name.empty:
-                station = str(station_name.index[0])
-            else:
-                warnings.warn((f'{station_name} is not a valid KNMI '
-                    f'precipitation station name. Default station {station} '
-                    f'will be used.'))
+            # try to get station id from given station name
+            station = self._get_station_stn(kind='wtr', location=location)
 
         # download raw data
         rawdata = self.get_rawdata(kind='weather', stns=station, start=start, end=end,
@@ -442,6 +480,110 @@ class KnmiDownload:
         data['prec'] = data['prec'].replace(-1,0) # -1 is used voor less then 0.5 mm percipitation
         data = data/10.
         return data
+
+
+    def get_distance(self, kind='prec', stn=None, location=None, xy=None, latlon=None):
+        """Return table of distances between KNMI stations and a 
+        reference point. Reference point can be given as a KNMI station 
+        (station code or station name) or a coordinate (Dutch grid xy or
+        WGS84 latlon).
+
+        Parameters
+        ----------
+        kind : {'prec','wtr'}, default 'prec'
+            KNMI station type.
+        stn : str, optional
+            Valid KNMI station code.
+        location : str, optional
+            Valid KNMI station name.
+        xy : tuple, optional
+            Reference point coordinates as (xcoor, ycoor) in Dutch grid.
+        latlon : tuple, optional
+            Reference point coordinates as (lat, lon) in WGS84.
+
+        Returns
+        -------
+        pandas DataFrame
+            Table of KNMI stations with distance from reference point.
+            
+        """
+
+        # determine data type : weather or precipitation
+        if kind=='prec':
+            stns = self.get_precipitation_stations(geo=True)
+            kindname = 'precipitation'
+            if isinstance(location, str):
+                stn = self._get_station_stn(kind='prec', location=location)
+
+        elif kind=='wtr':
+            stns = self.get_weather_stations(geo=True)
+            kindname = 'weather'
+            if isinstance(location, str):
+                stn = self._get_station_stn(kind='wtr', location=location)
+
+        else:
+            raise ValueError((f'{kind} is not a valid KNMI station type.'))
+
+        if (stn not in stns.index.values) & (stn is not None):
+            raise ValueError((f'{stn} is not a valid KNMI {kindname} station code.'))
+
+        # get reference point coordinates as GeoSeries
+        if stn:
+            loc = stns.loc[stn,'geometry']
+        if latlon:
+            xy = convert_WGS84toRD(latlon[0],latlon[1])
+        if xy:
+            # exapend point to geoseries with index equal to stn
+            # because geopandas .distance() method is index based
+            data = [Point(xy[0], xy[1]) for x in range(len(stns))]
+            index = stns.index
+            loc = GeoSeries(data=data, index=index, crs='epsg:28992')
+
+        # calculate distance in km to reference point for each station
+        dist = stns.distance(loc)
+        dist = (dist/1000.).round(0)
+        dist.name = 'distance_km'
+
+        # merge station names with calculated distance
+        stns = pd.merge(stns[['stn_name']], dist, left_index=True, right_index=True, how='left')
+        stns = stns.sort_values('distance_km')
+        
+        return stns
+
+    def replace_missing_values(self, kind='prec', meteo=None):
+        """Replace missing values in a series of precipitation values."""
+
+        nandates = meteo[meteo.isnull()].index
+        first_nan_date = nandates[0]
+        last_nan_date = nandates[-1]
+
+        # get codes of replecement stations
+        dist = self.get_distance(kind=kind, stn=meteo.name)
+        stn_codes = dist[dist['distance_km']!=0].index.values
+
+        data = []
+        for stn in stn_codes:
+            try:
+                sr = self.get_precipitation(station=stn, start=first_nan_date, end=last_nan_date)
+                sr = sr[nandates]
+            except KeyError:
+                # not all nandates are in index of sr (non-overlapping time series)
+                continue
+            else:
+                if not sr[~sr.isnull()].empty:
+                    data.append(sr)
+                if len(data)>=self.MINIMAL_REPLACEMENTS: # at least three new series
+                    self._nan_replacements = pd.concat(data, axis=1)                
+                    self._nan_replacements['mean'] = self._nan_replacements.mean(axis=1).round(0)
+                    self._nan_replacements['n'] = self._nan_replacements.count(axis=1)-1
+
+                    no_nans_left = self._nan_replacements[self._nan_replacements['mean'].isnull()].empty
+                    enough_values = np.all(self._nan_replacements['n']>=self.MINIMAL_REPLACEMENTS)
+                    if no_nans_left & enough_values:
+                        newmeteo = meteo.copy()
+                        newmeteo[self._nan_replacements.index] = self._nan_replacements['mean']
+                        break
+        return newmeteo
 
 
     @property
