@@ -73,14 +73,14 @@ def get_knmiprc_stn(geo=False):
     return stns
 
 
-def get_knmiprc(station='327', location=None, start=None, end=None):
+def get_knmiprc(station='327', name=None, start=None, end=None):
     """Return data from KNMI precipitation station.
     
     Parameters
     ----------
     station : str (default '327')
         Identification code of KNMI precipitation station.
-    location : str, default None
+    name : str, default None
         Name of KNMI location.
     start : str, optional (default january first of current year)
         First day of download period (format as %Y%m%d).
@@ -94,22 +94,22 @@ def get_knmiprc(station='327', location=None, start=None, end=None):
     Notes
     -----
     KNMI precipitation stations are identified by their identification 
-    (parameter "station", i.e. "327"). The parameter "location" allows 
+    (parameter "station", i.e. "327"). The parameter "name" allows 
     identification by location name (i.e. "Dwingelo").
        
     """
     knmi = KnmiDownload()
-    sr = knmi.get_precipitation(station=station, location=location, start=start, end=end)
+    sr = knmi.get_precipitation(station=station, name=name, start=start, end=end)
     return sr
 
-def get_knmiwtr(station='260', location=None, start=None, end=None,):
+def get_knmiwtr(station='260', name=None, start=None, end=None,):
     """Return precipitation and evaporation from KNMI weather station.
 
     Parameters
     ----------
     station : str (default '260'), optional
         Identification code of KNMI weather station.
-    location : str, optional
+    name : str, optional
         Name of KNMI weather station.
     start : str, optional (default january first of current year)
         First day of download period (format as %Y%m%d).
@@ -123,12 +123,12 @@ def get_knmiwtr(station='260', location=None, start=None, end=None,):
     Notes
     -----
     KNMI weather stations are identified by their identification (parameter 
-    "station", i.e. "260"). The parameter "location" allows identification
+    "station", i.e. "260"). The parameter "name" allows identification
     by location name (i.e. "De Bilt").
        
     """
     knmi = KnmiDownload()
-    data = knmi.get_weather(station=station, location=location, start=start, end=end)
+    data = knmi.get_weather(station=station, name=name, start=start, end=end)
     return data
 
 
@@ -210,7 +210,7 @@ class KnmiDownload:
 
         Parameters
         ----------
-        kind : {'weather','prec'}, default 'weather'
+        kind : {'weather','precipitation'}, default 'weather'
             Measurement station type.
         stns : str or list of str (default '260')
             Numbers of stations to download.
@@ -237,10 +237,8 @@ class KnmiDownload:
 
 
         """
-        if kind not in ['weather','prec']:
-            warnings.warn((f"Invalid measurement station type {kind}. "
-                f"Default station type 'weather' is returned."))
-            kind = 'weather'
+        if kind not in ['weather','precipitation']:
+            raise ValueError((f"Invalid measurement station type {kind}. "))
 
         if result not in ['data','text']:
             warnings.warn((
@@ -267,7 +265,7 @@ class KnmiDownload:
         if kind=='weather':
             par['vars']=variables
             self._response = self._request_weather(par=par)
-        if kind=='prec':
+        if kind=='precipitation':
             self._response = self._request_precipitation(par=par)
 
         # parse server response
@@ -280,9 +278,9 @@ class KnmiDownload:
             except JSONDecodeError as err:
                 raise JSONDecodeError((f'Response could not be serialised '
                     f'with request  {self._response_url}.'))
-            if data.empty:
-                warnings.warn((f'No data available for station {stns} '
-                    f'inperiod {start} - {end}.'))
+            ##if data.empty:
+            ##    warnings.warn((f'No data available for station {stns} '
+            ##        f'inperiod {start} - {end}.'))
         return data
 
     def _findline(self, lines=None, tagline=None, start=None):
@@ -295,21 +293,7 @@ class KnmiDownload:
             raise ValueError(f'Tagline not found: {tagline}.')
         return line_nr
 
-    """
-    def _find_first_non_numeric_line(self,lines=None,start=None):
 
-        for j in range(start,len(lines)-1):
-            line = lines[j]
-            #starts_with_number = line[1:9].strip().isnumeric()
-            starts_with_number = line[1:].split()[0][:3]
-
-            if not starts_with_number:
-                end = j
-                break
-        return end
-    """
-
-    #@property
     def get_weather_stations(self, geo=False):
         """Return table of KNMI Weather stations.
         
@@ -359,19 +343,25 @@ class KnmiDownload:
         return stns
 
 
-    def get_precipitation(self, station=327, location=None, start=None, end=None):
+    def get_precipitation(self, station=None, name=None, start=None, 
+        end=None, kind='precipitation', fillnans=True):
         """Return precipitation data.
 
         Parameters
         ----------
-        station : str (default '327'), optional
+        station : str, optional
             Number of precipitation station to download.
-        location : str, optional
+        name : str, optional
             Name of KNMI location.
         start : str, optional (default january first of current year)
             First day of download period (format as %Y%m%d).
         end : str, optional (default today)
             Last day of download period (format as %Y%m%d).
+        kind : {'precipitation','weather'}, default 'precipitation'
+            KNMI station type to get data from.
+        fillnans : bool, default True
+            Replace missing values with average values from three nearest
+            stations.
 
         Returns
         -------
@@ -380,68 +370,173 @@ class KnmiDownload:
         Notes
         -----
         KNMI stations are identified by their identification (parameter 
-        "station", i.e. "327"). The parameter "location" allows identification
+        "station", i.e. "327"). The parameter "name" allows identification
         by location name (i.e. "Dwingelo").
            
         """
+        if kind not in ['weather','precipitation']:
+            raise ValueError((f"Invalid measurement station type {kind}. "))
 
-        # try to get station id from given station name
-        if isinstance(location,str):
-            prec_stns = self.get_precipitation_stations()
-            mask = prec_stns['stn_name'].str.lower().str.contains(location.lower())
-            if not prec_stns[mask].empty:
-                station = prec_stns[mask].index[0]
+        if (station is None) & (name is None):
+            raise ValueError((f'Either station code or station name must be given.'))
+
+
+        if isinstance(name, str):
+            # try to get station id from given station name
+            station = self.get_station_code(name=name, kind=kind)
+            if station is None:
+                raise ValueError((f'{name} is not a valid KNMI '
+                    f'{kind} station name.'))
+
+            """
+            # get table of station numbers and names
+            if kind=='precipitation':
+                stns = self.get_precipitation_stations()
+            elif kind=='weather':
+                stns = self.get_weather_stations()
             else:
-                warnings.warn((f'{location} is not a valid KNMI '
-                    f'precipitation station name. Default station {station} '
-                    f'will be used.'))
-                logger.warning(
-                    f'{location} is not a valid KNMI precipitation '                    
-                    f'station name. Default station {station} '
-                    f'{prcstn.loc[station,"stn_name"]} will be used.'
-                    )
+                raise ValueError((f'{kind} is not a valid KNMI station type.'))
+
+            # get station code from location name
+            mask = stns['stn_name'].str.lower().str.contains(name.lower())
+            if not stns[mask].empty:
+                station = stns[mask].index[0]
+            else:
+                raise ValueError((f'{name} is not a valid KNMI '
+                    f'{kind} station name.'))
+            """
 
         # download raw data
-        rawdata = self.get_rawdata(kind='prec', stns=station, start=start, end=end)
+        rawdata = self.get_rawdata(kind=kind, stns=station, start=start, end=end)
 
-        # return time series
-        if not rawdata[~rawdata['RD'].isnull()].empty:
-            data = rawdata.drop_duplicates(subset='date')
-            dates = pd.to_datetime(data['date'])
-            prec = data['RD'].values/10
-            sr = Series(data=prec, index=dates, name=station)
-            sr.index = sr.index.tz_localize(None)
-        else:
-            sr = Series(name=station)
+        # return time series of precipitation values
+
+        sr = Series(name=station, dtype='object')
+        #if rawdata.empty:
+        #    return sr
+
+        if kind=='precipitation':
+            colname='RD'
+            if not rawdata[~rawdata[colname].isnull()].empty:
+                sr = rawdata[['date',colname]].copy()
+                sr = sr.drop_duplicates(subset='date')
+                dates = pd.to_datetime(sr['date'])
+                prec = sr[colname].values/10
+                sr = Series(data=prec, index=dates, name=station)
+                sr.index = sr.index.tz_localize(None)
+                sr = sr[sr.first_valid_index():] #drop leading nans
+
+        if kind=='weather':
+            colname='RH'
+            if not rawdata[~rawdata[colname].isnull()].empty:
+                data = rawdata[['date',colname]].copy()
+                data = data.drop_duplicates(subset='date')
+                dates = pd.to_datetime(data['date'])
+                prec = data[colname].replace(-1,0).values/10. # -1 is used voor less then 0.5 mm percipitation
+                sr = Series(data=prec, index=dates, name=station)
+                sr.index = sr.index.tz_localize(None)
+
+
+        # replace missing values
+        if fillnans & (not sr.empty):
+            sr,_ = self.replace_missing_values(meteo=sr, kind=kind)
 
         return sr
 
-    def _get_station_stn(self, kind=None, location=None):
 
-        if kind=='prec':
+    def get_station_code(self, name=None, kind='precipitation'):
+        """Return code of KNMI station with given name.
+        Return None if name is not a valid KNMI station name.
+        
+        Parameters
+        ----------
+        name : str
+            KNMI station name.
+        kind : {'precipitation', 'weather'}, default 'precipitation'
+            KNMI station type.
+
+        Returns
+        -------
+        string or None
+           
+        """
+
+        if kind=='precipitation':
             stns = self.get_precipitation_stations(geo=False)
             kindname = 'precipitation'
-        elif kind=='wtr':
+        elif kind=='weather':
             stns = self.get_weather_stations(geo=False)
             kindname = 'weather'
+        else:
+            raise ValueError((f'{kind} is not a valid KNMI sation type.'))
 
-        station = stns[stns['stn_name']==location]
+        station = stns[stns['stn_name']==name]
         if not station.empty:
             stn = station.index[0]
         else:
-            raise ValueError((f'{location} is not a valid KNMI '
-                f'{kindname} station name.'))
+            ##raise ValueError((f'{name} is not a valid KNMI '
+            ##    f'{kindname} station name.'))
+            stn = None
 
         return stn
 
-    def get_weather(self, station='260', location=None, start=None, end=None,):
+
+    def get_station_metadata(self, stn=None, kind='precipitation'):
+        """Get KNMI station metadata from station code.
+
+        Parameters
+        ----------
+        stn : str
+            Valid KNMI station code.
+        kind : {'precipitation', 'weather'}, default 'precipitation'
+            KNMI station type.
+
+        Returns
+        -------
+        str or None
+            
+        """
+        if stn is None:
+            raise ValueError((f'A valid KNMI stadfion code must be given.'))
+
+        if kind not in ['weather','precipitation']:
+            raise ValueError((f"Invalid measurement station type {kind}. "))
+
+        if kind=='weather':
+        
+            stations = self.get_weather_stations()
+            stations.insert(0,stations.index.name,stations.index)
+            try:
+                meta = stations.loc[stn,:].squeeze()
+            except KeyError:
+                meta = Series(dtype='object')
+
+        if kind=='precipitation':
+
+            stations = self.get_precipitation_stations()
+            stations.insert(0,stations.index.name, stations.index)
+            try:
+                meta = stations.loc[stn,:].squeeze()
+            except KeyError:
+                meta = Series(dtype='object')
+
+        # create series with metadata
+        if not meta.empty:
+            meta['stn_kind'] = kind
+            meta.name = meta['stn_name']
+
+        return meta
+
+
+    def get_weather(self, station='260', name=None, start=None, end=None,
+        fillnans=True):
         """Return precipitation and evaporation from weather station.
 
         Parameters
         ----------
         station : str (default '260'), optional
             Number of precipitation station to download.
-        location : str, optional
+        name : str, optional
             Name of KNMI location.
         start : str, optional (default january first of current year)
             First day of download period (format as %Y%m%d).
@@ -455,14 +550,14 @@ class KnmiDownload:
         Notes
         -----
         KNMI stations are identified by their identification (parameter 
-        "station", i.e. "327"). The parameter "location" allows identification
-        by location name (i.e. "Dwingelo").
+        "station", i.e. "327"). The parameter "name" allows identification
+        by name name (i.e. "Dwingelo").
            
         """
 
-        if isinstance(location, str):
+        if isinstance(name, str):
             # try to get station id from given station name
-            station = self._get_station_stn(kind='wtr', location=location)
+            station = self.get_station_code(kind='weather', name=name)
 
         # download raw data
         rawdata = self.get_rawdata(kind='weather', stns=station, start=start, end=end,
@@ -479,10 +574,11 @@ class KnmiDownload:
 
         data['prec'] = data['prec'].replace(-1,0) # -1 is used voor less then 0.5 mm percipitation
         data = data/10.
+
         return data
 
 
-    def get_distance(self, kind='prec', stn=None, location=None, xy=None, latlon=None):
+    def get_distance(self, kind='precipitation', stn=None, name=None, xy=None, latlon=None):
         """Return table of distances between KNMI stations and a 
         reference point. Reference point can be given as a KNMI station 
         (station code or station name) or a coordinate (Dutch grid xy or
@@ -490,11 +586,11 @@ class KnmiDownload:
 
         Parameters
         ----------
-        kind : {'prec','wtr'}, default 'prec'
+        kind : {'precipitation','weather'}, default 'precipitation'
             KNMI station type.
         stn : str, optional
             Valid KNMI station code.
-        location : str, optional
+        name : str, optional
             Valid KNMI station name.
         xy : tuple, optional
             Reference point coordinates as (xcoor, ycoor) in Dutch grid.
@@ -509,17 +605,17 @@ class KnmiDownload:
         """
 
         # determine data type : weather or precipitation
-        if kind=='prec':
+        if kind=='precipitation':
             stns = self.get_precipitation_stations(geo=True)
             kindname = 'precipitation'
-            if isinstance(location, str):
-                stn = self._get_station_stn(kind='prec', location=location)
+            if isinstance(name, str):
+                stn = self.get_station_code(kind='precipitation', name=name)
 
-        elif kind=='wtr':
+        elif kind=='weather':
             stns = self.get_weather_stations(geo=True)
             kindname = 'weather'
-            if isinstance(location, str):
-                stn = self._get_station_stn(kind='wtr', location=location)
+            if isinstance(name, str):
+                stn = self.get_station_code(kind='weather', name=name)
 
         else:
             raise ValueError((f'{kind} is not a valid KNMI station type.'))
@@ -550,10 +646,28 @@ class KnmiDownload:
         
         return stns
 
-    def replace_missing_values(self, kind='prec', meteo=None):
-        """Replace missing values in a series of precipitation values."""
+    def replace_missing_values(self, meteo=None, kind='precipitation'):
+        """Replace missing values in a series of precipitation values.
+        
+        Parameters
+        ----------
+        meteo : pandas Series
+            Time series with precipitation or evaporation values.
+        kind : {'precipitation', 'weather'}, default 'precipitation'
+            KNMI station type to get replacement values from.
+
+        Returns
+        -------
+        pandas Series
+            Copy of meteo with missing values replaced.
+        pandas DataFrame
+            Table of measurements used for replacement of missing values.
+        """
 
         nandates = meteo[meteo.isnull()].index
+        if nandates.empty: # no missing values
+            return meteo.copy(), DataFrame()
+        
         first_nan_date = nandates[0]
         last_nan_date = nandates[-1]
 
@@ -564,7 +678,7 @@ class KnmiDownload:
         data = []
         for stn in stn_codes:
             try:
-                sr = self.get_precipitation(station=stn, start=first_nan_date, end=last_nan_date)
+                sr = self.get_precipitation(kind=kind, station=stn, start=first_nan_date, end=last_nan_date)
                 sr = sr[nandates]
             except KeyError:
                 # not all nandates are in index of sr (non-overlapping time series)
@@ -583,7 +697,8 @@ class KnmiDownload:
                         newmeteo = meteo.copy()
                         newmeteo[self._nan_replacements.index] = self._nan_replacements['mean']
                         break
-        return newmeteo
+
+        return newmeteo, self._nan_replacements
 
 
     @property
@@ -640,7 +755,7 @@ class KnmiDownload:
         # request precipitation data for one day to get header data 
         # with all station names
         dummydate = f'{str(datetime.now().year)}0101'
-        text = self.get_rawdata(kind='prec', stns='all', result='text', start=dummydate, end=dummydate)
+        text = self.get_rawdata(kind='precipitation', stns='all', result='text', start=dummydate, end=dummydate)
         if 'Query Error' in text:
             raise ValueError('KNMI server responded with a query error message.')
 
@@ -712,3 +827,39 @@ class KnmiDownload:
         wtr_stns.insert(loc=2, column='yrd', value=np.round(y,0))
 
         return wtr_stns.sort_values(by='stn_name')
+
+    @property
+    def duplicate_station_codes(self):
+        """Return names of KNMI weather stations and KNMI precipitation 
+        stations with the same code."""
+
+        wtrstn = self.get_weather_stations(geo=False)
+        wtrstn = wtrstn[['stn_name']].squeeze()
+
+        prcstn = self.get_precipitation_stations(geo=False)
+        prcstn = prcstn[['stn_name']].squeeze()
+
+        common_stn = np.intersect1d(prcstn.index.values, wtrstn.index.values)
+        common = pd.merge(prcstn[common_stn], wtrstn[common_stn], 
+            left_index=True, right_index=True, how='inner', 
+            suffixes=('_prec','_wtr'))
+
+        return common
+
+    @property
+    def duplicate_station_names(self):
+        """Return codes of KNMI weather stations and KNMI precipitation 
+        stations with the same name."""
+
+        wtrstn = self.get_weather_stations(geo=False)
+        wtrstn = wtrstn[['stn_name']].reset_index().set_index('stn_name').squeeze()
+
+        prcstn = self.get_precipitation_stations(geo=False)
+        prcstn = prcstn[['stn_name']].reset_index().set_index('stn_name').squeeze()
+
+        common_names = np.intersect1d(prcstn.index.values, wtrstn.index.values)
+        common = pd.merge(prcstn[common_names], wtrstn.loc[common_names], 
+            left_index=True, right_index=True, how='inner', 
+            suffixes=('_prec','_wtr'))
+
+        return common
