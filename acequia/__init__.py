@@ -28,8 +28,9 @@ from ._read.waterwebtools import measurement_types
 from ._read.knmi_weather import KnmiWeather
 from ._read.knmi_rain import KnmiRain
 from ._read.knmi_download import KnmiDownload
-from ._read.knmi_download import get_knmiprc, get_knmiwtr
-from ._read.knmi_download import get_knmiprc_stn, get_knmiwtr_stn
+from ._read.knmi_download import get_knmi_precipitation, get_knmi_evaporation
+from ._read.knmi_download import get_knmi_precstations
+from ._read.knmi_download import get_knmi_weatherstations
 from ._read import filetools as _filetools
 from ._read.brogldxml import BroGldXml
 from ._read.brogmwxml import BroGmwXml

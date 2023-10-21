@@ -4,8 +4,8 @@ import pytest
 from pandas import Series, DataFrame
 from geopandas import GeoDataFrame
 from acequia import KnmiDownload
-from acequia import get_knmiwtr, get_knmiprc
-from acequia import get_knmiwtr_stn, get_knmiprc_stn
+from acequia import get_knmi_evaporation, get_knmi_precipitation
+from acequia import get_knmi_weatherstations, get_knmi_precstations
 
 
 def test_bad_request_weather():
@@ -55,6 +55,36 @@ def test_get_precipitation():
     data = knmi.get_precipitation(name='Finsterwolde', start=None, end=None)
     assert isinstance(data,Series)
     assert not data.empty
+
+    sr = knmi.get_precipitation(name='Nieuw Beerta', kind='weather')
+    assert isinstance(sr, Series)
+    assert not sr.empty
+
+    with pytest.raises(ValueError):
+        knmi.get_precipitation(name='Nieuw Beerta', kind='wrong type')
+
+    with pytest.raises(ValueError):
+        knmi.get_precipitation(name='Nieuw Beerta', kind='precipitation')
+
+    with pytest.raises(ValueError):
+        knmi.get_precipitation(station=None, name=None, kind='weather')
+
+def test_get_evaporation():
+    knmi = KnmiDownload()
+
+    sr = knmi.get_evaporation(name='Nieuw Beerta')
+    assert isinstance(sr, Series)
+    assert not sr.empty
+
+    sr = knmi.get_evaporation(station='286')   
+    assert isinstance(sr, Series)
+    assert not sr.empty
+
+    with pytest.raises(ValueError):
+        knmi.get_evaporation(station=None, name=None)    
+    
+    with pytest.raises(ValueError):
+        knmi.get_evaporation(name='Nergenshuizen')
 
 def test_get_weather():
     knmi = KnmiDownload()
@@ -183,28 +213,28 @@ def test_nan_replacements():
 
 def test_functions():
 
-    data = get_knmiprc()
-    assert isinstance(data,Series)
+    sr = get_knmi_precipitation(station='327')
+    assert isinstance(sr, Series)
+    assert not sr.empty
+
+    sr = get_knmi_evaporation(station='286')
+    assert isinstance(sr, Series)
+    assert not sr.empty
+
+    data = get_knmi_precstations(geo=True)
+    assert isinstance(data, GeoDataFrame)
     assert not data.empty
 
-    data = get_knmiwtr()
-    assert isinstance(data,DataFrame)
+    data = get_knmi_precstations(geo=False)
+    assert isinstance(data, DataFrame)
     assert not data.empty
 
-    data = get_knmiprc_stn(geo=True)
-    assert isinstance(data,GeoDataFrame)
+    data = get_knmi_weatherstations(geo=True)
+    assert isinstance(data, GeoDataFrame)
     assert not data.empty
 
-    data = get_knmiwtr_stn()
-    assert isinstance(data,DataFrame)
-    assert not data.empty
-
-    data = get_knmiprc_stn(geo=True)
-    assert isinstance(data,GeoDataFrame)
-    assert not data.empty
-
-    data = get_knmiwtr_stn()
-    assert isinstance(data,DataFrame)
+    data = get_knmi_weatherstations(geo=False)
+    assert isinstance(data, DataFrame)
     assert not data.empty
 
 def test_duplicates():
