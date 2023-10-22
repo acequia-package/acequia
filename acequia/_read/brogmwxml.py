@@ -5,6 +5,8 @@ from pandas import Series,DataFrame
 import pandas as pd
 import xml.etree.ElementTree as ET
 
+from .brorest import get_wellprops
+
 class BroGmwXml:
     """Read well construction data from XML"""
 
@@ -94,7 +96,7 @@ class BroGmwXml:
 
         Returns
         -------
-        BroGmwXml object
+        BroGmwXml instance
 
         Example
         -------
@@ -103,10 +105,48 @@ class BroGmwXml:
 
         if not os.path.isfile(xmlpath):
             raise ValueError(f'Invalid filepath: "{xmlpath}".')
-        tree = ET.parse(xmlpath)
+        cls.tree = ET.parse(xmlpath)
         #root = tree.getroot()
+
+        # check xml source type
+        if not cls.is_gmw:
+            raise ValueError((f'{xmlpath} is not a valid BROGLD XML-file.'))
+
+        return cls(cls.tree)
+
+    @classmethod
+    def from_server(cls, gmwid=None, description=None):
+        """Download BRO GMW XML tree from BRO server.
+    
+        Parameters
+        ----------
+        gmwid : str
+            Valid BRO well id.
+        description : str, optional
+            User defined description.
+
+        Returns
+        -------
+        BroGmwXml instance
+
+        Example
+        -------
+        gmw = BroGmw.from_server(gmwid='GMW000000041145')
+            
+        """
+        tree = get_wellprops(gmwid=gmwid, description=description)
         return cls(tree)
 
+    @property
+    def is_gmw(self):
+        """Return True if XML tree contains GMW data."""
+        
+        tag = 'ns11:GMW_PO'
+        el = self.tree.find(f'.//{tag}', self.NS)
+        findtag = el.tag.split('}')[1]
+        if not findtag=='GMW_PO':
+            return False
+        return True
 
     @property
     def wellprops(self):

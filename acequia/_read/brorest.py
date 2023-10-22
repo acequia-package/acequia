@@ -8,8 +8,8 @@ import xml.etree.ElementTree as ET
 from pandas import Series, DataFrame
 import pandas as pd
 
-from .brogldxml import BroGldXml
-from .brogmwxml import BroGmwXml
+##from .brogldxml import BroGldXml
+##from .brogmwxml import BroGmwXml
 
 STARTDATE = '1900-01-01'
 
@@ -218,7 +218,7 @@ def get_wellprops(gmwid=None, description=None):
 
     Returns
     -------
-    pd.Series
+    ElementTree tree
         
     """
     if gmwid is None:
@@ -242,8 +242,9 @@ def get_wellprops(gmwid=None, description=None):
     root = ET.fromstring(response.content)
     tree = ET.ElementTree(root)    
 
-    wellprops = BroGmwXml(tree)
-    return wellprops ##wellprops.set_index('broId').squeeze()
+    ##wellprops = BroGmwXml(tree)
+    ##return wellprops ##wellprops.set_index('broId').squeeze()
+    return tree
 
 
 def get_welltubes(gmwid):
@@ -335,14 +336,15 @@ def get_levels(brogld=None,startdate='1900-01-01',enddate=None,reference=None):
 
     Returns
     -------
-    BroGldXml
+    ElementTree tree
     """
     root = _request_gld(brogld=brogld,startdate=startdate,enddate=enddate,reference=reference)
+    tree = ET.ElementTree(root)    
+
     # Parse response with BroGldXml
     #gld = BroGldXml.from_REST(tree.getroottree())
-    gld = BroGldXml(root) ##, xmlsource='REST')
-
-    return gld
+    #gld = BroGldXml(root) ##, xmlsource='REST')
+    return tree
 
 
 def get_gld_codes(bronhouder):

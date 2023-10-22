@@ -2,6 +2,8 @@
 
 import pytest
 from pandas import Series, DataFrame
+from xml.etree.ElementTree import ElementTree
+
 from acequia import _brorest
 from acequia import BroGmwXml, BroGldXml
 
@@ -30,12 +32,6 @@ def test_getareawellprops():
     assert isinstance(rectangle,DataFrame)
     assert not rectangle.empty
 
-def test_singlewellprops(gmwid):
-    props = _brorest.get_wellprops(gmwid)
-    assert isinstance(props, BroGmwXml)
-    assert not props.tubeprops.empty
-    assert not props.wellprops.empty
-
 def test_getwelltubes(gmwid):
     tubes = _brorest.get_welltubes(gmwid)
     assert isinstance(tubes, DataFrame)
@@ -46,11 +42,6 @@ def test_getwellcode(gmwid):
     assert isinstance(wellcode, str)
     assert len(wellcode)!=0
 
-def test_getlevels(brogld):
-    levels = _brorest.get_levels(brogld=brogld) #'GLD000000010138') #'GLD000000009881')
-    assert isinstance(levels,BroGldXml)
-    assert not levels.heads.empty
-
 def test_getgmwcodes(broinstantie):
     gmwlist = _brorest.get_gmw_codes('51048329')
     assert isinstance(gmwlist,list)
@@ -60,3 +51,13 @@ def test_getgldcodes(broinstantie):
     gldlist = _brorest.get_gld_codes('51048329')
     assert isinstance(gldlist,list)
     assert len(gldlist)!=0
+
+def test_getwellprops(gmwid):
+    props = _brorest.get_wellprops(gmwid)
+    assert isinstance(props, ElementTree)
+    assert len(list(props.iter()))!=0
+
+def test_getlevels(brogld):
+    levels = _brorest.get_levels(brogld=brogld) #'GLD000000010138') #'GLD000000009881')
+    assert isinstance(levels, ElementTree)
+    assert len(list(levels.iter()))!=0

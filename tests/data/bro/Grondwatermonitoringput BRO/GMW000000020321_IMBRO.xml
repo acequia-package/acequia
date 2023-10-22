@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns11:dispatchDataResponse xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:dsgmw="https://schema.broservices.nl/xsd/dsgmw/1.1" xmlns:ns12="http://www.broservices.nl/xsd/gmwcommon/1.1" xmlns:ns11="http://www.broservices.nl/xsd/dsgmw/1.1" xmlns:brocom="https://schema.broservices.nl/xsd/brocommon/3.0" xmlns:gts="http://www.isotc211.org/2005/gts" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:ns10="http://www.broservices.nl/xsd/brocommon/3.0" xmlns:gmwcom="https://schema.broservices.nl/xsd/gmwcommon/1.1" xmlns:isgmw="https://schema.broservices.nl/xsd/isgmw/1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gmd="http://www.isotc211.org/2005/gmd">
+    <ns10:responseType>dispatch</ns10:responseType>
+    <ns10:requestReference></ns10:requestReference>
+    <ns10:dispatchTime>2022-07-02T10:36:20+02:00</ns10:dispatchTime>
+    <ns11:dispatchDocument xlink:type="simple">
+        <ns11:GMW_PO gml:id="BRO_0003">
+            <ns10:broId>GMW000000020321</ns10:broId>
+            <ns10:deliveryAccountableParty>51048329</ns10:deliveryAccountableParty>
+            <ns10:qualityRegime>IMBRO</ns10:qualityRegime>
+            <ns11:withPrehistory>nee</ns11:withPrehistory>
+            <ns11:deliveryContext codeSpace="urn:bro:gmw:DeliveryContext">publiekeTaak</ns11:deliveryContext>
+            <ns11:constructionStandard codeSpace="urn:bro:gmw:ConstructionStandard">geen</ns11:constructionStandard>
+            <ns11:initialFunction codeSpace="urn:bro:gmw:InitialFunction">stand</ns11:initialFunction>
+            <ns11:removed>nee</ns11:removed>
+            <ns11:numberOfMonitoringTubes>1</ns11:numberOfMonitoringTubes>
+            <ns11:groundLevelStable>ja</ns11:groundLevelStable>
+            <ns11:nitgCode>B29C1645</ns11:nitgCode>
+            <ns11:wellCode>GMW29C001645</ns11:wellCode>
+            <ns11:owner>51048329</ns11:owner>
+            <ns11:wellHeadProtector codeSpace="urn:bro:gmw:WellHeadProtector">potNietWaterdicht</ns11:wellHeadProtector>
+            <ns11:deliveredLocation>
+                <ns12:location srsName="urn:ogc:def:crs:EPSG::28992" gml:id="BRO_0001">
+                    <gml:pos>269061.927 485547.449</gml:pos>
+                </ns12:location>
+                <ns12:horizontalPositioningMethod codeSpace="urn:bro:gmw:HorizontalPositioningMethod">RTKGPS2tot5cm</ns12:horizontalPositioningMethod>
+            </ns11:deliveredLocation>
+            <ns11:deliveredVerticalPosition>
+                <ns12:localVerticalReferencePoint codeSpace="urn:bro:gmw:LocalVerticalReferencePoint">NAP</ns12:localVerticalReferencePoint>
+                <ns12:offset uom="m">0.000</ns12:offset>
+                <ns12:verticalDatum codeSpace="urn:bro:gmw:VerticalDatum">NAP</ns12:verticalDatum>
+                <ns12:groundLevelPosition uom="m">29.672</ns12:groundLevelPosition>
+                <ns12:groundLevelPositioningMethod codeSpace="urn:bro:gmw:GroundLevelPositioningMethod">waterpassing0tot2cm</ns12:groundLevelPositioningMethod>
+            </ns11:deliveredVerticalPosition>
+            <ns11:standardizedLocation>
+                <ns10:location srsName="urn:ogc:def:crs:EPSG::4258" gml:id="BRO_0002">
+                    <gml:pos>52.345979040 7.061211130</gml:pos>
+                </ns10:location>
+                <ns10:coordinateTransformation codeSpace="urn:bro:CoordinateTransformation">RDNAPTRANS2008</ns10:coordinateTransformation>
+            </ns11:standardizedLocation>
+            <ns11:registrationHistory>
+                <ns10:objectRegistrationTime>2020-01-10T12:59:15+01:00</ns10:objectRegistrationTime>
+                <ns10:registrationStatus codeSpace="urn:bro:RegistrationStatus">geregistreerd</ns10:registrationStatus>
+                <ns10:corrected>nee</ns10:corrected>
+                <ns10:underReview>nee</ns10:underReview>
+                <ns10:deregistered>nee</ns10:deregistered>
+                <ns10:reregistered>nee</ns10:reregistered>
+            </ns11:registrationHistory>
+            <ns11:wellHistory>
+                <ns11:wellConstructionDate>
+                    <ns10:date>2018-02-21</ns10:date>
+                </ns11:wellConstructionDate>
+            </ns11:wellHistory>
+            <ns11:monitoringTube>
+                <ns11:tubeNumber>1</ns11:tubeNumber>
+                <ns11:tubeType codeSpace="urn:bro:gmw:TubeType">standaardbuis</ns11:tubeType>
+                <ns11:artesianWellCapPresent>nee</ns11:artesianWellCapPresent>
+                <ns11:sedimentSumpPresent>nee</ns11:sedimentSumpPresent>
+                <ns11:numberOfGeoOhmCables>0</ns11:numberOfGeoOhmCables>
+                <ns11:tubeTopDiameter uom="mm">40</ns11:tubeTopDiameter>
+                <ns11:variableDiameter>nee</ns11:variableDiameter>
+                <ns11:tubeStatus codeSpace="urn:bro:gmw:TubeStatus">gebruiksklaar</ns11:tubeStatus>
+                <ns11:tubeTopPosition uom="m">29.565</ns11:tubeTopPosition>
+                <ns11:tubeTopPositioningMethod codeSpace="urn:bro:gmw:TubeTopPositioningMethod">waterpassing0tot2cm</ns11:tubeTopPositioningMethod>
+                <ns11:tubePartInserted>nee</ns11:tubePartInserted>
+                <ns11:tubeInUse>onbekend</ns11:tubeInUse>
+                <ns11:materialUsed>
+                    <ns12:tubePackingMaterial codeSpace="urn:bro:gmw:TubePackingMaterial">boorgatmateriaal</ns12:tubePackingMaterial>
+                    <ns12:tubeMaterial codeSpace="urn:bro:gmw:TubeMaterial">pvc</ns12:tubeMaterial>
+                    <ns12:glue codeSpace="urn:bro:gmw:Glue">geen</ns12:glue>
+                </ns11:materialUsed>
+                <ns11:screen>
+                    <ns11:screenLength uom="m">1.000</ns11:screenLength>
+                    <ns11:sockMaterial codeSpace="urn:bro:gmw:SockMaterial">geen</ns11:sockMaterial>
+                    <ns11:screenTopPosition uom="m">27.584</ns11:screenTopPosition>
+                    <ns11:screenBottomPosition uom="m">26.584</ns11:screenBottomPosition>
+                </ns11:screen>
+                <ns11:plainTubePart>
+                    <ns12:plainTubePartLength uom="m">1.981</ns12:plainTubePartLength>
+                </ns11:plainTubePart>
+            </ns11:monitoringTube>
+        </ns11:GMW_PO>
+    </ns11:dispatchDocument>
+</ns11:dispatchDataResponse>
