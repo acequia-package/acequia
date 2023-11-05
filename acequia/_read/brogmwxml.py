@@ -110,7 +110,7 @@ class BroGmwXml:
 
         # check xml source type
         if not cls.is_gmw:
-            raise ValueError((f'{xmlpath} is not a valid BROGLD XML-file.'))
+            raise ValueError((f'{xmlpath} is not a valid BROGMW XML-file.'))
 
         return cls(cls.tree)
 

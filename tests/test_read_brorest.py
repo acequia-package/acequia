@@ -58,6 +58,6 @@ def test_getwellprops(gmwid):
     assert len(list(props.iter()))!=0
 
 def test_getlevels(brogld):
-    levels = _brorest.get_levels(brogld=brogld) #'GLD000000010138') #'GLD000000009881')
+    levels = _brorest.get_levels(brogld) #'GLD000000010138') #'GLD000000009881')
     assert isinstance(levels, ElementTree)
     assert len(list(levels.iter()))!=0

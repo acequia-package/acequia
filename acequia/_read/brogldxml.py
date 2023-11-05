@@ -11,6 +11,9 @@ import pandas as pd
 #from lxml.etree import _Element, _ElementTree
 #import lxml.etree as ET
 import xml.etree.ElementTree as ET
+#from .brorest import get_levels
+from . import brorest
+
 
 class BroGldXml:
     """Read BRO Groundwater Level Data in XML tree format."""
@@ -122,7 +125,7 @@ class BroGldXml:
         "xsi" : "http://www.w3.org/2001/XMLSchema-instance",
         }
 
-    def __init__(self, root): ##, xmlsource='file'):
+    def __init__(self, tree): ##, xmlsource='file'):
         """
         Parameters
         ----------
@@ -136,28 +139,9 @@ class BroGldXml:
         -------
         gld = BroGld(<elementtree>)"""
 
-        #self._tree = tree
+        self._tree = tree
         #self._root = self._tree.getroot()
-        self._root = root
-        #self.NS = self._root.nsmap
-        
-        # define proper namespace tags for given source
-        """
-        if xmlsource=='file':
-            self.GLDPROPTAGS = self.GLDPROPTAGS_XMLFILE
-            self.GLDPROCESTAGS = self.GLDPROCESTAGS_XMLFILE
-            self.GLDOBSTAGS = self.GLDOBSTAGS_XMLFILE
-            self.GLDOBSPROPSTAGS = self.GLDOBSPROPSTAGS_XMLFILE
-            self.NS = self.NAMESPACES_XMLFILE
-        elif xmlsource=='REST':
-        """
-        """
-        self.GLDPROPTAGS = self.GLDPROPTAGS_RESTSERVICE
-        self.GLDPROCESTAGS = self.GLDPROCESTAGS_RESTSERVICE
-        self.GLDOBSTAGS = self.GLDOBSTAGS_RESTSERVICE
-        self.GLDOBSPROPSTAGS = self.GLDOBSPROPSTAGS_RESTSERVICE
-        self.NS = self.NAMESPACES_RESTXML
-        """
+
 
     def __repr__(self):
         return self.gldprops['broIdGld']
@@ -184,20 +168,65 @@ class BroGldXml:
         if not os.path.isfile(xmlpath):
             raise ValueError(f'Invalid filepath: "{xmlpath}".')
 
-        tree = ET.parse(xmlpath)
-        root = tree.getroot()
+        cls._tree = ET.parse(xmlpath)
+        #root = tree.getroot()
 
-        #tree = ET.parse(xmlpath)
-        #root = tree.get_root()
-        return cls(tree) #, xmlsource='file')
+        # check xml source type
+        if not cls.is_gld:
+            raise ValueError((f'{xmlpath} is not a valid BROGLD XML-file.'))
 
+        return cls(cls._tree)
+
+
+    @classmethod
+    def from_server(cls, gldid=None, startdate=None, enddate=None, 
+        reference=None):
+        """Download BRO GLD XML tree from BRO server.
+
+        Parameters
+        ----------
+        gldid : str
+            Valid BroGldId.
+        startdate : str, default '1900-01-01'
+            Start date of groundwater level data.
+        enddate : str, default today
+            End date of ground water level data.
+        reference : str, optional
+            Optional user reference for data request.
+
+        Returns
+        -------
+        BroGldXml
+            
+        Example
+        -------
+        gmw = BroGld.from_server(brogld='GLD000000010138')
+            
+        """
+        ##cls._tree = brorest._request_gld(brogld='GLD000000012658')
+        tree = brorest.get_levels(gldid=gldid, startdate=startdate, 
+            enddate=enddate, reference=reference)
+
+        return cls(tree)
+
+    @property
+    def is_gld(self):
+        """Return True if XML tree contains GMW data."""
+        
+        tag = 'ns0:GLD_O'
+        el = self._tree.find(f'.//{tag}', self.NS)
+        findtag = el.tag.split('}')[1]
+        version = el.attrib['{http://www.opengis.net/gml/3.2}id']
+        if not findtag=='GLD_O':
+            return False
+        return True
 
     @property
     def gldprops(self):
         """Get level data properties."""
         gldprops = {}
         for key,tag in self.GLDPROPTAGS:
-            node = self._root.find(f'.//{tag}',self.NS)
+            node = self._tree.find(f'.//{tag}',self.NS)
             if node is not None:
                 gldprops[key]=node.text
             else:
@@ -211,7 +240,7 @@ class BroGldXml:
         propslist = []
         
         # collect paramaters for all time series
-        for node in self._root.iterfind(f'.//{self.GLDPROCESTAGS["ObservationProcess"]}',self.NS):
+        for node in self._tree.iterfind(f'.//{self.GLDPROCESTAGS["ObservationProcess"]}',self.NS):
             props = {}
             
             # get time series id
@@ -236,7 +265,7 @@ class BroGldXml:
     def obs(self):
         """Get all observation data."""
         tslist = []
-        for srnode in self._root.iterfind(f'.//{self.GLDOBSTAGS["MeasurementTimeseries"]}',self.NS):
+        for srnode in self._tree.iterfind(f'.//{self.GLDOBSTAGS["MeasurementTimeseries"]}',self.NS):
 
             # get time series id
             attdict = srnode.attrib
@@ -263,7 +292,7 @@ class BroGldXml:
     def obsprops(self):
         """Return observations metadata."""
         propslist = []
-        for node in self._root.iterfind(F'.//{self.GLDOBSPROPSTAGS["OM_Observation"]}',self.NS):
+        for node in self._tree.iterfind(F'.//{self.GLDOBSPROPSTAGS["OM_Observation"]}',self.NS):
             obsprops = {}
             attdict = node.attrib
             tsid = [attdict[key] for key in attdict.keys()][0]
@@ -295,3 +324,7 @@ class BroGldXml:
             warnings.warn(f'Removed {dupcount} duplicate datetimes from head series {name}.')
             heads = heads[~heads.index.duplicated(keep='first')].copy()
         return heads.sort_index()
+
+    @property
+    def timeseriescounts(self):
+        return self.obs['timeseries'].value_counts()

@@ -41,66 +41,84 @@
                 <displayMode>default</displayMode>
             </BalloonStyle>
         </Style>
-        <Placemark id="28">
+        <Placemark id="33">
             <name>B1</name>
             <description>label: B1&lt;br&gt;sunloc: 74152201B001&lt;br&gt;nitgcode: B17E0244&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 244467&lt;br&gt;ycr: 549488&lt;br&gt;mptype: B&lt;br&gt;network: grolloer koelanden&lt;br&gt;lon: 6.717617996316724&lt;br&gt;lat: 52.92504730555386&lt;br&gt;</description>
             <Snippet maxLines="0"/>
             <styleUrl>#7</styleUrl>
-            <Point id="27">
+            <Point id="32">
                 <coordinates>6.717617996316724,52.92504730555386,0.0</coordinates>
             </Point>
         </Placemark>
-        <Placemark id="30">
+        <Placemark id="35">
             <name>B2</name>
             <description>label: B2&lt;br&gt;sunloc: 74152201B002&lt;br&gt;nitgcode: B17E0245&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 244541&lt;br&gt;ycr: 549363&lt;br&gt;mptype: B&lt;br&gt;network: grolloer koelanden&lt;br&gt;lon: 6.718683829690527&lt;br&gt;lat: 52.923911996389684&lt;br&gt;</description>
             <Snippet maxLines="0"/>
             <styleUrl>#7</styleUrl>
-            <Point id="29">
+            <Point id="34">
                 <coordinates>6.718683829690527,52.923911996389684,0.0</coordinates>
             </Point>
         </Placemark>
-        <Placemark id="32">
+        <Placemark id="37">
             <name>B6</name>
             <description>label: B6&lt;br&gt;sunloc: 74152201B006&lt;br&gt;nitgcode: B17E0249&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 244915&lt;br&gt;ycr: 549510&lt;br&gt;mptype: B&lt;br&gt;network: grolloer koelanden&lt;br&gt;lon: 6.724284245498986&lt;br&gt;lat: 52.92517056705151&lt;br&gt;</description>
             <Snippet maxLines="0"/>
             <styleUrl>#7</styleUrl>
-            <Point id="31">
+            <Point id="36">
                 <coordinates>6.724284245498986,52.92517056705151,0.0</coordinates>
             </Point>
         </Placemark>
-        <Placemark id="34">
+        <Placemark id="39">
             <name>B8</name>
             <description>label: B8&lt;br&gt;sunloc: 74152201B008&lt;br&gt;nitgcode: B17E0250&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 244969&lt;br&gt;ycr: 549219&lt;br&gt;mptype: B&lt;br&gt;network: grolloer koelanden&lt;br&gt;lon: 6.725006834547244&lt;br&gt;lat: 52.92254712770848&lt;br&gt;</description>
             <Snippet maxLines="0"/>
             <styleUrl>#7</styleUrl>
-            <Point id="33">
+            <Point id="38">
                 <coordinates>6.725006834547244,52.92254712770848,0.0</coordinates>
             </Point>
         </Placemark>
-        <Placemark id="36">
+        <Placemark id="41">
             <name>B11</name>
             <description>label: B11&lt;br&gt;sunloc: 74152201B011&lt;br&gt;nitgcode: B17E0253&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 244990&lt;br&gt;ycr: 549040&lt;br&gt;mptype: B&lt;br&gt;network: grolloer koelanden&lt;br&gt;lon: 6.725269672030912&lt;br&gt;lat: 52.92093542928663&lt;br&gt;</description>
             <Snippet maxLines="0"/>
             <styleUrl>#7</styleUrl>
-            <Point id="35">
+            <Point id="40">
                 <coordinates>6.725269672030912,52.92093542928663,0.0</coordinates>
             </Point>
         </Placemark>
-        <Placemark id="38">
+        <Placemark id="43">
             <name>B23</name>
             <description>label: B23&lt;br&gt;sunloc: 74152201B023&lt;br&gt;nitgcode: B12G0195&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 242978&lt;br&gt;ycr: 550947&lt;br&gt;mptype: B&lt;br&gt;network: grolloer koelanden&lt;br&gt;lon: 6.695874990106553&lt;br&gt;lat: 52.93840016772882&lt;br&gt;</description>
             <Snippet maxLines="0"/>
             <styleUrl>#7</styleUrl>
-            <Point id="37">
+            <Point id="42">
                 <coordinates>6.695874990106553,52.93840016772882,0.0</coordinates>
             </Point>
         </Placemark>
-        <Placemark id="40">
+        <Placemark id="45">
+            <name>B26</name>
+            <description>label: B26&lt;br&gt;sunloc: 74152201B026&lt;br&gt;nitgcode: nan&lt;br&gt;broid: nan&lt;br&gt;derden: Noordveen N1a&lt;br&gt;xcr: 244755&lt;br&gt;ycr: 551159&lt;br&gt;mptype: B&lt;br&gt;network: grolloer koelanden&lt;br&gt;lon: 6.722359213010224&lt;br&gt;lat: 52.94001235616914&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="44">
+                <coordinates>6.722359213010224,52.94001235616914,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="47">
+            <name>B27</name>
+            <description>label: B27&lt;br&gt;sunloc: 74152201B027&lt;br&gt;nitgcode: nan&lt;br&gt;broid: nan&lt;br&gt;derden: Noordveen N1b&lt;br&gt;xcr: 244822&lt;br&gt;ycr: 551131&lt;br&gt;mptype: B&lt;br&gt;network: grolloer koelanden&lt;br&gt;lon: 6.723347898925959&lt;br&gt;lat: 52.93974965234327&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="46">
+                <coordinates>6.723347898925959,52.93974965234327,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="49">
             <name>L7</name>
             <description>label: L7&lt;br&gt;sunloc: 74152201L007&lt;br&gt;nitgcode: P17E0040&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 244955&lt;br&gt;ycr: 549265&lt;br&gt;mptype: L&lt;br&gt;network: grolloer koelanden&lt;br&gt;lon: 6.724811391166356&lt;br&gt;lat: 52.92296273983623&lt;br&gt;</description>
             <Snippet maxLines="0"/>
             <styleUrl>#17</styleUrl>
-            <Point id="39">
+            <Point id="48">
                 <coordinates>6.724811391166356,52.92296273983623,0.0</coordinates>
             </Point>
         </Placemark>

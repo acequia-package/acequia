@@ -14,13 +14,8 @@ def filegld():
 
 @pytest.fixture
 def restgld():
-    # parse xml file that contains an xml from the BRO REST service
-    ##xmlpath = r'.\data\bro\RESTXML\GLD000000009526.xml'  #GLD000000010071.xml'
-    ##tree = ET.parse(xmlpath)
-    ##return BroGldXml.from_REST(tree)
-    root = _brorest._request_gld(brogld='GLD000000012658')
-    return BroGldXml(root)
-
+    return BroGldXml.from_server('GLD000000009526', 
+        startdate='1900-01-01', enddate='2022-12-31', reference='Test')
 
 @pytest.mark.parametrize('gld', [filegld, restgld])
 def test_property_gldprops(gld,request):
@@ -51,4 +46,16 @@ def test_property_heads(gld,request):
     gld = request.getfixturevalue(gld.__name__)
     assert isinstance(gld.heads,Series)
     assert not gld.heads.empty
+
+@pytest.mark.parametrize('gld', [filegld, restgld])
+def test_property_isgld(gld,request):
+    gld = request.getfixturevalue(gld.__name__)
+    assert gld.is_gld
+
+@pytest.mark.parametrize('gld', [filegld, restgld])
+def test_property_timeseriescounts(gld, request):
+    gld = request.getfixturevalue(gld.__name__)
+    assert isinstance(gld.timeseriescounts,Series)
+    assert not gld.timeseriescounts.empty
+
 

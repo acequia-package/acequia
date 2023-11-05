@@ -1,6 +1,7 @@
 
 import pathlib
 import warnings
+import datetime as dt
 import numpy as np
 from pandas import Series,DataFrame
 import pandas as pd
@@ -20,15 +21,15 @@ class WaterWeb:
         Read waterweb csv export file and return WaterWeb object.
 
     """
-    NAMECOL = 'sunsr'
+    NAMECOL = 'sunsr' # 'sunsr'
 
     COLUMN_MAPPING = {
         'Lokatie':'sunloc',
-        'SUN-kode':'sunsr',
-        'NITG-kode':'nitgsr',
+        'SUN-code':'sunsr',
+        'NITG-code':'nitgsr',
          #'OLGA-kode':'olga', # DEZE KOLOM IS VERVALLEN
         'BROID':'broid',
-        'DERDEN-kode':'derden',
+        'DERDEN-code':'derden',
         'X coordinaat':'xcr',
         'Y coordinaat':'ycr',
         'NAP hoogte bovenkant peilbuis':'mpnap',
@@ -44,7 +45,7 @@ class WaterWeb:
         'Peilstand tov NAP in Meters':'peilmnap',
         'Peilstand tov maaiveld':'peilcmmv',
         'Peilstand tov maaiveld in Meters':'peilmmv',
-        'Peilkode':'peilcode',
+        'Peilcode':'peilcode',
         'Opmerking bij peiling':'peilopm'
         }
 
@@ -74,7 +75,7 @@ class WaterWeb:
         'datum','surface','mp',
         ]
 
-    MEASUREMENT_TYPES = ['B','S','L','P']
+    MEASUREMENT_TYPES = ['B','S','L','P','M']
 
     KMLSTYLES = {
         'B':
@@ -93,8 +94,11 @@ class WaterWeb:
             {'iconshape':'circle', 'iconscale':1.2,
              'iconcolor':'#5abcd8','lobalescale':0.7,
              'labelcolor':'FFFFFF'},                
+        'M':
+            {'iconshape':'circle', 'iconscale':1.2,
+             'iconcolor':'#ccff00','lobalescale':0.7,
+             'labelcolor':'FFFFFF'},                
         }
-
 
     def __init__(self,fpath=None,data=None,network=None):
 
@@ -112,20 +116,56 @@ class WaterWeb:
                 raise ValueError((f'{self.data} is not a valid Pandas '
                     f'DataFrame.'))
 
+            # store rawdata for debugging purposes
+            self._rawdata = data.copy()
+            self.data = data.copy()
+
+            # remove rows with incomplete data
+            # Note:
+            # When measurements with dates earlier than the given
+            # startdate date or after the given enddate of the series
+            # are present, WaterWeb csv exports contains no metadata.
+            # As a result, the first column does not contain the 
+            # SUN-code, but the date of the measurement.
+            # All these rows are removed and a user warnimg is given.
+
+            dates = pd.to_datetime(self.data['Lokatie'], errors='coerce')
+            first_col_is_date = ~dates.isnull()
+            if not self.data[first_col_is_date].empty:
+                warnings.warn((f'{len(self.data[first_col_is_date])} '
+                    f'measurements taken before given startdate or'
+                    f'after given enddate were removed from '
+                    f'{self.networkname}'))
+                self.data = self.data[~first_col_is_date].copy()
+
             # rename columns in data
             self.data = self.data.rename(columns=self.COLUMN_MAPPING)
 
-            # Remove measurements without reference level.
+
+            # Remove measurements before given series startdate
             # Note:
             # When thera are measurements with dates earlier than the
             # first date with technical tube data, the waterweb csv 
-            # export starts with measurments without technical data.
+            # export starts with measurements without technical data.
             # These are removed and a user warnimg is given.
-            hasnoref = self.data['mpnap'].isnull()
-            if len(self.data[hasnoref])!=0:
-                warnings.warn((f'{len(self.data[hasnoref])} measurements '
-                    f'were removed from {self.networkname}'))
-                self.data = self.data[~hasnoref].copy()
+            """
+            mask = self.data['mpnap'].isnull()
+            if not self.data[mask].empty:
+                warnings.warn((f'{len(self.data[mask])} measurements '
+                    f'taken before given startdate of series were '
+                    f'removed from {self.networkname}'))
+                self.data = self.data[~mask].copy()
+            """
+            # Remove mewasurements after given startdate ande issues/684
+            # userwarning
+            """
+            mask = self.data[self.NAMECOL].isnull()
+            if not self.data[mask].empty:
+                warnings.warn((f'{len(self.data[mask])} measurements '
+                    f'taken after given enddate of series were removed '
+                    f'from {self.networkname}'))
+                self.data = self.data[~mask].copy()
+            """
 
     def __repr__(self):
         return (f'{self._network} (n={self.__len__()})')
@@ -154,7 +194,7 @@ class WaterWeb:
         ...
         """
         try:
-            data = pd.read_csv(fpath,sep=';',decimal=',')
+            data = pd.read_csv(fpath, sep=';', decimal=',', low_memory=False)
         except FileNotFoundError as err:
             raise FileNotFoundError(f'Invalid filepath for WaterWeb csv file: "{fpath}"')
 
@@ -184,7 +224,7 @@ class WaterWeb:
 
         # change column contents
         data['Peilmoment'] = pd.to_datetime(data['Peilmoment'])
-        data['NITG-kode'] = data['NITG-kode'].apply(
+        data['NITG-code'] = data['NITG-code'].apply(
             lambda x:x[:8]+"_"+x[-3:].lstrip('0') if not pd.isnull(x) else np.nan)
 
         return cls(fpath=fpath,data=data,network=network)
@@ -227,7 +267,7 @@ class WaterWeb:
         sr = sr.apply(lambda x:x[8])
 
         if srname is not None:
-            return sr[srname]
+            sr = sr[srname]
 
         return sr
 
@@ -305,6 +345,11 @@ class WaterWeb:
             name=srname)
         for col in self.LOCPROPS_COLS:
             sr[col] = lastrow[col]
+
+        #sr['xcr'] = sr['xcr'].apply(pd.to_numeric, 
+        #    errors='ignore')
+        #locations['Ycr'] = locations['Ycr'].apply(pd.to_numeric, 
+        #    errors='ignore')
 
         return sr
 
@@ -483,13 +528,13 @@ class WaterWeb:
         locs = self.locations.copy()
         locs = locs.to_crs(4326)
 
-        # adding columns that are propably expected by apps that import
+        # adding columns that are probably expected by apps that import
         # gpx waypoint files.
         locs['name']=locs['label']
-        locs['ele']=0
-        locs['magvar']=0
-        locs['time']='2019-08-02T14:17:50Z'
-        locs['geoidheight'] = 0
+        locs['ele']=0.0
+        locs['magvar']=0.0
+        locs['time'] = dt.datetime.now() #'2019-08-02T14:17:50Z'
+        locs['geoidheight'] = 0.0
         colnames = ['geometry', 'ele', 'time', 'magvar', 'geoidheight', 'name']
         
         # saving gpx file
@@ -497,6 +542,16 @@ class WaterWeb:
             filepath = f'{filepath}.gpx'
         locs[colnames].to_file(filepath,'GPX')
         return locs[colnames]
+
+
+    def to_shapefile(self, filepath):
+    
+        locs = self.locations
+        locs['xcr'] = locs['xcr'].astype('float')
+        locs['ycr'] = locs['ycr'].astype('float')
+        locs.to_file(f'{filepath}.shp')
+        return locs
+
 
     def iteritems(self):
         """Iterate over all series and return gwseries object."""

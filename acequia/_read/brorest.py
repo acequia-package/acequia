@@ -240,7 +240,7 @@ def get_wellprops(gmwid=None, description=None):
         params=params, headers=headers)
 
     root = ET.fromstring(response.content)
-    tree = ET.ElementTree(root)    
+    tree = ET.ElementTree(root)
 
     ##wellprops = BroGmwXml(tree)
     ##return wellprops ##wellprops.set_index('broId').squeeze()
@@ -299,28 +299,7 @@ def get_wellcode(gmwid):
     response = requests.get(url)
     return response.text
 
-def _request_gld(brogld=None,startdate='1900-01-01',enddate=None,reference=None):
-    """Return BRO GLD XML tree from REST service"""
-
-    #brogldid = 'GLD000000009526' #'GLD000000009602'
-    if reference is None:
-        reference = 'no user reference given' #'Mijn-object-aanvraag-000001'
-    if enddate is None:
-        enddate = pd.Timestamp.today().strftime('%Y-%m-%d')
-    filtered = 'NEE'
-
-    url = ((f'https://publiek.broservices.nl/gm/gld/v1/objects/{brogld}?'
-        f'filtered={filtered}&observationPeriodBeginDate={startdate}&'
-        f'observationPeriodEndDate={enddate}&requestReference={reference}'))
-    response = requests.get(url)
-
-    status_code = response.status_code
-    response_string = response.content
-    root = ET.fromstring(response.content)
-
-    return root
-
-def get_levels(brogld=None,startdate='1900-01-01',enddate=None,reference=None):
+def get_levels(gldid=None, startdate=None, enddate=None, reference=None):
     """Return Groundwater Level Data (GLD) for GLD.
 
     Parameters
@@ -338,12 +317,24 @@ def get_levels(brogld=None,startdate='1900-01-01',enddate=None,reference=None):
     -------
     ElementTree tree
     """
-    root = _request_gld(brogld=brogld,startdate=startdate,enddate=enddate,reference=reference)
-    tree = ET.ElementTree(root)    
+    if startdate is None:
+        startdate = '1900-01-01'
+    if enddate is None:
+        enddate = pd.Timestamp.today().strftime('%Y-%m-%d')
+    if reference is None:
+        reference = 'no user reference given'
+    filtered = 'NEE'
 
-    # Parse response with BroGldXml
-    #gld = BroGldXml.from_REST(tree.getroottree())
-    #gld = BroGldXml(root) ##, xmlsource='REST')
+    url = ((f'https://publiek.broservices.nl/gm/gld/v1/objects/{gldid}?'
+        f'filtered={filtered}&observationPeriodBeginDate={startdate}&'
+        f'observationPeriodEndDate={enddate}&requestReference={reference}'))
+    response = requests.get(url)
+    status_code = response.status_code
+    response_string = response.content
+
+    root = ET.fromstring(response.content)
+    tree = ET.ElementTree(root)
+    #tree = _request_gld(brogld=brogld,startdate=startdate,enddate=enddate,reference=reference)
     return tree
 
 
