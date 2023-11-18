@@ -5,73 +5,15 @@ file and also accepts result from a REST request.
 """
 import os
 import warnings
+import numpy as np
 from pandas import Series,DataFrame
 import pandas as pd
-#import xml.etree.ElementTree as ET
-#from lxml.etree import _Element, _ElementTree
-#import lxml.etree as ET
 import xml.etree.ElementTree as ET
-#from .brorest import get_levels
 from . import brorest
 
 
 class BroGldXml:
     """Read BRO Groundwater Level Data in XML tree format."""
-
-    """
-    GLDPROPTAGS_XMLFILE = [
-        ('dispatchTime','dispatchTime'),
-        ('broIdGld','broId'),
-        ('deliveryAccountableParty','deliveryAccountableParty'),
-        ('qualityRegime','qualityRegime'),
-        ('objectRegistrationTime','objectRegistrationTime'),
-        ('registrationStatus','registrationStatus'),
-        ('latestAdditionTime','latestAdditionTime'),
-        ('corrected','corrected'),
-        ('underReview','underReview'),
-        ('deregistered','deregistered'),
-        ('reregistered','reregistered'),
-        ('researchFirstDate','ns4:researchFirstDate'),
-        ('researchLastDate','ns4:researchLastDate'),
-        ('broIdGmw','ns10:broId'),
-        ('tubeNumber','ns10:tubeNumber'),
-        ]
-
-    GLDPROCESTAGS_XMLFILE = {
-        'ObservationProcess':'ns5:ObservationProcess',
-        'NamedValue':'ns6:NamedValue',
-        'value':'ns6:value',
-        }
-
-    GLDOBSTAGS_XMLFILE = {
-        'MeasurementTimeseries':'ns5:MeasurementTimeseries',
-        'MeasurementTVP':'ns5:MeasurementTVP',
-        'obstime':'ns5:time',
-        'obsvalue':'ns5:value',
-        'TVPMeasurementMetadata':'ns5:metadata/ns5:TVPMeasurementMetadata/ns5:qualifier/ns7:Category/ns7:value',
-        }
-
-    GLDOBSPROPSTAGS_XMLFILE = {
-        'OM_Observation':'ns6:OM_Observation',
-        'CI_RoleCode':'ns9:CI_RoleCode',
-        'Date':'ns8:Date',
-        }
-
-    NAMESPACES_XMLFILE = { 
-        "gco" : "http://www.isotc211.org/2005/gco",
-        "dsgmw" : "https://schema.broservices.nl/xsd/dsgmw/1.1",
-        "ns12" : "http://www.broservices.nl/xsd/gmwcommon/1.1",
-        "ns11" : "http://www.broservices.nl/xsd/dsgmw/1.1",
-        "brocom" : "https://schema.broservices.nl/xsd/brocommon/3.0",
-        "gts" : "http://www.isotc211.org/2005/gts",
-        "gml" : "http://www.opengis.net/gml/3.2",
-        "ns10" : "http://www.broservices.nl/xsd/brocommon/3.0",
-        "gmwcom" :"https://schema.broservices.nl/xsd/gmwcommon/1.1",
-        "isgmw" : "https://schema.broservices.nl/xsd/isgmw/1.1",
-        "xlink" :"http://www.w3.org/1999/xlink",
-        "gmd" : "http://www.isotc211.org/2005/gmd",
-        }
-    """
 
     GLDPROPTAGS = [
         ('dispatchTime','ns1:dispatchTime'),
@@ -87,8 +29,11 @@ class BroGldXml:
         ('reregistered','ns1:reregistered'),
         ('researchFirstDate','ns0:researchFirstDate'),
         ('researchLastDate','ns0:researchLastDate'),
-        ('broIdGmw','ns3:broId'),
-        ('tubeNumber','ns3:tubeNumber'),
+        ('broIdGmn','ns3:GroundwaterMonitoringNet/ns3:broId'),
+        #('broIdGmw','ns3:broId'),
+        ('broIdGmw','ns3:GroundwaterMonitoringTube/ns3:broId'),
+        #('tubeNumber','ns3:tubeNumber'),
+        ('tubeNumber','ns3:GroundwaterMonitoringTube/ns3:tubeNumber'),
         ]
 
     GLDPROCESTAGS = {
@@ -210,6 +155,10 @@ class BroGldXml:
         return cls(tree)
 
     @property
+    def gldid(self):
+        return self.gldprops['broIdGld']
+
+    @property
     def is_gld(self):
         """Return True if XML tree contains GMW data."""
         
@@ -230,7 +179,7 @@ class BroGldXml:
             if node is not None:
                 gldprops[key]=node.text
             else:
-                gldprops[key]=''
+                gldprops[key]=np.nan
         return Series(gldprops,name='GldProperties')
 
 
@@ -321,7 +270,7 @@ class BroGldXml:
         heads = Series(data=levels,index=datetimes,name=name)
         if heads.index.has_duplicates:
             dupcount = len(heads[heads.index.duplicated(keep='first')])
-            warnings.warn(f'Removed {dupcount} duplicate datetimes from head series {name}.')
+            #warnings.warn(f'Removed {dupcount} duplicate datetimes from head series {name}.')
             heads = heads[~heads.index.duplicated(keep='first')].copy()
         return heads.sort_index()
 

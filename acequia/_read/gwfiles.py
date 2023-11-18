@@ -118,7 +118,7 @@ class GwFiles:
 
     def iteritems(self):
         """Iterate over all series and return gwseries object."""
-        for idx,row in self._ftb.iterrows():
+        for idx, row in self._ftb.iterrows():
 
             if self._source == 'dinocsv':
                 gw = GwSeries.from_dinogws(row['fpath'])

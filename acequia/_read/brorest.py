@@ -8,9 +8,6 @@ import xml.etree.ElementTree as ET
 from pandas import Series, DataFrame
 import pandas as pd
 
-##from .brogldxml import BroGldXml
-##from .brogmwxml import BroGmwXml
-
 STARTDATE = '1900-01-01'
 
 def _parse_dispatchDocument(tree):

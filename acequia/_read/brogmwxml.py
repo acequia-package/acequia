@@ -66,8 +66,18 @@ class BroGmwXml:
         'ns12:plainTubePartLength','ns11:screenBottomPosition',
         ]
 
+    WELLPROPCOLS_FLOAT = ['numberOfMonitoringTubes', 'VerticalOffset', 
+        'groundLevelPosition','xcr', 'ycr',]
 
-    def __init__(self, root):
+    WELLPROPCOLS_TIMESTAMP = ['objectRegistrationTime', 
+        'latestAdditionTime', 'wellConstructionDate',]
+
+    TUBEPROPCOLS_FLOAT = ['numberOfGeoOhmCables', 'tubeTopDiameter',
+        'tubeTopPosition', 'screenLength', 'screenTopPosition', 
+        'plainTubePartLength', 'screenBottomPosition', ]
+
+
+    def __init__(self, tree):
         """
         Parameters
         ----------
@@ -78,9 +88,8 @@ class BroGmwXml:
         -------
         gld = BroGld(<elementtree>)
             
-        """       
-        #self._tree = tree
-        self._root = root #self._tree.getroot()
+        """
+        self._tree = tree
 
     def __repr__(self):
         return self.wellprops['wellCode']
@@ -106,7 +115,6 @@ class BroGmwXml:
         if not os.path.isfile(xmlpath):
             raise ValueError(f'Invalid filepath: "{xmlpath}".')
         cls.tree = ET.parse(xmlpath)
-        #root = tree.getroot()
 
         # check xml source type
         if not cls.is_gmw:
@@ -149,11 +157,18 @@ class BroGmwXml:
         return True
 
     @property
+    def gmwid(self):
+        return self.wellprops['broId']
+
+
+    @property
     def wellprops(self):
         """Read well properties from XML tree"""
+
+        # extract wellprops from xml
         wellprops = {}
         for key,tag in self.WELLPROPTAGS:
-            node = self._root.find(f'.//{tag}',self.NS)
+            node = self._tree.find(f'.//{tag}',self.NS)
             if node is not None:
                 wellprops[key]=node.text
             else:
@@ -167,14 +182,22 @@ class BroGmwXml:
         wellprops['lon'] = wellprops['standardizedLocation'].split()[0]
         wellprops['lat'] = wellprops['standardizedLocation'].split()[1]
         wellprops = wellprops.drop(labels=['location','standardizedLocation',])
-        
+
+        # convert numerics and dates
+        for col in self.WELLPROPCOLS_FLOAT:
+            wellprops[col] = pd.to_numeric(wellprops[col])
+        for col in self.WELLPROPCOLS_TIMESTAMP:
+            wellprops[col] = pd.Timestamp(wellprops[col])
+
         return wellprops
 
     @property
     def tubeprops(self):
         """Read tube properties from XML tree"""
+
+        # extract tubeprops from XML
         tubeprops = []
-        for node in self._root.iterfind(".//ns11:monitoringTube", self.NS):
+        for node in self._tree.iterfind(".//ns11:monitoringTube", self.NS):
             props = {}
             for tag in self.TUBEPROPTAGS:
                 property = node.find(f'.//{tag}',self.NS).text
@@ -183,13 +206,18 @@ class BroGmwXml:
             tubeprops.append(props)
         tubeprops = DataFrame(tubeprops)
         tubeprops = tubeprops.set_index('tubeNumber',drop=True)
+
+        # convert numeric columns
+        for col in self.TUBEPROPCOLS_FLOAT:
+            tubeprops[col] = pd.to_numeric(tubeprops[col])
+
         return tubeprops
 
     @property
     def events(self):
         """Read tube changes from XML tree"""
         events = []
-        for node in self._root.iterfind('.//ns11:intermediateEvent',self.NS):
+        for node in self._tree.iterfind('.//ns11:intermediateEvent',self.NS):
             event = {
                 'intermediateEvent':node.find(f'.//ns11:eventName',self.NS).text,
                 'eventDate':node.find(f'.//ns10:date',self.NS).text,

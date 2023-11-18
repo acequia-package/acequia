@@ -290,9 +290,7 @@ class KnmiDownload:
             except JSONDecodeError as err:
                 raise JSONDecodeError((f'Response could not be serialised '
                     f'with request  {self._response_url}.'))
-            ##if data.empty:
-            ##    warnings.warn((f'No data available for station {stns} '
-            ##        f'inperiod {start} - {end}.'))
+
         return data
 
     def _findline(self, lines=None, tagline=None, start=None):
@@ -325,8 +323,6 @@ class KnmiDownload:
             stns['label'] = stns.index + '_' + stns['stn_name']
             stns = gpd.GeoDataFrame(
                 stns, geometry=gpd.points_from_xy(stns.xrd, stns.yrd))
-            #stns = stns.set_crs('epsg:4326')
-            #stns = stns.to_crs('epsg:28992')
             stns = stns.set_crs('epsg:28992')
         return stns
 
@@ -399,12 +395,13 @@ class KnmiDownload:
                 raise ValueError((f'{name} is not a valid KNMI '
                     f'{kind} station name.'))
 
-        # download raw data
-        rawdata = self.get_rawdata(kind=kind, stns=station, start=start, end=end)
 
         sr = Series(name=station, dtype='object')
-
         if kind=='precipitation':
+
+            # download raw data
+            rawdata = self.get_rawdata(kind=kind, stns=station, start=start, end=end)
+
             colname='RD'
             if not rawdata[~rawdata[colname].isnull()].empty:
                 sr = rawdata[['date',colname]].copy()
@@ -413,9 +410,17 @@ class KnmiDownload:
                 prec = sr[colname].values/10
                 sr = Series(data=prec, index=dates, name=station)
                 sr.index = sr.index.tz_localize(None)
+                sr = sr.asfreq('D', method=None, how=None, normalize=True, fill_value=None)
                 sr = sr[sr.first_valid_index():] #drop leading nans
 
         if kind=='weather':
+
+            wtr = self.get_weather(station=station, name=name, start=start, end=end,
+                fillnans=fillnans)
+            sr = wtr['prec']
+            sr.name = station
+
+            """
             colname='RH'
             if not rawdata[~rawdata[colname].isnull()].empty:
                 data = rawdata[['date',colname]].copy()
@@ -424,7 +429,7 @@ class KnmiDownload:
                 prec = data[colname].replace(-1,0).values/10. # -1 is used voor less then 0.5 mm percipitation
                 sr = Series(data=prec, index=dates, name=station)
                 sr.index = sr.index.tz_localize(None)
-
+            """
 
         # replace missing values
         if fillnans & (not sr.empty):
@@ -471,13 +476,13 @@ class KnmiDownload:
                     f'station name.'))
 
         wtr = self.get_weather(station=station, name=name, start=start, end=end)
-        sr = wtr['evap'].squeeze()        
-        sr.name = station
+        evap = wtr['evap'].squeeze()        
+        evap.name = station
         
         if fillnans:
-            sr, _ = self.replace_missing_values(meteo=sr, kind='weather')
+            evap, _ = self.replace_missing_values(meteo=evap, kind='weather')
 
-        return sr
+        return evap
 
 
     def get_station_code(self, name=None, kind='precipitation'):
@@ -603,13 +608,15 @@ class KnmiDownload:
         data = rawdata.drop_duplicates(subset='date')
         data['date'] = pd.to_datetime(data['date'])
         data = data[['date','RH','EV24']].set_index('date')
-        data.index = data.index.tz_localize(None)
         data = data.rename(columns={'RH':'prec','EV24':'evap'})
+        
+        data.index = data.index.tz_localize(None)
+        data = data.asfreq('D', method=None, how=None, normalize=True, fill_value=None)
         data = data.loc[data.first_valid_index():,:] # drop leading rows with only NaN
         data = data.loc[:data.last_valid_index(),:] # drop trailing rows with only NaN
 
         data['prec'] = data['prec'].replace(-1,0) # -1 is used voor less then 0.5 mm percipitation
-        data = data/10.
+        data = data/10. # convert values from 0.1mm to mm
 
         return data
 
@@ -682,7 +689,7 @@ class KnmiDownload:
         
         return stns
 
-    def replace_missing_values(self, meteo=None, kind='precipitation'):
+    def replace_missing_values(self, meteo=None, kind='precipitation', fill_backward=False):
         """Replace missing values in a series of precipitation values.
         
         Parameters
@@ -691,6 +698,8 @@ class KnmiDownload:
             Time series with precipitation or evaporation values.
         kind : {'precipitation', 'weather'}, default 'precipitation'
             KNMI station type to get replacement values from.
+        fill_backward : bool, default False
+            Fill missing values before first measurement date (True).
 
         Returns
         -------
@@ -700,10 +709,15 @@ class KnmiDownload:
             Table of measurements used for replacement of missing values.
         """
 
+        # remove leading nans, no interpolation before measurment period
+        if not fill_backward:
+            meteo = meteo[meteo.first_valid_index():].copy()
+
+        # get nandates
         nandates = meteo[meteo.isnull()].index
         if nandates.empty: # no missing values
             return meteo.copy(), DataFrame()
-        
+
         first_nan_date = nandates[0]
         last_nan_date = nandates[-1]
 
@@ -712,12 +726,23 @@ class KnmiDownload:
         stn_codes = dist[dist['distance_km']!=0].index.values
 
         data = []
-        for stn in stn_codes:
+        for i,stn in enumerate(stn_codes):
             try:
-                sr = self.get_precipitation(kind=kind, station=stn, start=first_nan_date, end=last_nan_date)
+                if kind=='precipitation':
+                    sr = self.get_precipitation(kind=kind, station=stn, 
+                        start=first_nan_date, end=last_nan_date, 
+                        fillnans=False)
+                elif kind=='weather':
+                    sr = self.get_evaporation(station=stn, 
+                        start=first_nan_date, end=last_nan_date,
+                        fillnans=False)
+                else:
+                    raise ValueError(f'Unknown knmi station kind {kind} for station {stn}.')
                 sr = sr[nandates]
             except KeyError:
                 # not all nandates are in index of sr (non-overlapping time series)
+                # nans can not be replaced with data from station stn, 
+                # so go to next replacement station
                 continue
             else:
                 if not sr[~sr.isnull()].empty:
@@ -726,14 +751,16 @@ class KnmiDownload:
                     self._nan_replacements = pd.concat(data, axis=1)                
                     self._nan_replacements['mean'] = self._nan_replacements.mean(axis=1).round(0)
                     self._nan_replacements['n'] = self._nan_replacements.count(axis=1)-1
+                    newmeteo = meteo.copy()
+                    newmeteo[self._nan_replacements.index] = self._nan_replacements['mean']
 
                     no_nans_left = self._nan_replacements[self._nan_replacements['mean'].isnull()].empty
                     enough_values = np.all(self._nan_replacements['n']>=self.MINIMAL_REPLACEMENTS)
                     if no_nans_left & enough_values:
-                        newmeteo = meteo.copy()
-                        newmeteo[self._nan_replacements.index] = self._nan_replacements['mean']
                         break
 
+        
+        newmeteo = newmeteo.asfreq('D', method=None, how=None, normalize=True, fill_value=None)
         return newmeteo, self._nan_replacements
 
 

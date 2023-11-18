@@ -53,6 +53,11 @@ def test_property_isgld(gld,request):
     assert gld.is_gld
 
 @pytest.mark.parametrize('gld', [filegld, restgld])
+def test_property_isgld(gld,request):
+    gld = request.getfixturevalue(gld.__name__)
+    assert isinstance(gld.gldid, str)
+
+@pytest.mark.parametrize('gld', [filegld, restgld])
 def test_property_timeseriescounts(gld, request):
     gld = request.getfixturevalue(gld.__name__)
     assert isinstance(gld.timeseriescounts,Series)

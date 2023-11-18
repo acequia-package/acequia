@@ -6,7 +6,6 @@ from acequia import BroGmwXml
 
 @pytest.fixture
 def gmwid():
-    ##return 'GMW000000041145'
     return 'GMW000000020136'
 
 @pytest.fixture
@@ -58,3 +57,7 @@ def test_wellprops(gmw, request):
     assert isinstance(sr, Series)
     assert not sr.empty
 
+@pytest.mark.parametrize('gmw', [gmwserv, gmwxml])
+def test_wellprops(gmw, request):
+    gmw = request.getfixturevalue(gmw.__name__)
+    assert isinstance(gmw.gmwid, str)
