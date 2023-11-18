@@ -9,11 +9,11 @@ from .._core.gwseries import GwSeries
 class BroGwSeries:
     """BRO groundwaterlevel series."""
 
-    def __init__(self, gld=None, gmw=None, tube=None):
+    def __init__(self, gld=None, gmw=None):
 
         self._gld = gld
         self._gmw = gmw
-        self._tube = tube
+        ##self._tube = tube
 
     def __repr__(self):
         return f'{self.seriesname} (n={len(self)})'
@@ -22,7 +22,7 @@ class BroGwSeries:
         return len(self._gld.heads)
 
     @classmethod
-    def from_files(cls, gmwpath=None, gldpath=None, tube=None):
+    def from_files(cls, gmwpath=None, gldpath=None):
         """Read groundwater level data from BRO XML files.
         
         Parameters
@@ -38,11 +38,10 @@ class BroGwSeries:
         Returns
         -------
         BroGwSeries """
-        tube = str(tube)
+
         gmw = BroGmwXml.from_xml(gmwpath)
         gld = BroGldXml.from_xml(gldpath)
-
-        return cls(gld=gld, gmw=gmw, tube=tube)
+        return cls(gld=gld, gmw=gmw)
 
     @classmethod
     def from_server(cls, gmwid=None, tube=None):
@@ -66,7 +65,7 @@ class BroGwSeries:
         gld = BroGldXml.from_server(gldid)
         gmw = BroGmwXml.from_server(gmwid)
 
-        return cls(gld=gld, gmw=gmw, tube=tube)
+        return cls(gld=gld, gmw=gmw)
 
 
     @property
@@ -75,8 +74,7 @@ class BroGwSeries:
 
     @property
     def tubeprops(self):
-        return self._gmw.tubeprops.loc[self._tube,:].copy()
-
+        return self._gmw.tubeprops.loc[self.tubeid,:].copy()
 
     @property
     def wellprops(self):
@@ -84,7 +82,7 @@ class BroGwSeries:
 
     @property
     def tubeid(self):
-        return self.tubeprops.name
+        return self._gld.gldprops['tubeNumber']
 
     @property
     def gmwid(self):
