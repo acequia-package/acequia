@@ -48,7 +48,7 @@ class DinoGws:
     DATATAG = ','.join(
         ['Locatie','Filternummer','Peildatum',
          'Stand (cm t.o.v. MP)','Stand (cm t.o.v. MV)',
-         'Stand (cm t.o.v. NAP)','Bijzonderheid,Opmerking','','',''
+         'Stand (cm t.o.v. NAP)','Bijzonderheid','Opmerking','','',''
          ])
 
     MISSINGDATA = (f'Van deze put zijn geen standen opgenomen',

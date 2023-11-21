@@ -20,31 +20,36 @@ def restgld():
 @pytest.mark.parametrize('gld', [filegld, restgld])
 def test_property_gldprops(gld,request):
     gld = request.getfixturevalue(gld.__name__)
-    assert isinstance(gld.gldprops,Series)
-    assert not gld.gldprops.empty
+    sr = gld.gldprops
+    assert isinstance(sr,Series)
+    assert not sr.empty
 
 @pytest.mark.parametrize('gld', [filegld, restgld])
 def test_property_obs(gld,request):
     gld = request.getfixturevalue(gld.__name__)
-    assert isinstance(gld.obs,DataFrame)
-    assert not gld.obs.empty
+    df = gld.obs
+    assert isinstance(df,DataFrame)
+    assert not df.empty
 
 @pytest.mark.parametrize('gld', [filegld, restgld])
 def test_property_obsprops(gld,request):
     gld = request.getfixturevalue(gld.__name__)
-    assert isinstance(gld.obsprops,DataFrame)
-    assert not gld.obsprops.empty
+    df = gld.obsprops
+    assert isinstance(df,DataFrame)
+    assert not df.empty
 
 @pytest.mark.parametrize('gld', [filegld, restgld])
 def test_property_procesprops(gld,request):
     gld = request.getfixturevalue(gld.__name__)
-    assert isinstance(gld.procesprops,DataFrame)
-    assert not gld.procesprops.empty
+    df = gld.procesprops
+    assert isinstance(df,DataFrame)
+    assert not df.empty
 
 @pytest.mark.parametrize('gld', [filegld, restgld])
 def test_property_heads(gld,request):
     gld = request.getfixturevalue(gld.__name__)
-    assert isinstance(gld.heads,Series)
+    sr = gld.heads
+    assert isinstance(sr, Series)
     assert not gld.heads.empty
 
 @pytest.mark.parametrize('gld', [filegld, restgld])
@@ -52,15 +57,30 @@ def test_property_isgld(gld,request):
     gld = request.getfixturevalue(gld.__name__)
     assert gld.is_gld
 
+
 @pytest.mark.parametrize('gld', [filegld, restgld])
-def test_property_isgld(gld,request):
+def test_property_gldid(gld,request):
     gld = request.getfixturevalue(gld.__name__)
-    assert isinstance(gld.gldid, str)
+    mystr = gld.gldid
+    assert isinstance(mystr, str)
+
+@pytest.mark.parametrize('gld', [filegld, restgld])
+def test_property_gmwid(gld,request):
+    gld = request.getfixturevalue(gld.__name__)
+    mystr = gld.gmwid
+    assert isinstance(mystr, str)
+
+@pytest.mark.parametrize('gld', [filegld, restgld])
+def test_property_tubeid(gld,request):
+    gld = request.getfixturevalue(gld.__name__)
+    mystr = gld.tubeid
+    assert isinstance(mystr, str)
 
 @pytest.mark.parametrize('gld', [filegld, restgld])
 def test_property_timeseriescounts(gld, request):
     gld = request.getfixturevalue(gld.__name__)
-    assert isinstance(gld.timeseriescounts,Series)
-    assert not gld.timeseriescounts.empty
+    sr = gld.timeseriescounts
+    assert isinstance(sr,Series)
+    assert not sr.empty
 
 

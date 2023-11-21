@@ -353,9 +353,11 @@ class GwSeries:
     def name(self):
         """ Return groundwater series name """
         location = str(self._locprops['locname'])
-        filter = str(self._locprops['filname'])
-        return location+'_'+filter
+        tube = self.tube() #str(self._locprops['filname'])
+        return location+'_'+tube
 
+    def tube(self):
+        return str(self._locprops['filname'])
 
     def locname(self):
         """Return series location name"""
@@ -454,15 +456,15 @@ class GwSeries:
             raise ValueError(msg)
 
         heads = self._heads[['headdatetime','headmp']]
-        heads = heads.set_index('headdatetime',drop=True) ##.squeeze()
+        heads = heads.set_index('headdatetime',drop=True).squeeze()
         heads.name = self.name()
 
-        headscopy = heads.copy()
-
         if ref in ['datum','surface']:
-
+        
+            headscopy = heads.copy()
             srvals = headscopy.values.flatten()
             srvals2 = headscopy.values.flatten()
+            
             for index,props in self._tubeprops.iterrows():
 
                 mask = heads.index>=props['startdate']
@@ -494,6 +496,7 @@ class GwSeries:
         if freq is not None:
             heads = heads.resample(freq).mean()
             heads.index = heads.index.tz_localize(None)
+
 
         return heads
 

@@ -159,6 +159,14 @@ class BroGldXml:
         return self.gldprops['broIdGld']
 
     @property
+    def gmwid(self):
+        return self.gldprops['broIdGmw']
+
+    @property
+    def tubeid(self):
+        return self.gldprops['tubeNumber']
+
+    @property
     def is_gld(self):
         """Return True if XML tree contains GMW data."""
         
