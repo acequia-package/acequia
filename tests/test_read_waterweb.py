@@ -6,8 +6,8 @@ from acequia import measurement_types
 from acequia import WaterWeb
 from acequia import GwSeries
 
-fpath = r'.\data\waterweb\grolloer koelanden.csv'
-networkname = 'grolloer koelanden'
+fpath = r'.\data\waterweb\Dwingelderveld.csv'
+networkname = 'Dwingelderveld'
 wwdir = r'.\data\waterweb\\'
 
 # test class WaterWeb
@@ -16,20 +16,17 @@ wwdir = r'.\data\waterweb\\'
 def wwn():
     return WaterWeb.from_csv(fpath=fpath,network=networkname)
 
-def test_init():
-    wwninit = WaterWeb(fpath=fpath,network=networkname)
-    assert len(wwninit.names)==0
-
 def test_from_csv(wwn):
     assert len(wwn.names)!=0
 
-def test_get_type(wwn):
-    srtype = wwn.get_type(wwn.names[0])
-    assert isinstance(srtype,str)
-    assert srtype in wwn.MEASUREMENT_TYPES
+def test_get_measurement_type(wwn):
+    for name in wwn.names:
+        srtype = wwn.get_measurement_type(name)
+        assert isinstance(srtype,str)
+        assert srtype in wwn.MEASUREMENT_TYPES
 
 def test_measurement_types(wwn):
-    assert isinstance(wwn.measurement_types,pd.Series)
+    assert isinstance(wwn.measurement_types, pd.Series)
 
 def test_get_locname(wwn):
     assert isinstance(wwn.get_locname(wwn.names[0]),str)
@@ -54,9 +51,12 @@ def test_get_tubeprops(wwn):
     assert tubeprops.empty is False
 
 def test_get_levels(wwn):
-    levels = wwn.get_levels(wwn.names[0])
-    assert isinstance(levels,pd.Series)
-    assert levels.empty is False
+
+    for ref in ['mp','datum','surface']:
+        levels = wwn.get_levels(wwn.names[0], ref=ref)
+        assert isinstance(levels,pd.Series)
+        assert levels.empty is False
+        assert pd.to_numeric(levels, errors='coerce').notnull().all()
 
 def test_get_gwseries(wwn):
     srname = wwn.names[0]
@@ -76,6 +76,17 @@ def test_to_kml(wwn):
 def test_iteritems(wwn):
     for gw in wwn.iteritems():
         assert isinstance(gw,GwSeries)
+
+def test_is_suncode(wwn):
+  assert all([wwn.is_suncode(name) for name in wwn.names])
+  assert wwn.is_suncode('12345678B001A')
+  assert wwn.is_suncode('12345678B001')
+  assert not wwn.is_suncode('invalidname')
+
+def test_is_suncode(wwn):
+    for srname in wwn.names:
+        shortname = wwn.get_shortname(srname)
+        assert isinstance(shortname, str)
 
 # test custom functions in module waterwebtools
 

@@ -156,12 +156,12 @@ class GwSeries:
                 f'but {type(tubeprops)}')
 
         if heads is None: 
-            self._heads = pd.DataFrame(columns=self.HEADPROPS_NAMES) #Series()
-            self._heads_original = self._heads.copy()
+            self._obs = pd.DataFrame(columns=self.HEADPROPS_NAMES) #Series()
+            self._obs_original = self._obs.copy()
 
         elif isinstance(heads,pd.DataFrame):
-            self._heads = heads
-            self._heads_original = self._heads.copy()
+            self._obs = heads
+            self._obs_original = self._obs.copy()
 
         else:
             raise TypeError(f'heads is not a pandas DataFrame but {type(heads)}')
@@ -170,7 +170,7 @@ class GwSeries:
         return (f'{self.name()} (n={len(self)})')
 
     def __len__(self):
-        return len(self._heads)
+        return len(self._obs)
 
     def _validate_reference(self,ref):
 
@@ -278,7 +278,7 @@ class GwSeries:
             self._tubeprops.to_json(date_format='iso',orient='index')
             )
         json_heads = json.loads(
-            self._heads.to_json(date_format='iso',orient='index',
+            self._obs.to_json(date_format='iso',orient='index',
             date_unit='s')
             )
 
@@ -359,6 +359,9 @@ class GwSeries:
     def tube(self):
         return str(self._locprops['filname'])
 
+    def obs(self):
+        return self._obs
+
     def locname(self):
         """Return series location name"""
         ##srname = self.locprops().index[0]
@@ -410,6 +413,9 @@ class GwSeries:
         """Return last known surface level"""
         return self._tubeprops['surfacelevel'].iat[-1]
 
+    def obs(self):
+        """Return head observations withj notes and remarks."""
+        return self._obs
 
     def heads(self,ref='datum',freq=None):
         """ 
@@ -455,7 +461,7 @@ class GwSeries:
             msg = f'{ref} is not a valid reference level name'
             raise ValueError(msg)
 
-        heads = self._heads[['headdatetime','headmp']]
+        heads = self._obs[['headdatetime','headmp']]
         heads = heads.set_index('headdatetime',drop=True).squeeze()
         heads.name = self.name()
 
@@ -497,9 +503,41 @@ class GwSeries:
             heads = heads.resample(freq).mean()
             heads.index = heads.index.tz_localize(None)
 
+        return heads.dropna()
 
-        return heads
+    def get_headnotes(self, kind='all'):
+        """Return missing head observation notes.
+        
+        Parameters
+        ----------
+        kind : str | list
+            Kind of missing head notes to return.
 
+        Notes
+        -----
+        Possible values of missing head notes are:
+        'B' : Ground water frozen ("Bevroren")
+        'D' : Well tube was Dry ("Droog")
+        'E' : Well tube is defect.
+        'M' : Influence of artifical pumping ("beMaling")
+        'N' : No observation made ("Niet opgenomen").
+        'O' : Overflow of well ("Overloop")
+        'V' : Blockage in well ("Verstopping")
+        'W' : Well is below Water surface ("Water")
+           
+        """
+        WELLNOTE_TYPES = ['all','B','D','E','M','N','O','V','W']
+        if isinstance(kind, str):
+            kind = [kind]
+        if not all([x in WELLNOTE_TYPES for x in kind]):
+            raise ValueError((f'{kind} contains invalid wellnote type.'))
+
+        df = self.obs()[['headdatetime','headnote']]
+        sr = df.set_index('headdatetime').squeeze().dropna()
+
+        if 'all' not in kind:
+            sr = sr[sr.isin(kind)]
+        return sr
 
     def timestats(self,ref=None):
         """
@@ -606,25 +644,35 @@ class GwSeries:
         -------
         pd.Series
         """
-        if proptype in ['mplevel','surfacelevel','filtop','filbot']:
-            mps = self._tubeprops[proptype].values
-        else:
-            mps = self._tubeprops['mplevel']
-            # TODO: add userwarning
+        if proptype not in ['mplevel','surfacelevel','filtop','filbot']:
+            warnings.warn((f'{proptype} is not a valid tube reference '
+                f'level. "mplevel"will be used instead.'))
+            proptype = 'mplevel'
 
-        idx = pd.to_datetime(self._tubeprops['startdate'])
-        sr1 = Series(mps,index=idx)
-
-        idx = sr1.index[1:]-pd.Timedelta(days=1)
-        lastdate = self.heads().index[-1]
+        """
+        sr1 = self._tubeprops[['startdate','mplevel']].set_index('startdate').squeeze()
+        idx = sr1.index[1:] + pd.Timedelta(days=1)
+        lastdate = self._obs['headdatetime'].iloc[-1]
         idx = idx.append(pd.to_datetime([lastdate]))
-        sr2 = Series(mps,index=idx)
+        sr2 = Series( mps ,index=idx)
+        """
 
-        sr12 = pd.concat([sr1,sr2]).sort_index()
+        sr = self._tubeprops[['startdate','mplevel']].set_index('startdate').squeeze(axis=1)
+
+        # create list of dates
+        from_dates = sr.index.values[:]
+        to_dates = sr.index.values[1:] - np.timedelta64(1,'D')
+        lastdate = self._obs['headdatetime'].values[-1]
+        to_dates = np.append(to_dates, lastdate)
+        dates = [item for sublist in zip(from_dates, to_dates) for item in sublist]
+
+        values = np.repeat(sr.values, 2)
+        changes = Series(values, index=dates)
+
         if relative:
-            sr12 = sr12 - sr12[0]
+            changes = changes - changes[0]
 
-        return sr12
+        return changes
 
 
     def plotheads(self,proptype=None,filename=None):

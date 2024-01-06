@@ -6,7 +6,7 @@ file and also accepts result from a REST request.
 import os
 import warnings
 import numpy as np
-from pandas import Series,DataFrame
+from pandas import Series, DataFrame
 import pandas as pd
 import xml.etree.ElementTree as ET
 from . import brorest
@@ -203,7 +203,8 @@ class BroGldXml:
             # get time series id
             attdict = node.attrib
             tsid = [attdict[key] for key in attdict.keys()][0]
-            tsid = tsid.split('_')[1]
+            
+            ##tsid = tsid.split('_')[1]
 
             # get all parameters for time series
             for subnode in node.iterfind(f'.//{self.GLDPROCESTAGS["NamedValue"]}',self.NS):
@@ -243,7 +244,11 @@ class BroGldXml:
             ts['timeseries'] = tsid
             tslist.append(ts)
 
-        return pd.concat(tslist).sort_values(by='time').reset_index(drop=True)
+        if tslist:
+            timeseries = pd.concat(tslist).sort_values(by='time').reset_index(drop=True)
+        else:
+            timeseries = DataFrame()
+        return timeseries
 
     @property
     def obsprops(self):
@@ -264,12 +269,20 @@ class BroGldXml:
                 obsprops[key] = node.find(tag,self.NS).text
             propslist.append(Series(obsprops))
 
-        obsprops = DataFrame(propslist).set_index('obsId').sort_values('dataStamp')
+        if propslist:
+            obsprops = DataFrame(propslist).set_index('obsId').sort_values('dataStamp')
+        else:
+            obsprops = DataFrame()
+
         return obsprops
 
     @property
     def heads(self):
         """Return time series with groundwater levels."""
+
+        if self._obs.empty:
+            return Series(dtype='object')
+
         levels = self.obs['value'].astype(float).values
         datetimes = pd.DatetimeIndex(
             pd.to_datetime(self.obs['time'],
@@ -284,4 +297,12 @@ class BroGldXml:
 
     @property
     def timeseriescounts(self):
-        return self.obs['timeseries'].value_counts()
+    
+        #if isinstance(self.obs, DataFrame):
+        if not self.obs.empty:
+            counts = self.obs['timeseries'].value_counts()
+        #if isinstance(self.obs, list):
+        else:
+            counts = Series(dtype='object')
+        return counts
+        

@@ -218,6 +218,9 @@ class BroGwSeries:
     @property
     def heads(self):
         """Return time series with groundwater levels."""
+        if self._obs.empty:
+            return Series(dtype='object')
+
         levels = self._obs['value'].astype(float).values
         datetimes = pd.DatetimeIndex(
             pd.to_datetime(self._obs['time'],

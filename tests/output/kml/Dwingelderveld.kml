@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2">
+    <Document id="1">
+        <Style id="7">
+            <IconStyle id="9">
+                <color>ffFF0000</color>
+                <colorMode>normal</colorMode>
+                <scale>1.2</scale>
+                <heading>0</heading>
+                <Icon id="10">
+                    <href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href>
+                </Icon>
+            </IconStyle>
+            <LabelStyle id="8">
+                <color>ffFFFFFF</color>
+                <colorMode>normal</colorMode>
+                <scale>0.7</scale>
+            </LabelStyle>
+            <BalloonStyle>
+                <text>$[description]</text>
+                <displayMode>default</displayMode>
+            </BalloonStyle>
+        </Style>
+        <Style id="17">
+            <IconStyle id="19">
+                <color>ffda8923</color>
+                <colorMode>normal</colorMode>
+                <scale>1.2</scale>
+                <heading>0</heading>
+                <Icon id="20">
+                    <href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href>
+                </Icon>
+            </IconStyle>
+            <LabelStyle id="18">
+                <color>ffFFFFFF</color>
+                <colorMode>normal</colorMode>
+                <scale>0.7</scale>
+            </LabelStyle>
+            <BalloonStyle>
+                <text>$[description]</text>
+                <displayMode>default</displayMode>
+            </BalloonStyle>
+        </Style>
+        <Placemark id="33">
+            <name>B316</name>
+            <description>label: B316&lt;br&gt;sunloc: 13550217B316&lt;br&gt;nitgcode: B17C0314&lt;br&gt;broid: GMW000000072063&lt;br&gt;derden: nan&lt;br&gt;xcr: 226054&lt;br&gt;ycr: 534625&lt;br&gt;mptype: B&lt;br&gt;network: Dwingelderveld&lt;br&gt;lon: 6.440635550235624&lt;br&gt;lat: 52.79423559678937&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="32">
+                <coordinates>6.440635550235624,52.79423559678937,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="35">
+            <name>B103</name>
+            <description>label: B103&lt;br&gt;sunloc: 13550217B103&lt;br&gt;nitgcode: B17A0209&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 226980&lt;br&gt;ycr: 539639&lt;br&gt;mptype: B&lt;br&gt;network: Dwingelderveld&lt;br&gt;lon: 6.455461351722102&lt;br&gt;lat: 52.8391659818983&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="34">
+                <coordinates>6.455461351722102,52.8391659818983,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="37">
+            <name>B127</name>
+            <description>label: B127&lt;br&gt;sunloc: 13550217B127&lt;br&gt;nitgcode: B17C0299&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 225468&lt;br&gt;ycr: 536180&lt;br&gt;mptype: B&lt;br&gt;network: Dwingelderveld&lt;br&gt;lon: 6.432282620816481&lt;br&gt;lat: 52.80828443612472&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="36">
+                <coordinates>6.432282620816481,52.80828443612472,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="39">
+            <name>B104A</name>
+            <description>label: B104A&lt;br&gt;sunloc: 13550217B104&lt;br&gt;nitgcode: B17A0204&lt;br&gt;broid: GMW000000068111&lt;br&gt;derden: nan&lt;br&gt;xcr: 228017&lt;br&gt;ycr: 539038&lt;br&gt;mptype: B&lt;br&gt;network: Dwingelderveld&lt;br&gt;lon: 6.470714975970797&lt;br&gt;lat: 52.83362698982164&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="38">
+                <coordinates>6.470714975970797,52.83362698982164,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="41">
+            <name>B564A</name>
+            <description>label: B564A&lt;br&gt;sunloc: 13550217B564&lt;br&gt;nitgcode: B17C0403&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 225607&lt;br&gt;ycr: 536769&lt;br&gt;mptype: B&lt;br&gt;network: Dwingelderveld&lt;br&gt;lon: 6.434470379310445&lt;br&gt;lat: 52.81355875082825&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="40">
+                <coordinates>6.434470379310445,52.81355875082825,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="43">
+            <name>B589</name>
+            <description>label: B589&lt;br&gt;sunloc: 13550217B589&lt;br&gt;nitgcode: B17C0399&lt;br&gt;broid: GMW000000048391&lt;br&gt;derden: nan&lt;br&gt;xcr: 224875&lt;br&gt;ycr: 534260&lt;br&gt;mptype: B&lt;br&gt;network: Dwingelderveld&lt;br&gt;lon: 6.423081197943375&lt;br&gt;lat: 52.79110913020763&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="42">
+                <coordinates>6.423081197943375,52.79110913020763,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="45">
+            <name>B511A</name>
+            <description>label: B511A&lt;br&gt;sunloc: 13550217B511&lt;br&gt;nitgcode: B17A0232&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 227137&lt;br&gt;ycr: 539283&lt;br&gt;mptype: B&lt;br&gt;network: Dwingelderveld&lt;br&gt;lon: 6.457712672592551&lt;br&gt;lat: 52.83594632457694&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="44">
+                <coordinates>6.457712672592551,52.83594632457694,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="47">
+            <name>B529A</name>
+            <description>label: B529A&lt;br&gt;sunloc: 13550217B529&lt;br&gt;nitgcode: B17A0233&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 227693&lt;br&gt;ycr: 539139&lt;br&gt;mptype: B&lt;br&gt;network: Dwingelderveld&lt;br&gt;lon: 6.465930318660378&lt;br&gt;lat: 52.834578091496745&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="46">
+                <coordinates>6.465930318660378,52.834578091496745,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="49">
+            <name>B532A</name>
+            <description>label: B532A&lt;br&gt;sunloc: 13550217B532&lt;br&gt;nitgcode: B17A0234&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 227530&lt;br&gt;ycr: 538421&lt;br&gt;mptype: B&lt;br&gt;network: Dwingelderveld&lt;br&gt;lon: 6.463353138684689&lt;br&gt;lat: 52.82814850834961&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="48">
+                <coordinates>6.463353138684689,52.82814850834961,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="51">
+            <name>B537A</name>
+            <description>label: B537A&lt;br&gt;sunloc: 13550217B537&lt;br&gt;nitgcode: B17A0235&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 224840&lt;br&gt;ycr: 539926&lt;br&gt;mptype: B&lt;br&gt;network: Dwingelderveld&lt;br&gt;lon: 6.423767911671337&lt;br&gt;lat: 52.84202504248254&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="50">
+                <coordinates>6.423767911671337,52.84202504248254,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="53">
+            <name>B550A</name>
+            <description>label: B550A&lt;br&gt;sunloc: 13550217B550&lt;br&gt;nitgcode: B17A0241&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 225480&lt;br&gt;ycr: 538590&lt;br&gt;mptype: B&lt;br&gt;network: Dwingelderveld&lt;br&gt;lon: 6.43297807472819&lt;br&gt;lat: 52.82993767540041&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="52">
+                <coordinates>6.43297807472819,52.82993767540041,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="55">
+            <name>B560A</name>
+            <description>label: B560A&lt;br&gt;sunloc: 13550217B560&lt;br&gt;nitgcode: B17C0341&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 225870&lt;br&gt;ycr: 537284&lt;br&gt;mptype: B&lt;br&gt;network: Dwingelderveld&lt;br&gt;lon: 6.438481816150175&lt;br&gt;lat: 52.81815189188753&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="54">
+                <coordinates>6.438481816150175,52.81815189188753,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="57">
+            <name>B563A</name>
+            <description>label: B563A&lt;br&gt;sunloc: 13550217B563&lt;br&gt;nitgcode: B17C0344&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 225409&lt;br&gt;ycr: 537142&lt;br&gt;mptype: B&lt;br&gt;network: Dwingelderveld&lt;br&gt;lon: 6.431614061603751&lt;br&gt;lat: 52.81693607164391&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="56">
+                <coordinates>6.431614061603751,52.81693607164391,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="59">
+            <name>B575A</name>
+            <description>label: B575A&lt;br&gt;sunloc: 13550217B575&lt;br&gt;nitgcode: B17C0353&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 225314&lt;br&gt;ycr: 534967&lt;br&gt;mptype: B&lt;br&gt;network: Dwingelderveld&lt;br&gt;lon: 6.429739450803681&lt;br&gt;lat: 52.797405099830065&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="58">
+                <coordinates>6.429739450803681,52.797405099830065,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="61">
+            <name>B581</name>
+            <description>label: B581&lt;br&gt;sunloc: 13550217B581&lt;br&gt;nitgcode: B17C0366&lt;br&gt;broid: GMW000000048393&lt;br&gt;derden: nan&lt;br&gt;xcr: 224809&lt;br&gt;ycr: 536110&lt;br&gt;mptype: B&lt;br&gt;network: Dwingelderveld&lt;br&gt;lon: 6.4224960013209875&lt;br&gt;lat: 52.80774074355611&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="60">
+                <coordinates>6.4224960013209875,52.80774074355611,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="63">
+            <name>B585</name>
+            <description>label: B585&lt;br&gt;sunloc: 13550217B585&lt;br&gt;nitgcode: B17C0358&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 224699&lt;br&gt;ycr: 535425&lt;br&gt;mptype: B&lt;br&gt;network: Dwingelderveld&lt;br&gt;lon: 6.420719570574764&lt;br&gt;lat: 52.80159986373963&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="62">
+                <coordinates>6.420719570574764,52.80159986373963,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="65">
+            <name>L530</name>
+            <description>label: L530&lt;br&gt;sunloc: 13550217L530&lt;br&gt;nitgcode: P17A0007&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 227149&lt;br&gt;ycr: 539226&lt;br&gt;mptype: L&lt;br&gt;network: Dwingelderveld&lt;br&gt;lon: 6.457878180408665&lt;br&gt;lat: 52.8354325640856&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#17</styleUrl>
+            <Point id="64">
+                <coordinates>6.457878180408665,52.8354325640856,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="67">
+            <name>B11A</name>
+            <description>label: B11A&lt;br&gt;sunloc: 13550217B011&lt;br&gt;nitgcode: B17C0276&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 225011&lt;br&gt;ycr: 535180&lt;br&gt;mptype: B&lt;br&gt;network: Dwingelderveld&lt;br&gt;lon: 6.425293030749814&lt;br&gt;lat: 52.799358218630786&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="66">
+                <coordinates>6.425293030749814,52.799358218630786,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="69">
+            <name>B549A</name>
+            <description>label: B549A&lt;br&gt;sunloc: 13550217B549&lt;br&gt;nitgcode: B17A0247&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 225449&lt;br&gt;ycr: 538505&lt;br&gt;mptype: B&lt;br&gt;network: Dwingelderveld&lt;br&gt;lon: 6.432499921520418&lt;br&gt;lat: 52.82917795228264&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="68">
+                <coordinates>6.432499921520418,52.82917795228264,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="71">
+            <name>B561A</name>
+            <description>label: B561A&lt;br&gt;sunloc: 13550217B561&lt;br&gt;nitgcode: B17C0371&lt;br&gt;broid: GMW000000072177&lt;br&gt;derden: nan&lt;br&gt;xcr: 225411&lt;br&gt;ycr: 537177&lt;br&gt;mptype: B&lt;br&gt;network: Dwingelderveld&lt;br&gt;lon: 6.431651231322494&lt;br&gt;lat: 52.817250300787435&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="70">
+                <coordinates>6.431651231322494,52.817250300787435,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="73">
+            <name>B562A</name>
+            <description>label: B562A&lt;br&gt;sunloc: 13550217B562&lt;br&gt;nitgcode: B17C0372&lt;br&gt;broid: GMW000000072181&lt;br&gt;derden: nan&lt;br&gt;xcr: 225405&lt;br&gt;ycr: 537156&lt;br&gt;mptype: B&lt;br&gt;network: Dwingelderveld&lt;br&gt;lon: 6.43155774025853&lt;br&gt;lat: 52.81706238706863&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="72">
+                <coordinates>6.43155774025853,52.81706238706863,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="75">
+            <name>B164A</name>
+            <description>label: B164A&lt;br&gt;sunloc: 13550217B164&lt;br&gt;nitgcode: B17A1542&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 226864&lt;br&gt;ycr: 537612&lt;br&gt;mptype: B&lt;br&gt;network: Dwingelderveld&lt;br&gt;lon: 6.453296014333387&lt;br&gt;lat: 52.82096815010576&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="74">
+                <coordinates>6.453296014333387,52.82096815010576,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="77">
+            <name>B165A</name>
+            <description>label: B165A&lt;br&gt;sunloc: 13550217B165&lt;br&gt;nitgcode: B17C1683&lt;br&gt;broid: GMW000000072195&lt;br&gt;derden: nan&lt;br&gt;xcr: 225877&lt;br&gt;ycr: 537283&lt;br&gt;mptype: B&lt;br&gt;network: Dwingelderveld&lt;br&gt;lon: 6.438585420146269&lt;br&gt;lat: 52.818141990801195&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="76">
+                <coordinates>6.438585420146269,52.818141990801195,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="79">
+            <name>B166</name>
+            <description>label: B166&lt;br&gt;sunloc: 13550217B166&lt;br&gt;nitgcode: B17C1684&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 225406&lt;br&gt;ycr: 537147&lt;br&gt;mptype: B&lt;br&gt;network: Dwingelderveld&lt;br&gt;lon: 6.4315706409403965&lt;br&gt;lat: 52.816981388504765&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="78">
+                <coordinates>6.4315706409403965,52.816981388504765,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="81">
+            <name>B167A</name>
+            <description>label: B167A&lt;br&gt;sunloc: 13550217B167&lt;br&gt;nitgcode: B17C1682&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 226552&lt;br&gt;ycr: 535674&lt;br&gt;mptype: B&lt;br&gt;network: Dwingelderveld&lt;br&gt;lon: 6.448245988428555&lt;br&gt;lat: 52.80359579410065&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="80">
+                <coordinates>6.448245988428555,52.80359579410065,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="83">
+            <name>B168A</name>
+            <description>label: B168A&lt;br&gt;sunloc: 13550217B168&lt;br&gt;nitgcode: B17A1640&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 226867&lt;br&gt;ycr: 538383&lt;br&gt;mptype: B&lt;br&gt;network: Dwingelderveld&lt;br&gt;lon: 6.4535093782353545&lt;br&gt;lat: 52.82789544338668&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="82">
+                <coordinates>6.4535093782353545,52.82789544338668,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="85">
+            <name>L169</name>
+            <description>label: L169&lt;br&gt;sunloc: 13550217L169&lt;br&gt;nitgcode: P17A0035&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 225870&lt;br&gt;ycr: 539064&lt;br&gt;mptype: L&lt;br&gt;network: Dwingelderveld&lt;br&gt;lon: 6.438866304945768&lt;br&gt;lat: 52.83414583804172&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#17</styleUrl>
+            <Point id="84">
+                <coordinates>6.438866304945768,52.83414583804172,0.0</coordinates>
+            </Point>
+        </Placemark>
+    </Document>
+</kml>

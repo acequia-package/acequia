@@ -37,6 +37,7 @@ from ._read.brogldxml import BroGldXml
 from ._read.brogmwxml import BroGmwXml
 from ._read.brogwseries import BroGwSeries
 from ._read.brogwcollection import BroGwCollection
+from ._write.dinogwswriter import DinoGwsWriter
 from ._stats.utils import (
     hydroyear as get_tshydroyear, season as get_tsseason, 
     index1428 as get_tsindex1428, ts1428 as get_ts1428,

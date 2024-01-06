@@ -1,4 +1,5 @@
 
+import re
 import pathlib
 import warnings
 import datetime as dt
@@ -21,26 +22,29 @@ class WaterWeb:
         Read waterweb csv export file and return WaterWeb object.
 
     """
+    SEP = ';'
     NAMECOL = 'sunsr' # 'sunsr'
 
     COLUMN_MAPPING = {
-        'Lokatie':'sunloc',
+        'Locatie':'sunloc',
         'SUN-code':'sunsr',
-        'NITG-code':'nitgsr',
+        'NITG-code':'nitgcode',
          #'OLGA-kode':'olga', # DEZE KOLOM IS VERVALLEN
         'BROID':'broid',
         'DERDEN-code':'derden',
         'X coordinaat':'xcr',
         'Y coordinaat':'ycr',
-        'NAP hoogte bovenkant peilbuis':'mpnap',
-        'Hoogte maaiveld tov NAP':'mvnap',
-        'Hoogte maaiveld tov Nulpunt':'mvmp',
-        'Hoogte maaiveld tov maaiveld':'mvmv',
-        'NAP hoogte bovenkant filter':'filtopnap',
-        'NAP hoogte onderkant filter':'filbotnap',
+        'NAP hoogte bovenkant peilbuis':'mpcmnap',
+        'Hoogte maaiveld tov NAP':'mvcmnap',
+        'Hoogte maaiveld tov Nulpunt':'mvcmmp',
+         #'Hoogte maaiveld tov maaiveld':'mvmv',
+        'NAP hoogte bovenkant filter':'filtopcmnap',
+        'NAP hoogte onderkant filter':'filbotcmnap',
         'Peilmoment':'datetime',
-        'Peilstand':'peilcmmp',
-        'Peilstand in Meters':'peilmmp',
+         #'Peilstand':'peilcmmp',
+        'Peilstand tov Nulpunt' : 'peilcmmp',
+         #'Peilstand in Meters':'peilmmp',
+        'Peilstand in tov Nulpunt Meters' : 'peilmmp',
         'Peilstand tov NAP':'peilcmnap',
         'Peilstand tov NAP in Meters':'peilmnap',
         'Peilstand tov maaiveld':'peilcmmv',
@@ -49,26 +53,29 @@ class WaterWeb:
         'Opmerking bij peiling':'peilopm'
         }
 
-    LOCPROPS_COLS = ['sunloc','sunsr','nitgsr','broid','derden',
+    LOCPROPS_COLS = ['sunloc','sunsr','nitgcode','broid','derden',
         'xcr','ycr',]
 
-    TUBEPROPS_COLS = ['mpnap','mvnap','filtopnap','filbotnap']
+    TUBEPROPS_COLS = ['mpcmnap','mvcmnap','filtopcmnap','filbotcmnap']
 
-    PEILPROPS_COLS = ['datetime','peilcmmp','peilcode','peilopm']
+    LEVELDATA_COLS = ['datetime','peilmmp','peilcode','peilopm']
+
+    NUMERIC_COLS = ['xcr','ycr','mpcmnap','mvcmnap','mvcmmp','filtopcmnap',
+        'filbotcmnap','peilcmmp','peilcmnap','peilmnap','peilcmmv','peilmmv',]
 
     LOCPROPS_MAPPING = {
-        'locname':'sunloc','alias':'nitgsr',
+        'locname':'sunloc','alias':'nitgcode',
         'xcr':'xcr','ycr':'ycr'
         }
 
     TUBEPROPS_MAPPING = {
-        'startdate':'datetime','mplevel':'mpnap',
-        'filtop':'filtopnap','filbot':'filbotnap',
-        'surfacelevel':'mvnap'
+        'startdate':'datetime','mplevel':'mpcmnap',
+        'filtop':'filtopcmnap','filbot':'filbotcmnap',
+        'surfacelevel':'mvcmnap'
         }
 
     LEVELS_MAPPING = {
-        'headdatetime':'datetime', 'headmp':'peilcmmp', 
+        'headdatetime':'datetime', 'headmp':'peilmmp', 
         'headnote':'peilcode','remarks':'peilopm'}
 
     REFLEVELS = [
@@ -76,6 +83,8 @@ class WaterWeb:
         ]
 
     MEASUREMENT_TYPES = ['B','S','L','P','M']
+    
+    CAPITALS = [chr(x) for x in range(65,91)]
 
     KMLSTYLES = {
         'B':
@@ -100,72 +109,18 @@ class WaterWeb:
              'labelcolor':'FFFFFF'},                
         }
 
-    def __init__(self,fpath=None,data=None,network=None):
+    def __init__(self, data, fpath=None, network=None):
 
+        self.rawdata = data
         self._fpath = fpath
         self._network = network
-        self._rawdata = data
-        self.data = data
 
-        if self._network is None:
-            self._network = '<unknown network>'
+        if not isinstance(self.rawdata, pd.DataFrame):
+            raise ValueError((f'{self.rawdata} is not a valid Pandas '
+                f'DataFrame.'))
 
-        if self.data is not None:
+        self.data = self._clean_raw_data()
 
-            if not isinstance(self.data,pd.DataFrame):
-                raise ValueError((f'{self.data} is not a valid Pandas '
-                    f'DataFrame.'))
-
-            # store rawdata for debugging purposes
-            self._rawdata = data.copy()
-            self.data = data.copy()
-
-            # remove rows with incomplete data
-            # Note:
-            # When measurements with dates earlier than the given
-            # startdate date or after the given enddate of the series
-            # are present, WaterWeb csv exports contains no metadata.
-            # As a result, the first column does not contain the 
-            # SUN-code, but the date of the measurement.
-            # All these rows are removed and a user warnimg is given.
-
-            dates = pd.to_datetime(self.data['Lokatie'], errors='coerce')
-            first_col_is_date = ~dates.isnull()
-            if not self.data[first_col_is_date].empty:
-                warnings.warn((f'{len(self.data[first_col_is_date])} '
-                    f'measurements taken before given startdate or'
-                    f'after given enddate were removed from '
-                    f'{self.networkname}'))
-                self.data = self.data[~first_col_is_date].copy()
-
-            # rename columns in data
-            self.data = self.data.rename(columns=self.COLUMN_MAPPING)
-
-
-            # Remove measurements before given series startdate
-            # Note:
-            # When thera are measurements with dates earlier than the
-            # first date with technical tube data, the waterweb csv 
-            # export starts with measurements without technical data.
-            # These are removed and a user warnimg is given.
-            """
-            mask = self.data['mpnap'].isnull()
-            if not self.data[mask].empty:
-                warnings.warn((f'{len(self.data[mask])} measurements '
-                    f'taken before given startdate of series were '
-                    f'removed from {self.networkname}'))
-                self.data = self.data[~mask].copy()
-            """
-            # Remove mewasurements after given startdate ande issues/684
-            # userwarning
-            """
-            mask = self.data[self.NAMECOL].isnull()
-            if not self.data[mask].empty:
-                warnings.warn((f'{len(self.data[mask])} measurements '
-                    f'taken after given enddate of series were removed '
-                    f'from {self.networkname}'))
-                self.data = self.data[~mask].copy()
-            """
 
     def __repr__(self):
         return (f'{self._network} (n={self.__len__()})')
@@ -191,10 +146,11 @@ class WaterWeb:
         Returns
         -------
         WaterWebNetwork object
-        ...
+           
         """
         try:
-            data = pd.read_csv(fpath, sep=';', decimal=',', low_memory=False)
+            data = pd.read_csv(fpath, sep=cls.SEP, decimal=',', low_memory=False)
+            data.columns = [col.strip() for col in data.columns] # remove space before column names
         except FileNotFoundError as err:
             raise FileNotFoundError(f'Invalid filepath for WaterWeb csv file: "{fpath}"')
 
@@ -219,15 +175,39 @@ class WaterWeb:
             warnings.warn((f'Unknown columns in WaterWeb csv file: '
                 f'{unknown_columns}.'))
 
-        ## change column types
-        ##data = data.astype(dtype=cls._typedict)
+        return cls(data, fpath=fpath, network=network)
 
-        # change column contents
-        data['Peilmoment'] = pd.to_datetime(data['Peilmoment'])
-        data['NITG-code'] = data['NITG-code'].apply(
+    def _clean_raw_data(self):
+        """Return dataframe with clean data from rawdata table."""
+
+        data = self.rawdata.copy()
+        data = data.rename(columns=self.COLUMN_MAPPING)
+
+        # remove datarows with incomplete data
+        # Note:
+        # In WaterWeb exports, when measurements with dates earlier than 
+        # the given startdate date or after the given enddate of the 
+        # series are present, WaterWeb csv exports contains no metadata.
+        # As a result, the first column of data does not contain the 
+        # SUN-code, but the date of the measurement.
+        # All these rows are removed and a user warnimg is given.
+        dates = pd.to_datetime(data['sunloc'], errors='coerce')
+        first_col_is_date = ~dates.isnull()
+        if not data[first_col_is_date].empty:
+            warnings.warn((f'{len(data[first_col_is_date])} '
+                f'measurements taken before given startdate or'
+                f'after given enddate were removed from '
+                f'{self.networkname}'))
+            data = data[~first_col_is_date].copy()
+
+        # change data column contents
+        data['datetime'] = pd.to_datetime(data['datetime'], dayfirst=True)
+        data['nitgcode'] = data['nitgcode'].apply(
             lambda x:x[:8]+"_"+x[-3:].lstrip('0') if not pd.isnull(x) else np.nan)
+        for col in self.NUMERIC_COLS:
+            data[col] = pd.to_numeric(data[col], errors='coerce')
 
-        return cls(fpath=fpath,data=data,network=network)
+        return data
 
 
     @property
@@ -238,19 +218,45 @@ class WaterWeb:
         else:
             return []
 
+
     @property
     def locnames(self):
         """Return list of series names"""
         
         # series suncodes end with a capital ('A', 'B') when mulitple
-        # filters are present. A filter from a well with one filter
+        # filters are present. A filter from a single well with one filter
         # ends with nothing
-        capitals = [chr(x) for x in range(65,91)]
-        locs = [x if x[-1] not in capitals else x[:-1] for x in self.names]
+
+        if not all([self.is_suncode(name) for name in self.names]):
+            raise ValueError((f'{self.networkname} contains invalid series '
+                'names: {self.names}.'))
+
+        locs = [x if x[-1] not in self.CAPITALS else x[:-1] for x in self.names]
         return set(locs)
 
+    def is_suncode(self, srname):
+        """Return TRUE if given string is standard SUN series name."""
 
-    def get_type(self,srname=None):
+        # define SUNcode regex pattern
+        networknr = '[0-9]{8}'
+        mptypes = ''.join((self.MEASUREMENT_TYPES))
+        locnr = '[0-9]{3}'
+        tubecode = '[A-Z]'
+        pattern = fr'^{networknr}[{mptypes}]{locnr}{tubecode}?$'
+        # (Examples of valid SUN-code patterns are: 
+        # '12345678B001', '12345678B001A')
+
+        # search for pattern
+        sunpat = re.compile(pattern)
+        if sunpat.match(srname) is None:
+            is_suncode = False
+        else:
+            is_suncode = True
+
+        return is_suncode
+
+
+    def get_measurement_type(self, srname=None):
         """Return kind of measurement type series
 
         Parameters
@@ -263,7 +269,7 @@ class WaterWeb:
         str, numpy array of str """
 
         srnames = self.names
-        sr = Series(data=srnames,index=srnames,name='seriestype')
+        sr = Series(data=srnames, index=srnames, name='seriestype')
         sr = sr.apply(lambda x:x[8])
 
         if srname is not None:
@@ -276,13 +282,13 @@ class WaterWeb:
         """Return table of measurement type counts."""
         srtypelist = []
         for name in self.names:
-            srtypelist.append(self.get_type(name))
+            srtypelist.append(self.get_measurement_type(name))
         tbl = pd.Series(srtypelist).value_counts()
         tbl.name = self.networkname
         return tbl
 
 
-    def get_locname(self,srname):
+    def get_locname(self, srname):
         """Return location name for given series
 
         Parameters
@@ -293,23 +299,53 @@ class WaterWeb:
         return self.get_locprops(srname)['sunloc']
 
 
-    def get_filname(self,srname):
+    def get_filname(self, srname, style='sun'):
         """Return filter name for given series
 
         Parameters
         ----------
         srname : str
-            name of series to return 
+            Name of series to return.
+        style : {'sun', 'dino'}, default 'sun'
+            Use SUN naming style (letters) or DINO style (numbers).
 
         Notes
         -----
-        WaterWeb uses the DINO-SUN convention of only explicitly naming
-        filters if more than one filter is present."""
+        In WaterWeb, well filters are named using capitals (A, B, etc), 
+        with the most shallow filter starting as "A". When only one filter 
+        is present, no lettercode is added, so location code and filter 
+        code are equal. This style originates from the former SUN-database, 
+        used until 2019 by nature management organisations in the 
+        Netherlands.
+        DINO-style uses numbers for well piezometers (1, 2, etc), with 
+        the most shallow filter starting as 1. This convention was used in
+        the national groundwater database managend by TNO.
+           
+        """
+        if style not in ['sun','dino']:
+            raise ValueError((f'Naming style should be "sun" or "dino", '
+                f'not {style}.'))
 
-        filname = self.get_locprops(srname)['sunsr']
-        if filname[-1].isalpha():
-            return filname[-1]
-        return ''
+        # get sunstyle filter name
+        srname = self.get_locprops(srname)['sunsr']
+        capitals = [chr(i) for i in range(65,91)]
+        if srname[-1] in capitals:
+            filname = srname[-1]
+        else:
+            filname = ''
+
+        # convert to dino-style
+        if style=='dino':
+            if filname in capitals:
+                filname = capitals.index(filname) + 1
+            elif filname=='':
+                filname = 1
+            else:
+                raise ValueError((f'Sun filter name should be a capital '
+                    f'or empty, but not "{filname}" (ValueError in series'
+                    f'{srname}'))
+
+        return filname
 
 
     @property
@@ -320,13 +356,17 @@ class WaterWeb:
         ----------
         name : str, optional
             name of measurement network """
-        return self._network
+        if self._network is None:
+            name = '<unknown network>'
+        else:
+            name = self._network
+        return name
 
     @networkname.setter
     def networkname(self,name):
         self._network = name
 
-    def get_locprops(self,srname):
+    def get_locprops(self, srname):
         """Return series location properties
 
         Parameters
@@ -338,18 +378,16 @@ class WaterWeb:
         ------
         pd.Series """
 
-        data =self.data[self.data[self.NAMECOL]==srname]
+        data = self.data[self.data[self.NAMECOL]==srname]
         lastrow = data.iloc[-1,:]
 
-        sr = Series(index=self.LOCPROPS_COLS,dtype='object',
-            name=srname)
+        sr = Series(
+            index = self.LOCPROPS_COLS,
+            dtype = 'object',
+            name = srname)
+
         for col in self.LOCPROPS_COLS:
             sr[col] = lastrow[col]
-
-        #sr['xcr'] = sr['xcr'].apply(pd.to_numeric, 
-        #    errors='ignore')
-        #locations['Ycr'] = locations['Ycr'].apply(pd.to_numeric, 
-        #    errors='ignore')
 
         return sr
 
@@ -366,22 +404,24 @@ class WaterWeb:
         -------
         pd.DataFrame """
 
-        data =self.data[self.data[self.NAMECOL]==srname]
-        data = data.drop_duplicates(subset=self.TUBEPROPS_COLS,
+        data = self.data[self.data[self.NAMECOL]==srname]
+        data = data.drop_duplicates(
+            subset=self.TUBEPROPS_COLS,
             keep='first')
-        data = data[['datetime']+self.TUBEPROPS_COLS]
-        data = data.reset_index(drop=True)
 
+        colnames = ['datetime'] + self.TUBEPROPS_COLS
+        data = data[colnames].reset_index(drop=True)
         return data
 
-    def get_levels(self,srname,ref='mp'):
-        """Return measured levels
+    def get_levels(self, srname, ref='datum'):
+        """Return measured water levels in unit meter.
 
         Parameters
         ----------
         srname : str
-            name of series
-        ref : {'mp','datum',' surface'}, default 'mp' 
+            Name of series.
+        ref : {'mp','datum',' surface'}, default 'datum' 
+            Reference point for measured levels.
 
         Returns
         -------
@@ -391,22 +431,40 @@ class WaterWeb:
             warnings.warn((f'{ref} not in {self._references}. '),
                 (f'reference is set to "datum".')) 
             ref = 'datum'
+
         if ref=='mp':
-            col = 'peilcmmp'
+            col = 'peilmmp'
         if ref=='datum':
             col = 'peilmnap'
-        if ref=='mv':
-            col = 'peilcmmv'
+        if ref=='surface':
+            col = 'peilmmv'
 
-        data =self.data[self.data[self.NAMECOL]==srname]
+        data = self.data[self.data[self.NAMECOL]==srname]
         data = data[[col,'datetime']]
-        data = data.set_index('datetime',drop=True).squeeze()
-        data.name = self.get_locname(srname)
-        data.index.name = 'datetime' 
-        data = data/100.
+        
+        sr = data.set_index('datetime',drop=True).squeeze()
+        sr.name = self.get_locname(srname)
+        sr.index.name = 'datetime' 
+ 
+        return sr[sr.notnull()]
 
-        return data
+    def get_leveldata(self, srname, ref='datum'):
+        """Return measured levels including remarks.
 
+        Parameters
+        ----------
+        srname : str
+            Name of series.
+        ref : {'mp','datum',' surface'}, default 'datum' 
+            Reference point for measured levels.
+
+        Returns
+        -------
+        pd.Series """
+   
+        levels =self.data[self.data[self.NAMECOL]==srname]
+        levels = levels[self.LEVELDATA_COLS]
+        return levels
 
     def get_gwseries(self,srname):
         """Return gwseries obect for one series
@@ -432,7 +490,7 @@ class WaterWeb:
             wwnprop = self.LOCPROPS_MAPPING[gwprop]
             gw._locprops[gwprop] = locprops[wwnprop]
 
-        gw._locprops['filname'] = self.get_filname(srname)
+        gw._locprops['filname'] = self.get_filname(srname, style='dino')
         gw._locprops['height_datum'] = 'mNAP'
         gw._locprops['grid_reference'] = 'RD'
 
@@ -443,44 +501,68 @@ class WaterWeb:
                 continue
             wwnprop = self.TUBEPROPS_MAPPING[gwprop]
             gw._tubeprops[gwprop] = tubeprops[wwnprop].values
-            if gwprop in gw.TUBEPROPS_NUMCOLS:
-                gw._tubeprops[gwprop] = gw._tubeprops[gwprop]/100.
+            #if gwprop in gw.TUBEPROPS_NUMCOLS:
+            #    gw._tubeprops[gwprop] = gw._tubeprops[gwprop].astype('float')/100.
 
         #levels
-        levels =self.data[self.data[self.NAMECOL]==srname]
-        levels = levels[self.PEILPROPS_COLS]
+        levels = self.get_leveldata(srname)
         for gwprop in list(gw.HEADPROPS_NAMES):
             if gwprop not in self.LEVELS_MAPPING.keys():
                 continue
             wwnprop = self.LEVELS_MAPPING[gwprop]
-            gw._heads[gwprop] = levels[wwnprop].values
-        gw._heads['headmp'] = gw._heads['headmp']/100.
+            gw._obs[gwprop] = levels[wwnprop].values
+        ##gw._obs['headmp'] = gw._obs['headmp']/100.
 
         return gw
+
+    def get_shortname(self, srname):
+        """Return short version of suncode.
+
+         Parameters
+        ----------
+        srname : str
+            name of series to return
+
+        Returns
+        -------
+        str
+            
+        """
+        if not self.is_suncode(srname):
+            raise ValueError((f'{srname} is not a valid suncode.'))
+
+        mptype = self.get_measurement_type(srname)
+        number = srname[9:12].lstrip('0')
+        fil = self.get_filname(srname, style='sun')
+        shortname = f'{mptype}{number}{fil}'
+        return shortname
+
 
     @property
     def locations(self):
         """Return locations as GeoDataFrame."""
 
+        # dataframe of locprops for all series
         propslist = []
         for srname in self.names:
             sr = self.get_locprops(srname)
             sr['name'] = sr.name
-            sr['mptype'] = self.get_type(srname)
+            sr['mptype'] = self.get_measurement_type(srname)
             sr['network'] = self.networkname
             propslist.append(DataFrame(sr).T)
         locprops = pd.concat(propslist,ignore_index=True)
 
-        # from series to locations
+        # merge series to locations
         locprops = locprops.drop_duplicates(subset=['sunloc'], keep='first')
-        nitg = locprops['nitgsr'].apply(lambda x:x.split('_')[0] if 
-            not pd.isnull(x) else np.nan)
-        locprops.insert(2,'nitgcode',nitg)
-        locprops = locprops.drop(columns=['sunsr','nitgsr','name'])
+        locprops['nitgcode'] = locprops['nitgcode'].str.split('_').str[0]
 
         # add waypoint label column
-        labels = locprops['sunloc'].str[8]+locprops['sunloc'].str[9:].str.lstrip('0')
-        locprops.insert(0,'label',labels)
+        #labels = locprops['sunloc'].str[8]+locprops['sunloc'].str[9:].str.lstrip('0')
+        labels = locprops['sunsr'].apply(self.get_shortname)
+        locprops.insert(0, 'label', labels)
+
+        # drop series name columns
+        locprops = locprops.drop(columns=['sunsr','name'])
 
         gdf = gpd.GeoDataFrame(
             locprops, geometry=gpd.points_from_xy(

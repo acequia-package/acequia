@@ -275,7 +275,11 @@ def get_welltubes(gmwid):
                 'instantie' : gld['accountableParty'],
                 },)
 
-    welltubes = DataFrame(tubes).set_index('tubenr').sort_index(ascending=True)
+    if tubes:
+        welltubes = DataFrame(tubes).set_index('tubenr').sort_index(ascending=True)
+    else:
+        welltubes = DataFrame()
+
     return welltubes
 
 

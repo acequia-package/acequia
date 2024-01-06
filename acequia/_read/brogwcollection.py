@@ -7,6 +7,8 @@ from . import brorest
 from .brogwseries import BroGwSeries
 from .._core.gwseries import GwSeries
 
+from .._geo.coordinate_conversion import convert_RDtoWGS84
+
 class BroGwCollection:
     """Collection of BRO groundwater well tubes."""
 
@@ -14,11 +16,11 @@ class BroGwCollection:
 
         self._wells = wells
         self._tubes = tubes
-        self.collectionname = name
+        self.name = name
 
     def __repr__(self):
     
-        name = self._name
+        name = self.name
         if name is None:
             name = 'BroGwCollection'
             
@@ -50,14 +52,22 @@ class BroGwCollection:
         BroGwCollection
            
         """
+        lowerleft = convert_RDtoWGS84(xmin, ymin)
+        upperright = convert_RDtoWGS84(xmax, ymax)
+
         wells = brorest.get_area_wellprops(
-            lowerleft=(xmin, ymin), 
-            upperright=(xmax, ymax)
+            lowerleft=lowerleft, 
+            upperright=upperright,
             )
+
+        if wells.empty:
+            return cls(wells=DataFrame(), tubes=DataFrame(), name=name)
 
         tubes = []
         for gmwid in wells['gmwid'].values:
             welltubes = brorest.get_welltubes(gmwid)
+            if welltubes.empty:
+                continue
             welltubes.insert(1,'tubenr',welltubes.index.values)
             tubes.append(welltubes)
         tubes = pd.concat(tubes).reset_index(drop=True)
@@ -71,6 +81,12 @@ class BroGwCollection:
     @property
     def tubes(self):
         return self._tubes
+
+    @property
+    def empty(self):
+        if self.wells.empty | self.tubes.empty:
+            return True
+        return False
 
     def get_gwseries(self, gmwid=None, wellcode=None, tube=None):
         """Get gwseries for one well tube.
