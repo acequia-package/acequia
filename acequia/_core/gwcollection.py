@@ -161,7 +161,7 @@ class GwCollection:
         return self._xg
 
 
-    def get_ecostats(self,ref='surface', units='days', step=5):
+    def get_ecostats(self,ref='surface', units='days', step=5, geom=True):
         """Return ecological most relevant statistics.
 
         Parameters
@@ -174,18 +174,37 @@ class GwCollection:
             Quantile class division steps. For unit days an integer 
             between 0 and 366, for unit quantiles a fraction between 
             0 and 1.
+        geom : bool, default True
+            Return GeoDataFrame.
 
         Returns
         -------
-        pd.DataFrame
-        ..."""
+        pd.DataFrame, gpd.GeoDataFrame
+           """
 
         ecostats = []
+        crd = []
         for gw in self.iteritems():
             ecostats.append(gw.get_ecostats())
-        return DataFrame(ecostats)
+            crd.append({
+                'series' : gw.name(),
+                'xcr' : gw.locprops()['xcr'].values[0],
+                'ycr' : gw.locprops()['ycr'].values[0],
+                })
+        ecostats = DataFrame(ecostats)
+        crd = DataFrame(crd).set_index('series')
 
-    def get_timestats(self, ref='datum', asgeo=True):
+        # create geodataframe
+        if geom:
+            xcr = crd['xcr'].astype('float').values
+            ycr = crd['ycr'].astype('float').values
+            geometry = [Point(crd) for crd in zip(xcr,ycr)]
+            ecostats = gpd.GeoDataFrame(ecostats, geometry=geometry)
+            ecostats = ecostats.set_crs('EPSG:28992')
+
+        return ecostats
+
+    def get_timestats(self, ref='datum', geom=True):
 
         statslist = []
         for gw in self.iteritems():
@@ -205,7 +224,7 @@ class GwCollection:
         stats = pd.concat(statslist)
 
         # create geodataframe
-        if asgeo:
+        if geom:
             xcr = stats['xcr'].astype('float').values
             ycr = stats['ycr'].astype('float').values
             geometry = [Point(crd) for crd in zip(xcr,ycr)]
@@ -225,3 +244,20 @@ class GwCollection:
                     print(gw)
 
             plot = PlotHeads(plotlist)
+
+    def get_series(self, series):
+        """Return GwSeries object.
+        
+        Parameters
+        ----------
+        series : str
+            Valid name for series in collection.
+            
+        Returns
+        -------
+        GwSeries
+            
+        """
+        gw = self._collection.get_series(series)
+        return gw
+        

@@ -675,7 +675,7 @@ class GwSeries:
         return changes
 
 
-    def plotheads(self,proptype=None,filename=None):
+    def plotheads(self, proptype=None, filename=None):
         """
         Plot groundwater heads time series.
 
@@ -689,9 +689,10 @@ class GwSeries:
             ##mps = self._tubeprops[proptype].values
             mps = self.tubeprops_changes(proptype=proptype)
             self.headsplot = plotheadsmodule.PlotHeads(ts=[self.heads()],mps=mps)
-
-        if proptype is None:
+        elif proptype is None:
             self.headsplot = plotheadsmodule.PlotHeads(ts=[self.heads()])
+        else:
+            raise ValueError((f'Invalid value for proptype: {proptype}',))
 
         if filename is not None:
             self.headsplot.save(filename)

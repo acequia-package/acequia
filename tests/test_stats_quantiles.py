@@ -7,9 +7,10 @@ import matplotlib
 from acequia import Quantiles
 from acequia import GwSeries
 
+fpath = r'.\data\dinogws\B21A0138001_1.csv'
+
 @pytest.fixture
 def gw():
-    fpath = r'.\data\dinogws\B21A0138001_1.csv'
     return GwSeries.from_dinogws(fpath)
 
 
@@ -32,13 +33,11 @@ def test_init(gw):
 
 @pytest.fixture
 def qt():
-    fpath = r'.\data\dinogws\B21A0138001_1.csv'
     gw = GwSeries.from_dinogws(fpath)
     return Quantiles(gw)
 
 @pytest.fixture
 def qt2():
-    fpath = r'.\data\dinogws\B01D0143001_1.csv'
     gw = GwSeries.from_dinogws(fpath)
     return Quantiles(gw)
 

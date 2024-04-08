@@ -10,11 +10,11 @@
   },
   "tubeprops": {
     "0": {
-      "startdate": "1800-01-01T00:00:00.000",
+      "startdate": "2000-01-01T00:00:00.000",
       "mplevel": -3.06,
       "filtop": -4.05,
       "filbot": -5.05,
-      "surfacedate": "1800-01-01T00:00:00.000",
+      "surfacedate": "2000-01-01T00:00:00.000",
       "surfacelevel": -3.06
     }
   },

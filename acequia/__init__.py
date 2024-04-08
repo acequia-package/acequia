@@ -32,6 +32,7 @@ from ._read.knmi_download import get_knmi_precipitation, get_knmi_evaporation
 from ._read.knmi_download import get_knmi_precstations
 from ._read.knmi_download import get_knmi_weatherstations
 from ._read import filetools as _filetools
+from ._read.brorest import BroREST
 from ._read import brorest as _brorest
 from ._read.brogldxml import BroGldXml
 from ._read.brogmwxml import BroGmwXml

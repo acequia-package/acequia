@@ -128,6 +128,35 @@ class GwFiles:
 
             yield gw
 
+    def get_series(self, series):
+        """Return GwSeries object.
+        
+        Parameters
+        ----------
+        series : str
+            Series name present in collection.
+
+        Returns
+        -------
+        GwSeries
+        """
+        if series not in self.names:
+            raise ValueError((f'{series} is not a series name in '
+                f'{self.__repr__()}.'))
+
+        # get filepath
+        idx = self._ftb[self._ftb['series']==series].index[0]
+        fpath = self._ftb.loc[idx,'fpath']
+
+        if self._source == 'dinocsv':
+            gw = GwSeries.from_dinogws(fpath)
+
+        if self._source == 'json':
+            gw = GwSeries.from_json(fpath)
+
+        return gw
+        
+
     def to_json(self,dirpath):
         """Write all gwseries to json files.
 

@@ -280,7 +280,7 @@ class BroGldXml:
     def heads(self):
         """Return time series with groundwater levels."""
 
-        if self._obs.empty:
+        if self.obs.empty:
             return Series(dtype='object')
 
         levels = self.obs['value'].astype(float).values

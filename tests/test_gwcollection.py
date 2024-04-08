@@ -13,7 +13,7 @@ import acequia as aq
 dinodir = '.\\data\\dinogws_small\\'
 jsondir = '.\\output\\json\\'
 csvdir = '.\\output\\csv\\'
-wwfile = '.\\data\waterweb\\grolloer koelanden.csv'
+wwfile = '.\\data\waterweb\\Dwingelderveld.csv'
 hmfile = r'.\\data\\hymon\\hydromonitor_testdata.csv'
 
 @pytest.fixture
@@ -71,7 +71,7 @@ def test_get_xg(gwc):
     assert not df.empty
 
 def test_timestats(gwc):
-    gdf = gwc.get_timestats(ref='datum', asgeo=True)
+    gdf = gwc.get_timestats(ref='datum', geom=True)
     assert isinstance(gdf,GeoDataFrame)
     assert not gdf.empty
 

@@ -11,6 +11,7 @@ from acequia import GwSeries
 @pytest.fixture
 def gwc():
 
+    """
     lowerleft = geo_convert_RDtoWGS84(258880,489330)
     upperright = geo_convert_RDtoWGS84(259375,489750)
 
@@ -21,7 +22,14 @@ def gwc():
         ymax = upperright[1],
         name = 'Agelerbroek',
         )
-
+    """
+    gwc = BroGwCollection.from_rectangle(
+        xmin = 259500,
+        xmax = 259650,
+        ymin = 489950,
+        ymax = 490100,
+        name = 'Agelerbroek',
+        )
     return gwc
 
 def test_wells(gwc):

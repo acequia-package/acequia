@@ -75,7 +75,7 @@ class WaterWeb:
         }
 
     LEVELS_MAPPING = {
-        'headdatetime':'datetime', 'headmp':'peilmmp', 
+        'headdatetime':'datetime', 'headmp':'peilmmp',
         'headnote':'peilcode','remarks':'peilopm'}
 
     REFLEVELS = [
@@ -501,17 +501,19 @@ class WaterWeb:
                 continue
             wwnprop = self.TUBEPROPS_MAPPING[gwprop]
             gw._tubeprops[gwprop] = tubeprops[wwnprop].values
-            #if gwprop in gw.TUBEPROPS_NUMCOLS:
-            #    gw._tubeprops[gwprop] = gw._tubeprops[gwprop].astype('float')/100.
+
+            if gwprop in gw.TUBEPROPS_NUMCOLS:
+                # waterweb uses cm, gwseries expects meter
+                gw._tubeprops[gwprop] = gw._tubeprops[gwprop].astype('float')/100.
 
         #levels
-        levels = self.get_leveldata(srname)
+        levels = self.get_leveldata(srname, ref='datum')
         for gwprop in list(gw.HEADPROPS_NAMES):
             if gwprop not in self.LEVELS_MAPPING.keys():
                 continue
             wwnprop = self.LEVELS_MAPPING[gwprop]
             gw._obs[gwprop] = levels[wwnprop].values
-        ##gw._obs['headmp'] = gw._obs['headmp']/100.
+        #gw._obs['headmp'] = gw._obs['headmp']/100.
 
         return gw
 
@@ -557,7 +559,6 @@ class WaterWeb:
         locprops['nitgcode'] = locprops['nitgcode'].str.split('_').str[0]
 
         # add waypoint label column
-        #labels = locprops['sunloc'].str[8]+locprops['sunloc'].str[9:].str.lstrip('0')
         labels = locprops['sunsr'].apply(self.get_shortname)
         locprops.insert(0, 'label', labels)
 

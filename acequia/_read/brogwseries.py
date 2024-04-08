@@ -261,8 +261,8 @@ class BroGwSeries:
         #gw._tubeprops.loc[1,'surfaceprecision'] = self.wellprops['groundLevelPositioningMethod']
 
         # heads
-        gw._heads['headdatetime'] = self.heads.index.values
-        gw._heads['headmp'] = self.tubeprops['tubeTopPosition'] - self.heads.values
-        gw._heads = gw._heads.reset_index(drop=True)
+        gw._obs['headdatetime'] = self.heads.index.values
+        gw._obs['headmp'] = self.tubeprops['tubeTopPosition'] - self.heads.values
+        gw._obs = gw._obs.reset_index(drop=True)
 
         return gw

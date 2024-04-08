@@ -19,7 +19,7 @@ class Dawaco:
         'Meetpuntcode' : 'locname',
         'X-coor.(m)' : 'xcr',
         'Y-coor.(m)' : 'ycr',
-        'Maaiveld' : 'surfacelevel',
+        'Maaiveld' : 'surface',
         'Startdatum' : 'startdate',
         'Bkb (m NAP)':'mplevel',
         'Bk Filt' : 'filtop',
@@ -27,7 +27,10 @@ class Dawaco:
         'Filter' : 'filname',
         'Datum_Tijd' : 'datetime',
         'Waarde (m -NAP)' : 'meas_nap',
-        'Betrouwbaarheid' : 'reliabilty',
+        'Betrouwbaarheid' : 'reliability',
+        #'Maaiveld (m NAP)' : 'surface',
+        #'Datum': 'date',
+        #'Tijd': 'time',
         }
 
     def __init__(self,rawdata=None,fpath=None,title=None):
@@ -49,8 +52,10 @@ class Dawaco:
     @classmethod
     def from_excel(cls, fpath, title=None):
         """Import Dawaco dataset from Excel export format."""
+
         rawdata = pd.read_excel(fpath,parse_dates=[['Datum','Tijd']])
         rawdata['Filter'] = rawdata['Filter'].astype(str)
+
         return cls(rawdata=rawdata, fpath=fpath, title=title)
 
     @property
@@ -84,7 +89,7 @@ class Dawaco:
         gw._tubeprops = tp.copy()
 
         # heads
-        heads = gw._heads
+        heads = gw._obs
         heads['headdatetime'] = self.rawdata['datetime']
         heads['headmp'] = self.rawdata['mplevel'] - self.rawdata['meas_nap']
         gw._heads = heads.reset_index(drop=True)
