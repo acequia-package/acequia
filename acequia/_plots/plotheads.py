@@ -108,18 +108,21 @@ class PlotHeads:
             raise TypeError(msg)
         self.ref = ref
 
-        self.ts = ts
-        # make sure self.ts is a list of pandas series with heads
-        if isinstance(ts,Series):
-            self.ts = [ts]
-        if isinstance(ts,gwseries.GwSeries):
-            self.ts = [ts]
-        if all(isinstance(gw, gwseries.GwSeries) for gw in ts):
-            self.ts = [gw.heads(ref=self.ref) for gw in ts]
-        
-        if self.ref=='surface':
-            self.ts = [ts*100 for ts in self.ts]
 
+        # make sure self.ts is a list
+        self.ts = ts
+        if isinstance(ts, Series):
+            self.ts = [self.ts]
+        elif isinstance(ts, gwseries.GwSeries):
+            self.ts = [self.ts]
+        else:
+            if not isinstance(ts, list):
+                raise ValueError((f'Given timeseries list ts is not '
+                    f'of type list but of type {self.ts.__class__.__name__}'))
+
+        # make sure self.ts contains only pandas timeseries
+        if all(isinstance(gw, gwseries.GwSeries) for gw in self.ts):
+            self.ts = [gw.heads(ref=self.ref) for gw in self.ts]
         if not all(isinstance(sr, pd.Series) for sr in self.ts):
             raise TypeError((f'Wrong input of timeseries. Expected a '
                     f'list of Pandas Series with DateTime indexes.'))
@@ -131,11 +134,13 @@ class PlotHeads:
             raise TypeError((f'Time series {mps} with referennce '
                 f'changes must be pd.Series'))
 
+        if self.ref=='surface':
+            self.ts = [ts*100 for ts in self.ts]
+
         if isinstance(colors,list):
             self.clr = colors*10
         else:
             self.clr = self.clrs['rainbow-adjusted']*10 # avoid out of bounds
-
 
         self._validate_series()
 
@@ -163,8 +168,10 @@ class PlotHeads:
 
 
     def __repr__(self):
-        return "Plot multiple groundwater head time series"
+        return f'{self.__class__.__name__} ({len(self)} timeseries)'
 
+    def __len__(self):
+        return len(self.ts)
     
     def get_fig(self):
         """Return figure """

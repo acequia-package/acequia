@@ -15,9 +15,17 @@ csvdir = '.\\output\\csv\\'
 def gwf():
     return GwFiles.from_dinocsv(dinodir)
 
+
+@pytest.fixture
+def gwf_dinocsv():
+    return GwFiles.from_dinocsv(dinodir)
+
 @pytest.fixture
 def gwf_json():
     return GwFiles.from_json(jsondir)
+
+# test constructors
+# -----------------
 
 def test_from_dinocsv_with_only_filedir():
     gwf = GwFiles.from_dinocsv(dinodir)
@@ -54,30 +62,57 @@ def test_init_with_invalid_input():
         badcolumns = DataFrame(columns=['A','B','C',])
         gwf = GwFiles(badcolumns)
 
-def test_repr(gwf):
+# test magic methods
+# ------------------
 
+@pytest.mark.parametrize('gwf', [gwf_dinocsv, gwf_json])
+def test_repr(gwf, request):
+    gwf = request.getfixturevalue(gwf.__name__)
     assert isinstance(repr(gwf),str)
 
-def test_names(gwf):
-    assert isinstance(gwf.names,list)
+@pytest.mark.parametrize('gwf', [gwf_dinocsv, gwf_json])
+def test_len(gwf, request):
+    gwf = request.getfixturevalue(gwf.__name__)
+    assert len(gwf)!=0
 
-def test_iteritems(gwf, gwf_json):
 
+# test methods
+# ------------
+
+# test property names
+@pytest.mark.parametrize('gwf', [gwf_dinocsv, gwf_json])
+def test_names(gwf, request):
+    gwf = request.getfixturevalue(gwf.__name__)
+    assert isinstance(gwf.names, list)
+    assert gwf.names
+
+# test get_gwseries
+@pytest.mark.parametrize('gwf', [gwf_dinocsv, gwf_json])
+def test_get_gwseries(gwf, request):
+    gwf = request.getfixturevalue(gwf.__name__)
+    gwname = gwf.names[0]
+    gw = gwf.get_gwseries(gwname)
+    assert isinstance(gw,GwSeries)
+
+# test iteritems
+@pytest.mark.parametrize('gwf', [gwf_dinocsv, gwf_json])
+def test_iteritems(gwf, request):
+    gwf = request.getfixturevalue(gwf.__name__)
     for gw in gwf.iteritems():
         assert isinstance(gw,GwSeries)
 
-    for gw in gwf_json.iteritems():
-        assert isinstance(gw,GwSeries)
-
-
-def test_to_json(gwf):
-
+# test to_json
+@pytest.mark.parametrize('gwf', [gwf_dinocsv, gwf_json])
+def test_to_json(gwf, request):
+    gwf = request.getfixturevalue(gwf.__name__)
     jsn = gwf.to_json(jsondir)
     assert isinstance(jsn,list)
     assert isinstance(jsn[0],collections.OrderedDict)
 
-def test_to_csv(gwf):
-
+# test to_csv
+@pytest.mark.parametrize('gwf', [gwf_dinocsv]) #, gwf_json])
+def test_to_csv(gwf, request):
+    gwf = request.getfixturevalue(gwf.__name__)
     csv = gwf.to_csv(csvdir)
     assert isinstance(csv,list)
     assert isinstance(csv[0],pd.Series)

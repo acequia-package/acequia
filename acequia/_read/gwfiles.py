@@ -128,7 +128,7 @@ class GwFiles:
 
             yield gw
 
-    def get_series(self, series):
+    def get_gwseries(self, series):
         """Return GwSeries object.
         
         Parameters

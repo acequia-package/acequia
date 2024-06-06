@@ -259,7 +259,7 @@ class Quantiles:
         matplotlib.pyplot.ax
         """
 
-        quantiles = self.get_quantiles(unit=unit,step=step)
+        quantiles = self.get_quantiles(unit=unit, step=step)
 
         if coloryears is None:
             coloryears = []
@@ -289,8 +289,8 @@ class Quantiles:
             reftbl = reftbl.loc[idx,:]
 
         # reference based on quantiles
-        upper = reftbl.quantile(0.05)*100
-        lower = reftbl.quantile(0.95)*100
+        upper = reftbl.quantile(0.05) #*100
+        lower = reftbl.quantile(0.95) #*100
 
         # alternative reference
         #mean = reftbl.median(axis=0,skipna=True)
@@ -308,19 +308,19 @@ class Quantiles:
         
         # plot line for each year
         for year in quantiles.index:
-            yvals = quantiles.loc[year,:].values * 100
+            yvals = quantiles.loc[year,:].values #* 100
             xvals = self.qt
-            ax.plot(xvals,yvals,color=clines)
+            ax.plot(xvals, yvals, color=clines)
 
         # plot colored lines
         for year in quantiles.index:
             if year in coloryears:
-                yvals = quantiles.loc[year,:].values * 100
+                yvals = quantiles.loc[year,:].values #* 100
                 xvals = self.qt
                 ax.plot(xvals,yvals,color=cyears)
 
         if median:
-            yvals = quantiles.median().values * 100
+            yvals = quantiles.median().values #* 100
             xvals = self.qt
             ax.plot(xvals,yvals,color=cmedian)
 

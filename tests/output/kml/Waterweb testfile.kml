@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2">
+    <Document id="1">
+        <Style id="7">
+            <IconStyle id="9">
+                <color>ffFF0000</color>
+                <colorMode>normal</colorMode>
+                <scale>1.2</scale>
+                <heading>0</heading>
+                <Icon id="10">
+                    <href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href>
+                </Icon>
+            </IconStyle>
+            <LabelStyle id="8">
+                <color>ffFFFFFF</color>
+                <colorMode>normal</colorMode>
+                <scale>0.7</scale>
+            </LabelStyle>
+            <BalloonStyle>
+                <text>$[description]</text>
+                <displayMode>default</displayMode>
+            </BalloonStyle>
+        </Style>
+        <Placemark id="33">
+            <name>B71A</name>
+            <description>label: B71A&lt;br&gt;sunloc: 75151101B071&lt;br&gt;nitgcode: B16F0282&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 217245&lt;br&gt;ycr: 548389&lt;br&gt;mptype: B&lt;br&gt;network: Waterweb testfile&lt;br&gt;lon: 6.312668818925733&lt;br&gt;lat: 52.91899587403564&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="32">
+                <coordinates>6.312668818925733,52.91899587403564,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="35">
+            <name>B97</name>
+            <description>label: B97&lt;br&gt;sunloc: 75151101B097&lt;br&gt;nitgcode: B16F2079&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 217147&lt;br&gt;ycr: 548455&lt;br&gt;mptype: B&lt;br&gt;network: Waterweb testfile&lt;br&gt;lon: 6.31122449931831&lt;br&gt;lat: 52.91960019505696&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="34">
+                <coordinates>6.31122449931831,52.91960019505696,0.0</coordinates>
+            </Point>
+        </Placemark>
+    </Document>
+</kml>

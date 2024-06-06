@@ -88,17 +88,20 @@ class GxgStats:
     def __init__(self, gw, srname=None, surface=None):
         """Return GxG object"""
 
-        if isinstance(gw,gwseries.GwSeries):
+        if isinstance(gw, gwseries.GwSeries):
 
+            self._gw = gw
             self._ts = gw.heads(ref='datum')
             self.srname = gw.name()
-            if surface is None:
-                self._surface = gw.surface()
-            else:
-                self._surface = surface
-            self._gw = gw
 
-        elif isinstance(gw,pd.Series):
+            # set surface level
+            if surface is not None:
+                self._surface = surface
+            else:
+                self._surface = gw.surface()
+
+
+        elif isinstance(gw, pd.Series):
 
             self._ts = gw
             self.srname = self._ts.name

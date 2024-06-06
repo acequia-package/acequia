@@ -10,27 +10,36 @@ from acequia import GwSeries
 
 @pytest.fixture
 def gwc():
-
-    """
-    lowerleft = geo_convert_RDtoWGS84(258880,489330)
-    upperright = geo_convert_RDtoWGS84(259375,489750)
-
-    gwc = BroGwCollection.from_rectangle(
-        xmin = lowerleft[0], 
-        xmax = upperright[0],
-        ymin = lowerleft[1],
-        ymax = upperright[1],
-        name = 'Agelerbroek',
-        )
-    """
     gwc = BroGwCollection.from_rectangle(
         xmin = 259500,
         xmax = 259650,
         ymin = 489950,
         ymax = 490100,
-        name = 'Agelerbroek',
+        title = 'Agelerbroek',
         )
     return gwc
+
+
+# test magic mathods
+
+def test_len(gwc):
+    assert len(gwc)!=0
+
+def test_repr(gwc):
+    assert isinstance(repr(gwc), str)
+
+# test properties
+
+def test_names(gwc):
+    assert isinstance(gwc.names, list)
+    assert len(gwc.names)!=0
+
+def test_loclist(gwc):
+    assert isinstance(gwc.loclist, list)
+    assert len(gwc.loclist)!=0
+
+def test_empty(gwc):
+    assert not gwc.empty
 
 def test_wells(gwc):
     df = gwc.wells
@@ -42,24 +51,11 @@ def test_tubes(gwc):
     assert isinstance(df, DataFrame)
     assert not df.empty
 
+# test methods
+
 def test_get_gwseries(gwc):
-
-    # test with gmwid
-    gmwid = gwc._tubes.at[0,'gmwid']
-    tube = gwc._tubes.at[0,'tubenr']
-
-    gw = gwc.get_gwseries(gmwid=gmwid, wellcode=None, tube=tube)
-    assert isinstance(gw, GwSeries)
-    assert not gw.tubeprops().empty
-
-    # test with wellcode
-    wellcode = gwc._wells.loc[0,'wellcode']
-    idx = gwc._wells[gwc._wells['wellcode']==wellcode].index[0]
-    gmwid = gwc._wells.loc[idx,'gmwid']
-    idx = gwc._tubes[gwc._tubes['gmwid']==gmwid].index[0]
-    tube = gwc._tubes.loc[idx,'tubenr']
-
-    gw = gwc.get_gwseries(gmwid=None, wellcode=wellcode, tube=tube)
+    gwname = gwc.names[0]
+    gw = gwc.get_gwseries(gwname)
     assert isinstance(gw, GwSeries)
     assert not gw.tubeprops().empty
 

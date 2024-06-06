@@ -224,7 +224,7 @@ class BroGwSeries:
         levels = self._obs['value'].astype(float).values
         datetimes = pd.DatetimeIndex(
             pd.to_datetime(self._obs['time'],
-            infer_datetime_format=True, utc=True)).tz_localize(None)
+            utc=True)).tz_localize(None)
         name = self.gmwid
         heads = Series(data=levels, index=datetimes, name=name)
         if heads.index.has_duplicates:

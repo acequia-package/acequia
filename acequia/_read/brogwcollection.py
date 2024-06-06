@@ -12,15 +12,15 @@ from .._geo.coordinate_conversion import convert_RDtoWGS84
 class BroGwCollection:
     """Collection of BRO groundwater well tubes."""
 
-    def __init__(self, wells=None, tubes=None, name=None):
+    def __init__(self, wells=None, tubes=None, title=None):
 
         self._wells = wells
         self._tubes = tubes
-        self.name = name
+        self.title = title
 
     def __repr__(self):
     
-        name = self.name
+        name = self.title
         if name is None:
             name = 'BroGwCollection'
             
@@ -31,7 +31,7 @@ class BroGwCollection:
 
     @classmethod
     def from_rectangle(cls, xmin=None, xmax=None, ymin=None, ymax=None,
-        name=None):
+        title=None):
         """Get all BRO well tubes within a rectangular area.
         
         Parameters
@@ -61,7 +61,7 @@ class BroGwCollection:
             )
 
         if wells.empty:
-            return cls(wells=DataFrame(), tubes=DataFrame(), name=name)
+            return cls(wells=DataFrame(), tubes=DataFrame(), title=title)
 
         tubes = []
         for gmwid in wells['gmwid'].values:
@@ -72,7 +72,7 @@ class BroGwCollection:
             tubes.append(welltubes)
         tubes = pd.concat(tubes).reset_index(drop=True)
 
-        return cls(wells=wells, tubes=tubes, name=name)
+        return cls(wells=wells, tubes=tubes, title=title)
 
     @property
     def wells(self):
@@ -88,41 +88,42 @@ class BroGwCollection:
             return True
         return False
 
-    def get_gwseries(self, gmwid=None, wellcode=None, tube=None):
+    @property
+    def loclist(self):
+        """Return list of location names."""
+        return list(set(self._tubes['gmwid'].values))
+
+
+    @property
+    def names(self):
+        """List of all series names."""
+        gmwtube = zip(self._tubes['gmwid'].values, self._tubes['tubenr'].values)
+        names = [x[0]+"_"+x[1] for x in gmwtube]
+        return names
+
+    def get_gwseries(self, name):
         """Get gwseries for one well tube.
         
         Parameters
         ----------
-        gmwid : str | int
-            Valid BRO GMW well ID.
-        wellcode : str, optional
-            Valid wellcode (alternative to Gmwid).
-        tube : str | int
-            Well tube id.
+        serie : str
+            Series name as in property "names".
 
         Returns
         -------
         GwSeries
            
         """
-        # get gmwid from wellcode
-        if isinstance(wellcode, str):
-            wellcodes = self._wells[self._wells['wellcode']==wellcode]
-            if not wellcodes.empty:
-                idx = wellcodes.index[0]
-                gmwid = self._wells.loc[idx, 'gmwid']
-            else:
-                # wellcode not found
-                warnings.warn((f'Wellcode {wellcode} not found.'
-                    f'in collection {self.name}.'))
-                return GwSeries()
-
-        bros = BroGwSeries.from_server(gmwid=gmwid, tube=tube)
-        return bros.gwseries
+        gmwid, tube = name.split('_')
+        gw = BroGwSeries.from_server(gmwid=gmwid, tube=tube)
+        return gw.gwseries
 
     def iteritems(self):
         """Iterate over all well tube series and return gwseries object."""
 
-        for idx, row in self._tubes.iterrows():
-            gw = self.get_gwseries(gmwid=row['gmwid'], tube=row['tubenr'])
+        for name in self.names:
+            gw = self.get_gwseries(name)
+            #if len(gw)==0:
+            #    warnings.warn((f'Skipped {gw.name()} with no measurements.'))
+            #    continue
             yield gw

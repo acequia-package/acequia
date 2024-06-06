@@ -1,4 +1,5 @@
 
+import warnings
 import numpy as np
 from pandas import Series, DataFrame
 from pandas.api.types import is_int64_dtype
@@ -22,7 +23,7 @@ def season(sr):
     return np.where(cond1&cond2,"summer","winter")
 
 
-def index1428(minyear=None,maxyear=None,days=[14,28]):
+def index1428(minyear=None, maxyear=None, days=[14,28]):
     """ Return datetimeindex with only daynumber in days
 
     Parameters
@@ -49,7 +50,7 @@ def index1428(minyear=None,maxyear=None,days=[14,28]):
     return pd.DatetimeIndex(dates)
 
 
-def ts1428(sr,maxlag=0,remove_nans=True, days=[14,28]):
+def ts1428(sr, maxlag=0, remove_nans=True, days=[14,28]):
     """ Return timeseries of measurements on 14th and 28th of each 
     month
 
@@ -77,6 +78,9 @@ def ts1428(sr,maxlag=0,remove_nans=True, days=[14,28]):
     with a maximum deviation of maxlag days.
 
     """
+    if sr.empty:
+        warnings.warn((f'Groundwater heads series {sr.name} is empty.'))
+        return sr
 
     # create empty timeseries with 1428 index
     minyear = sr.index.min().year

@@ -23,13 +23,15 @@ def test_delete_duplicate_data(hm):
     res = hm._delete_duplicate_data()
     assert not res.empty
 
-def test_get_series(hm):
-    gws = hm.get_series(f'B29A0072_1')
-    assert isinstance(gws,GwSeries)
-
-def test_series(hm):
+def test_names(hm):
     assert isinstance(hm.names,list)
     assert len(hm.names)!=0
+
+def test_get_gwseries(hm):
+    gwname = hm.names[0]
+    gws = hm.get_gwseries(gwname) #f'B29A0072_1')
+    assert isinstance(gws,GwSeries)
+
 
 def test_locations(hm):
     assert isinstance(hm.locnames,list)
@@ -43,16 +45,6 @@ def test_to_list(hm):
 
 def test_to_json(hm):
     hm.to_json(r'.\output\json\\')
-
-"""
-def test_iterdata(hm):
-    rownr = 0
-    for idx,row in hm.iterdata():
-        assert len(idx)!=0
-        assert len(row)!=0
-        rownr+=1
-    assert(rownr>0)
-"""
 
 def test_iteritems(hm):
     for gw in hm.iteritems():

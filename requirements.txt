@@ -1,4 +1,4 @@
-acequia==0.1.1
+acequia==0.1.5
 alabaster==0.7.12
 appdirs==1.4.4
 attrs @ file:///opt/conda/conda-bld/attrs_1642510447205/work

@@ -124,6 +124,7 @@ class GwSeries:
         'datum','surface','mp',
         ]
 
+    REFLEVEL_DEFAULT = 'datum'
 
     def __init__(self,heads=None,locprops=None,tubeprops=None):
         """
@@ -233,30 +234,34 @@ class GwSeries:
         with open(filepath) as json_file:
             json_dict = json.load(json_file)
 
+        # locprops
         locprops = DataFrame.from_dict(
             json_dict['locprops'],orient='index')
         locprops = Series(data=locprops[0], index=locprops.index,
             name='locprops')
 
+        # tubeprops
         tubeprops = DataFrame.from_dict(
             json_dict['tubeprops'], orient='index')
         tubeprops.name = 'tubeprops'
         tubeprops['startdate'] = pd.to_datetime(tubeprops['startdate']) #.dt.date
 
+        # heads
         heads = DataFrame.from_dict(json_dict['heads'],orient='index')
+        heads['headdatetime'] = pd.to_datetime(heads['headdatetime']) #, errors='coerce')
 
         return cls(heads=heads, locprops=locprops, tubeprops=tubeprops)
 
 
-    def to_json(self,filepath=None):
+    def to_json(self, path=None):
         """ 
         Create json string from GwWeries object and optionally write 
         to file.
 
         Parameters
         ----------
-        path : str
-           Filepath or directory the json file will be written to.
+        path : str, optional
+           Valid path name. Can be valid filepath or existing directory. the json file will be written to.
            If filepath is not given no textfile will be written and 
            only OrderedDict with valid JSON wil be retruned.
 
@@ -266,11 +271,14 @@ class GwSeries:
 
         Notes
         -----
-        If no value for dirpath is given, a valid json string is
-        returned. If a value for dirpath is given, nothing is returned 
-        and a json file will be written to a file with the series name
-        in dirpath.
+        If no value for path is given, only a json string is
+        returned. 
+        If path is the nasme of an existing directory, a json file 
+        will be written to a file with the series name.
+            
         """
+
+        # create json string with series data
         json_locprops = json.loads(
             self._locprops.to_json()
             )
@@ -281,24 +289,28 @@ class GwSeries:
             self._obs.to_json(date_format='iso',orient='index',
             date_unit='s')
             )
-
+            
         json_dict = OrderedDict()
         json_dict['locprops'] = json_locprops
         json_dict['tubeprops'] = json_tubeprops
         json_dict['heads'] = json_heads
         json_formatted_str = json.dumps(json_dict, indent=2)
 
-        if os.path.isdir(filepath):
-            filepath = os.path.join(filepath,self.name()+'.json')
+        # create filepath name
+        if os.path.isdir(path):
+            filepath = os.path.join(path, f'{self.name()}.json')
+        else:
+            # todo: test if path is valid filepath
+            filepath = path
+            if not filepath.endswith('.json'):
+                filepath = f'{filepath}.json'
 
+        # write json to file
         try:            
             with open(filepath,"w") as f:
                 f.write(json_formatted_str)
         except FileNotFoundError:
-            print("Filepath {} does not exist".format(filepath))
-            return None
-        #finally:
-        #    json_dict
+            raise ValueError((f'Not a valid filepath: {filepath}'))
 
         return json_dict
 
@@ -353,7 +365,7 @@ class GwSeries:
     def name(self):
         """ Return groundwater series name """
         location = str(self._locprops['locname'])
-        tube = self.tube() #str(self._locprops['filname'])
+        tube = self.tube()
         return location+'_'+tube
 
     def tube(self):
@@ -364,8 +376,6 @@ class GwSeries:
 
     def locname(self):
         """Return series location name"""
-        ##srname = self.locprops().index[0]
-        ##locname = self.locprops().loc[srname,'locname']
         return self._locprops['locname']
 
 
@@ -377,7 +387,7 @@ class GwSeries:
         return locprops
 
 
-    def tubeprops(self,last=False,minimal=False):
+    def tubeprops(self, last=False, minimal=False):
         """
         Return tube properties.
 
@@ -394,7 +404,6 @@ class GwSeries:
         pd.DataFrame
         """
         tps = DataFrame(self._tubeprops[self.TUBEPROPS_NAMES]).copy()
-        #tps['startdate'] = tps['startdate'].dt.date
         tps['startdate'].apply(pd.to_datetime, errors='coerce')
 
         if minimal:
@@ -403,21 +412,22 @@ class GwSeries:
         tps.insert(0,'series',self.name())
 
         if last:
-            #tps = tps.iloc[[-1]]
             tps = tps.tail(1)
-            #tps = tps.set_index('series')
 
         return tps
 
     def surface(self):
         """Return last known surface level"""
-        return self._tubeprops['surfacelevel'].iat[-1]
+        surf = self._tubeprops['surfacelevel'].iat[-1]
+        if surf is None:
+            surf = np.nan
+        return surf
 
     def obs(self):
         """Return head observations withj notes and remarks."""
         return self._obs
 
-    def heads(self,ref='datum',freq=None):
+    def heads(self, ref='datum', freq=None):
         """ 
         Return groundwater head measurements.
 
@@ -461,15 +471,17 @@ class GwSeries:
             msg = f'{ref} is not a valid reference level name'
             raise ValueError(msg)
 
+        # create heads timeseries from observations
         heads = self._obs[['headdatetime','headmp']]
-        heads = heads.set_index('headdatetime',drop=True).squeeze()
+        heads = heads.set_index('headdatetime',drop=True).squeeze(axis='columns')
+        heads = heads.fillna(value=np.nan)
         heads.name = self.name()
 
         if ref in ['datum','surface']:
         
             headscopy = heads.copy()
             srvals = headscopy.values.flatten()
-            srvals2 = headscopy.values.flatten()
+            #srvals2 = headscopy.values.flatten()
             
             for index,props in self._tubeprops.iterrows():
 
@@ -479,22 +491,20 @@ class GwSeries:
                     if not pd.api.types.is_number(props['mplevel']):
                         msg = f'{self.name()} tubeprops mplevel is None.'
                         warnings.warn(msg)
-                        mp = 0
+                        mp = np.nan
                     else:
                         mp = props['mplevel']
 
-                    srvals2 = np.where(mask,mp-srvals,srvals2)
+                    srvals2 = np.where(mask, mp-srvals, srvals)
 
-
-                if ref=='surface':
+                elif ref=='surface':
                     if not pd.isnull(props['surfacelevel']):
                         surfref = round(props['mplevel']-props['surfacelevel'],2)
-                        srvals2 = np.where(mask,srvals-surfref,srvals2)
+                        srvals2 = np.where(mask, srvals-surfref, srvals)
 
                     else:
-                        msg = f'{self.name()} surface level is None'
-                        warnings.warn(msg)
-                        srvals2 = np.where(mask,srvals,srvals)
+                        warnings.warn((f'{self.name()} surface level is None'))
+                        srvals2 = np.where(mask, srvals, srvals)
 
             heads = Series(srvals2,index=heads.index)
             heads.name = self.name()
@@ -533,13 +543,13 @@ class GwSeries:
             raise ValueError((f'{kind} contains invalid wellnote type.'))
 
         df = self.obs()[['headdatetime','headnote']]
-        sr = df.set_index('headdatetime').squeeze().dropna()
+        sr = df.set_index('headdatetime').squeeze(axis='columns').dropna()
 
         if 'all' not in kind:
             sr = sr[sr.isin(kind)]
         return sr
 
-    def timestats(self,ref=None):
+    def timestats(self, ref=None):
         """
         Return descriptive statistics for heads time series.
 
@@ -561,7 +571,7 @@ class GwSeries:
         return gwstats.stats()
 
 
-    def describe(self,ref='datum',gxg=False,minimal=True):
+    def describe(self, ref='datum', gxg=False, minimal=True):
         """
         Return selection of properties and descriptive statistics.
 
@@ -629,7 +639,7 @@ class GwSeries:
         return sr
 
 
-    def tubeprops_changes(self,proptype='mplevel',relative=True):
+    def tubeprops_changes(self, proptype='mplevel', relative=True):
         """
         Return timeseries with tubeprops changes.
 
@@ -657,7 +667,7 @@ class GwSeries:
         sr2 = Series( mps ,index=idx)
         """
 
-        sr = self._tubeprops[['startdate','mplevel']].set_index('startdate').squeeze(axis=1)
+        sr = self._tubeprops[['startdate','mplevel']].set_index('startdate').squeeze(axis='columns')
 
         # create list of dates
         from_dates = sr.index.values[:]
@@ -700,7 +710,7 @@ class GwSeries:
         return self.headsplot
 
 
-    def gxg(self,ref='datum',minimal=True,name=True):
+    def gxg(self, ref='datum', minimal=True, name=True):
         """
         Return tables with desciptive statistics GxG and xG.
 
@@ -728,7 +738,7 @@ class GwSeries:
         return gxg
 
 
-    def xg(self,ref='datum',name=True):
+    def xg(self, ref='datum', name=True):
         """
         Return tables with xg desciptive statistics for each year.
 
@@ -769,7 +779,7 @@ class GwSeries:
         pandas.DataFrame
         """
         # bypass circular import
-        from .stats.quantiles import Quantiles
+        from .._stats.quantiles import Quantiles
 
         qt = Quantiles(self.heads(ref=ref))
         return qt.get_quantiles()

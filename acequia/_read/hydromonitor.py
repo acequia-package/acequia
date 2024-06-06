@@ -333,7 +333,7 @@ class HydroMonitor:
         return self.data_no_dups
 
 
-    def get_series(self,name): #loc=None,fil=None):
+    def get_gwseries(self,name): #loc=None,fil=None):
         """Return GwSeries object from HydroMonitor object
         
         Parameters
@@ -550,4 +550,4 @@ class HydroMonitor:
         locs = self.metadata.loc[:,self.idkeys[0]].values
         fils = self.metadata.loc[:,self.idkeys[1]].values
         for loc, fil in zip(locs,fils):
-            yield self.get_series(f'{loc}_{fil}')
+            yield self.get_gwseries(f'{loc}_{fil}')

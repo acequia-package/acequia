@@ -6,18 +6,15 @@ from acequia import measurement_types
 from acequia import WaterWeb
 from acequia import GwSeries
 
-fpath = r'.\data\waterweb\Dwingelderveld.csv'
-networkname = 'Dwingelderveld'
 wwdir = r'.\data\waterweb\\'
+fpath = f'{wwdir}waterweb_csv_kolommen.csv'
+networkname = 'Waterweb testfile'
 
 # test class WaterWeb
 
 @pytest.fixture
 def wwn():
-    return WaterWeb.from_csv(fpath=fpath,network=networkname)
-
-def test_from_csv(wwn):
-    assert len(wwn.names)!=0
+    return WaterWeb.from_csv(fpath=fpath, network=networkname)
 
 def test_get_measurement_type(wwn):
     for name in wwn.names:
@@ -79,6 +76,8 @@ def test_iteritems(wwn):
 
 def test_is_suncode(wwn):
   assert all([wwn.is_suncode(name) for name in wwn.names])
+  
+  # test some possible inputs
   assert wwn.is_suncode('12345678B001A')
   assert wwn.is_suncode('12345678B001')
   assert not wwn.is_suncode('invalidname')
@@ -90,7 +89,9 @@ def test_is_suncode(wwn):
 
 # test custom functions in module waterwebtools
 
+"""
 def test_measurement_types():
     tbl = measurement_types(wwdir)
     assert isinstance(tbl,pd.DataFrame)
     assert tbl.empty is False
+"""

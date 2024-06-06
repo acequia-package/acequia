@@ -1,6 +1,7 @@
 
 import re
-import pathlib
+#import pathlib
+import os
 import warnings
 import datetime as dt
 import numpy as np
@@ -29,7 +30,6 @@ class WaterWeb:
         'Locatie':'sunloc',
         'SUN-code':'sunsr',
         'NITG-code':'nitgcode',
-         #'OLGA-kode':'olga', # DEZE KOLOM IS VERVALLEN
         'BROID':'broid',
         'DERDEN-code':'derden',
         'X coordinaat':'xcr',
@@ -37,14 +37,11 @@ class WaterWeb:
         'NAP hoogte bovenkant peilbuis':'mpcmnap',
         'Hoogte maaiveld tov NAP':'mvcmnap',
         'Hoogte maaiveld tov Nulpunt':'mvcmmp',
-         #'Hoogte maaiveld tov maaiveld':'mvmv',
         'NAP hoogte bovenkant filter':'filtopcmnap',
         'NAP hoogte onderkant filter':'filbotcmnap',
         'Peilmoment':'datetime',
-         #'Peilstand':'peilcmmp',
         'Peilstand tov Nulpunt' : 'peilcmmp',
-         #'Peilstand in Meters':'peilmmp',
-        'Peilstand in tov Nulpunt Meters' : 'peilmmp',
+        'Peilstand tov Nulpunt in Meters':'peilmmp',
         'Peilstand tov NAP':'peilcmnap',
         'Peilstand tov NAP in Meters':'peilmnap',
         'Peilstand tov maaiveld':'peilcmmv',
@@ -52,6 +49,13 @@ class WaterWeb:
         'Peilcode':'peilcode',
         'Opmerking bij peiling':'peilopm'
         }
+
+         #'OLGA-kode':'olga', # DEZE KOLOM IS VERVALLEN
+         #'Hoogte maaiveld tov maaiveld':'mvmv',
+         #'Peilstand':'peilcmmp',
+         #'Peilstand in Meters':'peilmmp',
+         #'Peilstand in tov Nulpunt Meters' : 'peilmmp',
+
 
     LOCPROPS_COLS = ['sunloc','sunsr','nitgcode','broid','derden',
         'xcr','ycr',]
@@ -109,17 +113,42 @@ class WaterWeb:
              'labelcolor':'FFFFFF'},                
         }
 
-    def __init__(self, data, fpath=None, network=None):
+    def __init__(self, data=None, fpath=None, network=None, rawdata=None):
+        """Parameters
+        ----------
+        data : pandas DataFrame
+            Table with measurements.
 
-        self.rawdata = data
+        fpath : str
+            Filepath to data file.
+
+        network : str
+            User defined network name.
+        
+        rawdata : pandas DataFrame
+            Table with original data read from input file.
+
+        Notes
+        -----
+        To create WaterWeb instance from a file exported from the 
+        WaterWeb website, use the class constructor:
+        >>> wwn = WaterWeb.from_csv(fpath, network=<user defined name>)
+               
+        """
+
+        if data is None:
+            data = DataFrame(columns=self.COLUMN_MAPPING.values())
+
+        if not isinstance(data, pd.DataFrame):
+            raise ValueError((f'{data} is not a valid Pandas '
+                f'DataFrame.'))
+
+        self.data = data
+        self._rawdata = rawdata
         self._fpath = fpath
         self._network = network
 
-        if not isinstance(self.rawdata, pd.DataFrame):
-            raise ValueError((f'{self.rawdata} is not a valid Pandas '
-                f'DataFrame.'))
-
-        self.data = self._clean_raw_data()
+        #self.data = self._clean_raw_data()
 
 
     def __repr__(self):
@@ -148,40 +177,52 @@ class WaterWeb:
         WaterWebNetwork object
            
         """
+
+        # read csv file
         try:
-            data = pd.read_csv(fpath, sep=cls.SEP, decimal=',', low_memory=False)
-            data.columns = [col.strip() for col in data.columns] # remove space before column names
+            rawdata = pd.read_csv(fpath, sep=cls.SEP, decimal=',', low_memory=False)
+            rawdata.columns = [col.strip() for col in rawdata.columns] # remove space before column names
         except FileNotFoundError as err:
             raise FileNotFoundError(f'Invalid filepath for WaterWeb csv file: "{fpath}"')
 
         if network is None:
-            network = pathlib.Path(fpath).stem
+            #network = pathlib.Path(fpath).stem
+            network = os.path.splitext(os.path.basename(fpath))[0]
+
+        # check for unknown columns
+        unknown_columns = []
+        for col in list(rawdata):
+            if col not in cls.COLUMN_MAPPING.keys():
+                unknown_columns.append(col)
+        if unknown_columns:
+            raise ValueError((f'Unknown columns in WaterWeb csv file: '
+                f'{unknown_columns}.'))
 
         #check for missing columns
         missing_columns = []
         for col in cls.COLUMN_MAPPING.keys():
-            if col not in list(data):
+            if col not in list(rawdata):
                 missing_columns.append(col)
         if missing_columns:
-            warnings.warn((f'Missing columns in WaterWeb csv file: '
+            raise ValueError((f'Missing columns in WaterWeb csv file: '
                 f'{missing_columns}'))
 
-        # check for unknown columns
-        unknown_columns = []
-        for col in list(data):
-            if col not in cls.COLUMN_MAPPING.keys():
-                unknown_columns.append(col)
-        if unknown_columns:
-            warnings.warn((f'Unknown columns in WaterWeb csv file: '
-                f'{unknown_columns}.'))
+        # rename columns
+        data = rawdata.rename(columns=cls.COLUMN_MAPPING)
 
-        return cls(data, fpath=fpath, network=network)
+        # change data column contents
+        data['datetime'] = pd.to_datetime(data['datetime'], format="%Y-%m-%d %H:%M:%S",)
+        data['nitgcode'] = data['nitgcode'].apply(
+            lambda x:x[:8]+"_"+x[-3:].lstrip('0') if not pd.isnull(x) else np.nan)
+        for col in cls.NUMERIC_COLS:
+            data[col] = pd.to_numeric(data[col], errors='coerce')
+
+        return cls(data, fpath=fpath, network=network, rawdata=rawdata)
+
 
     def _clean_raw_data(self):
         """Return dataframe with clean data from rawdata table."""
 
-        data = self.rawdata.copy()
-        data = data.rename(columns=self.COLUMN_MAPPING)
 
         # remove datarows with incomplete data
         # Note:
@@ -191,7 +232,7 @@ class WaterWeb:
         # As a result, the first column of data does not contain the 
         # SUN-code, but the date of the measurement.
         # All these rows are removed and a user warnimg is given.
-        dates = pd.to_datetime(data['sunloc'], errors='coerce')
+        dates = pd.to_datetime(data['datetime'], errors='coerce')
         first_col_is_date = ~dates.isnull()
         if not data[first_col_is_date].empty:
             warnings.warn((f'{len(data[first_col_is_date])} '
@@ -200,14 +241,6 @@ class WaterWeb:
                 f'{self.networkname}'))
             data = data[~first_col_is_date].copy()
 
-        # change data column contents
-        data['datetime'] = pd.to_datetime(data['datetime'], dayfirst=True)
-        data['nitgcode'] = data['nitgcode'].apply(
-            lambda x:x[:8]+"_"+x[-3:].lstrip('0') if not pd.isnull(x) else np.nan)
-        for col in self.NUMERIC_COLS:
-            data[col] = pd.to_numeric(data[col], errors='coerce')
-
-        return data
 
 
     @property
