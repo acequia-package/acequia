@@ -1,4 +1,5 @@
 
+import warnings
 from pandas import Series, DataFrame
 import pandas as pd
 from .brogmwxml import BroGmwXml
@@ -11,7 +12,8 @@ class BroGwSeries:
 
     def __init__(self, wellprops=None, wellevents=None, 
         tubeprops=None, gldprops=None, obsprops=None, obs=None, 
-        procesprops=None, timeseriescounts=None):
+        procesprops=None, timeseriescounts=None, gmwid=None, 
+        tube=None):
 
         self._wellprops = wellprops
         self._wellevents = wellevents
@@ -21,8 +23,12 @@ class BroGwSeries:
         self._obs = obs
         self._procesprops = procesprops
         self._timeseriescounts = timeseriescounts
+        self.gmwid = gmwid
+        self.tube = tube
 
     def __repr__(self):
+        if self.empty:
+            return f'{self.__class__.__name__} (empty)'
         return f'{self.seriesname} (n={len(self)})'
 
     def __len__(self):
@@ -48,6 +54,7 @@ class BroGwSeries:
 
         gmw = BroGmwXml.from_xml(gmwpath)
         gld = BroGldXml.from_xml(gldpath)
+        gmwid = gmw.gmwid
         tube = gld.tubeid
 
         # get properties from gmw
@@ -65,6 +72,7 @@ class BroGwSeries:
             tubeprops=tubeprops, gldprops=gldprops, obsprops=obsprops,
             obs=obs, procesprops=procesprops, 
             timeseriescounts=timeseriescounts,
+            gmwid=gmwid, tube=tube
             )
 
     @classmethod
@@ -92,23 +100,45 @@ class BroGwSeries:
 
         return cls(gld=gld, gmw=gmw)
         """
+
         gmw = BroGmwXml.from_server(gmwid)
+        if gmw._tree is None:
+            warnings.warn((f"Invalid XML tree for {gmwid} tube {tube}."))
+            return cls(wellprops=Series(), wellevents=DataFrame(), 
+                tubeprops=Series, gldprops=DataFrame, obsprops=DataFrame(), 
+                obs=DataFrame(), procesprops=DataFrame(), 
+                timeseriescounts=DataFrame(), gmwid=gmwid, tube=tube)
+
+        # parse gmw xml tree
         tubeprops, wellprops, wellevents = cls._get_gmw_properties(gmw, tube)
 
         # get all gld xmls from REST server
         tube = str(tube)
-        tubegld = brorest.get_welltubes(gmwid).loc[[tube],:]
+        tubegld = brorest.get_welltubes(gmwid)
+        tubegld = tubegld.loc[[tube],:].copy()
         gldxml = []
         for gldid in tubegld['gldid'].values:
             gld = BroGldXml.from_server(gldid)
-            gldxml.append(gld)
+            if gld._tree is not None:
+                gldxml.append(gld)
+            else:
+                warnings.warn((f"Invalid GLDXML for {gldid} of {gmwid}."))
 
-        gldprops, obs, obsprops, procesprops, timeseriescounts = cls._get_gld_properties(gldxml)
+        # parse gld xml tree
+        if gldxml: 
+            gldprops, obs, obsprops, procesprops, timeseriescounts = cls._get_gld_properties(gldxml)
+        else: # no valid GLD found for this tube
+            gldprops = Series
+            obs = DataFrame()
+            obsprops = DataFrame()
+            procesprops = DataFrame()
+            timeseriescounts = DataFrame()
+            warnings.warn((f'No valid GLD found for {gmwid} tube {tube}.'))
 
         return cls(wellprops=wellprops, wellevents=wellevents, 
             tubeprops=tubeprops, gldprops=gldprops, obsprops=obsprops,
             obs=obs, procesprops=procesprops, 
-            timeseriescounts=timeseriescounts,
+            timeseriescounts=timeseriescounts, gmwid=gmwid, tube=tube
             )
 
     @classmethod
@@ -135,7 +165,7 @@ class BroGwSeries:
     def _get_gld_properties(cls, gldxml):
         """Get properties from list of GLD objects."""
 
-        # get all props
+        # get props for each GLD and concatenate
         gldprops = []
         obsprops = []
         procesprops = []
@@ -144,20 +174,20 @@ class BroGwSeries:
         heads = []
         for gld in gldxml:
 
-            # gldprops
+            # get gldprops
             gldprops.append(gld.gldprops)
 
-            # obsprops
+            # get obsprops
             df = gld.obsprops
             df['gldid'] = gld.gldid
             obsprops.append(df)
             
-            # procesprops
+            # get procesprops
             df = gld.procesprops
             df['gldid'] = gld.gldid
             procesprops.append(df)
             
-            # timeseriescounts
+            # get timeseriescounts
             sr = gld.timeseriescounts
             sr.name = 'counts'
             df = DataFrame(sr)
@@ -165,11 +195,12 @@ class BroGwSeries:
             df['gldid'] = gld.gldid
             timeseriescounts.append(df)
 
-            # obs
+            # get obs
             df = gld.obs
             df['gldid'] = gld.gldid
             obs.append(df)
 
+        # create pandas dataframes
         gldprops = pd.concat(gldprops, axis=1).T.set_index('broIdGld')
         obsprops = pd.concat(obsprops)
         procesprops = pd.concat(procesprops).reset_index(drop=True)
@@ -178,10 +209,22 @@ class BroGwSeries:
         
         return gldprops, obs, obsprops, procesprops, timeseriescounts
 
-
     @property
-    def tube(self):
-        return self._tubeprops['tubeNumber']
+    def empty(self):
+
+        if self._wellprops.empty:
+            return True
+        if self._tubeprops.empty:
+            return True
+        if self._obs.empty:
+            return True
+        if self.gwseries.heads().empty:
+            return True
+        return False
+
+    #@property
+    #def tube(self):
+    #    return self._tubeprops['tubeNumber']
 
     @property
     def tubeprops(self):
@@ -190,10 +233,6 @@ class BroGwSeries:
     @property
     def wellprops(self):
         return self._wellprops
-
-    @property
-    def gmwid(self):
-        return self._wellprops['broId']
 
     @property
     def ownerid(self):
@@ -236,6 +275,8 @@ class BroGwSeries:
     def gwseries(self):
         gw = GwSeries()
         
+        
+        
         # locprops
         gw._locprops['locname'] = self.gmwid
         gw._locprops['filname'] = self.tube
@@ -249,16 +290,33 @@ class BroGwSeries:
         #gw._locprops['wellconstructiondate'] = self.wellprops['wellConstructionDate']
 
         # tubeprops
+        startdate = self.heads.index.min() # timestamp
+        """
+        if pd.isnull(startdate):
+            raise ValueError((f'No heads series start date found in '
+                f'well {self.gmwid} filter {self.tube}.'))
+        """
+        """
+        startdate = self._wellprops['wellConstructionDate'] # timestamp
+        if pd.isnull(self._wellprops.loc['wellConstructionDate']):
+            startdate = self.heads.index.min() # timestamp
+            warnings.warn((f'Tube {self.tube} of {self.gmwid} has no '
+                f'well construction date. Startdate '
+                f'{startdate.strftime('%d-%m-%Y')} is based on heads series.'))
+        """
+        
         gw._tubeprops.loc[1,'series'] = self.seriesname
-        #datestring = self.wellprops['wellConstructionDate']
-        #gw._tubeprops.loc[1,'startdate'] = dt.strptime(datestring, '%Y-%m-%d').date()
-        gw._tubeprops.loc[1,'startdate'] = self._wellprops['wellConstructionDate']
+        gw._tubeprops.loc[1,'startdate'] = startdate
         gw._tubeprops.loc[1,'mplevel'] = self._tubeprops['tubeTopPosition']
         gw._tubeprops.loc[1,'filtop'] = self._tubeprops['screenTopPosition']
         gw._tubeprops.loc[1,'filbot'] = self._tubeprops['screenBottomPosition']
         #gw._tubeprops.loc[1,'surfacedate'] = None
         gw._tubeprops.loc[1,'surfacelevel'] = self._wellprops['groundLevelPosition']
         #gw._tubeprops.loc[1,'surfaceprecision'] = self.wellprops['groundLevelPositioningMethod']
+
+        if self.heads.empty:
+            warnings.warn((f'Empty series for {self.seriesname}.'))
+            return gw
 
         # heads
         gw._obs['headdatetime'] = self.heads.index.values

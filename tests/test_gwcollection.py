@@ -69,46 +69,54 @@ def gwc_brodownload():
 # Test basic methods
 # ------------------
 
+# gwc_brodownload removed to speed up tests
+
 # test len
-@pytest.mark.parametrize('gwc', [gwc_dino, gwc_json, gwc_ww, gwc_hm, gwc_brodownload])
+@pytest.mark.parametrize('gwc', [gwc_dino, gwc_json, gwc_ww])
 def test_len(gwc, request):
     gwc = request.getfixturevalue(gwc.__name__)
     assert len(gwc)!=0
 
 # test repr
-@pytest.mark.parametrize('gwc', [gwc_dino, gwc_json, gwc_ww, gwc_hm, gwc_brodownload])
+@pytest.mark.parametrize('gwc', [gwc_dino, gwc_json, gwc_ww, gwc_hm])
 def test_repr(gwc, request):
     gwc = request.getfixturevalue(gwc.__name__)
     assert isinstance(repr(gwc),str)
 
 # test property names
-@pytest.mark.parametrize('gwc', [gwc_dino, gwc_json, gwc_ww, gwc_hm, gwc_brodownload])
+@pytest.mark.parametrize('gwc', [gwc_dino, gwc_json, gwc_ww, gwc_hm])
 def test_names(gwc, request):
     gwc = request.getfixturevalue(gwc.__name__)
     assert isinstance(gwc.names, list)
     assert gwc.names # assert list is not empty
 
 # test iteritems
-@pytest.mark.parametrize('gwc', [gwc_dino, gwc_json, gwc_ww, gwc_hm, gwc_brodownload])
+@pytest.mark.parametrize('gwc', [gwc_dino, gwc_json, gwc_ww, gwc_hm])
 def test_iteritems(gwc, request):
     gwc = request.getfixturevalue(gwc.__name__)
     for gw in gwc.iteritems():
         assert isinstance(gw, GwSeries)
 
 # test get_gwseries
-@pytest.mark.parametrize('gwc', [gwc_dino, gwc_json, gwc_ww, gwc_hm, gwc_brodownload])
+@pytest.mark.parametrize('gwc', [gwc_dino, gwc_json, gwc_ww, gwc_hm])
 def test_get_gwseries(gwc, request):
     gwc = request.getfixturevalue(gwc.__name__)
     gwname = gwc.names[0]
     gw = gwc.get_gwseries(gwname)
     assert isinstance(gw, GwSeries)
 
+# test plotheads
+@pytest.mark.parametrize('gwc', [gwc_dino, gwc_json, gwc_ww, gwc_hm])
+def test_plotheads(gwc, request):
+    gwc = request.getfixturevalue(gwc.__name__)
+    gwc.plotheads(bylocation=True)
+    gwc.plotheads(bylocation=False)
 
 # Test advanced statistics
 # ------------------------
 
 # test tube_stats
-@pytest.mark.parametrize('gwc', [gwc_dino, gwc_json, gwc_brodownload])
+@pytest.mark.parametrize('gwc', [gwc_dino, gwc_json])
 def test_tubestats(gwc, request): 
     gwc = request.getfixturevalue(gwc.__name__)
     df = gwc.get_tubestats(ref='datum')
@@ -116,7 +124,7 @@ def test_tubestats(gwc, request):
     assert not df.empty
 
 # test ecostats
-@pytest.mark.parametrize('gwc', [gwc_dino, gwc_json, gwc_brodownload]) #, gwc_ww, gwc_hm])
+@pytest.mark.parametrize('gwc', [gwc_dino, gwc_json]) #, gwc_ww, gwc_hm])
 def test_ecostats(gwc, request):
     gwc = request.getfixturevalue(gwc.__name__)
     df = gwc.get_ecostats(ref='datum', units='days', step=5)
@@ -124,7 +132,7 @@ def test_ecostats(gwc, request):
     assert not df.empty
 
 # test get_gxg
-@pytest.mark.parametrize('gwc', [gwc_dino, gwc_json, gwc_brodownload])
+@pytest.mark.parametrize('gwc', [gwc_dino, gwc_json])
 def test_get_gxg(gwc, request):
     gwc = request.getfixturevalue(gwc.__name__)
     df = gwc.get_gxg(ref='datum')

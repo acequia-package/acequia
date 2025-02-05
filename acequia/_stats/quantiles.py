@@ -62,7 +62,7 @@ class Quantiles:
         return f'{self.__class__.__name__}({self.srname})'
 
 
-    def get_quantiles(self,unit='days',step=None):
+    def get_quantiles(self, unit='days', step=None):
         """Return table with quantiles for each hydrological year.
         
         Parameters
@@ -164,7 +164,7 @@ class Quantiles:
             
         return summary
 
-    def get_inundation(self, unit='days',step=5):
+    def get_inundation(self, unit='days', step=5):
         """Return number of days with inundation as mean, min, max.
         
         Parameters
@@ -199,7 +199,7 @@ class Quantiles:
 
         return sr
 
-    def get_lowest(self, unit='days',step=5):
+    def get_lowest(self, unit='days', step=5):
         """Return lowest measured heads.
         
         Parameters
@@ -228,8 +228,8 @@ class Quantiles:
 
 
 
-    def plot(self,unit='days',step=30,median=False,coloryears=None,boundyears=None,
-        figpath=None,figtitle=None,ylim=None, ax=None):
+    def plot(self, unit='days', step=30, median=False, coloryears=None, 
+        boundyears=None, figpath=None, figtitle=None, ylim=None, ax=None):
         """Plot quantiles
 
         Parameters
@@ -240,6 +240,8 @@ class Quantiles:
             Quantile class division steps. For unit days an integer 
             between 0 and 366, for unit quantiles a fraction between 
             0 and 1.
+        median : bool, default False
+            ...
         coloryears : list of int, optional
             List of years to plot in color
         boundyears : list, optional
@@ -257,6 +259,7 @@ class Quantiles:
         Returns
         -------
         matplotlib.pyplot.ax
+           
         """
 
         quantiles = self.get_quantiles(unit=unit, step=step)
@@ -304,7 +307,7 @@ class Quantiles:
         #lower = [reftbl[col].sort_values()[:-1].quantile(0.95)*100 for col in reftbl.columns]
 
         # draw colored surface with reference
-        ax.fill_between(x, upper, lower, color=csurf) 
+        ax.fill_between(x, upper, lower, color=csurf, alpha=0.5) 
         
         # plot line for each year
         for year in quantiles.index:
@@ -323,6 +326,10 @@ class Quantiles:
             yvals = quantiles.median().values #* 100
             xvals = self.qt
             ax.plot(xvals,yvals,color=cmedian)
+
+        # plot horizontal line
+        xmin, xmax = ax.get_xlim()
+        ax.hlines(0, xmin, xmax, colors='#808080', linestyles='solid')
 
         # xax set ticks
         qtlen = len(self.qt)

@@ -1,6 +1,5 @@
 
 import re
-#import pathlib
 import os
 import warnings
 import datetime as dt
@@ -24,14 +23,17 @@ class WaterWeb:
 
     """
     SEP = ';'
-    NAMECOL = 'sunsr' # 'sunsr'
+    NAMECOL = 'sunseries' # 'sunseries'
 
     COLUMN_MAPPING = {
         'Locatie':'sunloc',
-        'SUN-code':'sunsr',
+        'SUN-code':'sunseries',
+        'SUNcode':'sunseries',
         'NITG-code':'nitgcode',
+        'NITGcode':'nitgcode',
         'BROID':'broid',
-        'DERDEN-code':'derden',
+        'DERDEN-code':'derdencode',
+        'DERDENcode':'derdencode',
         'X coordinaat':'xcr',
         'Y coordinaat':'ycr',
         'NAP hoogte bovenkant peilbuis':'mpcmnap',
@@ -47,7 +49,13 @@ class WaterWeb:
         'Peilstand tov maaiveld':'peilcmmv',
         'Peilstand tov maaiveld in Meters':'peilmmv',
         'Peilcode':'peilcode',
-        'Opmerking bij peiling':'peilopm'
+        'Opmerking bij peiling':'peilopm',
+        'Watertemperatuur (°C)':'watertemp', 
+        'Luchttemperatuur (°C)':'luchttemp', 
+        'Luchtdruk (hPa)':'luchtdruk_hpa', 
+        'Totaaldruk (hPa)':'totaaldruk_hpa', 
+        'Waterdruk (hPa)':'waterdruk_hpa', 
+        'Geleidbaarheid (μS/cm)':'conductance_muscm',
         }
 
          #'OLGA-kode':'olga', # DEZE KOLOM IS VERVALLEN
@@ -56,16 +64,30 @@ class WaterWeb:
          #'Peilstand in Meters':'peilmmp',
          #'Peilstand in tov Nulpunt Meters' : 'peilmmp',
 
+    EXPECTED_COLUMNS = ['sunloc', 'sunseries', 'nitgcode', 'derdencode',
+        'xcr', 'ycr', 'mpcmnap', 'mvcmnap', 'mvcmmp', 'filtopcmnap',
+        'filbotcmnap', 'datetime', 'peilcmmp', 'peilmmp', 'peilcmnap',  
+        'peilmmv', 'peilcmmv', 'peilmmv', 'watertemp', 'luchttemp', 
+        'luchtdruk_hpa', 'totaaldruk_hpa', 'waterdruk_hpa', 
+        'conductance_muscm', 'peilcode', 'peilopm',
+        ]
 
-    LOCPROPS_COLS = ['sunloc','sunsr','nitgcode','broid','derden',
+    SERIESPROPS_COLS = ['sunseries','sunlabel','derdencode','nitgcode',
+        'mptype','meetnet','xcr','ycr',]
+
+    LOCPROPS_COLS = ['sunloc','sunseries','nitgcode','derdencode',
         'xcr','ycr',]
 
     TUBEPROPS_COLS = ['mpcmnap','mvcmnap','filtopcmnap','filbotcmnap']
 
     LEVELDATA_COLS = ['datetime','peilmmp','peilcode','peilopm']
 
-    NUMERIC_COLS = ['xcr','ycr','mpcmnap','mvcmnap','mvcmmp','filtopcmnap',
-        'filbotcmnap','peilcmmp','peilcmnap','peilmnap','peilcmmv','peilmmv',]
+    NUMERIC_COLS = ['xcr', 'ycr', 'mpcmnap', 'mvcmnap', 'mvcmmp', 
+        'filtopcmnap', 'filbotcmnap', 'peilcmmp', 'peilmmp',
+        'peilcmnap', 'peilmnap', 'peilcmmv', 'peilmmv',
+        'watertemp', 'luchttemp', 'luchtdruk_hpa', 
+        'totaaldruk_hpa', 'waterdruk_hpa', 'conductance_muscm',
+        ]
 
     LOCPROPS_MAPPING = {
         'locname':'sunloc','alias':'nitgcode',
@@ -137,22 +159,20 @@ class WaterWeb:
         """
 
         if data is None:
-            data = DataFrame(columns=self.COLUMN_MAPPING.values())
+            data = DataFrame(columns=self.EXPECTED_COLUMNS)
 
         if not isinstance(data, pd.DataFrame):
             raise ValueError((f'{data} is not a valid Pandas '
                 f'DataFrame.'))
 
         self.data = data
-        self._rawdata = rawdata
-        self._fpath = fpath
-        self._network = network
-
-        #self.data = self._clean_raw_data()
+        #self._rawdata = rawdata
+        self.fpath = fpath
+        self.network = network
 
 
     def __repr__(self):
-        return (f'{self._network} (n={self.__len__()})')
+        return (f'{self.network} (n={self.__len__()})')
 
 
     def __len__(self):
@@ -198,17 +218,17 @@ class WaterWeb:
             raise ValueError((f'Unknown columns in WaterWeb csv file: '
                 f'{unknown_columns}.'))
 
+        # rename columns
+        data = rawdata.rename(columns=cls.COLUMN_MAPPING)
+
         #check for missing columns
         missing_columns = []
-        for col in cls.COLUMN_MAPPING.keys():
-            if col not in list(rawdata):
+        for col in cls.EXPECTED_COLUMNS:
+            if col not in list(data):
                 missing_columns.append(col)
         if missing_columns:
             raise ValueError((f'Missing columns in WaterWeb csv file: '
-                f'{missing_columns}'))
-
-        # rename columns
-        data = rawdata.rename(columns=cls.COLUMN_MAPPING)
+                f'{" ".join(missing_columns)}'))
 
         # change data column contents
         data['datetime'] = pd.to_datetime(data['datetime'], format="%Y-%m-%d %H:%M:%S",)
@@ -267,6 +287,7 @@ class WaterWeb:
         locs = [x if x[-1] not in self.CAPITALS else x[:-1] for x in self.names]
         return set(locs)
 
+
     def is_suncode(self, srname):
         """Return TRUE if given string is standard SUN series name."""
 
@@ -309,6 +330,7 @@ class WaterWeb:
             sr = sr[srname]
 
         return sr
+
 
     @property
     def measurement_types(self):
@@ -360,7 +382,7 @@ class WaterWeb:
                 f'not {style}.'))
 
         # get sunstyle filter name
-        srname = self.get_locprops(srname)['sunsr']
+        srname = self.get_locprops(srname)['sunseries']
         capitals = [chr(i) for i in range(65,91)]
         if srname[-1] in capitals:
             filname = srname[-1]
@@ -389,22 +411,24 @@ class WaterWeb:
         ----------
         name : str, optional
             name of measurement network """
-        if self._network is None:
-            name = '<unknown network>'
+        if self.network is None:
+            name = '<onbekend meetnet>'
         else:
-            name = self._network
+            name = self.network
         return name
+
 
     @networkname.setter
     def networkname(self,name):
-        self._network = name
+        self.network = name
+
 
     def get_locprops(self, srname):
         """Return series location properties
 
         Parameters
         ----------
-        sunsr : str
+        sunseries : str
             name of series to return
 
         Return
@@ -430,7 +454,7 @@ class WaterWeb:
 
         Parameters
         ----------
-        sunsr : str
+        sunseries : str
             name of series
 
         Returns
@@ -550,13 +574,15 @@ class WaterWeb:
 
         return gw
 
-    def get_shortname(self, srname):
+    def get_series_shortname(self, srname, as_location=False):
         """Return short version of suncode.
 
          Parameters
         ----------
         srname : str
-            name of series to return
+            SUNcode of series.
+        as_location : bool, default False
+            Keep (False) or remove filter code (True).
 
         Returns
         -------
@@ -567,42 +593,84 @@ class WaterWeb:
             raise ValueError((f'{srname} is not a valid suncode.'))
 
         mptype = self.get_measurement_type(srname)
-        number = srname[9:12].lstrip('0')
+        srnumber = srname[9:12].lstrip('0')
         fil = self.get_filname(srname, style='sun')
-        shortname = f'{mptype}{number}{fil}'
+
+        if not as_location:
+            shortname = f'{mptype}{srnumber}{fil}'
+        else:
+            shortname = f'{mptype}{srnumber}'
+
         return shortname
 
 
     @property
-    def locations(self):
-        """Return locations as GeoDataFrame."""
+    def series_properties(self):
+        """Return metadata for all measurement series."""
 
-        # dataframe of locprops for all series
-        propslist = []
+        # series properties to dataframe
+        properties = []
         for srname in self.names:
             sr = self.get_locprops(srname)
-            sr['name'] = sr.name
             sr['mptype'] = self.get_measurement_type(srname)
-            sr['network'] = self.networkname
-            propslist.append(DataFrame(sr).T)
-        locprops = pd.concat(propslist,ignore_index=True)
+            sr['meetnet'] = self.networkname
 
-        # merge series to locations
-        locprops = locprops.drop_duplicates(subset=['sunloc'], keep='first')
-        locprops['nitgcode'] = locprops['nitgcode'].str.split('_').str[0]
+            gw = self.get_gwseries(srname)
+            sr['lastdate'] = gw.heads().index.max().strftime('%Y-%m-%d')
 
-        # add waypoint label column
-        labels = locprops['sunsr'].apply(self.get_shortname)
-        locprops.insert(0, 'label', labels)
+            properties.append(DataFrame(sr).T)
 
-        # drop series name columns
-        locprops = locprops.drop(columns=['sunsr','name'])
+        df = pd.concat(properties,ignore_index=True)
 
-        gdf = gpd.GeoDataFrame(
-            locprops, geometry=gpd.points_from_xy(
-            locprops['xcr'], locprops['ycr'], crs='EPSG:28992'))
+        # add columns serieslabel
+        shortnames = [self.get_series_shortname(srname, as_location=False)
+            for srname in self.names]
+        df['sunlabel'] = shortnames
+
+        # order columns
+        #colnames = ['sunseries','sunlabel','broid','derdencode','nitgcode',
+        #    'mptype','meetnet','xcr','ycr',]
+        
+        cols = self.SERIESPROPS_COLS
+        df = df[cols + [c for c in df.columns if c not in cols]]
+
+        # create geodataframe
+        gdf = gpd.GeoDataFrame(df, 
+            geometry=gpd.points_from_xy(
+                df['xcr'], df['ycr'], 
+            crs='EPSG:28992'))        
 
         return gdf
+
+
+    @property
+    def location_properties(self):
+        """Return locations as GeoDataFrame."""
+
+        # get series properties as pandas dataframe
+        srprops = self.series_properties
+
+        # insert sunlocations column
+        sunseries = srprops['sunseries'].to_list()
+        sunlocs = [self.get_locname(srname) for srname in sunseries]
+        srprops.insert(0, 'sunloc', sunlocs)
+
+        # merge series to locations
+        locprops = srprops.drop_duplicates(subset=['sunloc'], keep='first')
+
+        # recalculate sun shortname
+        shortnames = [self.get_series_shortname(srname, as_location=True)
+            for srname in locprops['sunseries'].to_list()]
+        locprops['sunlabel'] = shortnames
+
+        # remove filter names from nitgcode
+        locprops['nitgcode'] = locprops['nitgcode'].str.split('_').str[0]
+
+        # drop series name columns
+        locprops = locprops.drop(columns='sunseries')
+
+        return locprops
+
 
     def to_kml(self,filepath):
         """Save locations to KML file.
@@ -617,12 +685,13 @@ class WaterWeb:
         wp : WpKml
         """
 
-        locs = self.locations
+        locs = self.location_properties
         colnames = [col for col in list(locs) if col not in ['geometry']]
         wp = WpKml(locs[colnames],label='label',xcoor='xcr',ycoor='ycr',
             styledict=self.KMLSTYLES,stylecol='mptype')
         wp.writekml(filepath)
         return wp
+
 
     def to_gpx(self,filepath):
         """Save locations to GPX waypoints file.
@@ -673,3 +742,4 @@ class WaterWeb:
         """Iterate over all series and return gwseries object."""
         for srname in self.names:
             yield self.get_gwseries(srname)
+

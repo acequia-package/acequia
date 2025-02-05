@@ -123,7 +123,7 @@ class GwCollection:
             Ycoor lower boundary in Dutch RD coordinates.
         ymax : float
             Ycoor upper boundary in Dutch RD coordinates.
-        name : str, optional
+        title : str, optional
             User defined name for collection.
             
         """
@@ -139,6 +139,10 @@ class GwCollection:
     def names(self):
         """Return list of series names."""
         return self._collection.names
+
+    @property
+    def empty(self):
+        return self._collection.empty
 
 
     def get_gwseries(self, series):
@@ -220,7 +224,7 @@ class GwCollection:
         pd.DataFrame
             
         """
-        
+
         # return previously calculated statistics, if present
         if (not self._tubestats.empty) & (self.STATS_REFLEVEL==ref) & (minimal==minimal):
             return self._tubestats
@@ -234,6 +238,10 @@ class GwCollection:
 
             stats = gw.describe(ref=ref, gxg=False, minimal=minimal)
             statslist.append(stats)
+
+        #if len(statslist)>0:
+        if not statslist:
+            return DataFrame()
 
         tubestats = pd.concat(statslist, axis=1).T
 
@@ -410,14 +418,14 @@ class GwCollection:
         
         """
         if not os.path.isdir(path):
-            raise ValueError(('Not a valid direcotry path: {path}'))
+            raise ValueError((f'Not a valid directory path: {path}'))
 
         for gwname in self._collection.names:
             gw = self._collection.get_gwseries(gwname)
-            gw.to_json(path);
+            gw.to_json(path) #;
 
 
-    def plot_heads(self, ref='datum', bylocation=True, dirpath=None, dpi=200):
+    def plotheads(self, ref='datum', bylocation=True, dirpath=None, dpi=200):
         """Plot heads for all locations.
         
         Parameters

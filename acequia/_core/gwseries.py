@@ -126,7 +126,7 @@ class GwSeries:
 
     REFLEVEL_DEFAULT = 'datum'
 
-    def __init__(self,heads=None,locprops=None,tubeprops=None):
+    def __init__(self, heads=None, locprops=None, tubeprops=None):
         """
         Parameters
         ----------
@@ -471,6 +471,9 @@ class GwSeries:
             msg = f'{ref} is not a valid reference level name'
             raise ValueError(msg)
 
+        if self._obs.empty:
+            return Series(name=self.name())
+
         # create heads timeseries from observations
         heads = self._obs[['headdatetime','headmp']]
         heads = heads.set_index('headdatetime',drop=True).squeeze(axis='columns')
@@ -622,20 +625,6 @@ class GwSeries:
                 if not np.isnan(sr[key]):
                     sr[key] = math.floor(sr[key])
 
-        """
-        locprops = self.locprops(minimal=minimal)
-        tubeprops = self.tubeprops(last=True,minimal=True)
-        tubeprops = tubeprops.set_index('series')
-
-        tbl = pd.merge(locprops,tubeprops,left_index=True,right_index=True,how='outer')
-
-        srstats = self.timestats(ref=ref)
-        tbl = pd.merge(tbl,srstats,left_index=True,right_index=True,how='outer')
-
-        if gxg==True:
-            gxg = self.gxg()
-            tbl = pd.merge(tbl,gxg,left_index=True,right_index=True,how='left')
-        """
         return sr
 
 
@@ -658,14 +647,6 @@ class GwSeries:
             warnings.warn((f'{proptype} is not a valid tube reference '
                 f'level. "mplevel"will be used instead.'))
             proptype = 'mplevel'
-
-        """
-        sr1 = self._tubeprops[['startdate','mplevel']].set_index('startdate').squeeze()
-        idx = sr1.index[1:] + pd.Timedelta(days=1)
-        lastdate = self._obs['headdatetime'].iloc[-1]
-        idx = idx.append(pd.to_datetime([lastdate]))
-        sr2 = Series( mps ,index=idx)
-        """
 
         sr = self._tubeprops[['startdate','mplevel']].set_index('startdate').squeeze(axis='columns')
 
@@ -781,7 +762,7 @@ class GwSeries:
         # bypass circular import
         from .._stats.quantiles import Quantiles
 
-        qt = Quantiles(self.heads(ref=ref))
+        qt = Quantiles(self.heads(ref=ref, unit=unit, step=step))
         return qt.get_quantiles()
 
     def get_ecostats(self, ref='surface', units='days', step=5):

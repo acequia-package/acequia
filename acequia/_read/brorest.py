@@ -8,37 +8,6 @@ import xml.etree.ElementTree as ET
 from pandas import Series, DataFrame
 import pandas as pd
 
-#def _parse_dispatchDocument(tree):
-#    pass
-""""Helper function for parsing BRO XML tree.
-
-Parameters
-----------
-tree : lxml tree
-    XML tree with well properties.
-
-Returns
--------
-pd.DataFrame
-"""
-
-#nsmap = tree.nsmap
-#root = tree.getroottree()
-
-# dataFrame node properties
-"""
-tag = 'dispatchDocument'
-nodes = root.findall(f'.//{tag}',nsmap)
-reclist = []
-for node in nodes:
-    eldict = {}
-    for el in node.iterdescendants(): # iter all descendants
-        tag = ET.QName(el).localname
-        eldict[tag]=el.text
-    reclist.append(eldict)
-
-return DataFrame(reclist)
-"""
 
 def get_area_wellprops(center=None, radius=None, lowerleft=None, 
     upperright=None, startdate=None, enddate=None):
@@ -91,8 +60,8 @@ def get_wellprops(gmwid=None, description=None):
         
     """
     bro = BroREST()
-    root = bro.get_wellprops(gmwid=gmwid, description=description)
-    return root
+    wellprops = bro.get_wellprops(gmwid=gmwid, description=description)
+    return wellprops
 
 
 def get_welltubes(gmwid):
@@ -115,7 +84,7 @@ def get_welltubes(gmwid):
 
 
 def get_wellcode(gmwid):
-    """Return BRO well user name putcode.
+    """Return BRO well user name wellcode for given gmwid.
 
     Parameters
     ----------
@@ -131,7 +100,7 @@ def get_wellcode(gmwid):
 
 
 def get_levels(gldid=None, startdate=None, enddate=None, reference=None):
-    """Return Groundwater Level Data (GLD) for GLD.
+    """Return Groundwater Level Data (GLD) for given gldid.
 
     Parameters
     ----------
@@ -149,8 +118,8 @@ def get_levels(gldid=None, startdate=None, enddate=None, reference=None):
     ElementTree tree
     """
     bro = BroREST()
-    tree = bro.get_levels(gldid=gldid, startdate=startdate, enddate=enddate, reference=reference)
-    return tree
+    levels = bro.get_levels(gldid=gldid, startdate=startdate, enddate=enddate, reference=reference)
+    return levels
 
 
 def get_gld_codes(bronhouder):
@@ -183,16 +152,34 @@ def get_gmw_codes(bronhouder):
     list
     """
     bro = BroREST()
-    return bro.get_gmw_codes(bronhouder)
+    gmwcodes = bro.get_gmw_codes(bronhouder)
+    return gmwcodes
 
 
 class BroREST:
     """Make requests to the BRO RESt service."""
     
     STARTDATE = '1900-01-01'
+    TIMEOUT = 60*60 # seconds 501
 
     def __init__(self):
-        pass
+        self.response = None
+
+    @property
+    def status_code(self):
+        """Server status response code."""
+        if self.response:
+            return self.response.status_code
+        else:
+            return None
+
+    @property
+    def status_reason(self):
+        """Server status response reason."""
+        if self.response:
+            return self.response.reason
+        else:
+            return None
 
     def get_area_wellprops(self, center=None, radius=None, 
         lowerleft=None, upperright=None, startdate=None, 
@@ -276,17 +263,20 @@ class BroREST:
         params = {'requestReference': description,}
 
         self.response = requests.post('https://publiek.broservices.nl/gm/gmw/v1/characteristics/searches', 
-            params=params, headers=headers, json=json_data)
+            params=params, headers=headers, json=json_data, timeout=self.TIMEOUT)
+
+        if not self.response.ok:
+            return DataFrame()
 
         """
         import io
         f = io.StringIO(xmlstring)
-        tree = ET.parse(f)
-        root = tree.getroot()
+        self._tree = ET.parse(f)
+        self._root = self._tree.getroot()
         """
             
         # get xmltree from response
-        self.root = ET.fromstring(self.response.content)
+        self._root = ET.fromstring(self.response.content)
 
         # parse XML tree
         # --------------
@@ -304,7 +294,7 @@ class BroREST:
         # data for each well is stored below the tag "GMW_C"
         # find all wells
         tag = 'GMW_C'
-        self.wells = self.root.findall(f'.//{{{self.NS["NS0"]}}}{tag}', self.NS)
+        self.wells = self._root.findall(f'.//{{{self.NS["NS0"]}}}{tag}', self.NS)
 
         self.WELLTAGS = {
             'gmwid' : f'.//{{{self.NS["NS1"]}}}broId',
@@ -332,7 +322,6 @@ class BroREST:
 
         data = []
         for well in self.wells:
-            ##print(well)
             rec = {}
             for key in self.WELLTAGS.keys():
                 try:
@@ -374,15 +363,16 @@ class BroREST:
             'fullHistory': 'ja',
             'requestReference': description,
             }
-        response = requests.get(f'https://publiek.broservices.nl/gm/gmw/v1/objects/{gmwid}',
-            params=params, headers=headers)
+        self.response = requests.get(f'https://publiek.broservices.nl/gm/gmw/v1/objects/{gmwid}',
+            params=params, headers=headers, timeout=self.TIMEOUT)
 
-        root = ET.fromstring(response.content)
-        tree = ET.ElementTree(root)
+        if not self.response.ok:
+            return None
 
-        ##wellprops = BroGmwXml(tree)
-        ##return wellprops ##wellprops.set_index('broId').squeeze()
-        return tree
+        self._root = ET.fromstring(self.response.content)
+        self._tree = ET.ElementTree(self._root)
+
+        return self._tree
 
     def get_welltubes(self, gmwid):
         """Return well tube number, well tube gldid and instantie for all
@@ -402,6 +392,10 @@ class BroREST:
         # make request
         url = f'https://publiek.broservices.nl/gm/v1/gmw-relations/{gmwid}'
         self.response = requests.get(url)
+        
+        if not self.response.ok:
+            return DataFrame()
+        
         resdict = self.response.json()
 
         # iterate over nested json dictionary:
@@ -437,8 +431,10 @@ class BroREST:
         """
         url = ((f'https://publiek.broservices.nl/gm/gmw/v1/well-code/{gmwid}'
             f'?requestReference=myref'))
-        response = requests.get(url)
-        return response.text
+        self.response = requests.get(url, timeout=self.TIMEOUT)
+        if not self.response.ok:
+            return None
+        return self.response.text
 
 
     def get_levels(self, gldid=None, startdate=None, enddate=None, reference=None):
@@ -471,14 +467,15 @@ class BroREST:
         url = ((f'https://publiek.broservices.nl/gm/gld/v1/objects/{gldid}?'
             f'filtered={filtered}&observationPeriodBeginDate={startdate}&'
             f'observationPeriodEndDate={enddate}&requestReference={reference}'))
-        response = requests.get(url)
-        status_code = response.status_code
-        response_string = response.content
+        self.response = requests.get(url, timeout=self.TIMEOUT)
 
-        root = ET.fromstring(response.content)
-        tree = ET.ElementTree(root)
-        #tree = _request_gld(brogld=brogld,startdate=startdate,enddate=enddate,reference=reference)
-        return tree
+        if not self.response.ok:
+            return None
+
+
+        self._root = ET.fromstring(self.response.content)
+        self._tree = ET.ElementTree(self._root)
+        return self._tree
 
 
     def get_gld_codes(self, bronhouder):
@@ -495,8 +492,11 @@ class BroREST:
         """
         bronhouder = str(bronhouder)
         url = f'https://publiek.broservices.nl/gm/gld/v1/bro-ids?bronhouder={bronhouder}'
-        self.response = requests.get(url)
-        self.response_status_code = self.response.status_code
+        self.response = requests.get(url, timeout=self.TIMEOUT)
+        
+        if not self.response.ok:
+            return []
+
         return self.response.json()['broIds']
 
 
@@ -514,6 +514,5 @@ class BroREST:
         """
         bronhouder = str(bronhouder)
         url = f'https://publiek.broservices.nl/gm/gmw/v1/bro-ids?bronhouder={bronhouder}'
-        self.response = requests.get(url)
-        #self.response_status_code = self.response.status_code
+        self.response = requests.get(url, timeout=self.TIMEOUT)
         return self.response.json()['broIds']

@@ -21,22 +21,168 @@
                 <displayMode>default</displayMode>
             </BalloonStyle>
         </Style>
+        <Style id="12">
+            <IconStyle id="14">
+                <color>ffeca31c</color>
+                <colorMode>normal</colorMode>
+                <scale>1.2</scale>
+                <heading>0</heading>
+                <Icon id="15">
+                    <href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href>
+                </Icon>
+            </IconStyle>
+            <LabelStyle id="13">
+                <color>ffFFFFFF</color>
+                <colorMode>normal</colorMode>
+                <scale>0.7</scale>
+            </LabelStyle>
+            <BalloonStyle>
+                <text>$[description]</text>
+                <displayMode>default</displayMode>
+            </BalloonStyle>
+        </Style>
         <Placemark id="33">
-            <name>B71A</name>
-            <description>label: B71A&lt;br&gt;sunloc: 75151101B071&lt;br&gt;nitgcode: B16F0282&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 217245&lt;br&gt;ycr: 548389&lt;br&gt;mptype: B&lt;br&gt;network: Waterweb testfile&lt;br&gt;lon: 6.312668818925733&lt;br&gt;lat: 52.91899587403564&lt;br&gt;</description>
+            <name>13151100B022</name>
+            <description>sunloc: 13151100B022&lt;br&gt;sunlabel: B22&lt;br&gt;derdencode: nan&lt;br&gt;nitgcode: B12D0396&lt;br&gt;mptype: B&lt;br&gt;meetnet: Waterweb testfile&lt;br&gt;xcr: 238509&lt;br&gt;ycr: 559669&lt;br&gt;lon: 6.6316521660317385&lt;br&gt;lat: 53.01747258279288&lt;br&gt;</description>
             <Snippet maxLines="0"/>
             <styleUrl>#7</styleUrl>
             <Point id="32">
-                <coordinates>6.312668818925733,52.91899587403564,0.0</coordinates>
+                <coordinates>6.6316521660317385,53.01747258279288,0.0</coordinates>
             </Point>
         </Placemark>
         <Placemark id="35">
-            <name>B97</name>
-            <description>label: B97&lt;br&gt;sunloc: 75151101B097&lt;br&gt;nitgcode: B16F2079&lt;br&gt;broid: nan&lt;br&gt;derden: nan&lt;br&gt;xcr: 217147&lt;br&gt;ycr: 548455&lt;br&gt;mptype: B&lt;br&gt;network: Waterweb testfile&lt;br&gt;lon: 6.31122449931831&lt;br&gt;lat: 52.91960019505696&lt;br&gt;</description>
+            <name>13151100B023</name>
+            <description>sunloc: 13151100B023&lt;br&gt;sunlabel: B23&lt;br&gt;derdencode: nan&lt;br&gt;nitgcode: B12D0398&lt;br&gt;mptype: B&lt;br&gt;meetnet: Waterweb testfile&lt;br&gt;xcr: 238509&lt;br&gt;ycr: 559648&lt;br&gt;lon: 6.6316467671287915&lt;br&gt;lat: 53.017283910889546&lt;br&gt;</description>
             <Snippet maxLines="0"/>
             <styleUrl>#7</styleUrl>
             <Point id="34">
-                <coordinates>6.31122449931831,52.91960019505696,0.0</coordinates>
+                <coordinates>6.6316467671287915,53.017283910889546,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="37">
+            <name>13151100S021</name>
+            <description>sunloc: 13151100S021&lt;br&gt;sunlabel: S21&lt;br&gt;derdencode: nan&lt;br&gt;nitgcode: P12D0006&lt;br&gt;mptype: S&lt;br&gt;meetnet: Waterweb testfile&lt;br&gt;xcr: 238508&lt;br&gt;ycr: 559670&lt;br&gt;lon: 6.631637524612455&lt;br&gt;lat: 53.01748172220446&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#12</styleUrl>
+            <Point id="36">
+                <coordinates>6.631637524612455,53.01748172220446,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="39">
+            <name>13154100B601</name>
+            <description>sunloc: 13154100B601&lt;br&gt;sunlabel: B601&lt;br&gt;derdencode: nan&lt;br&gt;nitgcode: B12B0297&lt;br&gt;mptype: B&lt;br&gt;meetnet: Waterweb testfile&lt;br&gt;xcr: 239373&lt;br&gt;ycr: 563268&lt;br&gt;lon: 6.645460066828702&lt;br&gt;lat: 53.0496724173261&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="38">
+                <coordinates>6.645460066828702,53.0496724173261,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="41">
+            <name>13154100B602</name>
+            <description>sunloc: 13154100B602&lt;br&gt;sunlabel: B602&lt;br&gt;derdencode: nan&lt;br&gt;nitgcode: B12B1836&lt;br&gt;mptype: B&lt;br&gt;meetnet: Waterweb testfile&lt;br&gt;xcr: 239164&lt;br&gt;ycr: 562667&lt;br&gt;lon: 6.642188015933863&lt;br&gt;lat: 53.044305601715344&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="40">
+                <coordinates>6.642188015933863,53.044305601715344,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="43">
+            <name>13154100B603</name>
+            <description>sunloc: 13154100B603&lt;br&gt;sunlabel: B603&lt;br&gt;derdencode: nan&lt;br&gt;nitgcode: B12B0299&lt;br&gt;mptype: B&lt;br&gt;meetnet: Waterweb testfile&lt;br&gt;xcr: 239047&lt;br&gt;ycr: 562579&lt;br&gt;lon: 6.640421017772409&lt;br&gt;lat: 53.0435332683489&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="42">
+                <coordinates>6.640421017772409,53.0435332683489,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="45">
+            <name>13154100B604</name>
+            <description>sunloc: 13154100B604&lt;br&gt;sunlabel: B604&lt;br&gt;derdencode: hand&lt;br&gt;nitgcode: B12E0436&lt;br&gt;mptype: B&lt;br&gt;meetnet: Waterweb testfile&lt;br&gt;xcr: 240610&lt;br&gt;ycr: 563308&lt;br&gt;lon: 6.66391356080877&lt;br&gt;lat: 53.04983641685447&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="44">
+                <coordinates>6.66391356080877,53.04983641685447,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="47">
+            <name>13154100B609</name>
+            <description>sunloc: 13154100B609&lt;br&gt;sunlabel: B609&lt;br&gt;derdencode: B-n11&lt;br&gt;nitgcode: B12E1586&lt;br&gt;mptype: B&lt;br&gt;meetnet: Waterweb testfile&lt;br&gt;xcr: 240588&lt;br&gt;ycr: 563298&lt;br&gt;lon: 6.663582913452382&lt;br&gt;lat: 53.04975007435053&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="46">
+                <coordinates>6.663582913452382,53.04975007435053,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="49">
+            <name>13154100B610</name>
+            <description>sunloc: 13154100B610&lt;br&gt;sunlabel: B610&lt;br&gt;derdencode: B-n8&lt;br&gt;nitgcode: B12B1828&lt;br&gt;mptype: B&lt;br&gt;meetnet: Waterweb testfile&lt;br&gt;xcr: 239373&lt;br&gt;ycr: 563274&lt;br&gt;lon: 6.6454616279869745&lt;br&gt;lat: 53.04972632282395&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="48">
+                <coordinates>6.6454616279869745,53.04972632282395,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="51">
+            <name>13154100B611</name>
+            <description>sunloc: 13154100B611&lt;br&gt;sunlabel: B611&lt;br&gt;derdencode: B2a&lt;br&gt;nitgcode: B12D1939&lt;br&gt;mptype: B&lt;br&gt;meetnet: Waterweb testfile&lt;br&gt;xcr: 239508&lt;br&gt;ycr: 561631&lt;br&gt;lon: 6.647046394846226&lt;br&gt;lat: 53.034943992344964&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="50">
+                <coordinates>6.647046394846226,53.034943992344964,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="53">
+            <name>13154100B612</name>
+            <description>sunloc: 13154100B612&lt;br&gt;sunlabel: B612&lt;br&gt;derdencode: B3a&lt;br&gt;nitgcode: B12D1940&lt;br&gt;mptype: B&lt;br&gt;meetnet: Waterweb testfile&lt;br&gt;xcr: 239546&lt;br&gt;ycr: 561352&lt;br&gt;lon: 6.647540081581981&lt;br&gt;lat: 53.032431409874775&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="52">
+                <coordinates>6.647540081581981,53.032431409874775,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="55">
+            <name>13154100B613</name>
+            <description>sunloc: 13154100B613&lt;br&gt;sunlabel: B613&lt;br&gt;derdencode: B4a&lt;br&gt;nitgcode: B12D1941&lt;br&gt;mptype: B&lt;br&gt;meetnet: Waterweb testfile&lt;br&gt;xcr: 239643&lt;br&gt;ycr: 561106&lt;br&gt;lon: 6.648921576255385&lt;br&gt;lat: 53.030206033836144&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="54">
+                <coordinates>6.648921576255385,53.030206033836144,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="57">
+            <name>13154100B614</name>
+            <description>sunloc: 13154100B614&lt;br&gt;sunlabel: B614&lt;br&gt;derdencode: B5a&lt;br&gt;nitgcode: B12D1942&lt;br&gt;mptype: B&lt;br&gt;meetnet: Waterweb testfile&lt;br&gt;xcr: 239127&lt;br&gt;ycr: 561341&lt;br&gt;lon: 6.641292628114282&lt;br&gt;lat: 53.032398215237734&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="56">
+                <coordinates>6.641292628114282,53.032398215237734,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="59">
+            <name>13154100B615</name>
+            <description>sunloc: 13154100B615&lt;br&gt;sunlabel: B615&lt;br&gt;derdencode: B1a&lt;br&gt;nitgcode: B12D1943&lt;br&gt;mptype: B&lt;br&gt;meetnet: Waterweb testfile&lt;br&gt;xcr: 239218&lt;br&gt;ycr: 561820&lt;br&gt;lon: 6.642773157239397&lt;br&gt;lat: 53.036687467771294&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="58">
+                <coordinates>6.642773157239397,53.036687467771294,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="61">
+            <name>13154100B616</name>
+            <description>sunloc: 13154100B616&lt;br&gt;sunlabel: B616&lt;br&gt;derdencode: B-n9&lt;br&gt;nitgcode: B12B1829&lt;br&gt;mptype: B&lt;br&gt;meetnet: Waterweb testfile&lt;br&gt;xcr: 239043&lt;br&gt;ycr: 562572&lt;br&gt;lon: 6.640359574538822&lt;br&gt;lat: 53.04347100298628&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="60">
+                <coordinates>6.640359574538822,53.04347100298628,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="63">
+            <name>13154100B617</name>
+            <description>sunloc: 13154100B617&lt;br&gt;sunlabel: B617&lt;br&gt;derdencode: B-n10&lt;br&gt;nitgcode: B12B1830&lt;br&gt;mptype: B&lt;br&gt;meetnet: Waterweb testfile&lt;br&gt;xcr: 239056&lt;br&gt;ycr: 562568&lt;br&gt;lon: 6.640552333921758&lt;br&gt;lat: 53.04343303579613&lt;br&gt;</description>
+            <Snippet maxLines="0"/>
+            <styleUrl>#7</styleUrl>
+            <Point id="62">
+                <coordinates>6.640552333921758,53.04343303579613,0.0</coordinates>
             </Point>
         </Placemark>
     </Document>

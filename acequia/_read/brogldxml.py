@@ -13,7 +13,7 @@ from . import brorest
 
 
 class BroGldXml:
-    """Read BRO Groundwater Level Data in XML tree format."""
+    """BRO groundwater level data in XML format."""
 
     GLDPROPTAGS = [
         ('dispatchTime','ns1:dispatchTime'),
@@ -80,9 +80,12 @@ class BroGldXml:
             Source of the XML tree (namespaces are different for 
             various sources).
 
-        Example
-        -------
-        gld = BroGld(<elementtree>)"""
+        Notes
+        -----
+        Use either .from_xml() or .from_server() method to create 
+        a BroGldXml instance. 
+            
+        """
 
         self._tree = tree
         #self._root = self._tree.getroot()
@@ -94,7 +97,7 @@ class BroGldXml:
 
     @classmethod
     def from_xml(cls,xmlpath):
-        """Read BRO GLD object from XML file.
+        """Read GLD XML-tree from file.
 
         Parameters
         ----------
@@ -126,7 +129,7 @@ class BroGldXml:
     @classmethod
     def from_server(cls, gldid=None, startdate=None, enddate=None, 
         reference=None):
-        """Download BRO GLD XML tree from BRO server.
+        """Download GLD XML-tree from BRO server.
 
         Parameters
         ----------
@@ -148,10 +151,8 @@ class BroGldXml:
         gmw = BroGld.from_server(brogld='GLD000000010138')
             
         """
-        ##cls._tree = brorest._request_gld(brogld='GLD000000012658')
-        tree = brorest.get_levels(gldid=gldid, startdate=startdate, 
+        tree = brorest.get_levels(gldid=gldid, startdate=startdate,
             enddate=enddate, reference=reference)
-
         return cls(tree)
 
     @property

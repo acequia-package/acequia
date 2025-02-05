@@ -162,12 +162,15 @@ class DinoGwsWriter:
 
     def save(self, fdir):
     
-        lines = self.get_lines()
+        if self.gw.heads().empty:
+            warnings.warn((f'No measured heads for {self.gw.name()}, no dinocsv file saved.'))
+        else:
+            lines = self.get_lines()
 
-        fname = f'{self.locname}{self.fil}_1.csv'
-        fpath = f'{fdir}{fname}'
-        with open(fpath, mode='wt', encoding='utf-8') as dinofile:
-            dinofile.write('\n'.join(lines))
+            fname = f'{self.locname}{self.fil}_1.csv'
+            fpath = f'{fdir}{fname}'
+            with open(fpath, mode='wt', encoding='utf-8') as dinofile:
+                dinofile.write('\n'.join(lines))
 
 
 

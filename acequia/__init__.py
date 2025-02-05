@@ -1,3 +1,5 @@
+"""Acequia is a python package for processing hydrological data."""
+
 
 import logging as _logging
 

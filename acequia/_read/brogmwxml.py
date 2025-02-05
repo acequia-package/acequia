@@ -92,7 +92,9 @@ class BroGmwXml:
         self._tree = tree
 
     def __repr__(self):
-        return self.wellprops['wellCode']
+        if self.is_valid:
+            return self.wellprops['wellCode']
+        return self.__class__.__name__
 
     @classmethod
     def from_xml(cls,xmlpath):
@@ -142,7 +144,7 @@ class BroGmwXml:
         gmw = BroGmw.from_server(gmwid='GMW000000041145')
             
         """
-        tree = get_wellprops(gmwid=gmwid, description=description)
+        tree = get_wellprops(gmwid=gmwid, description=description)        
         return cls(tree)
 
     @property
@@ -157,13 +159,30 @@ class BroGmwXml:
         return True
 
     @property
+    def is_deregistered(self):
+        """Return True if GMW object was deregistered."""
+        if self._tree.find('.//ns10:deregistered', self.NS).text=='ja':
+            return True
+        return False
+
+    @property
+    def is_valid(self):
+        """True for valid GMW object, else False."""
+        if self.is_deregistered:
+            return False
+        # ToDo: other possible checks for invalid data
+        return True
+
+    @property
     def gmwid(self):
         return self.wellprops['broId']
-
 
     @property
     def wellprops(self):
         """Read well properties from XML tree"""
+
+        if not self.is_valid:
+            return DataFrame()
 
         # extract wellprops from xml
         wellprops = {}
@@ -195,6 +214,9 @@ class BroGmwXml:
     def tubeprops(self):
         """Read tube properties from XML tree"""
 
+        if not self.is_valid:
+            return DataFrame()
+
         # extract tubeprops from XML
         tubeprops = []
         for node in self._tree.iterfind(".//ns11:monitoringTube", self.NS):
@@ -216,12 +238,27 @@ class BroGmwXml:
     @property
     def events(self):
         """Read tube changes from XML tree"""
+
+        if not self.is_valid:
+            return DataFrame()
+
         events = []
         for node in self._tree.iterfind('.//ns11:intermediateEvent',self.NS):
-            event = {
-                'intermediateEvent':node.find(f'.//ns11:eventName',self.NS).text,
-                'eventDate':node.find(f'.//ns10:date',self.NS).text,
-                }
-            events.append(event)
+
+            event = {'intermediateEvent':None, 'eventDate':None}
+            try:
+                event['intermediateEvent'] = node.find(f'.//ns11:eventName',self.NS).text
+                event['eventDate'] = node.find(f'.//ns10:date',self.NS).text
+
+            except AttributeError as err:
+                # in GMW000000042619 eventDate is nested in a childnode <brocom:date>
+                # it is not clear if this is a strucutral problem, so we just pass
+                # and give a warning
+                warnings.warn((f"Error in {self.wellprops['wellCode']} while paring "
+                    f"intermediateEvent."))
+
+            finally:
+                events.append(event)
+
         return DataFrame(events)
 
