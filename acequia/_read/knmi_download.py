@@ -13,8 +13,7 @@ from dateutil.relativedelta import relativedelta
 import warnings
 import logging
 import requests
-import pkgutil
-import pkg_resources
+import importlib
 from io import StringIO
 import warnings
 import numpy as np
@@ -767,8 +766,8 @@ class KnmiDownload:
     @property
     def _prcstn_hydropandas (self):
         """Return knmi precipitation station coordinates from hydropandas json file."""
-        stream = pkg_resources.resource_stream(__name__, 'hydropandas_knmi_neerslagstation.json')
-        stn = pd.read_json(stream, encoding='latin-1')
+        srcfile = (importlib.resources.files() / 'hydropandas_knmi_neerslagstation.json')
+        stn = pd.read_json(srcfile, encoding='latin-1')
         
         stn.index = stn.index.astype('str').str.zfill(3)
         stn.index.name = 'stn_code'
@@ -779,8 +778,9 @@ class KnmiDownload:
     @property
     def _wtrstn_hydropandas(self):
         """Return knmi precipitation station coordinates from hydropandas json file."""
-        stream = pkg_resources.resource_stream(__name__, 'hydropandas_knmi_meteostation.json')
-        stn =  pd.read_json(stream, encoding='latin-1')
+
+        srcfile = (importlib.resources.files() / 'hydropandas_knmi_meteostation.json')
+        stn =  pd.read_json(srcfile, encoding='latin-1')
 
         stn.index = stn.index.astype('str').str.zfill(3)
         stn.index.name = 'stn_code'
@@ -792,11 +792,8 @@ class KnmiDownload:
     def _prcstn_acequia(self):
         """Return knmi precipitation station coordinates from acequia csv file."""
 
-        # "stream" is a stream-like object. If you want the actual info, call
-        # stream.read()
-        fpath = 'knmi_precipitation_coords.csv'
-        stream = pkg_resources.resource_stream(__name__, fpath)
-        stns =  pd.read_csv(stream, encoding='latin-1')
+        srcfile = (importlib.resources.files() / 'knmi_precipitation_coords.csv')
+        stn =  pd.read_json(srcfile, encoding='latin-1')
 
         stns['stn_code'] = stns['stn_code'].astype('str').str.zfill(3)
         stns = stns.set_index('stn_code')
@@ -812,8 +809,6 @@ class KnmiDownload:
         Coordinates of precipitation stations are not available on the
         KNMI website.
         """
-        #if self._precstns is not None: # were downloaded earlier
-        #    return self._precstns 
         
         # request precipitation data for one day to get header data 
         # with all station names

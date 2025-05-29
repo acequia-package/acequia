@@ -17,6 +17,7 @@ from .._read.gwfiles import GwFiles
 from .._read.waterweb import WaterWeb
 from .._read.hydromonitor import HydroMonitor
 from .._read.brogwcollection import BroGwCollection
+from .._read.hydropandas import HydropandasObsCollection
 from .._plots.plotheads import PlotHeads
 
 class GwCollection:
@@ -28,7 +29,6 @@ class GwCollection:
     names, loclist
     """
 
-
     STATS_REFLEVEL = GwSeries.REFLEVEL_DEFAULT
 
     def __init__(self, gwcol):
@@ -38,11 +38,14 @@ class GwCollection:
         self._xg = DataFrame()
         #self._statsref = None
 
+
     def __len__(self):    
         return len(self._collection)
 
+
     def __repr__(self):
         return f'{self.__class__.__name__} (n={len(self)})'
+    
     
     @classmethod
     def from_dinocsv(cls,filedir,loclist=None):
@@ -56,8 +59,9 @@ class GwCollection:
             List of strings with valid location names to restrict
             number of files read from srcdir.
         """
-        gwcol = GwFiles.from_dinocsv(filedir,loclist=loclist)
+        gwcol = GwFiles.from_dinocsv(filedir, loclist=loclist)
         return cls(gwcol)
+
 
     @classmethod
     def from_json(cls,filedir,loclist=None):
@@ -73,6 +77,7 @@ class GwCollection:
         """
         gwcol = GwFiles.from_json(filedir,loclist=loclist)
         return cls(gwcol)
+
 
     @classmethod
     def from_waterweb(cls, filepath):
@@ -91,6 +96,7 @@ class GwCollection:
         wwn = WaterWeb.from_csv(fpath=filepath)
         return cls(wwn)
 
+
     @classmethod
     def from_hydromonitor(cls, filepath):
         """Create GwCollection object from Menyanthes hydromonitor csv export file.
@@ -107,6 +113,7 @@ class GwCollection:
         """
         hm = HydroMonitor(fpath=filepath)
         return cls(hm)
+
 
     @classmethod
     def from_brodownload(cls, xmin=None, xmax=None, ymin=None, ymax=None,
@@ -135,10 +142,19 @@ class GwCollection:
             title=title)
         return cls(bro)
 
+
+    @classmethod
+    def from_hydropandas(cls, obscollection):
+        """GwCollection from Hydropandas ObsCollection."""
+        obc = HydropandasObsCollection(obscollection)
+        return cls(obc)
+
+
     @property
     def names(self):
         """Return list of series names."""
         return self._collection.names
+
 
     @property
     def empty(self):
@@ -483,7 +499,7 @@ class GwCollection:
 
                 if dirpath: # plot to file
                     plot = PlotHeads(gwlist, ref=ref);
-                    locname = gwlist[0].gw.locname()
+                    locname = gwlist[0].locname()
                     plot.save(f'{dirpath}{locname}.jpg', dpi=dpi)
                     plt.close(plot._fig)
                 else: # plot to screen

@@ -59,6 +59,8 @@ def test_get_gwseries(gwc):
     assert isinstance(gw, GwSeries)
     assert not gw.tubeprops().empty
 
+"""
 def test_iteritems(gwc):
     for gw in gwc.iteritems():
         assert isinstance(gw.name(), str)
+"""

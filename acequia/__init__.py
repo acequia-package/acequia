@@ -3,6 +3,8 @@
 
 import logging as _logging
 
+from . import _read
+
 from ._core.gwseries import GwSeries
 from ._core.gwcollection import GwCollection
 from ._core.gwlist import GwList
@@ -17,6 +19,7 @@ from ._geo.coordinate_conversion import convert_RDtoWGS84 as geo_convert_RDtoWGS
 from ._geo.waypoint_kml import WpKml
 from ._geo.pointshapewriter import PointShapeWriter
 from ._geo.pointshapewriter import write_pointshape as geo_write_pointshape
+from ._geo.gpxtracklog import GpxTracklog
 from ._plots.plotheads import PlotHeads
 from ._plots.tsmodelstatsplot import TsModelStatsPlot,plot_tsmodel_statistics
 from ._plots.plotfun import plot_tubechanges
@@ -40,6 +43,7 @@ from ._read.brogldxml import BroGldXml
 from ._read.brogmwxml import BroGmwXml
 from ._read.brogwseries import BroGwSeries
 from ._read.brogwcollection import BroGwCollection
+#from ._read.hydropandas import HydroPandasObsCollection
 from ._write.dinogwswriter import DinoGwsWriter
 from ._stats.utils import (
     hydroyear as get_tshydroyear, season as get_tsseason, 

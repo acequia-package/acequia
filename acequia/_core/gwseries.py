@@ -126,6 +126,8 @@ class GwSeries:
 
     REFLEVEL_DEFAULT = 'datum'
 
+
+
     def __init__(self, heads=None, locprops=None, tubeprops=None):
         """
         Parameters
@@ -194,7 +196,7 @@ class GwSeries:
         dn = DinoGws(filepath=filepath,readall=True)
 
         # get location metadata
-        locprops = Series(index=cls.LOCPROPS_NAMES,dtype='object')
+        locprops = Series(index=cls.LOCPROPS_NAMES, dtype='object')
 
         for propname in cls.LOCPROPS_NAMES:
             dinoprop = DinoGws.MAPPING_DINOLOCPROPS[propname]
@@ -213,8 +215,8 @@ class GwSeries:
                 tubeprops[prop] = dn.header[dinoprop]
 
         for col in cls.TUBEPROPS_NUMCOLS:
-                tubeprops[col] = pd.to_numeric(tubeprops[col],
-                                 errors='coerce')/100.
+                tubeprops[col] = pd.to_numeric(
+                    tubeprops[col], errors='coerce')/100.
 
         # get head measurements
         heads = DataFrame(columns=cls.HEADPROPS_NAMES)
@@ -368,11 +370,14 @@ class GwSeries:
         tube = self.tube()
         return location+'_'+tube
 
+
     def tube(self):
         return str(self._locprops['filname'])
 
+
     def obs(self):
         return self._obs
+
 
     def locname(self):
         """Return series location name"""
@@ -764,6 +769,7 @@ class GwSeries:
 
         qt = Quantiles(self.heads(ref=ref, unit=unit, step=step))
         return qt.get_quantiles()
+
 
     def get_ecostats(self, ref='surface', units='days', step=5):
         """Return ecological most relevant statistics.
