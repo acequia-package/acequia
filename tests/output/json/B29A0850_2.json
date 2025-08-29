@@ -3,6 +3,11 @@
     "locname": "B29A0850",
     "filname": "2",
     "alias": "",
+    "alias2": null,
+    "owner": null,
+    "observer": null,
+    "constructiondate": null,
+    "surfacestable": null,
     "xcr": "260559",
     "ycr": "489058",
     "height_datum": "mNAP",
@@ -18,7 +23,7 @@
       "surfacelevel": 21.37
     }
   },
-  "heads": {
+  "obs": {
     "0": {
       "headdatetime": "2015-10-29T00:00:00",
       "headmp": 1.15,
@@ -8533,5 +8538,7 @@
       "headnote": "",
       "remarks": ""
     }
-  }
+  },
+  "obscontrol": {},
+  "wellevents": {}
 }

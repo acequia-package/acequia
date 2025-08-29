@@ -3,6 +3,11 @@
     "locname": "B21A0138",
     "filname": "1",
     "alias": "",
+    "alias2": null,
+    "owner": null,
+    "observer": null,
+    "constructiondate": null,
+    "surfacestable": null,
     "xcr": "181794",
     "ycr": "518024",
     "height_datum": "mNAP",
@@ -18,7 +23,7 @@
       "surfacelevel": -3.06
     }
   },
-  "heads": {
+  "obs": {
     "0": {
       "headdatetime": "2000-04-06T00:00:00",
       "headmp": 0.77,
@@ -19867,5 +19872,7 @@
       "headnote": "",
       "remarks": ""
     }
-  }
+  },
+  "obscontrol": {},
+  "wellevents": {}
 }

@@ -12,7 +12,7 @@ from pandas import Series, DataFrame
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from .._core.gwseries import GwSeries
+##from .._core.gwseries import GwSeries
 from .utils import hydroyear
 
 class Quantiles:
@@ -20,46 +20,83 @@ class Quantiles:
 
     N14 = 18
 
-    def __init__(self, heads, srname=None, headsref='surface'):
+    def __init__(self, ts, tsname=None, headsref='surface', minyear=None, 
+        maxyear=None):
         """
         Calculate quantiles from series of measured heads.
 
         Parameters
         ----------
-        heads : pd.Series, aq.GwSeries
+        heads : pd.Series, 
             Timeseries with groundwater head measurements.
-
         srname : str
             User defined series name.
-
         headsref : {'datum','surface'}, default 'surface'
             Reference level for measurements.
-
+        minyear : int, optional
+            Calculation of summary statistics is done starting from this
+            year.
+        maxyear : int, optional
+            Calculation of summary statistics is done including this year,
+            data from later years will be igrnored in symmary statistics.
+            
         """
-
-        if isinstance(heads,GwSeries):
-            ts = heads.heads(ref=headsref)
-            if srname is None:
-                srname = heads.name()
-
-        elif isinstance(heads,pd.Series):
-            ts = heads
-            if srname is None: 
-                srname = heads.name
-                
-        elif isinstance(heads,DataFrame):
+               
+        if isinstance(ts, DataFrame):
             ts = heads.iloc[:,0].squeeze()
-            if srname is None: 
-                srname = list(heads)[0]
 
-        self._heads = heads
+        self._tsoriginal = ts
         self.headsref = headsref
-        self.ts = ts
-        self.srname = srname
+        self.minyear = minyear # used for selecting starting year after all calclulations are done
+        self.maxyear = maxyear # used for selecting last year after all calclulations are done
+
+        if ts.empty:
+            self._ts = ts
+        else:
+            self._ts = ts.resample('D').mean().dropna()
+
+            if self.minyear is None:
+                self.minyear = ts.index.year.min()                
+            if self.maxyear is None:
+                self.maxyear = ts.index.year.max()
+
+            # get mindate
+            apr1 = dt.datetime.strptime(f'{self.minyear}-04-01', '%Y-%m-%d')
+            if ts.index.min()<apr1:
+                # start apr1 in minyear
+                mindate = apr1
+            else:
+                # start apr 1 in minyear+1
+                mindate = dt.datetime.strptime(f'{self.minyear+1}-04-01', '%Y-%m-%d')
+
+            # get maxdate
+            apr1 = dt.datetime.strptime(f'{self.maxyear}-03-31', '%Y-%m-%d')
+            if ts.index.max()>apr1:
+                # stop apr1 in maxyear
+                maxdate = apr1
+            else:
+                # start apr 1 in maxyear-1
+                maxdate = dt.datetime.strptime(f'{self.maxyear-1}-03-31', '%Y-%m-%d')
+
+            # select full hydrological years
+            self._ts = ts[mindate:maxdate].copy()
 
 
     def __repr__(self):
-        return f'{self.__class__.__name__}({self.srname})'
+        return f'{self.__class__.__name__}({self._ts.name})'
+
+    """
+    def _select_minmaxyear(self, data):
+        # select years if either self.minyear or self.maxyear is given
+        # else return all years
+        minyear = data.index.min()
+        maxyear = data.index.max()
+        if self.minyear:
+            minyear = self.minyear
+        if self.maxyear:
+            maxyear = self.maxyear
+        return data.loc[minyear:maxyear]
+    """
 
 
     def get_quantiles(self, unit='days', step=None):
@@ -88,7 +125,7 @@ class Quantiles:
                     f'integer between 0 and 366, not {step}. '
                     f'Default value of 30 will be used.'))
                 step = 30
-            self.days = list(range(0,366,step))
+            self.days = list(range(0, 366, step))
             self.qt = [x/365 for x in self.days]
             self.qtlabels = [str(x) for x in self.days]
 
@@ -111,12 +148,12 @@ class Quantiles:
                 f'or "quantiles", not {unit}'))
 
         # create empty table with hydroyears and percentiles
-        hydroyears = hydroyear(self.ts)
+        hydroyears = hydroyear(self._ts)
         unique_years = np.unique(hydroyears)
         quantiles = pd.DataFrame(index=unique_years,columns=self.qtlabels)
 
         # calculate quantiles
-        grp = self.ts.groupby(hydroyears)
+        grp = self._ts.groupby(hydroyears)
         for i,(name,quantile) in enumerate(zip(self.qtlabels,self.qt)):
             if self.headsref=='datum':
                 quantiles[name] = grp.quantile(quantile).round(2)
@@ -125,6 +162,11 @@ class Quantiles:
                 quantiles[name] = quantiles[name].apply(
                     lambda x:math.floor(x) if not np.isnan(x) else x)
                 ##).round(0).astype(int)
+
+        # select years if either minyear or maxyear is given
+        #if (self.minyear is not None) | (self.maxyear is not None):
+        #    quantiles = self._select_minmaxyear(quantiles)
+
         return quantiles
 
     def get_summary(self,unit='days',step=None, decimals=2):
@@ -145,7 +187,7 @@ class Quantiles:
         -------
         DataFrame
         """
-        qt = self.get_quantiles(unit=unit,step=step)
+        qt = self.get_quantiles(unit=unit, step=step)
 
         decimals = 2
         q05 = qt.quantile(q=0.05, axis=0, numeric_only=True).round(decimals)
@@ -273,7 +315,7 @@ class Quantiles:
             years = []
 
         if figtitle is None:
-            figtitle = self.srname
+            figtitle = self._ts.name
 
         csurf = '#8ec7ff'
         clines = '#2f90f1' #'#979797' #

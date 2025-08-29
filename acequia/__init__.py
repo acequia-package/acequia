@@ -44,12 +44,18 @@ from ._read.brogmwxml import BroGmwXml
 from ._read.brogwseries import BroGwSeries
 from ._read.brogwcollection import BroGwCollection
 #from ._read.hydropandas import HydroPandasObsCollection
+from ._read import brodatatools
 from ._write.dinogwswriter import DinoGwsWriter
 from ._stats.utils import (
-    hydroyear as get_tshydroyear, season as get_tsseason, 
-    index1428 as get_tsindex1428, ts1428 as get_ts1428,
+    hydroyear as get_tshydroyear, 
+    season as get_tsseason, 
+    get_empty_ts1428, 
+    get_nearest_date,
+    get_ts1428 ,
+    measfrq as get_tsmeasfrq, 
+    maxfrq as get_tsmaxfrq,
     )
-from ._stats.utils import measfrq as get_tsmeasfrq, maxfrq as get_tsmaxfrq
+##from ._stats.utils import measfrq as get_tsmeasfrq, maxfrq as get_tsmaxfrq
 from ._stats.gwtimestats import GwTimeStats, gwtimestats as get_gwstats_basic
 from ._stats.gxg import GxgStats, stats_gxg as get_gwstats_gxg
 from ._stats.gwliststats import (GwListStats, 
@@ -57,7 +63,6 @@ from ._stats.gwliststats import (GwListStats,
     )
 from ._stats.quantiles import Quantiles
 from ._stats.meteo_drought import MeteoDrought
-
 
 from ._core.version import __version__
 

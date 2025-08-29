@@ -25,7 +25,7 @@ from .._read.dinogws import DinoGws
 from .._plots import plotheads as plotheadsmodule
 from .._stats.gxg import GxgStats
 from .._stats.gwtimestats import GwTimeStats
-
+from .._stats.quantiles import Quantiles
 
 class GwSeries:
     """ 
@@ -99,17 +99,18 @@ class GwSeries:
         ]
 
     LOCPROPS_NAMES = [
-        'locname','filname','alias','xcr','ycr','height_datum',
-        'grid_reference'
+        'locname', 'filname', 'alias', 'alias2', 'owner', 'observer', 
+        'constructiondate', 'surfacestable', 'xcr', 'ycr', 'height_datum', 'grid_reference'
         ]
 
     LOCPROPS_MINIMAL = [
-        'locname','filname','alias','xcr','ycr'
+        'locname','filname','alias','alias2','owner','observer',
+        'xcr','ycr',
         ]
 
     TUBEPROPS_NAMES = [
-        'startdate','mplevel','filtop','filbot','surfacedate',
-        'surfacelevel'
+        'startdate', 'mplevel', 'filtop', 'filbot', 'surfacedate',
+        'surfacelevel', 
         ]
 
     TUBEPROPS_MINIMAL = [
@@ -120,6 +121,10 @@ class GwSeries:
         'mplevel','surfacelevel','filtop','filbot'
         ]
 
+    WELLEVENTS_NAMES = [
+        'eventname', 'eventdate',
+        ]
+
     REFLEVELS = [
         'datum','surface','mp',
         ]
@@ -127,8 +132,8 @@ class GwSeries:
     REFLEVEL_DEFAULT = 'datum'
 
 
-
-    def __init__(self, heads=None, locprops=None, tubeprops=None):
+    def __init__(self, heads=None, locprops=None, tubeprops=None,
+        obscontrol=None, wellevents=None):
         """
         Parameters
         ----------
@@ -138,7 +143,7 @@ class GwSeries:
             series with location properties
         tubprops : pandas.DataFrame
             dataframe with tube properties in time
-
+            
         """
 
         if locprops is None:
@@ -151,7 +156,8 @@ class GwSeries:
                 f'{type(locprops)}')
 
         if tubeprops is None:
-            self._tubeprops = DataFrame(columns=self.TUBEPROPS_NAMES)
+            self._tubeprops = DataFrame(columns=self.TUBEPROPS_NAMES,
+                dtype='object')
         elif isinstance(tubeprops,pd.DataFrame):
             self._tubeprops = tubeprops
         else:
@@ -159,21 +165,56 @@ class GwSeries:
                 f'but {type(tubeprops)}')
 
         if heads is None: 
-            self._obs = pd.DataFrame(columns=self.HEADPROPS_NAMES) #Series()
-            self._obs_original = self._obs.copy()
-
-        elif isinstance(heads,pd.DataFrame):
+            self._obs = pd.DataFrame(columns=self.HEADPROPS_NAMES,
+                dtype='float64') #Series()
+            #self._obs_original = self._obs.copy()
+        elif isinstance(heads, pd.DataFrame):
             self._obs = heads
-            self._obs_original = self._obs.copy()
-
+            #self._obs_original = self._obs.copy()
         else:
             raise TypeError(f'heads is not a pandas DataFrame but {type(heads)}')
+
+        if obscontrol is None:
+            self._obscontrol = pd.DataFrame(columns=self.HEADPROPS_NAMES,
+                    dtype='object')
+        elif isinstance(obscontrol, pd.DataFrame):
+            if obscontrol.empty:
+                self._obscontrol = pd.DataFrame(columns=self.HEADPROPS_NAMES,
+                        dtype='object')
+            else:
+                self._obscontrol = obscontrol
+        else:
+            raise TypeError(f'obscontrol is not a pandas DataFrame but {type(obscontrol)}')
+
+
+        if wellevents is None:
+            self._wellevents = pd.DataFrame(columns=self.WELLEVENTS_NAMES,
+                    dtype='object')
+        elif isinstance(wellevents, pd.DataFrame):
+            if wellevents.empty:
+                self._wellevents = pd.DataFrame(columns=self.WELLEVENTS_NAMES,
+                        dtype='object')
+            else:
+                self._wellevents = wellevents
+        else:
+            raise TypeError(f'wellevents is not a pandas DataFrame but {type(wellevents)}')
+
 
     def __repr__(self):
         return (f'{self.name()} (n={len(self)})')
 
     def __len__(self):
         return len(self._obs)
+
+    @property
+    def empty(self):
+        return bool(
+            self._locprops.isnull().all() &
+            self._tubeprops.empty &
+            self._obs.empty &
+            self._obscontrol.empty &
+            self._wellevents.empty)
+
 
     def _validate_reference(self,ref):
 
@@ -200,6 +241,8 @@ class GwSeries:
 
         for propname in cls.LOCPROPS_NAMES:
             dinoprop = DinoGws.MAPPING_DINOLOCPROPS[propname]
+            if pd.isnull(dinoprop):
+                continue
             if dinoprop in DinoGws.FILTERCOLS:
                 locprops[propname] = dn.header.at[0,dinoprop]
 
@@ -246,13 +289,23 @@ class GwSeries:
         tubeprops = DataFrame.from_dict(
             json_dict['tubeprops'], orient='index')
         tubeprops.name = 'tubeprops'
-        tubeprops['startdate'] = pd.to_datetime(tubeprops['startdate']) #.dt.date
+        tubeprops['startdate'] = pd.to_datetime(tubeprops['startdate'], dayfirst=True)
 
-        # heads
-        heads = DataFrame.from_dict(json_dict['heads'],orient='index')
-        heads['headdatetime'] = pd.to_datetime(heads['headdatetime']) #, errors='coerce')
+        # obs
+        obs = DataFrame.from_dict(json_dict['obs'],orient='index')
+        if not obs.empty:
+            obs['headdatetime'] = pd.to_datetime(obs['headdatetime'])
 
-        return cls(heads=heads, locprops=locprops, tubeprops=tubeprops)
+        # obscontrol
+        obscontrol = DataFrame.from_dict(json_dict['obscontrol'],orient='index')
+        if not obscontrol.empty:
+            obscontrol['headdatetime'] = pd.to_datetime(obscontrol['headdatetime'])
+
+        # wellevents
+        wellevents = DataFrame.from_dict(json_dict['wellevents'],orient='index')
+
+        return cls(heads=obs, locprops=locprops, tubeprops=tubeprops,
+            obscontrol=obscontrol, wellevents=wellevents)
 
 
     def to_json(self, path=None):
@@ -287,15 +340,25 @@ class GwSeries:
         json_tubeprops = json.loads(
             self._tubeprops.to_json(date_format='iso',orient='index')
             )
-        json_heads = json.loads(
+        json_obs = json.loads(
             self._obs.to_json(date_format='iso',orient='index',
             date_unit='s')
             )
-            
+        json_obscontrol = json.loads(
+            self._obscontrol.to_json(date_format='iso',orient='index',
+            date_unit='s')
+            )
+        json_wellevents = json.loads(
+            self._wellevents.to_json(date_format='iso',orient='index',
+            date_unit='s')
+            )
+
         json_dict = OrderedDict()
         json_dict['locprops'] = json_locprops
         json_dict['tubeprops'] = json_tubeprops
-        json_dict['heads'] = json_heads
+        json_dict['obs'] = json_obs
+        json_dict['obscontrol'] = json_obscontrol
+        json_dict['wellevents'] = json_wellevents
         json_formatted_str = json.dumps(json_dict, indent=2)
 
         # create filepath name
@@ -421,12 +484,13 @@ class GwSeries:
 
         return tps
 
+
     def surface(self):
         """Return last known surface level"""
         surf = self._tubeprops['surfacelevel'].iat[-1]
         if surf is None:
             surf = np.nan
-        return surf
+        return float(surf)
 
     def obs(self):
         """Return head observations withj notes and remarks."""
@@ -481,7 +545,8 @@ class GwSeries:
 
         # create heads timeseries from observations
         heads = self._obs[['headdatetime','headmp']]
-        heads = heads.set_index('headdatetime',drop=True).squeeze(axis='columns')
+        heads = heads.set_index('headdatetime', drop=True).squeeze(axis='columns')
+        pd.set_option('future.no_silent_downcasting', True) # silence futurewarning
         heads = heads.fillna(value=np.nan)
         heads.name = self.name()
 
@@ -498,7 +563,7 @@ class GwSeries:
 
                     if not pd.api.types.is_number(props['mplevel']):
                         msg = f'{self.name()} tubeprops mplevel is None.'
-                        warnings.warn(msg)
+                        #warnings.warn(msg)
                         mp = np.nan
                     else:
                         mp = props['mplevel']
@@ -511,7 +576,7 @@ class GwSeries:
                         srvals2 = np.where(mask, srvals-surfref, srvals)
 
                     else:
-                        warnings.warn((f'{self.name()} surface level is None'))
+                        #warnings.warn((f'{self.name()} surface level is None'))
                         srvals2 = np.where(mask, srvals, srvals)
 
             heads = Series(srvals2,index=heads.index)
@@ -522,6 +587,7 @@ class GwSeries:
             heads.index = heads.index.tz_localize(None)
 
         return heads.dropna()
+
 
     def get_headnotes(self, kind='all'):
         """Return missing head observation notes.
@@ -557,7 +623,8 @@ class GwSeries:
             sr = sr[sr.isin(kind)]
         return sr
 
-    def timestats(self, ref=None):
+
+    def timestats(self, ref=None, tmin=None, tmax=None):
         """
         Return descriptive statistics for heads time series.
 
@@ -576,10 +643,10 @@ class GwSeries:
         ts = self.heads(ref=ref)
         gwstats = GwTimeStats(ts)
 
-        return gwstats.stats()
+        return gwstats.timestats(tmin=tmin, tmax=tmax)
 
 
-    def describe(self, ref='datum', gxg=False, minimal=True):
+    def describe(self, ref='datum', gxg=False, minimal=True, tmin=None, tmax=None):
         """
         Return selection of properties and descriptive statistics.
 
@@ -591,6 +658,10 @@ class GwSeries:
             add GxG descriptive statistics
         minimal : bool, default True
             return minimal selection of statistics
+        tmin
+        
+        tmax
+
 
         Returns
         -------
@@ -599,24 +670,19 @@ class GwSeries:
 
         self._ref = self._validate_reference(ref)
 
-        srlist = []
-
-        srlist.append(self._locprops[self.LOCPROPS_MINIMAL])
-
+        # get statistics
+        locprops = self._locprops[self.LOCPROPS_MINIMAL]
         tubeprops = (self._tubeprops[self.TUBEPROPS_MINIMAL].tail(1
-            ).iloc[0,:])
-        srlist.append(tubeprops)
-
-        timestats = self.timestats(ref=self._ref)
-        srlist.append(timestats)
-
+            ).iloc[0,:]) # first row of tubeprops
+        timestats = self.timestats(ref=self._ref, tmin=tmin, tmax=tmax)
+        srlist = [locprops, tubeprops, timestats]
         if gxg==True:
             gxg = self.gxg(ref=self._ref,minimal=minimal)
             srlist.append(gxg)
-
         sr = pd.concat(srlist,axis=0)
         sr.name = self.name()
 
+        # adjust when reflevel==surface
         if self._ref=='surface':
 
             for key in ['filbot']:
@@ -666,7 +732,7 @@ class GwSeries:
         changes = Series(values, index=dates)
 
         if relative:
-            changes = changes - changes[0]
+            changes = changes - changes.iloc[0]
 
         return changes
 
@@ -696,7 +762,8 @@ class GwSeries:
         return self.headsplot
 
 
-    def gxg(self, ref='datum', minimal=True, name=True):
+    def gxg(self, ref='datum', validation='moderate', maxlag=0, 
+        minimal=True, name=True, minyear=None, maxyear=None):
         """
         Return tables with desciptive statistics GxG and xG.
 
@@ -704,27 +771,40 @@ class GwSeries:
         ----------
         ref : {'datum','surface'}, default 'datum'
             Reference level for gxg statistics.
+        validation : {'strict', 'moderate', 'generous', 'naive'}
+            Method to establish validity of time series.
+        maxlag : number
+            Maximum allowed difference between measurement date en 
+            chosen reference date for spring level.
         minimal : bool, default False
             Return minimal set of statistics.
         name : bool, default True
             Include series name in multiindex of xg.
+        minyear : int, optional
+            Calculation of summary statistics is done starting from this
+            year.
+        maxyear : int, optional
+            Calculation of summary statistics is done including this year,
+            data from later years will be igrnored in symmary statistics.
 
         Returns
         -------
         gxg : pd.Series
             gxg descriptive statistics
+            
         """
-        # Calculating gxg can take considerable time. Therefore,
-        # results are stored.
-        if not hasattr(self,'_gxg'):
-            self._gxg = GxgStats(self)            
-
-        gxg = self._gxg.gxg(reference=ref,minimal=minimal)
-        
+        ## Calculating gxg can take considerable time. Therefore,
+        ## results are stored.
+        ##if not hasattr(self,'_gxg'):
+        self._gxg = GxgStats(ts=self.heads(ref='datum'), 
+            surface=self.surface(), minyear=minyear, maxyear=maxyear)
+        gxg = self._gxg.gxg(reference=ref, validation=validation, 
+            maxlag=maxlag, minimal=minimal)
         return gxg
 
 
-    def xg(self, ref='datum', name=True):
+    def xg(self, ref='datum', validation='moderate', maxlag=0, name=True,
+        minyear=None, maxyear=None):
         """
         Return tables with xg desciptive statistics for each year.
 
@@ -732,19 +812,57 @@ class GwSeries:
         ----------
         ref : {'datum','surface'}, default 'datum'
             Reference level for gxg statistics.
+        validation : {'strict', 'moderate', 'generous', 'naive'}
+            Method to establish validity of time series.
+        maxlag : number
+            Maximum allowed difference between measurement date en 
+            chosen reference date for spring level.
         name : bool, default True
             Include series name in multiindex of xg.
+        minyear : int, optional
+            Calculation of summary statistics is done starting from this
+            year.
+        maxyear : int, optional
+            Calculation of summary statistics is done including this year,
+            data from later years will be igrnored in symmary statistics.
 
         Returns
         -------
-        xg : pd.DataFrame
+        DataFrame
+            
         """
-        if not hasattr(self,'_gxg'):
-            self._gxg = GxgStats(self)            
+        ##if not hasattr(self,'_gxg'):
+        
+        # get table of xg values for each year
+        
+        self._gxg = GxgStats(
+            ts=self.heads(ref='datum'),
+            surface=self.surface(),
+            minyear=minyear,
+            maxyear=maxyear,
+            )
+        xg = self._gxg.xg(reference=ref, validation=validation, maxlag=maxlag, 
+            minN=3, name=name)
 
-        xg = self._gxg.xg(reference=ref,name=name)
+        # select years if either minyear or maxyear is given
+        # xg is a dataframe with a multilevel index (series, year)
+        if (minyear is not None)|(maxyear is not None):
+            if name==True: # multiindex series, year
+                if minyear is None:
+                    minyear = xg.index.get_level_values(1).min()
+                if maxyear is None:
+                    maxyear = xg.index.get_level_values(1).max()
+                idx = pd.IndexSlice
+                xg = xg.loc[idx[:,minyear:maxyear],:].copy()
+            else: # index is year only
+                if minyear is None:
+                    minyear = xg.index.min()
+                if maxyear is None:
+                    maxyear = xg.index.max()
+                xg = xg.loc[minyear:maxyear,:].copy()
 
         return xg
+
 
     def get_quantiles(self, ref='surface', unit='days', step=None):
         """Calculate quantiles of measured heads.
@@ -764,14 +882,15 @@ class GwSeries:
         -------
         pandas.DataFrame
         """
-        # bypass circular import
-        from .._stats.quantiles import Quantiles
+        ## bypass circular import
+        ##from .._stats.quantiles import Quantiles
 
         qt = Quantiles(self.heads(ref=ref, unit=unit, step=step))
         return qt.get_quantiles()
 
 
-    def get_ecostats(self, ref='surface', units='days', step=5):
+    def get_ecostats(self, ref='surface', validation='moderate', 
+        maxlag=3, units='days', step=5, minyear=None, maxyear=None):
         """Return ecological most relevant statistics.
 
         Parameters
@@ -784,20 +903,28 @@ class GwSeries:
             Quantile class division steps. For unit days an integer 
             between 0 and 366, for unit quantiles a fraction between 
             0 and 1.
+        minyear : int, optional
+            Calculation of summary statistics is done starting from this
+            year.
+        maxyear : int, optional
+            Calculation of summary statistics is done including this year,
+            data from later years will be igrnored in symmary statistics.
+
 
         Returns
         -------
         pandas.Series      
         """
+        # create table with stats
+        ecostats = self.gxg(ref='surface',
+            validation=validation, maxlag=maxlag, minimal=True, 
+            minyear=minyear, maxyear=maxyear)
 
-        # bypass circular import
-        from .._stats.quantiles import Quantiles
-        
-        qt = Quantiles(self.heads(ref=ref))
+         # get quantiles
+        ts = self.heads(ref=ref) #.resample('D').mean()
+        qt = Quantiles(ts, headsref=ref, minyear=minyear, maxyear=maxyear)
         inundation = qt.get_inundation()
         lowest = qt.get_lowest()
-
-        ecostats = self.gxg(ref='surface',minimal=True)
        
         ecostats['lowest_mean'] = lowest['mean']
         ecostats['lowest_min'] = lowest['min']
@@ -806,5 +933,11 @@ class GwSeries:
         ecostats['inundation_mean'] = inundation['mean']
         ecostats['inundation_min'] = inundation['min']            
         ecostats['inundation_max'] = inundation['max']
+
+        # get yearspan
+        stats = self.describe()
+        ecostats['minyear'] = stats['minyear']
+        ecostats['maxyear'] = stats['maxyear']
+        ecostats['nyears'] = stats['nyears']
 
         return ecostats

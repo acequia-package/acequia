@@ -19,14 +19,17 @@ from .._read.hydromonitor import HydroMonitor
 from .._read.brogwcollection import BroGwCollection
 from .._read.hydropandas import HydropandasObsCollection
 from .._plots.plotheads import PlotHeads
+from .._stats.gxg import GxgStats
 
 class GwCollection:
     """Collection of groundwater head series."""
 
-    """Collection sources should have the following methods:
+    """Note for developement:
+    Collection sources should have the following methods:
     len(), iteritems(), get_series() 
     and the following properties:
     names, loclist
+            
     """
 
     STATS_REFLEVEL = GwSeries.REFLEVEL_DEFAULT
@@ -36,7 +39,7 @@ class GwCollection:
         self._collection = gwcol
         self._tubestats = DataFrame()
         self._xg = DataFrame()
-        #self._statsref = None
+        self._gwcollection = Series()
 
 
     def __len__(self):    
@@ -75,7 +78,7 @@ class GwCollection:
             List of strings with valid location names to restrict
             number of files read from srcdir.
         """
-        gwcol = GwFiles.from_json(filedir,loclist=loclist)
+        gwcol = GwFiles.from_json(filedir, loclist=loclist)
         return cls(gwcol)
 
 
@@ -181,8 +184,24 @@ class GwCollection:
     def iteritems(self):
         """Iterate over all series in collecion and return gwseries 
         object."""
-        for gw in self._collection.iteritems():
-            yield gw
+
+        # Getting GwSeries objects from _collection source can take a 
+        # lot of time. Therefore, a _GwCollection is create the first 
+        # timeiteritems is called, and saved to speed up a next call.
+        
+        # yield from gwcollection that was created in a previous call
+        if not self._gwcollection.empty:
+            for srname in self._gwcollection.index.values:
+                gw = self._gwcollection[srname]
+                yield gw
+
+        # first call of iteritems, create gwcollection and yield gw
+        else:
+            self._gwcollection = Series(index=self.names, name='gwseries', dtype='object')
+            for gw in self._collection.iteritems():
+                self._gwcollection[gw.name()] = gw
+                yield gw
+
 
 
     """
@@ -251,15 +270,14 @@ class GwCollection:
 
             if len(gw)==0: # empty gwseries
                 continue
-
             stats = gw.describe(ref=ref, gxg=False, minimal=minimal)
             statslist.append(stats)
 
-        #if len(statslist)>0:
         if not statslist:
             return DataFrame()
 
         tubestats = pd.concat(statslist, axis=1).T
+        tubestats.index.name = 'series'
 
         # convert date columns to string columns
         for colname in ['firstdate','lastdate',]:
@@ -314,8 +332,33 @@ class GwCollection:
         return points
     """
 
-    def get_gxg(self, ref='datum', minimal=True):
-    
+    def get_gxg(self, ref='datum', validation='moderate', maxlag=0, minyear=None, maxyear=None, minimal=True, geom=True):
+        """Return table of GXG statistics.
+
+        ref  : {'mp','datum','surface'}, default 'datum'
+            Reference level for groundwater heads.
+        validation : {'strict', 'moderate', 'generous', 'naive'}
+            Method to establish validity of series.
+        maxlag : int, default 0
+            Maximum number of days the nearest measurement that is used 
+            to fill missing values on the 14th of 28th is allowed to 
+            be taken before or after the real date.
+        minyear : int, optional
+            Calculation of summary statistics is done starting from this
+            year.
+        maxyear : int, optional
+            Calculation of summary statistics is done including this year,
+            data from later years will be igrnored in symmary statistics.
+        minimal : bool, default True
+            Return selection of GxG statistics (True) or all (False).
+        geom : bool, default True
+            Return GeoDataframe (True) or DataFrame (False)
+
+        Returns
+        -------
+            DataFrame|GeoDataframe
+        """
+
         # calculate xg for all series
         self.STATS_REFLEVEL = ref
         gxg_list = []
@@ -327,16 +370,43 @@ class GwCollection:
             if gw.tubeprops().empty: # no tubeprops available
                 continue #todo: return empty dataframe with columns
 
-            gxg = gw.gxg(ref=ref, minimal=minimal)
-            #gxg_list.append(gw.xg(ref=ref, name=True))
-            gxg_list.append(gxg)
-        gxg = pd.concat(gxg_list, axis=1).T
+            heads = gw.heads(ref='datum')
+            surface = gw.surface()
 
-        # todo: merge fith filterstats
+            stats = GxgStats(ts=heads, surface=surface, maxlag=0, minyear=minyear, maxyear=maxyear)
+            gxg = stats.gxg(reference=ref, validation=validation, maxlag=maxlag, minimal=minimal)
+
+            if not gxg.empty:
+
+                # get filbot
+                idx = gw.tubeprops().index[-1]
+                gxg['filbot'] = gw.tubeprops().loc[idx,'filbot']
+                if gxg['filbot'] is None: #ugly hack because sometimes filbot is None
+                    gxg['filbot'] = np.nan
+                gxg['filbotcmmv'] = round((gxg['surface']-gxg['filbot'])*100, 0)
+
+                # get x, y
+                idx = gw.locprops().index[-1]
+                gxg['xcr'] = gw.locprops().loc[idx, 'xcr']
+                gxg['ycr'] = gw.locprops().loc[idx, 'ycr']
+
+                gxg_list.append(gxg)
+
+        gxg = pd.concat(gxg_list, axis=1).T
+        gxg.index.name = 'series'
+        
+        if geom:
+            gxg = gpd.GeoDataFrame(
+                gxg, 
+                geometry=gpd.points_from_xy(gxg['xcr'], gxg['ycr']), 
+                crs='EPSG:28992',
+                )
+        
         return gxg
 
 
-    def get_ecostats(self,ref='surface', units='days', step=5, geom=True):
+    def get_ecostats(self, ref='surface', units='days', step=5, maxlag=3,
+        validation='moderate', minyear=None, maxyear=None, geom=True):
         """Return ecological most relevant statistics.
 
         Parameters
@@ -349,13 +419,26 @@ class GwCollection:
             Quantile class division steps. For unit days an integer 
             between 0 and 366, for unit quantiles a fraction between 
             0 and 1.
+        maxlag : int, default 0
+            Maximum number of days the nearest measurement that is used 
+            to fill missing values on the 14th of 28th is allowed to 
+            be taken before or after the real date.
+        validation : {'strict', 'moderate', 'generous', 'naive'}
+            Method to establish validity of series.
+        minyear : int, optional
+            Calculation of summary statistics is done starting from this
+            year.
+        maxyear : int, optional
+            Calculation of summary statistics is done including this year,
+            data from later years will be igrnored in symmary statistics.
         geom : bool, default True
             Return GeoDataFrame.
 
         Returns
         -------
-        pd.DataFrame, gpd.GeoDataFrame
-           """
+        DataFrame|GeoDataFrame
+            
+        """
 
         stats_list = []
         crd_list = []
@@ -364,7 +447,10 @@ class GwCollection:
             if len(gw)==0:
                 continue
 
-            stats_list.append(gw.get_ecostats())
+            ecostats = gw.get_ecostats(ref=ref, validation='moderate', 
+                maxlag=3, units='days', step=5, minyear=minyear, maxyear=maxyear)
+            stats_list.append(ecostats)
+
             if geom:
                 crd_list.append({
                     'series' : gw.name(),
@@ -373,6 +459,7 @@ class GwCollection:
                     })
 
         ecostats = DataFrame(stats_list)
+        ecostats.index.name='series'
 
         # create geodataframe
         if geom:

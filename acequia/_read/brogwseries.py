@@ -275,8 +275,6 @@ class BroGwSeries:
     def gwseries(self):
         gw = GwSeries()
         
-        
-        
         # locprops
         gw._locprops['locname'] = self.gmwid
         gw._locprops['filname'] = self.tube

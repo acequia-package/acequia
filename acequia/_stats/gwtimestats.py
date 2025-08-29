@@ -5,10 +5,10 @@ import numpy as np
 from pandas import DataFrame, Series
 import pandas as pd
 
-from .._core import gwseries
-from .utils import maxfrq, ts1428
+#from .._core import gwseries
+from .utils import maxfrq #slice_timeseries # get_ts1428, 
 
-def gwtimestats(ts,ref=None,name=None):
+def gwtimestats(ts, ref=None, name=None):
     """Return table of groundwater head time series statistics
 
     Parameters
@@ -30,107 +30,71 @@ def gwtimestats(ts,ref=None,name=None):
 
 
 class GwTimeStats:
-    """ Return descriptive statistics of groundwater heads time series
+    """ Return descriptive statistics of groundwater head time series."""
 
-    Parameters
-    ----------
-    ts : pd.Series, aq.GwSeries
-        timeseries with groundwater head measurments
+    def __init__(self, ts=None):
+        """
+        ts : pd.Series
+            Timeseries with groundwater head measurements
+            
+        """
+        if ts is None:
+            ts = Series()
 
-    ref : str, ['datum','surface'], optinal
-        reference level for measurements
-
-    name : str, optional
-        ground water heads series name
-
-    Examples
-    --------
-    ts = <valid groundwater heads series of GwSeries object>
-    tsr = aq.TimeStats(ts)
-    tsr.stats()
-
-    Notes
-    -----
-    Custom function aq.timestats(ts) returns TimeStats.stats() directly.
-
-    """
-
-    def __init__(self, ts, ref=None, name=None):
-        """Return TimeStats object"""
+        if not isinstance(ts, Series):
+            raise ValueError((f'Timeseries must be of type pandas Series. '
+                f'Type {ts.__class__.__name__} not supported.'))
 
         self._ts = ts
-        self._name = name
 
 
-        if isinstance(self._ts,pd.Series):
-
-            self._heads = self._ts
-            if ref is not None:
-                msg = (f'heads series is type pd.Series, ref={ref} '
-                    f'is ignored')
-                warnings.warn(msg)
-                self._ref = ref
-
-            if self._name is None: 
-                self._name = self._ts.name
-
-        if isinstance(self._ts,gwseries.GwSeries):
-
-            self._ref = self._ts._validate_reference(ref)
-            self._heads = self._ts.heads(ref=self._ref)
-
-            if self._name is None:
-                self._name = self._ts.name()
-
-        if self._name is None:
-            self._name = 'series'
+    def __repr__(self):
+        return f'{self.__class__.__name__} (n={len(self)})'
 
 
-    def stats(self):
-        """Return time series desciptive statistics
+    def __len__(self):
+        return len(self._ts)
+
+
+    @property
+    def empty(self):
+        if self._ts.empty:
+            return True
+        return False
+
+
+    def timestats(self, tmin=None, tmax=None):
+        """Return basic desciptive statistics for time series.
 
         Returns
         -------
         pd.Dataframe
 
         """
+        #ts = slice_timeseries(self._ts, tmin, tmax)
+        ts = self._ts
 
-        heads = self._heads
-        stats = Series(name=self._name,dtype='object')
+        # create empty series for statistics
+        rownames = ['firstdate', 'lastdate', 'minyear', 'maxyear',
+            'yearspan', 'nyears', 'maxfrq', 'mean', 'median',
+            'q05', 'q95', 'dq0595',]
+        stats = Series(index=rownames, name=self._ts.name, dtype='object')
 
-        if not heads.empty:
-            stats['firstdate'] = heads.index.min().date()
-            stats['lastdate'] = heads.index.max().date()
-            stats['minyear'] = heads.index.min().year
-            stats['maxyear'] = heads.index.max().year
+        if not ts.empty:
+            q05 = ts.quantile(q=0.05)
+            q95 = ts.quantile(q=0.95)
+            stats['firstdate'] = ts.index.min().date()
+            stats['lastdate'] = ts.index.max().date()
+            stats['minyear'] = ts.index.min().year
+            stats['maxyear'] = ts.index.max().year
             stats['yearspan'] = stats['maxyear']-stats['minyear']+1
-            stats['nyears'] = len(set(heads.index.year))
-            stats['maxfrq'] = maxfrq(heads)
-            stats['mean'] = round(heads.mean(),2)
-            stats['median'] = round(heads.median(),2)
-            q05 = heads.quantile(q=0.05)
-            q95 = heads.quantile(q=0.95)
+            stats['nyears'] = len(set(ts.index.year))
+            stats['maxfrq'] = maxfrq(ts)
+            stats['mean'] = round(ts.mean(),2)
+            stats['median'] = round(ts.median(),2)
             stats['q05'] = round(q05,2)
             stats['q95'] = round(q95,2)
             stats['dq0595'] = round(q95-q05,2)
 
-        else:
-
-            stats['firstdate'] = np.nan
-            stats['lastdate'] = np.nan
-            stats['minyear'] = np.nan
-            stats['maxyear'] = np.nan
-            stats['yearspan'] = np.nan
-            stats['nyears'] = np.nan
-            stats['maxfrq'] = np.nan
-            stats['mean'] = np.nan
-            stats['median'] = np.nan
-            q05 = np.nan
-            q95 = np.nan
-            stats['q05'] = np.nan
-            stats['q95'] = np.nan
-            stats['dq0595'] = np.nan
-
-        self._stats = stats
-        return self._stats
+        return stats
 

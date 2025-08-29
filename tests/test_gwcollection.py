@@ -1,7 +1,5 @@
 
 import pytest
-##import collections
-##import numpy as np
 from pandas import DataFrame
 import pandas as pd
 from geopandas import GeoDataFrame

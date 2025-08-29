@@ -287,7 +287,8 @@ class BroGldXml:
         levels = self.obs['value'].astype(float).values
         datetimes = pd.DatetimeIndex(
             pd.to_datetime(self.obs['time'],
-            infer_datetime_format=True, utc=True)).tz_localize(None)
+            ##infer_datetime_format=True, 
+            utc=True)).tz_localize(None)
         name = self.gldprops['broIdGld']
         heads = Series(data=levels,index=datetimes,name=name)
         if heads.index.has_duplicates:

@@ -7,40 +7,42 @@ import matplotlib
 from acequia import Quantiles
 from acequia import GwSeries
 
-fpath = r'.\data\dinogws\B21A0138001_1.csv'
+
 
 @pytest.fixture
 def gw():
+    fpath = r'.\data\dinogws\B21A0138001_1.csv'
     return GwSeries.from_dinogws(fpath)
+
+
+@pytest.fixture
+def qt(gw):
+    #gw = GwSeries.from_dinogws(fpath)
+    ts = gw.heads(ref='datum')
+    qt = Quantiles(ts=ts, headsref='datum')
+    return qt
+
+
+@pytest.fixture
+def qt2(gw):
+    #gw = GwSeries.from_dinogws(fpath)
+    ts = gw.heads(ref='surface')
+    qt = Quantiles(ts=ts, headsref='surface')
+    return qt
 
 
 def test_init(gw):
 
-    # input gwseries object
-    qt = Quantiles(gw)
-    assert qt.__class__.__name__=='Quantiles'
-
     # input pandas Series object
-    sr = gw.heads(ref='datum')
-    qt = Quantiles(sr)
+    ts = gw.heads(ref='datum')
+    qt = Quantiles(ts)
     assert qt.__class__.__name__=='Quantiles'
 
     # input pandas DataFrame object
-    df = DataFrame(gw.heads(ref='datum'))
-    qt = Quantiles(sr)
+    sr = DataFrame(gw.heads(ref='datum'))
+    qt = Quantiles(ts)
     assert qt.__class__.__name__=='Quantiles'
     
-
-@pytest.fixture
-def qt():
-    gw = GwSeries.from_dinogws(fpath)
-    return Quantiles(gw)
-
-@pytest.fixture
-def qt2():
-    gw = GwSeries.from_dinogws(fpath)
-    return Quantiles(gw)
-
 
 def test_quantiles(qt):
 
@@ -74,7 +76,7 @@ def test_headsref(qt):
 def test_summary(qt):
 
     summary = qt.get_summary()
-    assert isinstance(summary,DataFrame)
+    assert isinstance(summary, DataFrame)
     assert not summary.empty
 
 def test_get_inundation(qt2):

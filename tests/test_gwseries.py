@@ -2,6 +2,7 @@
 import pytest
 import numpy as np
 import pandas as pd
+from acequia import GwSeries
 import acequia as aq
 
 dinodir = '.\\data\\dinogws\\'
@@ -13,21 +14,25 @@ dnpath = f'{dinodir}B29A0850002_1.csv'
 
 @pytest.fixture
 def gws():
-    return aq.GwSeries.from_dinogws(dnpath)
+    return GwSeries.from_dinogws(dnpath)
 
 @pytest.fixture
 def name(gws):
     return gws.name()
 
 def test_GwSeries_init():
-    gw = aq.GwSeries()
-    assert isinstance(gw,aq.GwSeries)
+    gw = GwSeries()
+    assert isinstance(gw, GwSeries)
 
 def test_len(gws):
     assert len(gws)!=0
 
 def test_repr(gws):
     assert isinstance(repr(gws),str)
+
+def test_empty():
+    gw = GwSeries()
+    assert gw.empty
 
 def test_GwSeries_from_dinogws(name):
     gwd = aq.GwSeries.from_dinogws(dnpath)
@@ -62,7 +67,7 @@ def test_GwSeries_tubeprops_changes(gws):
     assert not gws.tubeprops_changes().empty
 
 def test_GwSeries_surface(gws):
-    assert isinstance(gws.surface(),np.float64)
+    assert isinstance(gws.surface(), float)
 
 def test_GwSeries_heads(gws):
     assert isinstance(gws.heads(),pd.Series)
@@ -83,8 +88,8 @@ def test_GwSeries_plotheads(gws):
 def test_GwSeries_gxg(gws):
     gxgs = gws.gxg(ref='surface')
     gxgd = gws.gxg(ref='datum')
-    assert isinstance(gxgs,pd.Series)
-    assert isinstance(gxgd,pd.Series)
+    assert isinstance(gxgs, pd.Series)
+    assert isinstance(gxgd, pd.Series)
     assert not gxgs.empty
     assert not gxgd.empty
     assert gxgs['gxgref']=='surface'
