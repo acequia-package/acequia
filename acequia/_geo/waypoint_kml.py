@@ -151,8 +151,8 @@ class WpKml:
         else:
             firstcol = list(self.wplist)[0]
             self.label = firstcol
-            warnings.warn((f'Value {label} for label column not found '
-                f'in {self.wplist} column names. Column {firstcol} is ',
+            warnings.warn((f'Value {self.label} for label column not found '
+                f'in column names ({len(self.wplist.columns)}). Column {firstcol} is '
                 f'used for KML labels.'))
 
         if stylecol is not None:

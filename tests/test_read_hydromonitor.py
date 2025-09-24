@@ -29,7 +29,7 @@ def test_names(hm):
 
 def test_get_gwseries(hm):
     gwname = hm.names[0]
-    gws = hm.get_gwseries(gwname) #f'B29A0072_1')
+    gws = hm.get_gwseries(gwname)
     assert isinstance(gws,GwSeries)
 
 

@@ -14,16 +14,11 @@ from .._geo.waypoint_kml import WpKml
 
 class WaterWeb:
     """
-    Manage WaterWeb dataset
-
-    Constructor
-    -----------
-    from_csv
-        Read waterweb csv export file and return WaterWeb object.
-
+    Manage WaterWeb dataset.
+        
     """
     SEP = ';'
-    NAMECOL = 'sunseries' # 'sunseries'
+    NAMECOL = 'seriesname' #'sunseries'
 
     COLUMN_MAPPING = {
         'Locatie':'sunloc',
@@ -55,28 +50,40 @@ class WaterWeb:
         'Luchtdruk (hPa)':'luchtdruk_hpa', 
         'Totaaldruk (hPa)':'totaaldruk_hpa', 
         'Waterdruk (hPa)':'waterdruk_hpa', 
-        'Geleidbaarheid (μS/cm)':'conductance_muscm',
+        'Geleidbaarheid (μS/cm)':'conductance',
+        # new style 2025 columns
+        'MeetpuntCode':'seriesname', 
+        'GMWcode':'gmwcode', 
+        'TypeMeting':'typemeting',
+        'Geleidbaarheid @25°C (mS/cm)':'conductance',
         }
+        #'OLGA-kode':'olga', # DEZE KOLOM IS VERVALLEN
+        #'Hoogte maaiveld tov maaiveld':'mvmv',
+        #'Peilstand':'peilcmmp',
+        #'Peilstand in Meters':'peilmmp',
+        #'Peilstand in tov Nulpunt Meters' : 'peilmmp',
 
-         #'OLGA-kode':'olga', # DEZE KOLOM IS VERVALLEN
-         #'Hoogte maaiveld tov maaiveld':'mvmv',
-         #'Peilstand':'peilcmmp',
-         #'Peilstand in Meters':'peilmmp',
-         #'Peilstand in tov Nulpunt Meters' : 'peilmmp',
-
-    EXPECTED_COLUMNS = ['sunloc', 'sunseries', 'nitgcode', 'derdencode',
+    EXPECTED_COLUMNS = ['seriesname', 'gmwcode', 'sunseries', 
+        'nitgcode', 'derdencode', 
         'xcr', 'ycr', 'mpcmnap', 'mvcmnap', 'mvcmmp', 'filtopcmnap',
         'filbotcmnap', 'datetime', 'peilcmmp', 'peilmmp', 'peilcmnap',  
         'peilmmv', 'peilcmmv', 'peilmmv', 'watertemp', 'luchttemp', 
         'luchtdruk_hpa', 'totaaldruk_hpa', 'waterdruk_hpa', 
-        'conductance_muscm', 'peilcode', 'peilopm',
+        'conductance', 'peilcode', 'typemeting', 'peilopm',
         ]
 
-    SERIESPROPS_COLS = ['sunseries','sunlabel','derdencode','nitgcode',
-        'mptype','meetnet','xcr','ycr',]
+    NEWSTYLE2025_COLUMNS = [
+        #'MeetpuntCode', 'GMWcode', 'TypeMeting', 'Geleidbaarheid @25°C (mS/cm)',
+        'seriesname', 'gmwcode', 'typemeting',
+        ] # these columns were added in 2025
 
-    LOCPROPS_COLS = ['sunloc','sunseries','nitgcode','derdencode',
-        'xcr','ycr',]
+    SERIESPROPS_COLS = ['seriesname', 'sunseries', 'sunlabel',
+        'derdencode', 'nitgcode', 'mptype', 'meetnet', 'xcr', 'ycr',
+        ]
+
+    LOCPROPS_COLS = ['seriesname', 'gmwcode', 'sunseries', 'nitgcode', 
+        'derdencode', 'xcr', 'ycr',
+        ]
 
     TUBEPROPS_COLS = ['mpcmnap','mvcmnap','filtopcmnap','filbotcmnap']
 
@@ -86,11 +93,11 @@ class WaterWeb:
         'filtopcmnap', 'filbotcmnap', 'peilcmmp', 'peilmmp',
         'peilcmnap', 'peilmnap', 'peilcmmv', 'peilmmv',
         'watertemp', 'luchttemp', 'luchtdruk_hpa', 
-        'totaaldruk_hpa', 'waterdruk_hpa', 'conductance_muscm',
+        'totaaldruk_hpa', 'waterdruk_hpa', 'conductance',
         ]
 
     LOCPROPS_MAPPING = {
-        'locname':'sunloc','alias':'nitgcode',
+        'locname':'seriesname','alias':'nitgcode',
         'xcr':'xcr','ycr':'ycr'
         }
 
@@ -166,7 +173,6 @@ class WaterWeb:
                 f'DataFrame.'))
 
         self.data = data
-        #self._rawdata = rawdata
         self.fpath = fpath
         self.network = network
 
@@ -180,7 +186,7 @@ class WaterWeb:
 
 
     @classmethod
-    def from_csv(cls,fpath,network=None):
+    def from_csv(cls, fpath, network=None):
         """ 
         Read waterweb csv network file and return new WaterWeb object
 
@@ -194,32 +200,51 @@ class WaterWeb:
 
         Returns
         -------
-        WaterWebNetwork object
-           
+        WaterWebNetwork
+            
         """
 
         # read csv file
         try:
-            rawdata = pd.read_csv(fpath, sep=cls.SEP, decimal=',', low_memory=False)
-            rawdata.columns = [col.strip() for col in rawdata.columns] # remove space before column names
+            # separator was changed from semicolon to comma in 2025
+            # try parsing newstyle2025:
+            rawdata = pd.read_csv(fpath, engine='python', sep=',', quotechar='"',) 
+            if len(rawdata.columns)==1:
+                # try parsing old style
+                rawdata = pd.read_csv(fpath, engine='python', sep=';', quotechar='"')
+
+            # clean column names
+            rawdata.columns = [col.lstrip(' ') for col in rawdata.columns] # remove space before column names
+            
         except FileNotFoundError as err:
             raise FileNotFoundError(f'Invalid filepath for WaterWeb csv file: "{fpath}"')
 
+        # get network name from filepath
         if network is None:
-            #network = pathlib.Path(fpath).stem
             network = os.path.splitext(os.path.basename(fpath))[0]
 
-        # check for unknown columns
+        # rename columns
+        data = rawdata.rename(columns=cls.COLUMN_MAPPING)
+
+        # add missing newstyle2025 columns if missing
+        for column in cls.NEWSTYLE2025_COLUMNS:
+            if column not in data.columns:
+                if column=='seriesname':
+                    data['seriesname'] = data['sunseries']
+                else:
+                    data[column] = np.nan
+                    
+        if 'sunloc' in data.columns:
+            data = data.drop(columns='sunloc')
+
+        # check for unknown columns (WaterWeb output format sometimes changes)
         unknown_columns = []
-        for col in list(rawdata):
-            if col not in cls.COLUMN_MAPPING.keys():
+        for col in list(data):
+            if col not in cls.COLUMN_MAPPING.values():
                 unknown_columns.append(col)
         if unknown_columns:
             raise ValueError((f'Unknown columns in WaterWeb csv file: '
                 f'{unknown_columns}.'))
-
-        # rename columns
-        data = rawdata.rename(columns=cls.COLUMN_MAPPING)
 
         #check for missing columns
         missing_columns = []
@@ -227,15 +252,18 @@ class WaterWeb:
             if col not in list(data):
                 missing_columns.append(col)
         if missing_columns:
-            raise ValueError((f'Missing columns in WaterWeb csv file: '
-                f'{" ".join(missing_columns)}'))
+            if all([x in cls.NEWSTYLE2025_COLUMNS for x in missing_columns]):
+                warnings.warn(f'INFO: WaterWeb input file format predates 2025: {fpath}.')
+            else:
+                raise ValueError((f'Missing columns in WaterWeb csv file: '
+                    f'{", ".join(missing_columns)}'))
 
         # change data column contents
-        data['datetime'] = pd.to_datetime(data['datetime'], format="%Y-%m-%d %H:%M:%S",)
-        data['nitgcode'] = data['nitgcode'].apply(
-            lambda x:x[:8]+"_"+x[-3:].lstrip('0') if not pd.isnull(x) else np.nan)
+        data['datetime'] = pd.to_datetime(data['datetime'], format='mixed', dayfirst=True)
         for col in cls.NUMERIC_COLS:
             data[col] = pd.to_numeric(data[col], errors='coerce')
+        data['nitgcode'] = data['nitgcode'].apply(
+            lambda x:x[:8]+"_"+x[-3:].lstrip('0') if not pd.isnull(x) else np.nan)
 
         return cls(data, fpath=fpath, network=network, rawdata=rawdata)
 
@@ -243,11 +271,11 @@ class WaterWeb:
     def _clean_raw_data(self):
         """Return dataframe with clean data from rawdata table."""
 
-
         # remove datarows with incomplete data
         # Note:
-        # In WaterWeb exports, when measurements with dates earlier than 
-        # the given startdate date or after the given enddate of the 
+        # In old WaterWeb exports, when measurements with dates 
+        # earlier than the given startdate date 
+        # or after the given enddate of the 
         # series are present, WaterWeb csv exports contains no metadata.
         # As a result, the first column of data does not contain the 
         # SUN-code, but the date of the measurement.
@@ -260,7 +288,6 @@ class WaterWeb:
                 f'after given enddate were removed from '
                 f'{self.networkname}'))
             data = data[~first_col_is_date].copy()
-
 
 
     @property
@@ -292,13 +319,13 @@ class WaterWeb:
         """Return TRUE if given string is standard SUN series name."""
 
         # define SUNcode regex pattern
+        # (Examples of valid SUN-code patterns are: 
+        # '12345678B001', '12345678B001A')
         networknr = '[0-9]{8}'
         mptypes = ''.join((self.MEASUREMENT_TYPES))
         locnr = '[0-9]{3}'
         tubecode = '[A-Z]'
         pattern = fr'^{networknr}[{mptypes}]{locnr}{tubecode}?$'
-        # (Examples of valid SUN-code patterns are: 
-        # '12345678B001', '12345678B001A')
 
         # search for pattern
         sunpat = re.compile(pattern)
@@ -351,7 +378,7 @@ class WaterWeb:
         srname : str
             name of series to return """
 
-        return self.get_locprops(srname)['sunloc']
+        return self.get_locprops(srname)['seriesname']
 
 
     def get_filname(self, srname, style='sun'):
@@ -382,7 +409,7 @@ class WaterWeb:
                 f'not {style}.'))
 
         # get sunstyle filter name
-        srname = self.get_locprops(srname)['sunseries']
+        srname = self.get_locprops(srname)['seriesname']
         capitals = [chr(i) for i in range(65,91)]
         if srname[-1] in capitals:
             filname = srname[-1]
@@ -428,7 +455,7 @@ class WaterWeb:
 
         Parameters
         ----------
-        sunseries : str
+        seriesname : str
             name of series to return
 
         Return
@@ -454,21 +481,26 @@ class WaterWeb:
 
         Parameters
         ----------
-        sunseries : str
+        seriesname : str
             name of series
 
         Returns
         -------
         pd.DataFrame """
 
+        # get last row of measurements for series srname
         data = self.data[self.data[self.NAMECOL]==srname]
         data = data.drop_duplicates(
             subset=self.TUBEPROPS_COLS,
             keep='first')
 
+        # get tubeprops (dataframe can have multiple rows when changes happend)
         colnames = ['datetime'] + self.TUBEPROPS_COLS
         data = data[colnames].reset_index(drop=True)
+        #data = data.rename(columns={'datetime':'started'})
+        
         return data
+
 
     def get_levels(self, srname, ref='datum'):
         """Return measured water levels in unit meter.
@@ -627,10 +659,7 @@ class WaterWeb:
             for srname in self.names]
         df['sunlabel'] = shortnames
 
-        # order columns
-        #colnames = ['sunseries','sunlabel','broid','derdencode','nitgcode',
-        #    'mptype','meetnet','xcr','ycr',]
-        
+
         cols = self.SERIESPROPS_COLS
         df = df[cols + [c for c in df.columns if c not in cols]]
 
@@ -687,7 +716,13 @@ class WaterWeb:
 
         locs = self.location_properties
         colnames = [col for col in list(locs) if col not in ['geometry']]
-        wp = WpKml(locs[colnames],label='label',xcoor='xcr',ycoor='ycr',
+        if 'sunlabel' in locs:
+            label='sunlabel'
+        elif self.NAMECOL in locs:
+            label=self.NAMECOL
+        else:
+            raise ValueError(f'No collumn with location name available in {locs.columns}.')
+        wp = WpKml(locs[colnames],label=label,xcoor='xcr',ycoor='ycr',
             styledict=self.KMLSTYLES,stylecol='mptype')
         wp.writekml(filepath)
         return wp

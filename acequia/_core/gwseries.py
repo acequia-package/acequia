@@ -289,7 +289,7 @@ class GwSeries:
         tubeprops = DataFrame.from_dict(
             json_dict['tubeprops'], orient='index')
         tubeprops.name = 'tubeprops'
-        tubeprops['startdate'] = pd.to_datetime(tubeprops['startdate'], dayfirst=True)
+        tubeprops['startdate'] = pd.to_datetime(tubeprops['startdate'])
 
         # obs
         obs = DataFrame.from_dict(json_dict['obs'],orient='index')

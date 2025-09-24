@@ -26,6 +26,9 @@ setup(
         'statsmodels',
         'simplekml',
         'sphinx',
+        'hydropandas',
+        'brodata',
+        'pastas',
         ],
 
     # pip will copy non-code files when installing

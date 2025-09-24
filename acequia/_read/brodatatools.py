@@ -13,7 +13,7 @@ import brodata as _brodata
 from .._core.gwseries import GwSeries
 
 
-def gmwid_exists(gmwid):
+def gmw_exists(gmwid):
     """Return True if given gmwid can be retrieved from broservice, else return False."""
     try:
         gmw = _brodata.gmw.GroundwaterMonitoringWell.from_bro_id(gmwid)
@@ -27,6 +27,7 @@ def gmwid_exists(gmwid):
             raise
     else:
         return True
+
 
 def get_gmwprops(gmwid):
 
@@ -47,7 +48,10 @@ def get_gmwprops(gmwid):
         gmwprops['observerid'] = gmwdict['deliveryAccountableParty']
         gmwprops['gridreference'] = gmwdict['coordinateTransformation']
         gmwprops['registration'] = gmwdict['registrationStatus']
-        gmwprops['surface'] = float(gmwdict['groundLevelPosition'])
+        if gmwdict['groundLevelPosition'] is not None:
+            gmwprops['surface'] = float(gmwdict['groundLevelPosition'])
+        else:
+            gmwprops['surface'] = _np.nan
         gmwprops['surfacemethod'] = gmwdict['groundLevelPositioningMethod']
         gmwprops['surfacestable'] = gmwdict['groundLevelStable']
         gmwprops['mysterious_id'] = gmwdict['id']
@@ -58,13 +62,14 @@ def get_gmwprops(gmwid):
         gmwprops['ycr'] = round(gmwdict['deliveredLocation'].y)
         return gmwprops
 
+
 def get_tubeprops(gmwid, tube):
     """Return tubeproperties for (gmwid, tube)."""
 
-    if not gmwid_exists(gmwid):
+    if not gmw_exists(gmwid):
         return _pd.Series()
 
-    if tube not in get_welltubes(gmwid):
+    if tube not in get_gmwtubes(gmwid):
         return _pd.Series()
 
     # get bro tubeproperties
@@ -75,36 +80,28 @@ def get_tubeprops(gmwid, tube):
     # get tubeproperties
     tp = _pd.Series()
     tp['startdate'] = gmwdict['wellConstructionDate'].strftime('%d-%m-%Y')
-    tp['mplevel'] = float(broprops['tubeTopPosition'])
-    tp['filtop'] = float(broprops['screenTopPosition'])
-    tp['filbot'] = float(broprops['screenBottomPosition'])
-    tp['surfacelevel'] = float(gmwdict['groundLevelPosition'])
+    tp['mplevel'] = broprops['tubeTopPosition']
+    tp['filtop'] = broprops['screenTopPosition']
+    tp['filbot'] = broprops['screenBottomPosition']
+    tp['surfacelevel'] = gmwdict['groundLevelPosition']
+
+    # float values
+    for key in ['mplevel', 'filtop', 'filbot', 'surfacelevel']:
+        if tp[key] is not None:
+            tp[key] = float(tp[key])
+        else:
+            tp[key] = _np.nan
 
     return tp
 
 
-def get_extent_gmwproperties(xmin, xmax, ymin, ymax):
-    """Return gmw properties for all well in extent (xmin, xmax, ymin, ymax)."""
-    extent = [xmin, xmax, ymin, ymax]
-    gdf = _brodata.gmw.get_characteristics(extent=extent)
-    return gdf
-
-
-def get_extent_tubeproperties(xmin, xmax, ymin, ymax):
-    """Return tube properties for all tubes in extent (xmin, xmax, ymin, ymax)."""
-    extent = [xmin, xmax, ymin, ymax]
-    gdf = _brodata.gmw.get_characteristics(extent=extent)
-    tube_gdf = _brodata.gmw.get_tube_gdf_from_characteristics(gdf)
-    return tube_gdf
-
-
-def get_bronhouder_gmwids(bronhouderid):
+def get_bronhouder_gmwlist(bronhouderid):
     """Return list of wellids for given bronhouderid. Returns empty list
     for invalid bronhouder id."""
     return _brodata.gmw.get_bro_ids_of_bronhouder(bronhouderid)
 
 
-def get_welltubes(gmwid):
+def get_gmwtubes(gmwid):
     """Return list of tubenumbers for gmwid."""
     gmw = _brodata.gmw.GroundwaterMonitoringWell.from_bro_id(gmwid)
     gmwdict = gmw.to_dict()
@@ -112,7 +109,7 @@ def get_welltubes(gmwid):
     return tubenumbers
 
 
-def get_wellobs(gmwid):
+def get_tubeobs_from_gmw(gmwid):
     """Return observations for each tube in a well.
 
     Parameters
@@ -126,50 +123,21 @@ def get_wellobs(gmwid):
         Observations for each tube as list of GwSeries objects.
         
     """
-    if not gmwid_exists(gmwid):
+    if not gmw_exists(gmwid):
         _warnings.warn(f'Invalid gmwid {gmwid}.')  
         return [] # no point downloading observations
 
     gwlist = []
-    for tube in get_welltubes(gmwid):
+    for tube in get_gmwtubes(gmwid):
          gw = get_tubeobs(gmwid, tube)
          gwlist.append(gw)
 
     return gwlist
 
 
-def _get_brodata_gmw(gmwid):
-    """Returm brodata GroundwaterMonitoringWell instance for given gmwid."""
-    return _brodata.gmw.GroundwaterMonitoringWell.from_bro_id(gmwid)
-
-
-def _get_brodata_gmw_tubeproperties(gmwid):
-    """Returm brodata GroundwaterMonitoringWell instance for given gmwid."""
-    if not gmwid_exists(gmwid):
-        return _pd.DataFrame()
-
-    gmw = _brodata.gmw.GroundwaterMonitoringWell.from_bro_id(gmwid)
-    gmwdict = gmw.to_dict()
-    tubeprops = gmwdict['monitoringTube']
-    return tubeprops
-
-
-def _get_brodata_tubeobservations(gmwid, tube):
-    return _brodata.gmw.get_tube_observations(gmwid, tube)
-
-
-def _get_brodata_extent_observations(xmin, xmax, ymin, ymax):
-    """Return geodataframe with all tubeobservations in extent (xmin, xmax, ymin, ymax)."""
-    extent = [xmin, xmax, ymin, ymax]
-    gdf = _brodata.gmw.get_data_in_extent(
-        extent=extent, kind="gld", combine=True, as_csv=True
-        )
-    return gdf
-
-
 def get_tubeobs(gmwid, tube):
 
-    if not gmwid_exists(gmwid):
+    if not gmw_exists(gmwid):
         return GwSeries()
 
     gmwprops = get_gmwprops(gmwid)
@@ -200,7 +168,7 @@ def get_tubeobs(gmwid, tube):
     
     # get head observations
     if obs.empty: # yes, wells without observations do exist.
-        _warnings.warn(f'No observations for well {gmw} tube {tube}.')
+        _warnings.warn(f'No observations for well {gmwid} tube {tube}.')
     else:
 
         # select regular observations
@@ -232,3 +200,93 @@ def get_tubeobs(gmwid, tube):
         gw._obscontrol['remarks']=controls['status'].values
 
     return gw
+
+
+def get_tubeobs_within_extent(xmin=None, xmax=None, ymin=None, ymax=None):
+    """Return list of GwSeries for each tube within extent (xmin, xmax, 
+    ymin, ymax).
+    
+    Return
+    ------
+    xmin : int|float
+        Left side of extent.
+
+    xmax : int|float
+        Right side of extent.
+
+   ymin : int|float
+        Bottom side of extent.
+
+    ymax : int|float
+        Upper side of extent.
+
+    Returns
+    -------
+    List of GwSeries objects
+            
+    """
+    tubeprops = _get_brodata_extent_tubeproperties(xmin, xmax, ymin, ymax)
+    gwseries = []
+    for gmwid, tube in tubeprops.index.to_flat_index().values:
+        gw = get_tubeobs(gmwid, tube)
+        gwseries.append(gw)
+    return gwseries
+
+
+def get_tubeobs_from_gmwlist(gmwids):
+    """Return list of GwSeries for list of GMWids."""
+
+    gwseries = []
+    for gmwid in gmwids:
+        if not gmw_exists(gmwid):
+            continue
+        gwlist = get_tubeobs_from_gmw(gmwid)
+        if gwlist:
+            gwseries.extend(gwlist)
+    return gwseries
+
+
+def _get_brodata_gmw(gmwid):
+    """Returm brodata GroundwaterMonitoringWell instance for given gmwid."""
+    return _brodata.gmw.GroundwaterMonitoringWell.from_bro_id(gmwid)
+
+
+def _get_brodata_gmw_tubeproperties(gmwid):
+    """Returm brodata GroundwaterMonitoringWell instance for given gmwid."""
+    if not gmw_exists(gmwid):
+        return _pd.DataFrame()
+
+    gmw = _brodata.gmw.GroundwaterMonitoringWell.from_bro_id(gmwid)
+    gmwdict = gmw.to_dict()
+    tubeprops = gmwdict['monitoringTube']
+    return tubeprops
+
+
+def _get_brodata_tubeobservations(gmwid, tube):
+    return _brodata.gmw.get_tube_observations(gmwid, tube)
+
+
+def _get_brodata_extent_gmwproperties(xmin, xmax, ymin, ymax):
+    """Return gmw properties for all well in extent (xmin, xmax, ymin, ymax)."""
+    extent = [xmin, xmax, ymin, ymax]
+    gdf = _brodata.gmw.get_characteristics(extent=extent)
+    return gdf
+
+
+def _get_brodata_extent_tubeproperties(xmin, xmax, ymin, ymax):
+    """Return tube properties for all tubes in extent (xmin, xmax, ymin, ymax)."""
+    extent = [xmin, xmax, ymin, ymax]
+    gdf = _brodata.gmw.get_characteristics(extent=extent)
+    tube_gdf = _brodata.gmw.get_tube_gdf_from_characteristics(gdf)
+    return tube_gdf
+
+
+def _get_brodata_extent_observations(xmin, xmax, ymin, ymax):
+    """Return geodataframe with all tubeobservations in extent (xmin, xmax, ymin, ymax)."""
+    extent = [xmin, xmax, ymin, ymax]
+    gdf = _brodata.gmw.get_data_in_extent(
+        extent=extent, kind="gld", combine=True, as_csv=True
+        )
+    return gdf
+
+
