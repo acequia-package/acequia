@@ -19,8 +19,8 @@ import time
 from datetime import datetime
 
 from . import gwseries as gwseriesmod
-from .._read.hydromonitor import HydroMonitor
-from .._read.waterweb import WaterWeb
+from ..io import HydroMonitor
+from ..io._waterweb import WaterWeb
 from .._read.filetools import listdir
 
 newline = '\n'

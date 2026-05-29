@@ -10,6 +10,7 @@ from pandas import Series, DataFrame
 import pandas as pd
 
 from .._core.gwseries import GwSeries
+from ..io import DinoGwsCsv
 
 class GwFiles:
     """Collection of groundwater head source files.
@@ -121,7 +122,9 @@ class GwFiles:
         for idx, row in self._ftb.iterrows():
 
             if self._source == 'dinocsv':
-                gw = GwSeries.from_dinogws(row['fpath'])
+                #gw = GwSeries.from_dinogws(row['fpath'])
+                dinocsv = DinoGwsCsv(row['fpath'])
+                gw = dinocsv.gwseries()
 
             if self._source == 'json':
                 gw = GwSeries.from_json(row['fpath'])
@@ -149,7 +152,9 @@ class GwFiles:
         fpath = self._ftb.loc[idx,'fpath']
 
         if self._source == 'dinocsv':
-            gw = GwSeries.from_dinogws(fpath)
+            #gw = GwSeries.from_dinogws(fpath)
+            dinocsv = DinoGwsCsv(fpath)
+            gw = dinocsv.gwseries()
 
         if self._source == 'json':
             gw = GwSeries.from_json(fpath)
@@ -175,7 +180,7 @@ class GwFiles:
         return jsonlist
 
     def to_csv(self,dirpath):
-        """Write all gwseries to json files.
+        """Write all gwseries to csv files.
 
         Parameters
         ----------

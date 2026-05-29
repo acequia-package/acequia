@@ -1,5 +1,5 @@
 
-
+import os
 import pytest
 import numpy as np
 from pandas import Series, DataFrame
@@ -10,9 +10,10 @@ from acequia import GxgStats
 from acequia._stats.utils import get_ts1428
 
 
+
 @pytest.fixture
 def gwseries():
-    return GwSeries.from_json(r'.\data\json\BRO41484_1.json')
+    return GwSeries.from_json(r'.\data\json\GMW000000041484_1.json')
 
 @pytest.fixture
 def ts(gwseries):
@@ -25,7 +26,7 @@ def ts(gwseries):
 def ts1428_hydroyear():
     # this time series is used for validity checks
     # don't change the series or the tests will break
-    gw = GwSeries.from_json(r'.\data\json\BRO41484_1.json')
+    gw = GwSeries.from_json(r'.\data\json\GMW000000041484_1.json')
     ts = gw.heads(ref='datum')
     ts = ts.resample('D').mean().dropna()
     ts = get_ts1428(ts, maxlag=0, remove_outer_nans=False)

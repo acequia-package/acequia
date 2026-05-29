@@ -14,9 +14,9 @@ import geopandas as gpd
 
 from .._core.gwseries import GwSeries
 from .._read.gwfiles import GwFiles
-from .._read.waterweb import WaterWeb
-from .._read.hydromonitor import HydroMonitor
-from .._read.brogwcollection import BroGwCollection
+from ..io._waterweb import WaterWeb
+from ..io import HydroMonitor
+from ..io._brogwcollection import BroGwCollection
 from .._read.hydropandas import HydropandasObsCollection
 from .._plots.plotheads import PlotHeads
 from .._stats.gxg import GxgStats
@@ -51,7 +51,7 @@ class GwCollection:
     
     
     @classmethod
-    def from_dinocsv(cls,filedir,loclist=None):
+    def from_dinocsv(cls, filedir, loclist=None):
         """Create GwCollection object from folder with DinoLoket sourcefiles.
         
         Parameters
@@ -594,7 +594,6 @@ class GwCollection:
                     plt.show()
                     plt.close()
 
-        
         
         
         

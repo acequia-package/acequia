@@ -4,24 +4,26 @@ import numpy as np
 from pandas import DataFrame
 import pandas as pd
 import matplotlib as mpl
-from acequia import GwSeries,HeadsDif
+from acequia import GwSeries, HeadsDif
 import acequia as aq
 
 @pytest.fixture
 def gw1():
-    dnpath = r'.\data\dinogws\B29A0848001_1.csv'
-    return GwSeries.from_dinogws(dnpath)
-
+    #dnpath = r'.\data\dinogws\B29A0848001_1.csv'
+    #return GwSeries.from_dinogws(dnpath)
+    return GwSeries.from_json(r'.\data\json\GMW000000041484_1.json')
 
 @pytest.fixture
 def gw2():
-    dnpath = r'.\data\dinogws\B29A0848002_1.csv'
-    return GwSeries.from_dinogws(dnpath)
+    #dnpath = r'.\data\dinogws\B29A0848002_1.csv'
+    #return GwSeries.from_dinogws(dnpath)
+    return GwSeries.from_json(r'.\data\json\GMW000000041484_2.json')
 
 @pytest.fixture
 def gw3():
-    dnpath = r'.\data\dinogws\B29A0848003_1.csv'
-    return GwSeries.from_dinogws(dnpath)
+    #dnpath = r'.\data\dinogws\B29A0848003_1.csv'
+    #return GwSeries.from_dinogws(dnpath)
+    return GwSeries.from_json(r'.\data\json\GMW000000041484_3.json')
 
 @pytest.fixture
 def hdf(gw1,gw2):

@@ -4,63 +4,43 @@
 import logging as _logging
 
 from . import _read
+from . import data
+from . import io
+from . import _brodata
+from . import plot
 
 from ._core.gwseries import GwSeries
 from ._core.gwcollection import GwCollection
 from ._core.gwlist import GwList
-from ._core.gwlist import headsfiles as list_headsfiles
 from ._core.gwlocs import GwLocs
+
 from ._read.gwfiles import GwFiles
+
 from ._core.headsdif import HeadsDif
 from ._core.swseries import SwSeries
-from ._geo.coordinate_conversion import CrdCon
-from ._geo.coordinate_conversion import convert_WGS84toRD as geo_convert_WGS84toRD
-from ._geo.coordinate_conversion import convert_RDtoWGS84 as geo_convert_RDtoWGS84
-from ._geo.waypoint_kml import WpKml
-from ._geo.pointshapewriter import PointShapeWriter
-from ._geo.pointshapewriter import write_pointshape as geo_write_pointshape
-from ._geo.gpxtracklog import GpxTracklog
+
+##from ._geo.waypoint_kml import WpKml
+##from .io.pointshapewriter import PointShapeWriter
+##from ._geo.gpxtracklog import GpxTracklog
+
 from ._plots.plotheads import PlotHeads
-from ._plots.tsmodelstatsplot import TsModelStatsPlot,plot_tsmodel_statistics
-from ._plots.plotfun import plot_tubechanges
-from ._read.dinogws import DinoGws
+from ._plots.tsmodelstatsplot import TsModelStatsPlot
+from .io._dinogws_csv import DinoGwsCsv
+
 from ._read.dinosurfacelevel import DinoSurfaceLevel
-from ._read.dawaco import Dawaco
-from ._read.gpxtree import GpxTree
-from ._read.hydromonitor import HydroMonitor
-from ._read.waterweb import WaterWeb
-from ._read.waterwebtools import measurement_types
-from ._read.knmi_weather import KnmiWeather
-from ._read.knmi_rain import KnmiRain
-from ._read.knmi_download import KnmiDownload
-from ._read.knmi_download import get_knmi_precipitation, get_knmi_evaporation
-from ._read.knmi_download import get_knmi_precstations
-from ._read.knmi_download import get_knmi_weatherstations
+from .io._dawaco import Dawaco
+##from ._read.gpxtree import GpxTree
+##from ._read.hydromonitor import HydroMonitor
+from .io._waterweb import WaterWeb
 from ._read import filetools as _filetools
-from ._read.brorest import BroREST
-from ._read import brorest as _brorest
-from ._read.brogldxml import BroGldXml
-from ._read.brogmwxml import BroGmwXml
-from ._read.brogwseries import BroGwSeries
-from ._read.brogwcollection import BroGwCollection
-#from ._read.hydropandas import HydroPandasObsCollection
-from ._read import brodatatools
-from ._write.dinogwswriter import DinoGwsWriter
-from ._stats.utils import (
-    hydroyear as get_tshydroyear, 
-    season as get_tsseason, 
-    get_empty_ts1428, 
-    get_nearest_date,
-    get_ts1428 ,
-    measfrq as get_tsmeasfrq, 
-    maxfrq as get_tsmaxfrq,
-    )
-##from ._stats.utils import measfrq as get_tsmeasfrq, maxfrq as get_tsmaxfrq
-from ._stats.gwtimestats import GwTimeStats, gwtimestats as get_gwstats_basic
-from ._stats.gxg import GxgStats, stats_gxg as get_gwstats_gxg
-from ._stats.gwliststats import (GwListStats, 
-    gwliststats as get_gwliststats, gwlocstats as get_gwlocstats,
-    )
+from .io._brorest import BroREST
+#from .io._brogldxml import BroGldXml
+#from .io._brogmwxml import BroGmwXml
+from .io._brogwseries import BroGwSeries
+from .io._brogwcollection import BroGwCollection
+
+from ._stats.gwtimestats import GwTimeStats
+from ._stats.gxg import GxgStats
 from ._stats.quantiles import Quantiles
 from ._stats.meteo_drought import MeteoDrought
 

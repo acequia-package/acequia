@@ -1,0 +1,139 @@
+{
+  "locprops": {
+    "locname": "GMW000000069525",
+    "filname": "2",
+    "alias": "GMW28F000382",
+    "alias2": null,
+    "owner": null,
+    "observer": null,
+    "constructiondate": null,
+    "surfacestable": null,
+    "xcr": 259545.0,
+    "ycr": 490028.0,
+    "height_datum": "NAP",
+    "grid_reference": "RDNAPTRANS2018"
+  },
+  "tubeprops": {
+    "1": {
+      "startdate": "1993-01-14T11:00:00.000",
+      "mplevel": 20.21,
+      "filtop": 19.46,
+      "filbot": 19.26,
+      "surfacedate": null,
+      "surfacelevel": 20.23,
+      "series": "GMW28F000382_2"
+    }
+  },
+  "obs": {
+    "0": {
+      "headdatetime": "1993-01-14T11:00:00",
+      "headmp": 0.08,
+      "headnote": null,
+      "remarks": null
+    },
+    "1": {
+      "headdatetime": "1993-01-28T11:00:00",
+      "headmp": 0.01,
+      "headnote": null,
+      "remarks": null
+    },
+    "2": {
+      "headdatetime": "1993-02-15T11:00:00",
+      "headmp": 0.08,
+      "headnote": null,
+      "remarks": null
+    },
+    "3": {
+      "headdatetime": "1993-02-28T11:00:00",
+      "headmp": 0.08,
+      "headnote": null,
+      "remarks": null
+    },
+    "4": {
+      "headdatetime": "1993-03-14T11:00:00",
+      "headmp": 0.13,
+      "headnote": null,
+      "remarks": null
+    },
+    "5": {
+      "headdatetime": "1993-03-28T10:00:00",
+      "headmp": 0.2,
+      "headnote": null,
+      "remarks": null
+    },
+    "6": {
+      "headdatetime": "1993-04-14T10:00:00",
+      "headmp": 0.22,
+      "headnote": null,
+      "remarks": null
+    },
+    "7": {
+      "headdatetime": "1993-04-28T10:00:00",
+      "headmp": 0.22,
+      "headnote": null,
+      "remarks": null
+    },
+    "8": {
+      "headdatetime": "1993-05-14T10:00:00",
+      "headmp": 0.47,
+      "headnote": null,
+      "remarks": null
+    },
+    "9": {
+      "headdatetime": "1993-05-28T10:00:00",
+      "headmp": 0.21,
+      "headnote": null,
+      "remarks": null
+    },
+    "10": {
+      "headdatetime": "1993-06-14T10:00:00",
+      "headmp": 0.66,
+      "headnote": null,
+      "remarks": null
+    },
+    "11": {
+      "headdatetime": "1993-06-28T10:00:00",
+      "headmp": 0.81,
+      "headnote": null,
+      "remarks": null
+    },
+    "12": {
+      "headdatetime": "1993-07-14T10:00:00",
+      "headmp": 0.92,
+      "headnote": null,
+      "remarks": null
+    },
+    "13": {
+      "headdatetime": "1993-08-14T10:00:00",
+      "headmp": 0.05,
+      "headnote": null,
+      "remarks": null
+    },
+    "14": {
+      "headdatetime": "1993-08-28T10:00:00",
+      "headmp": 0.21,
+      "headnote": null,
+      "remarks": null
+    },
+    "15": {
+      "headdatetime": "1993-09-14T10:00:00",
+      "headmp": 0.16,
+      "headnote": null,
+      "remarks": null
+    },
+    "16": {
+      "headdatetime": "1993-09-28T11:00:00",
+      "headmp": 0.02,
+      "headnote": null,
+      "remarks": null
+    },
+    "17": {
+      "headdatetime": "1993-11-28T11:00:00",
+      "headmp": 0.05,
+      "headnote": null,
+      "remarks": null
+    }
+  },
+  "obscontrol": {},
+  "wellevents": {}
+}

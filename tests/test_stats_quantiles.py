@@ -11,8 +11,10 @@ from acequia import GwSeries
 
 @pytest.fixture
 def gw():
-    fpath = r'.\data\dinogws\B21A0138001_1.csv'
-    return GwSeries.from_dinogws(fpath)
+    #fpath = r'.\data\dinogws\B21A0138001_1.csv'
+    #return GwSeries.from_dinogws(fpath)
+    return GwSeries.from_json(r'.\data\json\GMW000000041484_1.json')
+
 
 
 @pytest.fixture

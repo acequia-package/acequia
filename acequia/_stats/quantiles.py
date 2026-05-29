@@ -27,9 +27,9 @@ class Quantiles:
 
         Parameters
         ----------
-        heads : pd.Series, 
+        ts : pd.Series, 
             Timeseries with groundwater head measurements.
-        srname : str
+        tsname : str
             User defined series name.
         headsref : {'datum','surface'}, default 'surface'
             Reference level for measurements.
@@ -38,12 +38,13 @@ class Quantiles:
             year.
         maxyear : int, optional
             Calculation of summary statistics is done including this year,
-            data from later years will be igrnored in symmary statistics.
+            data from later years will be igrnored in summary statistics.
             
         """
                
         if isinstance(ts, DataFrame):
-            ts = heads.iloc[:,0].squeeze()
+            raise InputError(f'Input series must be of type Series, not DataFrame.')
+            ##ts = heads.iloc[:,0].squeeze()
 
         self._tsoriginal = ts
         self.headsref = headsref
@@ -52,51 +53,43 @@ class Quantiles:
 
         if ts.empty:
             self._ts = ts
-        else:
-            self._ts = ts.resample('D').mean().dropna()
-
+        if not ts.empty:
+            ts = ts.resample('D').mean().dropna()
             if self.minyear is None:
                 self.minyear = ts.index.year.min()                
             if self.maxyear is None:
                 self.maxyear = ts.index.year.max()
 
-            # get mindate
-            apr1 = dt.datetime.strptime(f'{self.minyear}-04-01', '%Y-%m-%d')
-            if ts.index.min()<apr1:
-                # start apr1 in minyear
-                mindate = apr1
-            else:
-                # start apr 1 in minyear+1
-                mindate = dt.datetime.strptime(f'{self.minyear+1}-04-01', '%Y-%m-%d')
-
-            # get maxdate
-            apr1 = dt.datetime.strptime(f'{self.maxyear}-03-31', '%Y-%m-%d')
-            if ts.index.max()>apr1:
-                # stop apr1 in maxyear
-                maxdate = apr1
-            else:
-                # start apr 1 in maxyear-1
-                maxdate = dt.datetime.strptime(f'{self.maxyear-1}-03-31', '%Y-%m-%d')
-
             # select full hydrological years
-            self._ts = ts[mindate:maxdate].copy()
+            self._ts = self._select_hydrological_years(ts, self.minyear, self.maxyear)
 
 
     def __repr__(self):
         return f'{self.__class__.__name__}({self._ts.name})'
 
-    """
-    def _select_minmaxyear(self, data):
-        # select years if either self.minyear or self.maxyear is given
-        # else return all years
-        minyear = data.index.min()
-        maxyear = data.index.max()
-        if self.minyear:
-            minyear = self.minyear
-        if self.maxyear:
-            maxyear = self.maxyear
-        return data.loc[minyear:maxyear]
-    """
+
+    def _select_hydrological_years(self, ts, minyear, maxyear):
+        """Return timeseries starting at april 1st and ending at march 31."""
+
+        # get mindate
+        apr1 = dt.datetime.strptime(f'{minyear}-04-01', '%Y-%m-%d')
+        if ts.index.min()<apr1:
+            # start apr1 in minyear
+            mindate = apr1
+        else:
+            # start apr 1 in minyear+1
+            mindate = dt.datetime.strptime(f'{minyear+1}-04-01', '%Y-%m-%d')
+
+        # get maxdate
+        apr1 = dt.datetime.strptime(f'{maxyear}-03-31', '%Y-%m-%d')
+        if ts.index.max()>apr1:
+            # stop apr1 in maxyear
+            maxdate = apr1
+        else:
+            # start apr 1 in maxyear-1
+            maxdate = dt.datetime.strptime(f'{maxyear-1}-03-31', '%Y-%m-%d')
+
+        return ts[mindate:maxdate]
 
 
     def get_quantiles(self, unit='days', step=None):
@@ -161,15 +154,10 @@ class Quantiles:
                 quantiles[name] = grp.quantile(quantile)*100
                 quantiles[name] = quantiles[name].apply(
                     lambda x:math.floor(x) if not np.isnan(x) else x)
-                ##).round(0).astype(int)
-
-        # select years if either minyear or maxyear is given
-        #if (self.minyear is not None) | (self.maxyear is not None):
-        #    quantiles = self._select_minmaxyear(quantiles)
 
         return quantiles
 
-    def get_summary(self,unit='days',step=None, decimals=2):
+    def get_summary(self, unit='days', step=None, decimals=2):
         """Return table with summary of quantile statistics.
         
         Parameters
@@ -221,7 +209,7 @@ class Quantiles:
         Returns
         -------
         pandas.Series
-        ...
+                
         """
 
         def get_negative_days(sr):
@@ -267,7 +255,6 @@ class Quantiles:
             ], index = ['mean','min','max'],
             name='lowest')
         return sr
-
 
 
     def plot(self, unit='days', step=30, median=False, coloryears=None, 

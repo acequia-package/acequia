@@ -18,10 +18,9 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 from pandas import Series, DataFrame
-import pandas as pd
-import numpy as np
+import pandas as _pd
+import numpy as _np
 
-from .._read.dinogws import DinoGws
 from .._plots import plotheads as plotheadsmodule
 from .._stats.gxg import GxgStats
 from .._stats.gwtimestats import GwTimeStats
@@ -149,7 +148,9 @@ class GwSeries:
         if locprops is None:
             self._locprops = Series(index=self.LOCPROPS_NAMES,
                 dtype='object')
-        elif isinstance(locprops,pd.Series):
+            self._locprops['height_datum']='NAP'
+            self._locprops['grid_reference']='EPSG:28992'
+        elif isinstance(locprops,_pd.Series):
             self._locprops = locprops
         else:
             raise TypeError(f'locprops is not a pandas Series but '
@@ -158,28 +159,28 @@ class GwSeries:
         if tubeprops is None:
             self._tubeprops = DataFrame(columns=self.TUBEPROPS_NAMES,
                 dtype='object')
-        elif isinstance(tubeprops,pd.DataFrame):
+        elif isinstance(tubeprops,_pd.DataFrame):
             self._tubeprops = tubeprops
         else:
             raise TypeError(f'tubeprops is not a pandas DataFrame '
                 f'but {type(tubeprops)}')
 
         if heads is None: 
-            self._obs = pd.DataFrame(columns=self.HEADPROPS_NAMES,
+            self._obs = _pd.DataFrame(columns=self.HEADPROPS_NAMES,
                 dtype='float64') #Series()
             #self._obs_original = self._obs.copy()
-        elif isinstance(heads, pd.DataFrame):
+        elif isinstance(heads, _pd.DataFrame):
             self._obs = heads
             #self._obs_original = self._obs.copy()
         else:
             raise TypeError(f'heads is not a pandas DataFrame but {type(heads)}')
 
         if obscontrol is None:
-            self._obscontrol = pd.DataFrame(columns=self.HEADPROPS_NAMES,
+            self._obscontrol = _pd.DataFrame(columns=self.HEADPROPS_NAMES,
                     dtype='object')
-        elif isinstance(obscontrol, pd.DataFrame):
+        elif isinstance(obscontrol, _pd.DataFrame):
             if obscontrol.empty:
-                self._obscontrol = pd.DataFrame(columns=self.HEADPROPS_NAMES,
+                self._obscontrol = _pd.DataFrame(columns=self.HEADPROPS_NAMES,
                         dtype='object')
             else:
                 self._obscontrol = obscontrol
@@ -188,11 +189,11 @@ class GwSeries:
 
 
         if wellevents is None:
-            self._wellevents = pd.DataFrame(columns=self.WELLEVENTS_NAMES,
+            self._wellevents = _pd.DataFrame(columns=self.WELLEVENTS_NAMES,
                     dtype='object')
-        elif isinstance(wellevents, pd.DataFrame):
+        elif isinstance(wellevents, _pd.DataFrame):
             if wellevents.empty:
-                self._wellevents = pd.DataFrame(columns=self.WELLEVENTS_NAMES,
+                self._wellevents = _pd.DataFrame(columns=self.WELLEVENTS_NAMES,
                         dtype='object')
             else:
                 self._wellevents = wellevents
@@ -209,7 +210,6 @@ class GwSeries:
     @property
     def empty(self):
         return bool(
-            self._locprops.isnull().all() &
             self._tubeprops.empty &
             self._obs.empty &
             self._obscontrol.empty &
@@ -229,48 +229,6 @@ class GwSeries:
 
         return ref
 
-    @classmethod
-    def from_dinogws(cls,filepath):
-        """Read measured groundwater heads from dinoloket csv file."""
-
-        # create DinoGws object with groundwater level data
-        dn = DinoGws(filepath=filepath,readall=True)
-
-        # get location metadata
-        locprops = Series(index=cls.LOCPROPS_NAMES, dtype='object')
-
-        for propname in cls.LOCPROPS_NAMES:
-            dinoprop = DinoGws.MAPPING_DINOLOCPROPS[propname]
-            if pd.isnull(dinoprop):
-                continue
-            if dinoprop in DinoGws.FILTERCOLS:
-                locprops[propname] = dn.header.at[0,dinoprop]
-
-        locprops['grid_reference'] = 'RD'
-        locprops['height_datum'] = 'mNAP'
-        locprops = Series(locprops)
-
-        # get piezometer metadata
-        tubeprops = DataFrame(columns=cls.TUBEPROPS_NAMES)
-        for prop in cls.TUBEPROPS_NAMES:
-            dinoprop = DinoGws.MAPPING_DINOTUBEPROPS[prop]
-            if dinoprop in DinoGws.FILTERCOLS:
-                tubeprops[prop] = dn.header[dinoprop]
-
-        for col in cls.TUBEPROPS_NUMCOLS:
-                tubeprops[col] = pd.to_numeric(
-                    tubeprops[col], errors='coerce')/100.
-
-        # get head measurements
-        heads = DataFrame(columns=cls.HEADPROPS_NAMES)
-        for prop in cls.HEADPROPS_NAMES:
-            dinoprop = DinoGws.MAPPING_DINOHEADPROPS[prop]
-            if dinoprop in DinoGws.HEADCOLS:
-                heads[prop] = dn.headdata[dinoprop]
-        heads['headmp'] = heads['headmp']/100.
-
-        return cls(heads=heads, locprops=locprops, tubeprops=tubeprops)
-
 
     @classmethod
     def from_json(cls,filepath=None):
@@ -289,17 +247,17 @@ class GwSeries:
         tubeprops = DataFrame.from_dict(
             json_dict['tubeprops'], orient='index')
         tubeprops.name = 'tubeprops'
-        tubeprops['startdate'] = pd.to_datetime(tubeprops['startdate'])
+        tubeprops['startdate'] = _pd.to_datetime(tubeprops['startdate'], format='ISO8601') #'Y-m-dT%H:%M:%S') ##''%d-%m-%Y')
 
         # obs
         obs = DataFrame.from_dict(json_dict['obs'],orient='index')
         if not obs.empty:
-            obs['headdatetime'] = pd.to_datetime(obs['headdatetime'])
+            obs['headdatetime'] = _pd.to_datetime(obs['headdatetime'])
 
         # obscontrol
         obscontrol = DataFrame.from_dict(json_dict['obscontrol'],orient='index')
         if not obscontrol.empty:
-            obscontrol['headdatetime'] = pd.to_datetime(obscontrol['headdatetime'])
+            obscontrol['headdatetime'] = _pd.to_datetime(obscontrol['headdatetime'])
 
         # wellevents
         wellevents = DataFrame.from_dict(json_dict['wellevents'],orient='index')
@@ -431,10 +389,12 @@ class GwSeries:
         """ Return groundwater series name """
         location = str(self._locprops['locname'])
         tube = self.tube()
-        return location+'_'+tube
+        return f'{location}_{tube}'
 
 
     def tube(self):
+        if _pd.isnull(self._locprops['filname']):
+            return _np.nan
         return str(self._locprops['filname'])
 
 
@@ -444,15 +404,30 @@ class GwSeries:
 
     def locname(self):
         """Return series location name"""
+
         return self._locprops['locname']
 
 
-    def locprops(self):
-        """Return location properties as pd.DataFrame."""
-        locprops = self._locprops
-        locprops = locprops.drop('filname')
-        locprops = DataFrame(locprops).T.set_index('locname')
-        return locprops
+    def locprops(self, as_dataframe=True):
+        """Return location properties as pd.DataFrame.
+        
+        Parameters
+        ---------
+        as_dataframe : bool, default True
+            Return locprops as dataframe with index locname (True),
+            else return series.
+
+        Returns
+        -------
+        DataFrame | Series
+            
+        """
+        if as_dataframe:
+            locprops = self._locprops
+            locprops = locprops.drop('filname')
+            locprops = DataFrame(locprops).T.set_index('locname')
+            return locprops
+        return self._locprops
 
 
     def tubeprops(self, last=False, minimal=False):
@@ -472,7 +447,7 @@ class GwSeries:
         pd.DataFrame
         """
         tps = DataFrame(self._tubeprops[self.TUBEPROPS_NAMES]).copy()
-        tps['startdate'].apply(pd.to_datetime, errors='coerce')
+        tps['startdate'].apply(_pd.to_datetime, dayfirst=True, errors='coerce')
 
         if minimal:
             tps = tps[self.TUBEPROPS_MINIMAL]
@@ -489,12 +464,14 @@ class GwSeries:
         """Return last known surface level"""
         surf = self._tubeprops['surfacelevel'].iat[-1]
         if surf is None:
-            surf = np.nan
+            surf = _np.nan
         return float(surf)
+
 
     def obs(self):
         """Return head observations withj notes and remarks."""
         return self._obs
+
 
     def heads(self, ref='datum', freq=None):
         """ 
@@ -533,21 +510,18 @@ class GwSeries:
         'A' : year end frequency
         'AS': year start frequency
         """
-        if not ref:
-            ref = 'datum'
-
         if ref not in self.REFLEVELS:
-            msg = f'{ref} is not a valid reference level name'
-            raise ValueError(msg)
+            raise ValueError(f'{ref} is not a valid reference level name')
 
         if self._obs.empty:
             return Series(name=self.name())
 
         # create heads timeseries from observations
-        heads = self._obs[['headdatetime','headmp']]
+        """
+        heads = self.obs()[['headdatetime','headmp']]
         heads = heads.set_index('headdatetime', drop=True).squeeze(axis='columns')
-        pd.set_option('future.no_silent_downcasting', True) # silence futurewarning
-        heads = heads.fillna(value=np.nan)
+        _pd.set_option('future.no_silent_downcasting', True) # silence futurewarning
+        heads = heads.fillna(value=_np.nan)
         heads.name = self.name()
 
         if ref in ['datum','surface']:
@@ -556,37 +530,65 @@ class GwSeries:
             srvals = headscopy.values.flatten()
             #srvals2 = headscopy.values.flatten()
             
-            for index,props in self._tubeprops.iterrows():
+            for index, props in self.tubeprops().iterrows():
 
                 mask = heads.index>=props['startdate']
                 if ref=='datum':
 
-                    if not pd.api.types.is_number(props['mplevel']):
-                        msg = f'{self.name()} tubeprops mplevel is None.'
-                        #warnings.warn(msg)
-                        mp = np.nan
-                    else:
+                    # get mplevel
+                    if _pd.api.types.is_number(props['mplevel']):
                         mp = props['mplevel']
+                    else:
+                        warnings.warn((f"{self.name()} mplevel is not numeric."))
+                        mp = _np.nan
 
-                    srvals2 = np.where(mask, mp-srvals, srvals)
+                    # head relative to reference level
+                    srvals2 = _np.where(mask, mp-srvals, srvals)
 
-                elif ref=='surface':
-                    if not pd.isnull(props['surfacelevel']):
+                if ref=='surface':
+                    if not _pd.isnull(props['surfacelevel']):
                         surfref = round(props['mplevel']-props['surfacelevel'],2)
-                        srvals2 = np.where(mask, srvals-surfref, srvals)
-
+                        srvals2 = _np.where(mask, srvals-surfref, srvals)
                     else:
                         #warnings.warn((f'{self.name()} surface level is None'))
-                        srvals2 = np.where(mask, srvals, srvals)
+                        srvals2 = _np.where(mask, srvals, srvals)
 
-            heads = Series(srvals2,index=heads.index)
+            heads = Series(srvals2, index=heads.index)
             heads.name = self.name()
+            """
+        # series of heads relative to mp
+        headsmp=self.obs()[['headdatetime','headmp']].set_index('headdatetime').squeeze()
+        if ref=='mp':
+            heads = headsmp.copy()
+
+        if ref in ['datum','surface']:
+            tp = self.tubeprops()
+
+            # get mplevel for each measurement date
+            mp = _pd.Series(index=self.obs()['headdatetime'].values)
+            for idx in tp.index.values:
+                mp.loc[mp.index>=tp.loc[idx, 'startdate']] = tp.loc[idx, 'mplevel']
+
+            # get surface  for each measurement date
+            surf = _pd.Series(index=self.obs()['headdatetime'].values)
+            for idx in tp.index.values:
+                surf.loc[surf.index>=tp.loc[idx, 'startdate']] = tp.loc[idx, 'surfacelevel']
+
+            # get heads relative to choosen reference
+            headsref = mp-headsmp
+            headsurf = surf-headsref
+            if ref=='datum':
+                heads = headsref.copy()
+            if ref=='surface':
+                heads = surf-headsref
 
         if freq is not None:
             heads = heads.resample(freq).mean()
             heads.index = heads.index.tz_localize(None)
+            heads = heads.dropna()
 
-        return heads.dropna()
+        heads.name = self.name()
+        return heads
 
 
     def get_headnotes(self, kind='all'):
@@ -679,7 +681,7 @@ class GwSeries:
         if gxg==True:
             gxg = self.gxg(ref=self._ref,minimal=minimal)
             srlist.append(gxg)
-        sr = pd.concat(srlist,axis=0)
+        sr = _pd.concat(srlist,axis=0)
         sr.name = self.name()
 
         # adjust when reflevel==surface
@@ -693,7 +695,7 @@ class GwSeries:
 
             for key in ['filbot','mean','median','q05','q95',
                 'dq0595','n1428']:
-                if not np.isnan(sr[key]):
+                if not _np.isnan(sr[key]):
                     sr[key] = math.floor(sr[key])
 
         return sr
@@ -723,12 +725,12 @@ class GwSeries:
 
         # create list of dates
         from_dates = sr.index.values[:]
-        to_dates = sr.index.values[1:] - np.timedelta64(1,'D')
+        to_dates = sr.index.values[1:] - _np.timedelta64(1,'D')
         lastdate = self._obs['headdatetime'].values[-1]
-        to_dates = np.append(to_dates, lastdate)
+        to_dates = _np.append(to_dates, lastdate)
         dates = [item for sublist in zip(from_dates, to_dates) for item in sublist]
 
-        values = np.repeat(sr.values, 2)
+        values = _np.repeat(sr.values, 2)
         changes = Series(values, index=dates)
 
         if relative:
@@ -800,6 +802,10 @@ class GwSeries:
             surface=self.surface(), minyear=minyear, maxyear=maxyear)
         gxg = self._gxg.gxg(reference=ref, validation=validation, 
             maxlag=maxlag, minimal=minimal)
+
+        gxg['xcr'] = self.locprops(as_dataframe=False)['xcr']
+        gxg['ycr'] = self.locprops(as_dataframe=False)['ycr']
+
         return gxg
 
 
@@ -852,7 +858,7 @@ class GwSeries:
                     minyear = xg.index.get_level_values(1).min()
                 if maxyear is None:
                     maxyear = xg.index.get_level_values(1).max()
-                idx = pd.IndexSlice
+                idx = _pd.IndexSlice
                 xg = xg.loc[idx[:,minyear:maxyear],:].copy()
             else: # index is year only
                 if minyear is None:

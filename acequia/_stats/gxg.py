@@ -973,27 +973,27 @@ class GxgStats:
                 continue
             if rowname.startswith('hg3_'):
                 gxg = gxg.rename(
-                    index={rowname:f'ghg_{rowname.split('_',1)[1]}'})
+                    index={rowname:f'ghg_{rowname.split("_",1)[1]}'})
             if rowname.startswith('vg3_'):
                 gxg = gxg.rename(
-                    index={rowname:f'gvg_{rowname.split('_',1)[1]}'})
+                    index={rowname:f'gvg_{rowname.split("_",1)[1]}'})
             if rowname.startswith('lg3_'):
                 gxg = gxg.rename(
-                    index={rowname:f'glg_{rowname.split('_',1)[1]}'})
+                    index={rowname:f'glg_{rowname.split("_",1)[1]}'})
             if rowname.startswith('vg1'):
                 gxg = gxg.rename(
-                    index={rowname:f'gvg_{rowname.split('_',1)[1]}'})
+                    index={rowname:f'gvg_{rowname.split("_",1)[1]}'})
             if rowname.startswith('hg3w_'):
                 gxg = gxg.rename(
-                    index={rowname:f'ghgw_{rowname.split('_',1)[1]}'})
+                    index={rowname:f'ghgw_{rowname.split("_",1)[1]}'})
             if rowname.startswith('lg3s_'):
                 gxg = gxg.rename(
-                    index={rowname:f'glgs_{rowname.split('_',1)[1]}'})
+                    index={rowname:f'glgs_{rowname.split("_",1)[1]}'})
 
         for rowname in gxg.index:
             if rowname.endswith('mean'):
                 gxg = gxg.rename(
-                    index={rowname:f'{rowname.rsplit('_',1)[0]}'})
+                    index={rowname:f'{rowname.rsplit("_",1)[0]}'})
 
         if minimal:
             rowlabels = ['gt','ghg', 'gvg', 'glg', #'gvg_apr1', 

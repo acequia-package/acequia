@@ -7,50 +7,52 @@ import pandas as pd
 from acequia import GwFiles, GwSeries
 import acequia as aq
 
-dinodir = '.\\data\\dinogws\\'
-jsondir = '.\\output\\json\\'
-csvdir = '.\\output\\csv\\'
+dino_sourcedir = '.\\data\\dinogws\\'
+json_sourcedir = r'.\data\json\\'
+
+json_outdir = '.\\output\\json\\'
+csv_outdir = '.\\output\\csv\\'
 
 @pytest.fixture
 def gwf():
-    return GwFiles.from_dinocsv(dinodir)
-
+    #return GwFiles.from_dinocsv(dinodir)
+    return GwFiles.from_json(json_sourcedir)
 
 @pytest.fixture
 def gwf_dinocsv():
-    return GwFiles.from_dinocsv(dinodir)
+    return GwFiles.from_dinocsv(dino_sourcedir)
 
 @pytest.fixture
 def gwf_json():
-    return GwFiles.from_json(jsondir)
+    return GwFiles.from_json(json_sourcedir)
 
 # test constructors
 # -----------------
 
 def test_from_dinocsv_with_only_filedir():
-    gwf = GwFiles.from_dinocsv(dinodir)
-    assert isinstance(gwf.filetable,DataFrame)
+    gwf = GwFiles.from_dinocsv(dino_sourcedir)
+    assert isinstance(gwf.filetable, DataFrame)
     assert not gwf.filetable.empty
 
-def test_from_dinocsv_with_loclist(gwf):
-    loclist = gwf.filetable['loc'].values
+def test_from_dinocsv_with_loclist(gwf_dinocsv):
+    loclist = gwf_dinocsv.filetable['loc'].values
 
-    gwf2 = GwFiles.from_dinocsv(dinodir,loclist=loclist)
-    assert isinstance(gwf2.filetable,DataFrame)
+    gwf2 = GwFiles.from_dinocsv(dino_sourcedir, loclist=loclist)
+    assert isinstance(gwf2.filetable, DataFrame)
     assert len(gwf2.filetable)!=0
 
 def test_from_json_with_only_filedir():
 
-    gwf = GwFiles.from_json(jsondir)
+    gwf = GwFiles.from_json(json_sourcedir)
     assert isinstance(gwf.filetable,DataFrame)
     assert not gwf.filetable.empty
 
 def test_from_json_with_loclist(gwf):
 
-    loclist = gwf.filetable['loc'].values ##[:listlen]
+    loclist = gwf.filetable['loc'].values
 
-    gwf2 = GwFiles.from_json(jsondir,loclist=loclist)
-    assert isinstance(gwf2.filetable,DataFrame)
+    gwf2 = GwFiles.from_json(json_sourcedir, loclist=loclist)
+    assert isinstance(gwf2.filetable, DataFrame)
     assert len(gwf2.filetable)!=0
 
 def test_init_with_invalid_input():
@@ -105,7 +107,7 @@ def test_iteritems(gwf, request):
 @pytest.mark.parametrize('gwf', [gwf_dinocsv, gwf_json])
 def test_to_json(gwf, request):
     gwf = request.getfixturevalue(gwf.__name__)
-    jsn = gwf.to_json(jsondir)
+    jsn = gwf.to_json(json_outdir)
     assert isinstance(jsn,list)
     assert isinstance(jsn[0],collections.OrderedDict)
 
@@ -113,7 +115,7 @@ def test_to_json(gwf, request):
 @pytest.mark.parametrize('gwf', [gwf_dinocsv]) #, gwf_json])
 def test_to_csv(gwf, request):
     gwf = request.getfixturevalue(gwf.__name__)
-    csv = gwf.to_csv(csvdir)
+    csv = gwf.to_csv(csv_outdir)
     assert isinstance(csv,list)
     assert isinstance(csv[0],pd.Series)
 

@@ -1,0 +1,2911 @@
+{
+  "locprops": {
+    "locname": "GMW000000069522",
+    "filname": "1",
+    "alias": "GMW28F000381",
+    "alias2": null,
+    "owner": null,
+    "observer": null,
+    "constructiondate": null,
+    "surfacestable": null,
+    "xcr": 259633.0,
+    "ycr": 490006.0,
+    "height_datum": "NAP",
+    "grid_reference": "RDNAPTRANS2018"
+  },
+  "tubeprops": {
+    "1": {
+      "startdate": "1993-01-14T11:00:00.000",
+      "mplevel": 20.36,
+      "filtop": 20.06,
+      "filbot": 19.96,
+      "surfacedate": null,
+      "surfacelevel": 20.33,
+      "series": "GMW28F000381_1"
+    }
+  },
+  "obs": {
+    "0": {
+      "headdatetime": "1993-01-14T11:00:00",
+      "headmp": 0.2,
+      "headnote": null,
+      "remarks": null
+    },
+    "1": {
+      "headdatetime": "1993-01-28T11:00:00",
+      "headmp": 0.08,
+      "headnote": null,
+      "remarks": null
+    },
+    "2": {
+      "headdatetime": "1993-02-15T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "3": {
+      "headdatetime": "1993-02-28T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "4": {
+      "headdatetime": "1993-03-14T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "5": {
+      "headdatetime": "1993-03-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "6": {
+      "headdatetime": "1993-04-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "7": {
+      "headdatetime": "1993-04-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "8": {
+      "headdatetime": "1993-05-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "9": {
+      "headdatetime": "1993-05-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "10": {
+      "headdatetime": "1993-06-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "11": {
+      "headdatetime": "1993-06-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "12": {
+      "headdatetime": "1993-07-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "13": {
+      "headdatetime": "1993-08-14T10:00:00",
+      "headmp": 0.1,
+      "headnote": null,
+      "remarks": null
+    },
+    "14": {
+      "headdatetime": "1993-08-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "15": {
+      "headdatetime": "1993-09-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "16": {
+      "headdatetime": "1993-09-28T11:00:00",
+      "headmp": 0.11,
+      "headnote": null,
+      "remarks": null
+    },
+    "17": {
+      "headdatetime": "1993-10-28T11:00:00",
+      "headmp": 0.3,
+      "headnote": null,
+      "remarks": null
+    },
+    "18": {
+      "headdatetime": "1993-11-14T11:00:00",
+      "headmp": 0.09,
+      "headnote": null,
+      "remarks": null
+    },
+    "19": {
+      "headdatetime": "1993-11-28T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "20": {
+      "headdatetime": "1993-12-14T11:00:00",
+      "headmp": 0.0,
+      "headnote": null,
+      "remarks": null
+    },
+    "21": {
+      "headdatetime": "1993-12-28T11:00:00",
+      "headmp": 0.1,
+      "headnote": null,
+      "remarks": null
+    },
+    "22": {
+      "headdatetime": "1994-01-14T11:00:00",
+      "headmp": 0.05,
+      "headnote": null,
+      "remarks": null
+    },
+    "23": {
+      "headdatetime": "1994-02-14T11:00:00",
+      "headmp": 0.28,
+      "headnote": null,
+      "remarks": null
+    },
+    "24": {
+      "headdatetime": "1994-02-28T11:00:00",
+      "headmp": 0.28,
+      "headnote": null,
+      "remarks": null
+    },
+    "25": {
+      "headdatetime": "1994-03-14T11:00:00",
+      "headmp": 0.18,
+      "headnote": null,
+      "remarks": null
+    },
+    "26": {
+      "headdatetime": "1994-03-28T10:00:00",
+      "headmp": 0.05,
+      "headnote": null,
+      "remarks": null
+    },
+    "27": {
+      "headdatetime": "1994-04-14T10:00:00",
+      "headmp": 0.13,
+      "headnote": null,
+      "remarks": null
+    },
+    "28": {
+      "headdatetime": "1994-04-28T10:00:00",
+      "headmp": 0.29,
+      "headnote": null,
+      "remarks": null
+    },
+    "29": {
+      "headdatetime": "1994-05-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "30": {
+      "headdatetime": "1994-05-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "31": {
+      "headdatetime": "1994-06-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "32": {
+      "headdatetime": "1994-06-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "33": {
+      "headdatetime": "1994-07-14T10:00:00",
+      "headmp": 0.35,
+      "headnote": null,
+      "remarks": null
+    },
+    "34": {
+      "headdatetime": "1994-07-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "35": {
+      "headdatetime": "1994-08-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "36": {
+      "headdatetime": "1994-08-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "37": {
+      "headdatetime": "1994-09-28T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "38": {
+      "headdatetime": "1994-10-14T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "39": {
+      "headdatetime": "1994-10-28T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "40": {
+      "headdatetime": "1994-11-14T11:00:00",
+      "headmp": 0.34,
+      "headnote": null,
+      "remarks": null
+    },
+    "41": {
+      "headdatetime": "1994-11-28T11:00:00",
+      "headmp": 0.3,
+      "headnote": null,
+      "remarks": null
+    },
+    "42": {
+      "headdatetime": "1994-12-14T11:00:00",
+      "headmp": 0.22,
+      "headnote": null,
+      "remarks": null
+    },
+    "43": {
+      "headdatetime": "1994-12-28T11:00:00",
+      "headmp": 0.01,
+      "headnote": null,
+      "remarks": null
+    },
+    "44": {
+      "headdatetime": "1995-01-14T11:00:00",
+      "headmp": 0.17,
+      "headnote": null,
+      "remarks": null
+    },
+    "45": {
+      "headdatetime": "1995-01-28T11:00:00",
+      "headmp": 0.03,
+      "headnote": null,
+      "remarks": null
+    },
+    "46": {
+      "headdatetime": "1995-02-14T11:00:00",
+      "headmp": 0.01,
+      "headnote": null,
+      "remarks": null
+    },
+    "47": {
+      "headdatetime": "1995-02-28T11:00:00",
+      "headmp": 0.23,
+      "headnote": null,
+      "remarks": null
+    },
+    "48": {
+      "headdatetime": "1995-03-14T11:00:00",
+      "headmp": 0.3,
+      "headnote": null,
+      "remarks": null
+    },
+    "49": {
+      "headdatetime": "1995-03-28T10:00:00",
+      "headmp": 0.03,
+      "headnote": null,
+      "remarks": null
+    },
+    "50": {
+      "headdatetime": "1995-04-14T10:00:00",
+      "headmp": 0.34,
+      "headnote": null,
+      "remarks": null
+    },
+    "51": {
+      "headdatetime": "1995-04-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "52": {
+      "headdatetime": "1995-05-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "53": {
+      "headdatetime": "1995-05-28T10:00:00",
+      "headmp": 0.32,
+      "headnote": null,
+      "remarks": null
+    },
+    "54": {
+      "headdatetime": "1995-06-14T10:00:00",
+      "headmp": 0.34,
+      "headnote": null,
+      "remarks": null
+    },
+    "55": {
+      "headdatetime": "1995-06-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "56": {
+      "headdatetime": "1995-07-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "57": {
+      "headdatetime": "1995-08-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "58": {
+      "headdatetime": "1995-08-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "59": {
+      "headdatetime": "1995-09-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "60": {
+      "headdatetime": "1995-09-28T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "61": {
+      "headdatetime": "1995-10-14T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "62": {
+      "headdatetime": "1995-10-28T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "63": {
+      "headdatetime": "1995-11-14T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "64": {
+      "headdatetime": "1995-11-28T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "65": {
+      "headdatetime": "1995-12-14T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "66": {
+      "headdatetime": "1995-12-28T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "67": {
+      "headdatetime": "1996-01-14T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "68": {
+      "headdatetime": "1996-01-28T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "69": {
+      "headdatetime": "1996-02-14T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "70": {
+      "headdatetime": "1996-03-28T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "71": {
+      "headdatetime": "1996-05-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "72": {
+      "headdatetime": "1996-06-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "73": {
+      "headdatetime": "1996-06-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "74": {
+      "headdatetime": "1996-08-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "75": {
+      "headdatetime": "1996-09-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "76": {
+      "headdatetime": "1996-09-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "77": {
+      "headdatetime": "1996-10-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "78": {
+      "headdatetime": "1996-10-28T11:00:00",
+      "headmp": 0.2,
+      "headnote": null,
+      "remarks": null
+    },
+    "79": {
+      "headdatetime": "1996-11-14T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "80": {
+      "headdatetime": "1996-11-28T11:00:00",
+      "headmp": 0.28,
+      "headnote": null,
+      "remarks": null
+    },
+    "81": {
+      "headdatetime": "1996-12-14T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "82": {
+      "headdatetime": "1996-12-28T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "83": {
+      "headdatetime": "1997-01-14T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "84": {
+      "headdatetime": "1997-01-28T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "85": {
+      "headdatetime": "1997-02-14T11:00:00",
+      "headmp": 0.03,
+      "headnote": null,
+      "remarks": null
+    },
+    "86": {
+      "headdatetime": "1997-02-28T11:00:00",
+      "headmp": 0.05,
+      "headnote": null,
+      "remarks": null
+    },
+    "87": {
+      "headdatetime": "1997-03-14T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "88": {
+      "headdatetime": "1997-03-28T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "89": {
+      "headdatetime": "1997-04-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "90": {
+      "headdatetime": "1997-04-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "91": {
+      "headdatetime": "1997-05-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "92": {
+      "headdatetime": "1997-05-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "93": {
+      "headdatetime": "1997-06-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "94": {
+      "headdatetime": "1997-07-14T10:00:00",
+      "headmp": 0.27,
+      "headnote": null,
+      "remarks": null
+    },
+    "95": {
+      "headdatetime": "1997-07-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "96": {
+      "headdatetime": "1997-08-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "97": {
+      "headdatetime": "1997-08-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "98": {
+      "headdatetime": "1997-09-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "99": {
+      "headdatetime": "1997-09-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "100": {
+      "headdatetime": "1997-10-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "101": {
+      "headdatetime": "1997-10-28T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "102": {
+      "headdatetime": "1997-11-14T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "103": {
+      "headdatetime": "1997-11-28T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "104": {
+      "headdatetime": "1997-12-14T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "105": {
+      "headdatetime": "1997-12-28T11:00:00",
+      "headmp": 0.12,
+      "headnote": null,
+      "remarks": null
+    },
+    "106": {
+      "headdatetime": "1998-01-14T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "107": {
+      "headdatetime": "1998-01-28T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "108": {
+      "headdatetime": "1998-02-14T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "109": {
+      "headdatetime": "1998-02-28T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "110": {
+      "headdatetime": "1998-03-14T11:00:00",
+      "headmp": 0.33,
+      "headnote": null,
+      "remarks": null
+    },
+    "111": {
+      "headdatetime": "1998-03-28T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "112": {
+      "headdatetime": "1998-04-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "113": {
+      "headdatetime": "1998-04-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "114": {
+      "headdatetime": "1998-05-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "115": {
+      "headdatetime": "1998-05-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "116": {
+      "headdatetime": "1998-06-14T10:00:00",
+      "headmp": 0.12,
+      "headnote": null,
+      "remarks": null
+    },
+    "117": {
+      "headdatetime": "1998-06-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "118": {
+      "headdatetime": "1998-07-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "119": {
+      "headdatetime": "1998-07-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "120": {
+      "headdatetime": "1998-08-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "121": {
+      "headdatetime": "1998-08-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "122": {
+      "headdatetime": "1998-09-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "123": {
+      "headdatetime": "1998-10-14T10:00:00",
+      "headmp": 0.06,
+      "headnote": null,
+      "remarks": null
+    },
+    "124": {
+      "headdatetime": "1998-11-14T11:00:00",
+      "headmp": 0.09,
+      "headnote": null,
+      "remarks": null
+    },
+    "125": {
+      "headdatetime": "1998-12-14T11:00:00",
+      "headmp": 0.23,
+      "headnote": null,
+      "remarks": null
+    },
+    "126": {
+      "headdatetime": "1999-01-31T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "127": {
+      "headdatetime": "1999-02-22T11:00:00",
+      "headmp": 0.21,
+      "headnote": null,
+      "remarks": null
+    },
+    "128": {
+      "headdatetime": "1999-03-08T11:00:00",
+      "headmp": 0.31,
+      "headnote": null,
+      "remarks": null
+    },
+    "129": {
+      "headdatetime": "1999-03-22T11:00:00",
+      "headmp": 0.16,
+      "headnote": null,
+      "remarks": null
+    },
+    "130": {
+      "headdatetime": "1999-04-06T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "131": {
+      "headdatetime": "1999-04-20T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "132": {
+      "headdatetime": "1999-05-07T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "133": {
+      "headdatetime": "1999-05-21T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "134": {
+      "headdatetime": "1999-06-07T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "135": {
+      "headdatetime": "1999-06-21T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "136": {
+      "headdatetime": "1999-07-06T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "137": {
+      "headdatetime": "1999-07-20T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "138": {
+      "headdatetime": "1999-08-09T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "139": {
+      "headdatetime": "1999-08-23T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "140": {
+      "headdatetime": "1999-09-07T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "141": {
+      "headdatetime": "1999-09-21T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "142": {
+      "headdatetime": "1999-10-07T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "143": {
+      "headdatetime": "1999-10-20T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "144": {
+      "headdatetime": "1999-11-08T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "145": {
+      "headdatetime": "1999-11-22T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "146": {
+      "headdatetime": "1999-12-07T11:00:00",
+      "headmp": 0.12,
+      "headnote": null,
+      "remarks": null
+    },
+    "147": {
+      "headdatetime": "1999-12-20T11:00:00",
+      "headmp": 0.33,
+      "headnote": null,
+      "remarks": null
+    },
+    "148": {
+      "headdatetime": "2000-01-21T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "149": {
+      "headdatetime": "2000-02-07T11:00:00",
+      "headmp": 0.2,
+      "headnote": null,
+      "remarks": null
+    },
+    "150": {
+      "headdatetime": "2000-02-21T11:00:00",
+      "headmp": 0.18,
+      "headnote": null,
+      "remarks": null
+    },
+    "151": {
+      "headdatetime": "2000-03-06T11:00:00",
+      "headmp": 0.16,
+      "headnote": null,
+      "remarks": null
+    },
+    "152": {
+      "headdatetime": "2000-03-20T11:00:00",
+      "headmp": 0.37,
+      "headnote": null,
+      "remarks": null
+    },
+    "153": {
+      "headdatetime": "2000-04-07T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "154": {
+      "headdatetime": "2000-04-21T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "155": {
+      "headdatetime": "2000-05-08T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "156": {
+      "headdatetime": "2000-05-22T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "157": {
+      "headdatetime": "2000-06-06T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "158": {
+      "headdatetime": "2000-06-20T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "159": {
+      "headdatetime": "2000-07-07T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "160": {
+      "headdatetime": "2000-07-21T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "161": {
+      "headdatetime": "2000-08-07T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "162": {
+      "headdatetime": "2000-08-21T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "163": {
+      "headdatetime": "2000-09-07T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "164": {
+      "headdatetime": "2000-09-21T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "165": {
+      "headdatetime": "2000-10-06T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "166": {
+      "headdatetime": "2000-10-20T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "167": {
+      "headdatetime": "2000-11-06T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "168": {
+      "headdatetime": "2000-11-20T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "169": {
+      "headdatetime": "2000-12-07T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "170": {
+      "headdatetime": "2000-12-28T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "171": {
+      "headdatetime": "2001-01-08T11:00:00",
+      "headmp": 0.12,
+      "headnote": null,
+      "remarks": null
+    },
+    "172": {
+      "headdatetime": "2001-01-22T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "173": {
+      "headdatetime": "2001-02-20T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "174": {
+      "headdatetime": "2001-03-06T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "175": {
+      "headdatetime": "2001-03-21T11:00:00",
+      "headmp": 0.27,
+      "headnote": null,
+      "remarks": null
+    },
+    "176": {
+      "headdatetime": "2001-04-09T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "177": {
+      "headdatetime": "2001-04-23T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "178": {
+      "headdatetime": "2001-05-07T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "179": {
+      "headdatetime": "2001-05-21T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "180": {
+      "headdatetime": "2001-06-06T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "181": {
+      "headdatetime": "2001-06-21T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "182": {
+      "headdatetime": "2001-07-09T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "183": {
+      "headdatetime": "2001-07-23T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "184": {
+      "headdatetime": "2001-08-06T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "185": {
+      "headdatetime": "2001-08-20T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "186": {
+      "headdatetime": "2001-09-07T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "187": {
+      "headdatetime": "2001-09-21T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "188": {
+      "headdatetime": "2001-10-09T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "189": {
+      "headdatetime": "2001-10-22T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "190": {
+      "headdatetime": "2001-11-05T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "191": {
+      "headdatetime": "2001-11-20T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "192": {
+      "headdatetime": "2001-12-07T11:00:00",
+      "headmp": 0.22,
+      "headnote": null,
+      "remarks": null
+    },
+    "193": {
+      "headdatetime": "2001-12-21T11:00:00",
+      "headmp": 0.26,
+      "headnote": null,
+      "remarks": null
+    },
+    "194": {
+      "headdatetime": "2002-01-08T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "195": {
+      "headdatetime": "2002-01-22T11:00:00",
+      "headmp": 0.32,
+      "headnote": null,
+      "remarks": null
+    },
+    "196": {
+      "headdatetime": "2002-02-04T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "197": {
+      "headdatetime": "2002-02-19T11:00:00",
+      "headmp": 0.4,
+      "headnote": null,
+      "remarks": null
+    },
+    "198": {
+      "headdatetime": "2002-03-06T11:00:00",
+      "headmp": 0.4,
+      "headnote": null,
+      "remarks": null
+    },
+    "199": {
+      "headdatetime": "2002-03-21T11:00:00",
+      "headmp": 0.29,
+      "headnote": null,
+      "remarks": null
+    },
+    "200": {
+      "headdatetime": "2002-04-08T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "201": {
+      "headdatetime": "2002-04-22T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "202": {
+      "headdatetime": "2002-05-07T10:00:00",
+      "headmp": 0.06,
+      "headnote": null,
+      "remarks": null
+    },
+    "203": {
+      "headdatetime": "2002-05-21T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "204": {
+      "headdatetime": "2002-06-10T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "205": {
+      "headdatetime": "2002-06-24T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "206": {
+      "headdatetime": "2002-07-08T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "207": {
+      "headdatetime": "2002-07-22T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "208": {
+      "headdatetime": "2002-08-05T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "209": {
+      "headdatetime": "2002-08-20T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "210": {
+      "headdatetime": "2002-09-06T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "211": {
+      "headdatetime": "2002-10-01T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "212": {
+      "headdatetime": "2002-10-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "213": {
+      "headdatetime": "2002-10-28T11:00:00",
+      "headmp": 0.1,
+      "headnote": null,
+      "remarks": null
+    },
+    "214": {
+      "headdatetime": "2002-11-15T11:00:00",
+      "headmp": 0.38,
+      "headnote": null,
+      "remarks": null
+    },
+    "215": {
+      "headdatetime": "2002-11-28T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "216": {
+      "headdatetime": "2002-12-13T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "217": {
+      "headdatetime": "2002-12-30T11:00:00",
+      "headmp": 0.0,
+      "headnote": null,
+      "remarks": null
+    },
+    "218": {
+      "headdatetime": "2003-01-14T11:00:00",
+      "headmp": 0.22,
+      "headnote": null,
+      "remarks": null
+    },
+    "219": {
+      "headdatetime": "2003-01-28T11:00:00",
+      "headmp": 0.16,
+      "headnote": null,
+      "remarks": null
+    },
+    "220": {
+      "headdatetime": "2003-02-14T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "221": {
+      "headdatetime": "2003-02-28T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "222": {
+      "headdatetime": "2003-03-14T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "223": {
+      "headdatetime": "2003-03-27T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "224": {
+      "headdatetime": "2003-04-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "225": {
+      "headdatetime": "2003-04-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "226": {
+      "headdatetime": "2003-05-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "227": {
+      "headdatetime": "2003-05-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "228": {
+      "headdatetime": "2003-06-13T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "229": {
+      "headdatetime": "2003-06-27T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "230": {
+      "headdatetime": "2003-07-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "231": {
+      "headdatetime": "2003-07-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "232": {
+      "headdatetime": "2003-08-15T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "233": {
+      "headdatetime": "2003-08-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "234": {
+      "headdatetime": "2003-09-12T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "235": {
+      "headdatetime": "2003-09-24T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "236": {
+      "headdatetime": "2003-10-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "237": {
+      "headdatetime": "2003-10-28T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "238": {
+      "headdatetime": "2003-11-14T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "239": {
+      "headdatetime": "2003-11-28T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "240": {
+      "headdatetime": "2003-12-12T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "241": {
+      "headdatetime": "2003-12-29T11:00:00",
+      "headmp": 0.15,
+      "headnote": null,
+      "remarks": null
+    },
+    "242": {
+      "headdatetime": "2004-01-13T11:00:00",
+      "headmp": 0.2,
+      "headnote": null,
+      "remarks": null
+    },
+    "243": {
+      "headdatetime": "2004-01-28T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "244": {
+      "headdatetime": "2004-02-13T11:00:00",
+      "headmp": 0.19,
+      "headnote": null,
+      "remarks": null
+    },
+    "245": {
+      "headdatetime": "2004-02-27T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "246": {
+      "headdatetime": "2004-03-15T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "247": {
+      "headdatetime": "2004-03-29T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "248": {
+      "headdatetime": "2004-04-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "249": {
+      "headdatetime": "2004-04-29T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "250": {
+      "headdatetime": "2004-05-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "251": {
+      "headdatetime": "2004-05-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "252": {
+      "headdatetime": "2004-06-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "253": {
+      "headdatetime": "2004-06-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "254": {
+      "headdatetime": "2004-07-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "255": {
+      "headdatetime": "2004-07-29T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "256": {
+      "headdatetime": "2004-08-13T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "257": {
+      "headdatetime": "2004-08-30T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "258": {
+      "headdatetime": "2004-09-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "259": {
+      "headdatetime": "2004-09-27T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "260": {
+      "headdatetime": "2004-10-15T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "261": {
+      "headdatetime": "2004-10-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "262": {
+      "headdatetime": "2004-11-12T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "263": {
+      "headdatetime": "2004-11-26T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "264": {
+      "headdatetime": "2004-12-13T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "265": {
+      "headdatetime": "2004-12-28T11:00:00",
+      "headmp": 0.19,
+      "headnote": null,
+      "remarks": null
+    },
+    "266": {
+      "headdatetime": "2005-01-14T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "267": {
+      "headdatetime": "2005-01-28T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "268": {
+      "headdatetime": "2005-02-14T11:00:00",
+      "headmp": 0.0,
+      "headnote": null,
+      "remarks": null
+    },
+    "269": {
+      "headdatetime": "2005-02-26T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "270": {
+      "headdatetime": "2005-03-14T11:00:00",
+      "headmp": 0.2,
+      "headnote": null,
+      "remarks": null
+    },
+    "271": {
+      "headdatetime": "2005-03-29T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "272": {
+      "headdatetime": "2005-04-15T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "273": {
+      "headdatetime": "2005-04-29T10:00:00",
+      "headmp": 0.3,
+      "headnote": null,
+      "remarks": null
+    },
+    "274": {
+      "headdatetime": "2005-05-13T10:00:00",
+      "headmp": 0.35,
+      "headnote": null,
+      "remarks": null
+    },
+    "275": {
+      "headdatetime": "2005-05-27T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "276": {
+      "headdatetime": "2005-12-14T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "277": {
+      "headdatetime": "2005-12-28T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "278": {
+      "headdatetime": "2006-01-13T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "279": {
+      "headdatetime": "2006-01-27T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "280": {
+      "headdatetime": "2006-02-14T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "281": {
+      "headdatetime": "2006-02-27T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "282": {
+      "headdatetime": "2006-04-14T10:00:00",
+      "headmp": 0.26,
+      "headnote": null,
+      "remarks": null
+    },
+    "283": {
+      "headdatetime": "2006-04-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "284": {
+      "headdatetime": "2006-05-15T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "285": {
+      "headdatetime": "2006-05-30T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "286": {
+      "headdatetime": "2006-06-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "287": {
+      "headdatetime": "2006-06-29T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "288": {
+      "headdatetime": "2006-07-13T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "289": {
+      "headdatetime": "2006-07-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "290": {
+      "headdatetime": "2006-08-15T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "291": {
+      "headdatetime": "2006-08-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "292": {
+      "headdatetime": "2006-09-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "293": {
+      "headdatetime": "2006-09-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "294": {
+      "headdatetime": "2006-10-16T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "295": {
+      "headdatetime": "2006-10-30T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "296": {
+      "headdatetime": "2006-11-14T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "297": {
+      "headdatetime": "2006-11-27T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "298": {
+      "headdatetime": "2006-12-15T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "299": {
+      "headdatetime": "2006-12-29T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "300": {
+      "headdatetime": "2007-01-15T11:00:00",
+      "headmp": 0.15,
+      "headnote": null,
+      "remarks": null
+    },
+    "301": {
+      "headdatetime": "2007-01-29T11:00:00",
+      "headmp": 0.3,
+      "headnote": null,
+      "remarks": null
+    },
+    "302": {
+      "headdatetime": "2007-02-15T11:00:00",
+      "headmp": 0.03,
+      "headnote": null,
+      "remarks": null
+    },
+    "303": {
+      "headdatetime": "2007-02-27T11:00:00",
+      "headmp": 0.14,
+      "headnote": null,
+      "remarks": null
+    },
+    "304": {
+      "headdatetime": "2007-03-14T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "305": {
+      "headdatetime": "2007-03-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "306": {
+      "headdatetime": "2007-04-13T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "307": {
+      "headdatetime": "2007-04-27T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "308": {
+      "headdatetime": "2007-05-15T10:00:00",
+      "headmp": 0.15,
+      "headnote": null,
+      "remarks": null
+    },
+    "309": {
+      "headdatetime": "2007-05-29T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "310": {
+      "headdatetime": "2007-06-15T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "311": {
+      "headdatetime": "2007-06-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "312": {
+      "headdatetime": "2007-07-13T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "313": {
+      "headdatetime": "2007-07-30T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "314": {
+      "headdatetime": "2007-08-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "315": {
+      "headdatetime": "2007-08-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "316": {
+      "headdatetime": "2007-09-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "317": {
+      "headdatetime": "2007-09-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "318": {
+      "headdatetime": "2007-10-12T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "319": {
+      "headdatetime": "2007-10-29T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "320": {
+      "headdatetime": "2007-11-15T11:00:00",
+      "headmp": 0.17,
+      "headnote": null,
+      "remarks": null
+    },
+    "321": {
+      "headdatetime": "2007-11-29T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "322": {
+      "headdatetime": "2007-12-13T11:00:00",
+      "headmp": 0.16,
+      "headnote": null,
+      "remarks": null
+    },
+    "323": {
+      "headdatetime": "2008-01-14T11:00:00",
+      "headmp": 0.0,
+      "headnote": null,
+      "remarks": null
+    },
+    "324": {
+      "headdatetime": "2008-01-28T11:00:00",
+      "headmp": 0.17,
+      "headnote": null,
+      "remarks": null
+    },
+    "325": {
+      "headdatetime": "2008-02-15T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "326": {
+      "headdatetime": "2008-02-29T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "327": {
+      "headdatetime": "2008-03-14T11:00:00",
+      "headmp": 0.15,
+      "headnote": null,
+      "remarks": null
+    },
+    "328": {
+      "headdatetime": "2008-03-28T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "329": {
+      "headdatetime": "2008-04-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "330": {
+      "headdatetime": "2008-04-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "331": {
+      "headdatetime": "2008-05-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "332": {
+      "headdatetime": "2008-05-27T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "333": {
+      "headdatetime": "2008-06-16T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "334": {
+      "headdatetime": "2008-06-30T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "335": {
+      "headdatetime": "2008-07-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "336": {
+      "headdatetime": "2008-08-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "337": {
+      "headdatetime": "2008-08-29T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "338": {
+      "headdatetime": "2008-09-15T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "339": {
+      "headdatetime": "2008-09-29T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "340": {
+      "headdatetime": "2008-10-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "341": {
+      "headdatetime": "2008-10-30T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "342": {
+      "headdatetime": "2008-11-14T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "343": {
+      "headdatetime": "2008-11-28T11:00:00",
+      "headmp": 0.2,
+      "headnote": null,
+      "remarks": null
+    },
+    "344": {
+      "headdatetime": "2008-12-15T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "345": {
+      "headdatetime": "2009-01-13T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "346": {
+      "headdatetime": "2009-01-27T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "347": {
+      "headdatetime": "2009-02-13T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "348": {
+      "headdatetime": "2009-03-02T11:00:00",
+      "headmp": 0.3,
+      "headnote": null,
+      "remarks": null
+    },
+    "349": {
+      "headdatetime": "2009-03-16T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "350": {
+      "headdatetime": "2009-03-27T11:00:00",
+      "headmp": 0.03,
+      "headnote": null,
+      "remarks": null
+    },
+    "351": {
+      "headdatetime": "2009-04-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "352": {
+      "headdatetime": "2009-04-29T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "353": {
+      "headdatetime": "2009-05-15T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "354": {
+      "headdatetime": "2009-05-29T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "355": {
+      "headdatetime": "2009-06-12T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "356": {
+      "headdatetime": "2009-06-26T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "357": {
+      "headdatetime": "2009-07-31T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "358": {
+      "headdatetime": "2009-08-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "359": {
+      "headdatetime": "2009-08-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "360": {
+      "headdatetime": "2009-09-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "361": {
+      "headdatetime": "2009-09-29T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "362": {
+      "headdatetime": "2009-10-15T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "363": {
+      "headdatetime": "2009-10-29T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "364": {
+      "headdatetime": "2009-11-16T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "365": {
+      "headdatetime": "2009-11-27T11:00:00",
+      "headmp": 0.29,
+      "headnote": null,
+      "remarks": null
+    },
+    "366": {
+      "headdatetime": "2009-12-16T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "367": {
+      "headdatetime": "2009-12-30T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "368": {
+      "headdatetime": "2010-01-15T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "369": {
+      "headdatetime": "2010-01-29T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "370": {
+      "headdatetime": "2010-02-12T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "371": {
+      "headdatetime": "2010-03-01T11:00:00",
+      "headmp": 0.03,
+      "headnote": null,
+      "remarks": null
+    },
+    "372": {
+      "headdatetime": "2010-04-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "373": {
+      "headdatetime": "2010-04-29T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "374": {
+      "headdatetime": "2010-05-17T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "375": {
+      "headdatetime": "2010-05-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "376": {
+      "headdatetime": "2010-06-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "377": {
+      "headdatetime": "2010-06-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "378": {
+      "headdatetime": "2010-07-15T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "379": {
+      "headdatetime": "2010-08-13T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "380": {
+      "headdatetime": "2010-08-27T10:00:00",
+      "headmp": 0.0,
+      "headnote": null,
+      "remarks": null
+    },
+    "381": {
+      "headdatetime": "2010-09-13T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "382": {
+      "headdatetime": "2010-09-28T10:00:00",
+      "headmp": 0.16,
+      "headnote": null,
+      "remarks": null
+    },
+    "383": {
+      "headdatetime": "2010-10-15T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "384": {
+      "headdatetime": "2010-10-29T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "385": {
+      "headdatetime": "2010-11-15T11:00:00",
+      "headmp": 0.1,
+      "headnote": null,
+      "remarks": null
+    },
+    "386": {
+      "headdatetime": "2010-11-29T11:00:00",
+      "headmp": 0.0,
+      "headnote": null,
+      "remarks": null
+    },
+    "387": {
+      "headdatetime": "2010-12-13T11:00:00",
+      "headmp": 0.09,
+      "headnote": null,
+      "remarks": null
+    },
+    "388": {
+      "headdatetime": "2011-01-14T11:00:00",
+      "headmp": 0.0,
+      "headnote": null,
+      "remarks": null
+    },
+    "389": {
+      "headdatetime": "2011-01-28T11:00:00",
+      "headmp": 0.2,
+      "headnote": null,
+      "remarks": null
+    },
+    "390": {
+      "headdatetime": "2011-02-14T11:00:00",
+      "headmp": 0.18,
+      "headnote": null,
+      "remarks": null
+    },
+    "391": {
+      "headdatetime": "2011-03-11T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "392": {
+      "headdatetime": "2011-03-25T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "393": {
+      "headdatetime": "2011-04-15T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "394": {
+      "headdatetime": "2011-04-29T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "395": {
+      "headdatetime": "2011-05-13T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "396": {
+      "headdatetime": "2011-05-27T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "397": {
+      "headdatetime": "2011-06-15T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "398": {
+      "headdatetime": "2011-06-27T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "399": {
+      "headdatetime": "2011-07-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "400": {
+      "headdatetime": "2011-07-29T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "401": {
+      "headdatetime": "2011-08-12T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "402": {
+      "headdatetime": "2011-08-26T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "403": {
+      "headdatetime": "2011-09-16T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "404": {
+      "headdatetime": "2011-09-29T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "405": {
+      "headdatetime": "2011-10-17T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "406": {
+      "headdatetime": "2011-10-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "407": {
+      "headdatetime": "2011-11-14T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "408": {
+      "headdatetime": "2011-11-28T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "409": {
+      "headdatetime": "2011-12-14T11:00:00",
+      "headmp": 0.25,
+      "headnote": null,
+      "remarks": null
+    },
+    "410": {
+      "headdatetime": "2011-12-28T11:00:00",
+      "headmp": 0.07,
+      "headnote": null,
+      "remarks": null
+    },
+    "411": {
+      "headdatetime": "2012-01-16T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "412": {
+      "headdatetime": "2012-01-30T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "413": {
+      "headdatetime": "2012-02-13T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "414": {
+      "headdatetime": "2012-02-27T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "415": {
+      "headdatetime": "2012-03-15T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "416": {
+      "headdatetime": "2012-03-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "417": {
+      "headdatetime": "2012-04-17T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "418": {
+      "headdatetime": "2012-05-01T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "419": {
+      "headdatetime": "2012-05-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "420": {
+      "headdatetime": "2012-05-29T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "421": {
+      "headdatetime": "2012-06-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "422": {
+      "headdatetime": "2012-06-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "423": {
+      "headdatetime": "2012-07-12T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "424": {
+      "headdatetime": "2012-07-27T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "425": {
+      "headdatetime": "2012-08-13T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "426": {
+      "headdatetime": "2012-08-27T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "427": {
+      "headdatetime": "2012-09-17T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "428": {
+      "headdatetime": "2012-09-27T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "429": {
+      "headdatetime": "2012-10-15T10:00:00",
+      "headmp": 0.15,
+      "headnote": null,
+      "remarks": null
+    },
+    "430": {
+      "headdatetime": "2012-10-29T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "431": {
+      "headdatetime": "2012-11-14T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "432": {
+      "headdatetime": "2012-11-29T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "433": {
+      "headdatetime": "2012-12-17T11:00:00",
+      "headmp": 0.1,
+      "headnote": null,
+      "remarks": null
+    },
+    "434": {
+      "headdatetime": "2012-12-28T11:00:00",
+      "headmp": 0.06,
+      "headnote": null,
+      "remarks": null
+    },
+    "435": {
+      "headdatetime": "2013-01-14T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "436": {
+      "headdatetime": "2013-01-28T11:00:00",
+      "headmp": 0.17,
+      "headnote": null,
+      "remarks": null
+    },
+    "437": {
+      "headdatetime": "2013-02-13T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "438": {
+      "headdatetime": "2013-02-28T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "439": {
+      "headdatetime": "2013-03-14T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "440": {
+      "headdatetime": "2013-04-02T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "441": {
+      "headdatetime": "2013-04-15T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "442": {
+      "headdatetime": "2013-04-29T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "443": {
+      "headdatetime": "2013-05-13T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "444": {
+      "headdatetime": "2013-05-27T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "445": {
+      "headdatetime": "2013-06-13T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "446": {
+      "headdatetime": "2013-06-27T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "447": {
+      "headdatetime": "2013-07-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "448": {
+      "headdatetime": "2013-07-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "449": {
+      "headdatetime": "2013-08-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "450": {
+      "headdatetime": "2013-08-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "451": {
+      "headdatetime": "2013-09-16T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "452": {
+      "headdatetime": "2013-09-30T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "453": {
+      "headdatetime": "2013-10-14T10:00:00",
+      "headmp": 0.09,
+      "headnote": null,
+      "remarks": null
+    },
+    "454": {
+      "headdatetime": "2013-10-28T11:00:00",
+      "headmp": 0.21,
+      "headnote": null,
+      "remarks": null
+    },
+    "455": {
+      "headdatetime": "2013-11-13T11:00:00",
+      "headmp": 0.14,
+      "headnote": null,
+      "remarks": null
+    },
+    "456": {
+      "headdatetime": "2013-11-27T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "457": {
+      "headdatetime": "2013-12-16T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "458": {
+      "headdatetime": "2013-12-30T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "459": {
+      "headdatetime": "2014-01-13T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "460": {
+      "headdatetime": "2014-01-27T11:00:00",
+      "headmp": 0.06,
+      "headnote": null,
+      "remarks": null
+    },
+    "461": {
+      "headdatetime": "2014-02-13T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "462": {
+      "headdatetime": "2014-02-26T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "463": {
+      "headdatetime": "2014-03-13T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "464": {
+      "headdatetime": "2014-03-31T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "465": {
+      "headdatetime": "2014-04-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "466": {
+      "headdatetime": "2014-04-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "467": {
+      "headdatetime": "2014-05-13T10:00:00",
+      "headmp": 0.03,
+      "headnote": null,
+      "remarks": null
+    },
+    "468": {
+      "headdatetime": "2014-05-27T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "469": {
+      "headdatetime": "2014-06-16T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "470": {
+      "headdatetime": "2014-06-30T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "471": {
+      "headdatetime": "2014-07-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "472": {
+      "headdatetime": "2014-08-14T10:00:00",
+      "headmp": 0.2,
+      "headnote": null,
+      "remarks": null
+    },
+    "473": {
+      "headdatetime": "2014-08-28T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "474": {
+      "headdatetime": "2014-09-15T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "475": {
+      "headdatetime": "2014-09-29T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "476": {
+      "headdatetime": "2014-10-14T10:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "477": {
+      "headdatetime": "2014-10-27T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    },
+    "478": {
+      "headdatetime": "2014-11-17T11:00:00",
+      "headmp": 0.04,
+      "headnote": null,
+      "remarks": null
+    },
+    "479": {
+      "headdatetime": "2014-12-01T11:00:00",
+      "headmp": null,
+      "headnote": null,
+      "remarks": null
+    }
+  },
+  "obscontrol": {},
+  "wellevents": {}
+}

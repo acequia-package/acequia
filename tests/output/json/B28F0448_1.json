@@ -3,8 +3,13 @@
     "locname": "B28F0448",
     "filname": "1",
     "alias": "28FP7804",
-    "xcr": "255440",
-    "ycr": "494110",
+    "alias2": null,
+    "owner": null,
+    "observer": null,
+    "constructiondate": null,
+    "surfacestable": null,
+    "xcr": 255440.0,
+    "ycr": 494110.0,
     "height_datum": "mNAP",
     "grid_reference": "RD"
   },
@@ -26,756 +31,758 @@
       "surfacelevel": 53.99
     }
   },
-  "heads": {
+  "obs": {
     "0": {
-      "headdatetime": "1986-01-28T00:00:00",
+      "headdatetime": "1986-01-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "1": {
-      "headdatetime": "1986-03-13T00:00:00",
+      "headdatetime": "1986-03-13T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "2": {
-      "headdatetime": "1986-04-14T00:00:00",
+      "headdatetime": "1986-04-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "3": {
-      "headdatetime": "1986-04-28T00:00:00",
+      "headdatetime": "1986-04-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "4": {
-      "headdatetime": "1986-05-14T00:00:00",
+      "headdatetime": "1986-05-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "5": {
-      "headdatetime": "1986-05-28T00:00:00",
+      "headdatetime": "1986-05-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "6": {
-      "headdatetime": "1986-07-28T00:00:00",
+      "headdatetime": "1986-07-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "7": {
-      "headdatetime": "1986-08-14T00:00:00",
+      "headdatetime": "1986-08-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "8": {
-      "headdatetime": "1986-08-28T00:00:00",
+      "headdatetime": "1986-08-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "9": {
-      "headdatetime": "1986-09-16T00:00:00",
+      "headdatetime": "1986-09-16T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "10": {
-      "headdatetime": "1986-10-14T00:00:00",
+      "headdatetime": "1986-10-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "11": {
-      "headdatetime": "1986-10-27T00:00:00",
+      "headdatetime": "1986-10-27T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "12": {
-      "headdatetime": "1986-11-13T00:00:00",
+      "headdatetime": "1986-11-13T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "13": {
-      "headdatetime": "1986-12-01T00:00:00",
+      "headdatetime": "1986-12-01T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "14": {
-      "headdatetime": "1986-12-15T00:00:00",
+      "headdatetime": "1986-12-15T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "15": {
-      "headdatetime": "1987-01-14T00:00:00",
+      "headdatetime": "1987-01-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "16": {
-      "headdatetime": "1987-01-28T00:00:00",
+      "headdatetime": "1987-01-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "17": {
-      "headdatetime": "1987-02-13T00:00:00",
+      "headdatetime": "1987-02-13T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "18": {
-      "headdatetime": "1987-02-27T00:00:00",
+      "headdatetime": "1987-02-27T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "19": {
-      "headdatetime": "1987-03-13T00:00:00",
+      "headdatetime": "1987-03-13T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "20": {
-      "headdatetime": "1987-04-14T00:00:00",
+      "headdatetime": "1987-04-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "21": {
-      "headdatetime": "1987-04-28T00:00:00",
+      "headdatetime": "1987-04-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "22": {
-      "headdatetime": "1987-05-14T00:00:00",
+      "headdatetime": "1987-05-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "23": {
-      "headdatetime": "1987-05-28T00:00:00",
+      "headdatetime": "1987-05-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "24": {
-      "headdatetime": "1987-06-15T00:00:00",
+      "headdatetime": "1987-06-15T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "25": {
-      "headdatetime": "1987-07-13T00:00:00",
+      "headdatetime": "1987-07-13T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "26": {
-      "headdatetime": "1987-07-28T00:00:00",
+      "headdatetime": "1987-07-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "27": {
-      "headdatetime": "1987-08-14T00:00:00",
+      "headdatetime": "1987-08-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "28": {
-      "headdatetime": "1987-08-28T00:00:00",
+      "headdatetime": "1987-08-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "29": {
-      "headdatetime": "1987-09-18T00:00:00",
+      "headdatetime": "1987-09-18T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "30": {
-      "headdatetime": "1987-10-14T00:00:00",
+      "headdatetime": "1987-10-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "31": {
-      "headdatetime": "1987-10-28T00:00:00",
+      "headdatetime": "1987-10-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "32": {
-      "headdatetime": "1987-11-13T00:00:00",
+      "headdatetime": "1987-11-13T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "33": {
-      "headdatetime": "1987-11-30T00:00:00",
+      "headdatetime": "1987-11-30T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "34": {
-      "headdatetime": "1987-12-14T00:00:00",
+      "headdatetime": "1987-12-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "35": {
-      "headdatetime": "1988-01-14T00:00:00",
+      "headdatetime": "1988-01-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "36": {
-      "headdatetime": "1988-01-28T00:00:00",
+      "headdatetime": "1988-01-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "37": {
-      "headdatetime": "1988-02-15T00:00:00",
+      "headdatetime": "1988-02-15T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "38": {
-      "headdatetime": "1988-02-29T00:00:00",
+      "headdatetime": "1988-02-29T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "39": {
-      "headdatetime": "1988-03-15T00:00:00",
+      "headdatetime": "1988-03-15T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "40": {
-      "headdatetime": "1988-04-14T00:00:00",
+      "headdatetime": "1988-04-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "41": {
-      "headdatetime": "1988-04-28T00:00:00",
+      "headdatetime": "1988-04-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "42": {
-      "headdatetime": "1988-05-16T00:00:00",
+      "headdatetime": "1988-05-16T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "43": {
-      "headdatetime": "1988-05-27T00:00:00",
+      "headdatetime": "1988-05-27T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "44": {
-      "headdatetime": "1988-06-14T00:00:00",
+      "headdatetime": "1988-06-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "45": {
-      "headdatetime": "1988-07-14T00:00:00",
+      "headdatetime": "1988-07-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "46": {
-      "headdatetime": "1988-08-02T00:00:00",
+      "headdatetime": "1988-08-02T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "47": {
-      "headdatetime": "1988-08-14T00:00:00",
+      "headdatetime": "1988-08-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "48": {
-      "headdatetime": "1988-08-28T00:00:00",
+      "headdatetime": "1988-08-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "49": {
-      "headdatetime": "1988-09-14T00:00:00",
+      "headdatetime": "1988-09-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "50": {
-      "headdatetime": "1988-10-14T00:00:00",
+      "headdatetime": "1988-10-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "51": {
-      "headdatetime": "1988-10-28T00:00:00",
+      "headdatetime": "1988-10-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "52": {
-      "headdatetime": "1988-11-16T00:00:00",
+      "headdatetime": "1988-11-16T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "53": {
-      "headdatetime": "1988-11-28T00:00:00",
+      "headdatetime": "1988-11-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "54": {
-      "headdatetime": "1988-12-16T00:00:00",
+      "headdatetime": "1988-12-16T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "55": {
-      "headdatetime": "1989-01-16T00:00:00",
+      "headdatetime": "1989-01-16T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "56": {
-      "headdatetime": "1989-01-28T00:00:00",
+      "headdatetime": "1989-01-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "57": {
-      "headdatetime": "1989-02-14T00:00:00",
+      "headdatetime": "1989-02-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "58": {
-      "headdatetime": "1989-02-28T00:00:00",
+      "headdatetime": "1989-02-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "59": {
-      "headdatetime": "1989-03-13T00:00:00",
+      "headdatetime": "1989-03-13T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "60": {
-      "headdatetime": "1989-04-17T00:00:00",
+      "headdatetime": "1989-04-17T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "61": {
-      "headdatetime": "1989-04-28T00:00:00",
+      "headdatetime": "1989-04-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "62": {
-      "headdatetime": "1989-05-16T00:00:00",
+      "headdatetime": "1989-05-16T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "63": {
-      "headdatetime": "1989-05-29T00:00:00",
+      "headdatetime": "1989-05-29T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "64": {
-      "headdatetime": "1989-06-14T00:00:00",
+      "headdatetime": "1989-06-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "65": {
-      "headdatetime": "1989-07-14T00:00:00",
+      "headdatetime": "1989-07-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "66": {
-      "headdatetime": "1989-07-28T00:00:00",
+      "headdatetime": "1989-07-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "67": {
-      "headdatetime": "1989-08-14T00:00:00",
+      "headdatetime": "1989-08-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "68": {
-      "headdatetime": "1989-08-28T00:00:00",
+      "headdatetime": "1989-08-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "69": {
-      "headdatetime": "1989-09-14T00:00:00",
+      "headdatetime": "1989-09-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "70": {
-      "headdatetime": "1989-10-13T00:00:00",
+      "headdatetime": "1989-10-13T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "71": {
-      "headdatetime": "1989-10-27T00:00:00",
+      "headdatetime": "1989-10-27T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "72": {
-      "headdatetime": "1989-11-14T00:00:00",
+      "headdatetime": "1989-11-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "73": {
-      "headdatetime": "1989-11-28T00:00:00",
+      "headdatetime": "1989-11-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "74": {
-      "headdatetime": "1989-12-13T00:00:00",
+      "headdatetime": "1989-12-13T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "75": {
-      "headdatetime": "1990-01-15T00:00:00",
+      "headdatetime": "1990-01-15T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "76": {
-      "headdatetime": "1990-01-29T00:00:00",
+      "headdatetime": "1990-01-29T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "77": {
-      "headdatetime": "1990-02-14T00:00:00",
+      "headdatetime": "1990-02-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "78": {
-      "headdatetime": "1990-02-28T00:00:00",
+      "headdatetime": "1990-02-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "79": {
-      "headdatetime": "1990-03-14T00:00:00",
+      "headdatetime": "1990-03-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "80": {
-      "headdatetime": "1990-04-12T00:00:00",
+      "headdatetime": "1990-04-12T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "81": {
-      "headdatetime": "1990-04-26T00:00:00",
+      "headdatetime": "1990-04-26T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "82": {
-      "headdatetime": "1990-05-14T00:00:00",
+      "headdatetime": "1990-05-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "83": {
-      "headdatetime": "1990-05-30T00:00:00",
+      "headdatetime": "1990-05-30T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "84": {
-      "headdatetime": "1990-06-13T00:00:00",
+      "headdatetime": "1990-06-13T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "85": {
-      "headdatetime": "1990-07-13T00:00:00",
+      "headdatetime": "1990-07-13T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "86": {
-      "headdatetime": "1990-07-27T00:00:00",
+      "headdatetime": "1990-07-27T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "87": {
-      "headdatetime": "1990-08-17T00:00:00",
+      "headdatetime": "1990-08-17T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "88": {
-      "headdatetime": "1990-08-28T00:00:00",
+      "headdatetime": "1990-08-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "89": {
-      "headdatetime": "1990-09-14T00:00:00",
+      "headdatetime": "1990-09-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "90": {
-      "headdatetime": "1990-10-15T00:00:00",
+      "headdatetime": "1990-10-15T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "91": {
-      "headdatetime": "1990-10-30T00:00:00",
+      "headdatetime": "1990-10-30T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "92": {
-      "headdatetime": "1990-11-13T00:00:00",
+      "headdatetime": "1990-11-13T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "93": {
-      "headdatetime": "1990-11-28T00:00:00",
+      "headdatetime": "1990-11-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "94": {
-      "headdatetime": "1990-12-14T00:00:00",
+      "headdatetime": "1990-12-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "95": {
-      "headdatetime": "1991-01-14T00:00:00",
+      "headdatetime": "1991-01-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "96": {
-      "headdatetime": "1991-01-28T00:00:00",
+      "headdatetime": "1991-01-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "97": {
-      "headdatetime": "1991-02-14T00:00:00",
+      "headdatetime": "1991-02-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "98": {
-      "headdatetime": "1991-03-04T00:00:00",
+      "headdatetime": "1991-03-04T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "99": {
-      "headdatetime": "1991-03-14T00:00:00",
+      "headdatetime": "1991-03-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "100": {
-      "headdatetime": "1991-04-15T00:00:00",
+      "headdatetime": "1991-04-15T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "101": {
-      "headdatetime": "1991-05-01T00:00:00",
+      "headdatetime": "1991-05-01T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "102": {
-      "headdatetime": "1991-05-13T00:00:00",
+      "headdatetime": "1991-05-13T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "103": {
-      "headdatetime": "1991-05-31T00:00:00",
+      "headdatetime": "1991-05-31T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "104": {
-      "headdatetime": "1991-06-28T00:00:00",
+      "headdatetime": "1991-06-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "105": {
-      "headdatetime": "1991-07-29T00:00:00",
+      "headdatetime": "1991-07-29T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "106": {
-      "headdatetime": "1991-08-14T00:00:00",
+      "headdatetime": "1991-08-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "107": {
-      "headdatetime": "1991-08-28T00:00:00",
+      "headdatetime": "1991-08-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "108": {
-      "headdatetime": "1991-10-14T00:00:00",
+      "headdatetime": "1991-10-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "109": {
-      "headdatetime": "1991-10-28T00:00:00",
+      "headdatetime": "1991-10-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "110": {
-      "headdatetime": "1991-11-14T00:00:00",
+      "headdatetime": "1991-11-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "111": {
-      "headdatetime": "1991-12-03T00:00:00",
+      "headdatetime": "1991-12-03T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "112": {
-      "headdatetime": "1991-12-17T00:00:00",
+      "headdatetime": "1991-12-17T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "113": {
-      "headdatetime": "1992-02-14T00:00:00",
+      "headdatetime": "1992-02-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "114": {
-      "headdatetime": "1992-03-02T00:00:00",
+      "headdatetime": "1992-03-02T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "115": {
-      "headdatetime": "1992-03-13T00:00:00",
+      "headdatetime": "1992-03-13T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "116": {
-      "headdatetime": "1992-04-15T00:00:00",
+      "headdatetime": "1992-04-15T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "117": {
-      "headdatetime": "1992-04-29T00:00:00",
+      "headdatetime": "1992-04-29T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "118": {
-      "headdatetime": "1992-05-14T00:00:00",
+      "headdatetime": "1992-05-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "119": {
-      "headdatetime": "1992-05-27T00:00:00",
+      "headdatetime": "1992-05-27T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "120": {
-      "headdatetime": "1992-07-15T00:00:00",
+      "headdatetime": "1992-07-15T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "121": {
-      "headdatetime": "1992-07-28T00:00:00",
+      "headdatetime": "1992-07-28T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "122": {
-      "headdatetime": "1992-09-03T00:00:00",
+      "headdatetime": "1992-09-03T12:00:00",
       "headmp": null,
-      "headnote": "N",
-      "remarks": "eens per kwartaal gepeild"
+      "headnote": "",
+      "remarks": ""
     },
     "123": {
-      "headdatetime": "2012-02-14T00:00:00",
+      "headdatetime": "2012-02-14T12:00:00",
       "headmp": null,
-      "headnote": "N",
+      "headnote": "",
       "remarks": ""
     },
     "124": {
-      "headdatetime": "2012-06-07T00:00:00",
+      "headdatetime": "2012-06-07T12:00:00",
       "headmp": null,
-      "headnote": "N",
+      "headnote": "",
       "remarks": ""
     }
-  }
+  },
+  "obscontrol": {},
+  "wellevents": {}
 }

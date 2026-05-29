@@ -13,7 +13,7 @@ def daw():
     # test_from_excel()
     daw = Dawaco.from_excel(srcpath)
     assert isinstance(daw, Dawaco)
-    assert isinstance(daw.rawdata, DataFrame)
+    assert isinstance(daw._rawdata, DataFrame)
     return daw
 
 def test_len(daw):
@@ -23,13 +23,13 @@ def test_repr(daw):
     assert isinstance(repr(daw),str)
 
 def test_filters(daw):
-    filters = daw.filters
+    filters = daw.items
     assert isinstance(filters, list)
     assert len(filters)!=0
 
 def test_get_gwseries(daw):
-    loc, fil = daw.filters[0]
-    gw = daw.get_gwseries(loc,fil)
+    loc, fil = daw.items[0]
+    gw = daw.get_gwseries(loc, fil)
     assert isinstance(gw, GwSeries)
     assert len(gw)!=0
 

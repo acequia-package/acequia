@@ -1,5 +1,6 @@
 import pytest
-from acequia import HydroMonitor, GwSeries
+from acequia.io import HydroMonitor, 
+from acequia import GwSeries
 from pandas import Series, DataFrame
 
 fpath = r'.\data\hymon\hydromonitor_testdata.csv'

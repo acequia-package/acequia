@@ -3,15 +3,18 @@ import pytest
 from pandas import DataFrame
 import pandas as pd
 from geopandas import GeoDataFrame
+import matplotlib as mpl
 
 from acequia import GwCollection, GwFiles, WaterWeb, GwSeries, HydroMonitor, BroGwCollection
 import acequia as aq
 
 dinodir = '.\\data\\dinogws_small\\'
-jsondir = '.\\output\\json\\'
-csvdir = '.\\output\\csv\\'
 wwfile = '.\\data\waterweb\\waterweb_csv_kolommen.csv' #Dwingelderveld.csv'
 hmfile = r'.\\data\\hymon\\hydromonitor_testdata.csv'
+
+jsondir = '.\\output\\json\\'
+csvdir = '.\\output\\csv\\'
+
 
 @pytest.fixture
 def gwc_dino():
@@ -104,11 +107,21 @@ def test_get_gwseries(gwc, request):
     assert isinstance(gw, GwSeries)
 
 # test plotheads
+
 @pytest.mark.parametrize('gwc', [gwc_dino, gwc_json, gwc_ww, gwc_hm])
 def test_plotheads(gwc, request):
+
+    # prevent interactive plots from showing up
+    current_backend = mpl.get_backend()
+    mpl.pyplot.switch_backend("Agg") 
+
+    # do the test
     gwc = request.getfixturevalue(gwc.__name__)
     gwc.plotheads(bylocation=True)
     gwc.plotheads(bylocation=False)
+
+    # restore matplotlib backend
+    mpl.pyplot.switch_backend(curr_backend)
 
 # Test advanced statistics
 # ------------------------

@@ -1,0 +1,67 @@
+{
+  "locprops": {
+    "locname": "GMW000000069532",
+    "filname": "2",
+    "alias": "GMW28F000383",
+    "alias2": null,
+    "owner": null,
+    "observer": null,
+    "constructiondate": null,
+    "surfacestable": null,
+    "xcr": 259530.0,
+    "ycr": 490030.0,
+    "height_datum": "NAP",
+    "grid_reference": "RDNAPTRANS2018"
+  },
+  "tubeprops": {
+    "1": {
+      "startdate": "1993-05-14T10:00:00.000",
+      "mplevel": 19.99,
+      "filtop": 19.19,
+      "filbot": 18.99,
+      "surfacedate": null,
+      "surfacelevel": 19.97,
+      "series": "GMW28F000383_2"
+    }
+  },
+  "obs": {
+    "0": {
+      "headdatetime": "1993-05-14T10:00:00",
+      "headmp": 0.13,
+      "headnote": null,
+      "remarks": null
+    },
+    "1": {
+      "headdatetime": "1993-05-28T10:00:00",
+      "headmp": 0.05,
+      "headnote": null,
+      "remarks": null
+    },
+    "2": {
+      "headdatetime": "1993-06-14T10:00:00",
+      "headmp": 0.39,
+      "headnote": null,
+      "remarks": null
+    },
+    "3": {
+      "headdatetime": "1993-06-28T10:00:00",
+      "headmp": 0.59,
+      "headnote": null,
+      "remarks": null
+    },
+    "4": {
+      "headdatetime": "1993-07-14T10:00:00",
+      "headmp": 0.78,
+      "headnote": null,
+      "remarks": null
+    },
+    "5": {
+      "headdatetime": "1993-07-28T10:00:00",
+      "headmp": 0.03,
+      "headnote": null,
+      "remarks": null
+    }
+  },
+  "obscontrol": {},
+  "wellevents": {}
+}
